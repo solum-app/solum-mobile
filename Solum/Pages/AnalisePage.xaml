@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:effects="clr-namespace:Solum.Effects"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="Solum.Pages.AnalisePage"
+	Title="Análise">
+	<TableView Intent="Data">
+		<TableRoot>
+			<TableSection Title="Informações">
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="Fazenda" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="FazendaEntry" Text="{Binding FazendaEntry}" Keyboard="Text" Grid.Column="1" Placeholder="Nome da Fazenda" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="Talhão" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="TalhaoEntry" Text="{Binding TalhaoEntry}" Keyboard="Text" Grid.Column="1" Placeholder="Identificação do Talhão" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="Data" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<DatePicker x:Name="DataEntry" Date="{Binding DataEntry}" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+							<DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
+							<DatePicker.Effects>
+						        <effects:NoBorderEffect />
+						    </DatePicker.Effects>
+						</DatePicker>
+					</Grid>
+				</ViewCell>
+			</TableSection>
+			<TableSection Title="Elementos">
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="pH" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="PhEntry" Text="{Binding PhEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Potêncial Hidrogênico" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="P" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="PEntry" Text="{Binding PEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Fósforo" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="K" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="KEntry" Text="{Binding KEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Potássio" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="Ca" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="CaEntry" Text="{Binding CaEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Sódio" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="Mg" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="MgEntry" Text="{Binding MgEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Magnésio" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="Al" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="AlEntry" Text="{Binding AlEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Alumínio" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="H" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="HEntry" Text="{Binding HEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Hidrogênio" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+			</TableSection>
+			<TableSection Title="Textura">
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="Mat. Org." Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="MateriaOrganicaEntry" Text="{Binding MateriaOrganicaEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Matéria Orgânica" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="Areia" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="AreiaEntry" Text="{Binding AreiaEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Areia" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="Silite" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="SiliteEntry" Text="{Binding SiliteEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Silite" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+				<ViewCell>
+					<Grid Padding="14,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Label Text="Argila" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry x:Name="ArgilaEntry" Text="{Binding ArgilaEntry}" Keyboard="Numeric" Grid.Column="1"  Placeholder="Argila" HorizontalTextAlignment="End">
+							<Entry.Effects>
+						        <effects:NoBorderEffect />
+						    </Entry.Effects>
+						</Entry>
+					</Grid>
+				</ViewCell>
+			</TableSection>
+			<TableSection Title=" ">
+				<ViewCell>
+					<ContentView>
+						<Button x:Name ="AnaliseButton" Text="Analisar" IsEnabled="true" Command="{Binding ButtonClickedCommand}" BackgroundColor="#2fc364" TextColor="White" BorderRadius="0"/>
+					</ContentView>
+				</ViewCell>
+			</TableSection>
+		</TableRoot>
+	</TableView>
+</ContentPage>

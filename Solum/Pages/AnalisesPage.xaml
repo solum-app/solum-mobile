@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="Solum.AnalisesPage" 
+	Title="Análises">
+	<ListView x:Name="analisesList" HasUnevenRows="true">
+		<ListView.ItemTemplate>
+			<DataTemplate>
+				<ViewCell>
+					<Grid Padding="14">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Label Text="{Binding Talhao}" Grid.Row="0"/>
+						<Label Text="{Binding Data}" Grid.Row="1" FontSize="Small"  TextColor="#757575" VerticalTextAlignment="Start"/>
+					</Grid>
+				</ViewCell>
+			</DataTemplate>
+		</ListView.ItemTemplate>
+	</ListView>
+</ContentPage>
