@@ -8,7 +8,7 @@
 		<ListView.ItemTemplate>
 			<DataTemplate>
 				<ViewCell>
-					<Grid Padding="14">
+					<Grid Padding="15">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>

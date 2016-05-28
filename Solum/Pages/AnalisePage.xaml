@@ -9,7 +9,7 @@
 		<TableRoot>
 			<TableSection Title="Informações">
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -23,7 +23,7 @@
 					</Grid>
 				</ViewCell>
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -37,7 +37,7 @@
 					</Grid>
 				</ViewCell>
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -54,7 +54,7 @@
 			</TableSection>
 			<TableSection Title="Elementos">
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -68,7 +68,7 @@
 					</Grid>
 				</ViewCell>
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -82,7 +82,7 @@
 					</Grid>
 				</ViewCell>
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -96,7 +96,7 @@
 					</Grid>
 				</ViewCell>
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -110,7 +110,7 @@
 					</Grid>
 				</ViewCell>
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -124,7 +124,7 @@
 					</Grid>
 				</ViewCell>
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -138,7 +138,7 @@
 					</Grid>
 				</ViewCell>
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -154,7 +154,7 @@
 			</TableSection>
 			<TableSection Title="Textura">
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -168,7 +168,7 @@
 					</Grid>
 				</ViewCell>
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -182,7 +182,7 @@
 					</Grid>
 				</ViewCell>
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
@@ -196,7 +196,7 @@
 					</Grid>
 				</ViewCell>
 				<ViewCell>
-					<Grid Padding="14,0">
+					<Grid Padding="15,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
