@@ -4,7 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="Solum.AnalisesPage" 
 	Title="Análises">
-	<ListView x:Name="analisesList" HasUnevenRows="true">
+	<ListView x:Name="analisesList" HasUnevenRows="true" IsGroupingEnabled="true" GroupDisplayBinding="{Binding Key}">
 		<ListView.ItemTemplate>
 			<DataTemplate>
 				<ViewCell>

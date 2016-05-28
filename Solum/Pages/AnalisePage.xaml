@@ -59,7 +59,7 @@
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
-						<Label Text="pH" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Label Text="pH (CaCl2)" Grid.Column="0" VerticalTextAlignment="Center"/>
 						<Entry x:Name="PhEntry" Text="{Binding PhEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Potêncial Hidrogênico" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
@@ -213,7 +213,7 @@
 			<TableSection Title=" ">
 				<ViewCell>
 					<ContentView>
-						<Button x:Name ="AnaliseButton" Text="Analisar" IsEnabled="true" Command="{Binding ButtonClickedCommand}" BackgroundColor="#2fc364" TextColor="White" BorderRadius="0"/>
+						<Button x:Name ="AnaliseButton" Text="Interpretar" FontAttributes="Bold" IsEnabled="true" Command="{Binding ButtonClickedCommand}" BackgroundColor="#2fc364" TextColor="White" BorderRadius="0"/>
 					</ContentView>
 				</ViewCell>
 			</TableSection>
