@@ -186,74 +186,6 @@ namespace Solum.ViewModel
 			}
 		}
 
-		public float SBResult
-		{
-			get
-			{
-				return CalculoHandler.CalcularSB(KEntry.Value, CaEntry.Value, MgEntry.Value);
-			}
-		}
-
-		public float CTCResult
-		{
-			get
-			{
-				return CalculoHandler.CalcularCTC(SBResult, HEntry.Value, AlEntry.Value);
-			}
-		}
-
-		public float VResult
-		{
-			get
-			{
-				return CalculoHandler.CalcularV(SBResult, CTCResult);
-			}
-		}
-
-		public float MResult
-		{
-			get
-			{
-				return CalculoHandler.CalcularM(AlEntry.Value, SBResult);
-			}
-		}
-
-		float? _t;
-		public float? T
-		{
-			get
-			{
-				return _t;
-			}
-			set
-			{
-				SetPropertyChanged(ref _t, value);
-			}
-		}
-
-		public float CaMgResult
-		{
-			get
-			{
-				return CalculoHandler.CalcularCaMg(CaEntry.Value, MgEntry.Value);
-			}
-		}
-
-		public float CaKResult
-		{
-			get
-			{
-				return CalculoHandler.CalcularCaK(CaEntry.Value, KEntry.Value);
-			}
-		}
-
-		public float MgKResult
-		{
-			get
-			{
-				return CalculoHandler.CalcularMgK(MgEntry.Value, KEntry.Value);
-			}
-		}
 
 		Command _buttonClickedCommand;
 		public Command ButtonClickedCommand
@@ -281,13 +213,6 @@ namespace Solum.ViewModel
 				Areia = AreiaEntry.Value,
 				Silite = SiliteEntry.Value,
 				Argila = ArgilaEntry.Value,
-				SB = SBResult,
-				CTC = CTCResult,
-				V = VResult,
-				M = MResult,
-				CaMg = CaMgResult,
-				CaK = CaKResult,
-				MgK = MgKResult
 			};
 
 			await Navigation.PushAsync (new InterpretacaoPage (analise));

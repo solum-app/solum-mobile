@@ -1,4 +1,7 @@
 ﻿using System;
+using Solum.Handler;
+
+
 namespace Solum.Models
 {
 	public class Analise
@@ -73,38 +76,52 @@ namespace Solum.Models
 		}
 
 		public float SB { 
-			get; 
-			set; 
+			get
+			{
+				return CalculoHandler.CalcularSB(K, Ca, Mg);
+			}
 		}
 
 		public float CTC { 
-			get; 
-			set; 
+			get
+			{
+				return CalculoHandler.CalcularCTC(SB, H, Al);
+			}
 		}
 
 		public float V { 
-			get; 
-			set; 
+			get
+			{
+				return CalculoHandler.CalcularV(SB, CTC);
+			}
 		}
 
 		public float M { 
-			get; 
-			set; 
+			get
+			{
+				return CalculoHandler.CalcularM(Al, SB);
+			}
 		}
 
 		public float CaMg {
-			get; 
-			set; 
+			get
+			{
+				return CalculoHandler.CalcularCaMg(Ca, Mg);
+			}
 		}
 
 		public float CaK {
-			get; 
-			set; 
+			get
+			{
+				return CalculoHandler.CalcularCaK(Ca, K);
+			} 
 		}
 
 		public float MgK {
-			get; 
-			set; 
+			get
+			{
+				return CalculoHandler.CalcularMgK(Mg, K);
+			} 
 		}
 	}
 }

@@ -4,7 +4,6 @@ using Xamarin.Forms;
 using Solum.Models;
 using Solum.Pages;
 using System.Linq;
-using Solum.Helpers;
 using System.Collections.ObjectModel;
 
 namespace Solum
@@ -43,10 +42,9 @@ namespace Solum
 
 			var groupList =
 				list.OrderBy (a => a.Fazenda)
-					.GroupBy (a => a.Fazenda)
-					.Select (a => new Grouping<string, Analise> (a.Key, a));
+					.GroupBy (a => a.Fazenda).ToList ();
 			
-			analisesList.ItemsSource = new ObservableCollection<Grouping<string, Analise>>(groupList);
+			analisesList.ItemsSource = new ObservableCollection<IGrouping<string, Analise>>(groupList);
 		}
 	}
 }
