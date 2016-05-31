@@ -3,6 +3,223 @@
 	xmlns="http://xamarin.com/schemas/2014/forms" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="Solum.Pages.InterpretacaoPage"
+	xmlns:handlers="clr-namespace:Solum.Handlers"
 	Title="Interpretação">
+	<ScrollView BackgroundColor="#EFEFF4">
+		<StackLayout Padding="0,4,0,0">
+			<Frame Margin="8,4" Padding="8">
+ 				<Grid>
+ 					<Grid.RowDefinitions>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 					</Grid.RowDefinitions>
+ 					<Grid.ColumnDefinitions>
+ 						<ColumnDefinition Width="*"/>
+ 						<ColumnDefinition Width="Auto"/>
+ 					</Grid.ColumnDefinitions>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="{Binding Analise.Fazenda}"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="12/02/2016" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="{Binding Analise.Talhao}" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding InterpretacaoTextura}" FontSize="Small" TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
+ 				</Grid>
+			</Frame>
 
+			<Frame Margin="8,4" Padding="8">
+ 				<Grid>
+ 					<Grid.RowDefinitions>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 					</Grid.RowDefinitions>
+ 					<Grid.ColumnDefinitions>
+ 						<ColumnDefinition Width="Auto"/>
+ 						<ColumnDefinition Width="*"/>
+ 					</Grid.ColumnDefinitions>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="pH (CaCl2)"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoPh}" FontSize="Small"  TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Ph, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="1" Text="4,9 a 5,5 " HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 				</Grid>
+			</Frame>
+
+			<Frame Margin="8,4" Padding="8">
+ 				<Grid>
+ 					<Grid.RowDefinitions>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 					</Grid.RowDefinitions>
+ 					<Grid.ColumnDefinitions>
+ 						<ColumnDefinition Width="Auto"/>
+ 						<ColumnDefinition Width="*"/>
+ 					</Grid.ColumnDefinitions>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="P"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoP}" FontSize="Small"  TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.P, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding InterpretacaoTextura, Converter={x:Static handlers:TexturaPValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 				</Grid>
+			</Frame>
+
+			<Frame Margin="8,4" Padding="8">
+ 				<Grid>
+ 					<Grid.RowDefinitions>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 					</Grid.RowDefinitions>
+ 					<Grid.ColumnDefinitions>
+ 						<ColumnDefinition Width="Auto"/>
+ 						<ColumnDefinition Width="*"/>
+ 					</Grid.ColumnDefinitions>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="Ca"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoCa}" FontSize="Small"  TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Ca, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="1" Text="1,5 a 7,0" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 				</Grid>
+			</Frame>
+
+			<Frame Margin="8,4" Padding="8">
+ 				<Grid>
+ 					<Grid.RowDefinitions>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 					</Grid.RowDefinitions>
+ 					<Grid.ColumnDefinitions>
+ 						<ColumnDefinition Width="Auto"/>
+ 						<ColumnDefinition Width="*"/>
+ 					</Grid.ColumnDefinitions>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="Mg"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoMg}" FontSize="Small"  TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Mg, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="1" Text="0,5 a 2,0" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 				</Grid>
+			</Frame>
+
+			<Frame Margin="8,4" Padding="8">
+ 				<Grid>
+ 					<Grid.RowDefinitions>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 					</Grid.RowDefinitions>
+ 					<Grid.ColumnDefinitions>
+ 						<ColumnDefinition Width="Auto"/>
+ 						<ColumnDefinition Width="*"/>
+ 					</Grid.ColumnDefinitions>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="V"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoV}" FontSize="Small"  TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.V, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="1" Text="36 a 60" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 				</Grid>
+			</Frame>
+
+			<Frame Margin="8,4" Padding="8">
+ 				<Grid>
+ 					<Grid.RowDefinitions>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 					</Grid.RowDefinitions>
+ 					<Grid.ColumnDefinitions>
+ 						<ColumnDefinition Width="Auto"/>
+ 						<ColumnDefinition Width="*"/>
+ 					</Grid.ColumnDefinitions>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="CTC(T)"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoCtc}" FontSize="Small"  TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.CTC, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding InterpretacaoTextura, Converter={x:Static handlers:TexturaCtcValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 				</Grid>
+			</Frame>
+
+			<Frame Margin="8,4" Padding="8">
+ 				<Grid>
+ 					<Grid.RowDefinitions>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 					</Grid.RowDefinitions>
+ 					<Grid.ColumnDefinitions>
+ 						<ColumnDefinition Width="Auto"/>
+ 						<ColumnDefinition Width="*"/>
+ 					</Grid.ColumnDefinitions>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="Matéria Orgânica"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoMo}" FontSize="Small"  TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.MateriaOrganica, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding InterpretacaoTextura, Converter={x:Static handlers:TexturaMoValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 				</Grid>
+			</Frame>
+
+			<Frame Margin="8,4" Padding="8">
+ 				<Grid>
+ 					<Grid.RowDefinitions>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 					</Grid.RowDefinitions>
+ 					<Grid.ColumnDefinitions>
+ 						<ColumnDefinition Width="Auto"/>
+ 						<ColumnDefinition Width="*"/>
+ 					</Grid.ColumnDefinitions>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="Ca/K"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoCaK}" FontSize="Small"  TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.CaK, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="1" Text="15 a 25" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 				</Grid>
+			</Frame>
+
+			<Frame Margin="8,4" Padding="8">
+ 				<Grid>
+ 					<Grid.RowDefinitions>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 					</Grid.RowDefinitions>
+ 					<Grid.ColumnDefinitions>
+ 						<ColumnDefinition Width="Auto"/>
+ 						<ColumnDefinition Width="*"/>
+ 					</Grid.ColumnDefinitions>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="Mg/K"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoMgK}" FontSize="Small"  TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.MgK, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="2" Grid.Column="1" Text="5 a 15" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 				</Grid>
+			</Frame>
+
+			<Frame Margin="8,4" Padding="8">
+ 				<Grid>
+ 					<Grid.RowDefinitions>
+ 						<RowDefinition  Height="Auto"/>
+ 						<RowDefinition  Height="Auto"/>
+ 					</Grid.RowDefinitions>
+ 					<Grid.ColumnDefinitions>
+ 						<ColumnDefinition Width="Auto"/>
+ 						<ColumnDefinition Width="*"/>
+ 					</Grid.ColumnDefinitions>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="m%"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoM}" FontSize="Small"  TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.M, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 				</Grid>
+			</Frame>
+		</StackLayout>
+	</ScrollView>
 </ContentPage>

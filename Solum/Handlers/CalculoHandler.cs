@@ -74,7 +74,7 @@ namespace Solum.Handler
 		/// <returns>Retorna o valor de Ca/K</returns>
 		public static float CalcularCaK(float CaEntry, float KEntry)
 		{
-			var result = CaEntry / KEntry;
+			var result = CaEntry / (KEntry / 390);
 			return result;
 		}
 
@@ -86,7 +86,7 @@ namespace Solum.Handler
 		/// <returns></returns>
 		public static float CalcularMgK(float MgEntry, float KEntry)
 		{
-			var result = MgEntry / KEntry;
+			var result = MgEntry / (KEntry / 390);
 			return result;
 		}
 	}

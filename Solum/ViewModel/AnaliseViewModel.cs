@@ -33,7 +33,7 @@ namespace Solum.ViewModel
 				SetPropertyChanged(ref _talhao, value);
 			}
 		}
-		DateTime _data;
+		DateTime _data = DateTime.Now;
 		public DateTime DataEntry {
 			get{
 				return _data;
@@ -43,8 +43,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float? _phEntry;
-		public float? PhEntry
+		float _phEntry;
+		public float PhEntry
 		{
 			get
 			{
@@ -56,8 +56,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float? _pEntry;
-		public float? PEntry
+		float _pEntry;
+		public float PEntry
 		{
 			get
 			{
@@ -69,8 +69,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float? _kEntry;
-		public float? KEntry
+		float _kEntry;
+		public float KEntry
 		{
 			get
 			{
@@ -82,8 +82,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float? _caEntry;
-		public float? CaEntry
+		float _caEntry;
+		public float CaEntry
 		{
 			get
 			{
@@ -95,8 +95,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float? _mgEntry;
-		public float? MgEntry
+		float _mgEntry;
+		public float MgEntry
 		{
 			get
 			{
@@ -108,8 +108,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float? _alEntry;
-		public float? AlEntry
+		float _alEntry;
+		public float AlEntry
 		{
 			get
 			{
@@ -121,8 +121,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float? _hEntry;
-		public float? HEntry
+		float _hEntry;
+		public float HEntry
 		{
 			get
 			{
@@ -134,8 +134,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float? _materiaOrganicaEntry;
-		public float? MateriaOrganicaEntry
+		float _materiaOrganicaEntry;
+		public float MateriaOrganicaEntry
 		{
 			get
 			{
@@ -147,8 +147,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float? _areiaEntry;
-		public float? AreiaEntry
+		float _areiaEntry;
+		public float AreiaEntry
 		{
 			get
 			{
@@ -160,8 +160,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float? _siliteEntry;
-		public float? SiliteEntry
+		float _siliteEntry;
+		public float SiliteEntry
 		{
 			get
 			{
@@ -173,8 +173,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float? _argilaEntry;
-		public float? ArgilaEntry
+		float _argilaEntry;
+		public float ArgilaEntry
 		{
 			get
 			{
@@ -202,17 +202,17 @@ namespace Solum.ViewModel
 				Fazenda = FazendaEntry,
 				Talhao = TalhaoEntry,
 				Data = DataEntry,
-				Ph = PhEntry.Value,
-				P = PEntry.Value,
-				K = KEntry.Value,
-				Ca = CaEntry.Value,
-				Mg = MgEntry.Value,
-				Al = AlEntry.Value,
-				H = HEntry.Value,
-				MateriaOrganica = MateriaOrganicaEntry.Value,
-				Areia = AreiaEntry.Value,
-				Silite = SiliteEntry.Value,
-				Argila = ArgilaEntry.Value,
+				Ph = PhEntry,
+				P = PEntry,
+				K = KEntry,
+				Ca = CaEntry,
+				Mg = MgEntry,
+				Al = AlEntry,
+				H = HEntry,
+				MateriaOrganica = MateriaOrganicaEntry,
+				Areia = AreiaEntry,
+				Silite = SiliteEntry,
+				Argila = ArgilaEntry
 			};
 
 			await Navigation.PushAsync (new InterpretacaoPage (analise));

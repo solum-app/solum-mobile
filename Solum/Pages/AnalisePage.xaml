@@ -15,7 +15,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="Fazenda" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="FazendaEntry" Text="{Binding FazendaEntry}" Keyboard="Text" Grid.Column="1" Placeholder="Nome da Fazenda" HorizontalTextAlignment="End">
+						<Entry Text="{Binding FazendaEntry}" Keyboard="Text" Grid.Column="1" Placeholder="Nome da Fazenda" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -29,7 +29,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="Talhão" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="TalhaoEntry" Text="{Binding TalhaoEntry}" Keyboard="Text" Grid.Column="1" Placeholder="Identificação do Talhão" HorizontalTextAlignment="End">
+						<Entry Text="{Binding TalhaoEntry}" Keyboard="Text" Grid.Column="1" Placeholder="Identificação do Talhão" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -43,7 +43,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="Data" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<DatePicker x:Name="DataEntry" Date="{Binding DataEntry}" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+						<DatePicker Date="{Binding DataEntry}" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
 							<DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
 							<DatePicker.Effects>
 						        <effects:NoBorderEffect />
@@ -60,7 +60,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="pH (CaCl2)" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="PhEntry" Text="{Binding PhEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Potêncial Hidrogênico" HorizontalTextAlignment="End">
+						<Entry Text="{Binding PhEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Potêncial Hidrogênico" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -74,7 +74,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="P" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="PEntry" Text="{Binding PEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Fósforo" HorizontalTextAlignment="End">
+						<Entry Text="{Binding PEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Fósforo" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -88,7 +88,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="K" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="KEntry" Text="{Binding KEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Potássio" HorizontalTextAlignment="End">
+						<Entry Text="{Binding KEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Potássio" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -102,7 +102,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="Ca" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="CaEntry" Text="{Binding CaEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Sódio" HorizontalTextAlignment="End">
+						<Entry Text="{Binding CaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Sódio" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -116,7 +116,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="Mg" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="MgEntry" Text="{Binding MgEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Magnésio" HorizontalTextAlignment="End">
+						<Entry Text="{Binding MgEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Magnésio" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -130,7 +130,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="Al" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="AlEntry" Text="{Binding AlEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Alumínio" HorizontalTextAlignment="End">
+						<Entry Text="{Binding AlEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Alumínio" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -144,7 +144,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="H" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="HEntry" Text="{Binding HEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Hidrogênio" HorizontalTextAlignment="End">
+						<Entry Text="{Binding HEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Hidrogênio" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -160,7 +160,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="Mat. Org." Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="MateriaOrganicaEntry" Text="{Binding MateriaOrganicaEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Matéria Orgânica" HorizontalTextAlignment="End">
+						<Entry Text="{Binding MateriaOrganicaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Matéria Orgânica" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -174,7 +174,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="Areia" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="AreiaEntry" Text="{Binding AreiaEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Areia" HorizontalTextAlignment="End">
+						<Entry Text="{Binding AreiaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Areia" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -188,7 +188,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="Silite" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="SiliteEntry" Text="{Binding SiliteEntry}" Keyboard="Numeric" Grid.Column="1" Placeholder="Silite" HorizontalTextAlignment="End">
+						<Entry Text="{Binding SiliteEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Silite" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
@@ -202,7 +202,7 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 						<Label Text="Argila" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry x:Name="ArgilaEntry" Text="{Binding ArgilaEntry}" Keyboard="Numeric" Grid.Column="1"  Placeholder="Argila" HorizontalTextAlignment="End">
+						<Entry Text="{Binding ArgilaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1"  Placeholder="Argila" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 using Solum.Models;
+using Solum.ViewModel;
 
 namespace Solum.Pages
 {
@@ -10,6 +11,7 @@ namespace Solum.Pages
 	{
 		public InterpretacaoPage (Analise analise)
 		{
+			BindingContext = new InterpretacaoViewModel (Navigation, analise);
 			InitializeComponent ();
 		}
 	}

@@ -26,15 +26,15 @@ namespace Solum
 			for (int i = 0; i < 5; i++)
 			{
 				var analise = new Analise();
-				analise.Fazenda = "Fazendinha";
-				analise.Talhao = "Talhão 1";
+				analise.Fazenda = "Fazenda Santo Augustinho";
+				analise.Talhao = "Talhão " + (i + 1);
 				analise.Data = DateTime.Now;
 
 				list.Add(analise);
 
 				var analise2 = new Analise();
-				analise2.Fazenda = "Fazendão";
-				analise2.Talhao = "Talhão 4";
+				analise2.Fazenda = "Fazenda Esperança";
+				analise2.Talhao = "Talhão " + (i + 1);
 				analise2.Data = DateTime.Now;
 
 				list.Add(analise2);

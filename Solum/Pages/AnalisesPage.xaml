@@ -14,7 +14,7 @@
 							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
 						<Label Text="{Binding Talhao}" Grid.Row="0"/>
-						<Label Text="{Binding Data}" Grid.Row="1" FontSize="Small"  TextColor="#757575" VerticalTextAlignment="Start"/>
+						<Label Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="#757575" VerticalTextAlignment="Start"/>
 					</Grid>
 				</ViewCell>
 			</DataTemplate>
