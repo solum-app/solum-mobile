@@ -65,7 +65,7 @@ namespace Solum.Models
 			set; 
 		}
 
-		public float Silite { 
+		public float Silte { 
 			get; 
 			set; 
 		}

@@ -211,7 +211,7 @@ namespace Solum.ViewModel
 				H = HEntry,
 				MateriaOrganica = MateriaOrganicaEntry,
 				Areia = AreiaEntry,
-				Silite = SiliteEntry,
+				Silte = SiliteEntry,
 				Argila = ArgilaEntry
 			};
 

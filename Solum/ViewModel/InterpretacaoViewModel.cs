@@ -10,7 +10,7 @@ namespace Solum.ViewModel
 		public InterpretacaoViewModel (INavigation navigation, Analise analise) : base(navigation)
 		{
 			Analise = analise;
-			InterpretacaoTextura = InterpretaHandler.InterpretaTextura (analise.Argila, analise.Silite);
+			InterpretacaoTextura = InterpretaHandler.InterpretaTextura (analise.Argila, analise.Silte);
 			InterpretacaoPh = InterpretaHandler.InterpretaPh (analise.Ph);
 			InterpretacaoP = InterpretaHandler.InterpretaP (analise.P, InterpretacaoTextura);
 			InterpretacaoK = InterpretaHandler.InterpretaK (analise.K, analise.CTC);

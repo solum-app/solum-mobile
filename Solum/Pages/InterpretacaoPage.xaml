@@ -18,7 +18,7 @@
  						<ColumnDefinition Width="Auto"/>
  					</Grid.ColumnDefinitions>
  					<Label Grid.Row="0" Grid.Column="0" Text="{Binding Analise.Fazenda}"/>
- 					<Label Grid.Row="0" Grid.Column="1" Text="12/02/2016" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding Analise.Data}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#9E9E9E"/>
  					<Label Grid.Row="1" Grid.Column="0" Text="{Binding Analise.Talhao}" FontSize="Small" TextColor="#9E9E9E"/>
  					<Label Grid.Row="1" Grid.Column="1" Text="{Binding InterpretacaoTextura}" FontSize="Small" TextColor="#9E9E9E" HorizontalTextAlignment="End"/>
  				</Grid>

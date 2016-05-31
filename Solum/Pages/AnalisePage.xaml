@@ -187,8 +187,8 @@
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
-						<Label Text="Silite" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding SiliteEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Silite" HorizontalTextAlignment="End">
+						<Label Text="Silte" Grid.Column="0" VerticalTextAlignment="Center"/>
+						<Entry Text="{Binding SilteEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Silte" HorizontalTextAlignment="End">
 							<Entry.Effects>
 						        <effects:NoBorderEffect />
 						    </Entry.Effects>
