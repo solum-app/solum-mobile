@@ -24,13 +24,13 @@ namespace Solum.Handlers
 			if (ph <= 4.4) {
 				return "Acidez alta";
 			}
-			if (ph >= 4.5 && ph <= 4.8) {
+			if (ph > 4.4 && ph <= 4.8) {
 				return "Acidez média";
 			}
-			if (ph >= 4.9 && ph <= 5.5 ) {
+			if (ph > 4.8 && ph <= 5.5 ) {
 				return "Acidez adequada";
 			}
-			if (ph >= 5.6 && ph <= 5.8) {
+			if (ph > 5.5 && ph <= 5.8) {
 				return "Acidez baixa";
 			} 
 			else {
@@ -141,10 +141,10 @@ namespace Solum.Handlers
 		}
 
 		public static string InterpretaCa(float ca){
-			if (ca <= 1.5) {
+			if (ca < 1.5) {
 				return "Baixo";
 			}
-			if (ca > 1.5 && ca <= 7) {
+			if (ca >= 1.5 && ca <= 7) {
 				return "Adequado";
 			} else {
 				return "Alto";
@@ -152,11 +152,11 @@ namespace Solum.Handlers
 		}
 
 		public static string InterpretaMg(float mg){
-			if (mg <= 0.5){
+			if (mg < 0.5){
 				return "Baixo";
 			}
-			if (mg >0.5 && mg <= 2) {
-				return "Adequando";
+			if (mg >= 0.5 && mg <= 2) {
+				return "Adequado";
 			} 
 			else {
 				return "Alto";
@@ -165,31 +165,31 @@ namespace Solum.Handlers
 
 		public static string InterpretaCaK(float caK){
 			if (caK <= 7){
-				return "Baixo";
+				return "Baixa";
 			}
 			if (caK > 7 && caK <=14){
 				return "Média";
 			}
 			if (caK > 14 && caK <= 25) {
-				return "Adequando";
+				return "Adequada";
 			} 
 			else {
-				return "Alto";
+				return "Alta";
 			}
 		}
 
 		public static string InterpretaMgK(float mgK){
 			if (mgK <= 2){
-				return "Baixo";
+				return "Baixa";
 			}
 			if (mgK > 2 && mgK <=4){
 				return "Média";
 			}
 			if (mgK > 5 && mgK <= 15) {
-				return "Adequando";
+				return "Adequanda";
 			} 
 			else {
-				return "Alto";
+				return "Alta";
 			}
 		}
 
@@ -218,7 +218,7 @@ namespace Solum.Handlers
 				return "Alta";
 			} 
 			else {
-				return "Muito Alta";
+				return "Muito alta";
 			}
 		}
 

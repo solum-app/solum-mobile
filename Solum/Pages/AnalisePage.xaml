@@ -5,7 +5,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="Solum.Pages.AnalisePage"
 	Title="Análise">
-	<TableView Intent="Data">
+	<TableView Intent="Form">
 		<TableRoot>
 			<TableSection Title="Informações">
 				<ViewCell>
@@ -212,8 +212,8 @@
 			</TableSection>
 			<TableSection Title=" ">
 				<ViewCell>
-					<ContentView>
-						<Button x:Name ="AnaliseButton" Text="Interpretar" FontAttributes="Bold" IsEnabled="true" Command="{Binding ButtonClickedCommand}" BackgroundColor="#2fc364" TextColor="White" BorderRadius="0"/>
+					<ContentView Padding="8,0">
+						<Button x:Name ="AnaliseButton" Text="Interpretar" FontAttributes="Bold" IsEnabled="true" Command="{Binding ButtonClickedCommand}" BackgroundColor="#2fc364" TextColor="White"/>
 					</ContentView>
 				</ViewCell>
 			</TableSection>

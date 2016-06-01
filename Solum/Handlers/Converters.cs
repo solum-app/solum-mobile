@@ -129,13 +129,13 @@ namespace Solum.Handlers
 
 			switch (textura) {
 			case "Arenosa":
-				return "1,1 a 1,5";
+				return "11 a 15";
 			case "Média":
-				return "2,1 a 3,0";
+				return "21 a 30";
 			case "Argilosa":
-				return "3,1 a 4,5";
+				return "31 a 45";
 			case "Muito argilosa":
-				return "3,6 a 5,2";
+				return "36 a 52";
 			default:
 				return "";
 				break;
@@ -150,15 +150,416 @@ namespace Solum.Handlers
 
 			switch (textura) {
 			case "Arenosa":
-				return "1,1 a 1,5";
+				return "11 a 15";
 			case "Média":
-				return "2,1 a 3,0";
+				return "21 a 30";
 			case "Argilosa":
-				return "3,1 a 4,5";
+				return "31 a 45";
 			case "Muito argilosa":
-				return "3,6 a 5,2";
+				return "36 a 52";
 			default:
 				return "";
+				break;
+			}
+		}
+	}
+
+	public class PhCorValueConverter : IValueConverter
+	{
+		public static PhCorValueConverter Instance = new PhCorValueConverter();
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Acidez alta":
+				return "#F44336";
+			case "Acidez média":
+				return "#FFF176";
+			case "Acidez adequada":
+				return "#8BC34A";
+			case "Acidez baixa":
+				return "#4DD0E1";
+			case "Acidez muito baixa":
+				return "#0097A7";
+			default:
+				return "#000000";
+				break;
+			}
+
+			return value == null ? string.Empty : value.ToString();
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Acidez alta":
+				return "#F44336";
+			case "Acidez média":
+				return "#FFF176";
+			case "Acidez adequada":
+				return "#8BC34A";
+			case "Acidez baixa":
+				return "#4DD0E1";
+			case "Acidez muito baixa":
+				return "#0097A7";
+			default:
+				return "#000000";
+				break;
+			}
+
+		}
+	}
+
+	public class PCorValueConverter : IValueConverter
+	{
+		public static PCorValueConverter Instance = new PCorValueConverter();
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Muito baixo":
+				return "#F44336";
+			case "Baixo":
+				return "#FF9800";
+			case "Médio":
+				return "#FFF176";
+			case "Adequado":
+				return "#8BC34A";
+			case "Alto":
+				return "#4DD0E1";
+			default:
+				return "#000000";
+				break;
+			}
+
+			return value == null ? string.Empty : value.ToString();
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Muito baixo":
+				return "#F44336";
+			case "Baixo":
+				return "#FF9800";
+			case "Médio":
+				return "#FFF176";
+			case "Adequado":
+				return "#8BC34A";
+			case "Alto":
+				return "#4DD0E1";
+			default:
+				return "#000000";
+				break;
+			}
+		}
+	}
+
+	public class KCorValueConverter : IValueConverter
+	{
+		public static KCorValueConverter Instance = new KCorValueConverter();
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixo":
+				return "#FF9800";
+			case "Médio":
+				return "#FFF176";
+			case "Adequado":
+				return "#8BC34A";
+			case "Alto":
+				return "#4DD0E1";
+			default:
+				return "#000000";
+				break;
+			}
+
+			return value == null ? string.Empty : value.ToString();
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixo":
+				return "#FF9800";
+			case "Médio":
+				return "#FFF176";
+			case "Adequado":
+				return "#8BC34A";
+			case "Alto":
+				return "#4DD0E1";
+			default:
+				return "#000000";
+				break;
+			}
+		}
+	}
+
+	public class CaMgCorValueConverter : IValueConverter
+	{
+		public static KCorValueConverter Instance = new KCorValueConverter();
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixo":
+				return "#FF9800";
+			case "Adequado":
+				return "#8BC34A";
+			case "Alto":
+				return "#4DD0E1";
+			default:
+				return "#000000";
+				break;
+			}
+
+			return value == null ? string.Empty : value.ToString();
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixo":
+				return "#FF9800";
+			case "Adequado":
+				return "#8BC34A";
+			case "Alto":
+				return "#4DD0E1";
+			default:
+				return "#000000";
+				break;
+			}
+		}
+	}
+
+	public class CaMgKCorValueConverter : IValueConverter
+	{
+		public static CaMgKCorValueConverter Instance = new CaMgKCorValueConverter();
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixa":
+				return "#FF9800";
+			case "Média":
+				return "#FFF176";
+			case "Adequada":
+				return "#8BC34A";
+			case "Alta":
+				return "#4DD0E1";
+			default:
+				return "#000000";
+				break;
+			}
+
+			return value == null ? string.Empty : value.ToString();
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixa":
+				return "#FF9800";
+			case "Média":
+				return "#FFF176";
+			case "Adequada":
+				return "#8BC34A";
+			case "Alta":
+				return "#4DD0E1";
+			default:
+				return "#000000";
+				break;
+			}
+		}
+	}
+
+	public class CtcCorValueConverter : IValueConverter
+	{
+		public static CtcCorValueConverter Instance = new CtcCorValueConverter();
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixa":
+				return "#FF9800";
+			case "Média":
+				return "#FFF176";
+			case "Adequada":
+				return "#8BC34A";
+			case "Alta":
+				return "#4DD0E1";
+			default:
+				return "#000000";
+				break;
+			}
+
+			return value == null ? string.Empty : value.ToString();
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixa":
+				return "#FF9800";
+			case "Média":
+				return "#FFF176";
+			case "Adequada":
+				return "#8BC34A";
+			case "Alta":
+				return "#4DD0E1";
+			default:
+				return "";
+				break;
+			}
+		}
+	}
+
+	public class MoCorValueConverter : IValueConverter
+	{
+		public static MoCorValueConverter Instance = new MoCorValueConverter();
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixa":
+				return "#FF9800";
+			case "Média":
+				return "#FFF176";
+			case "Adequada":
+				return "#8BC34A";
+			case "Alta":
+				return "#4DD0E1";
+			default:
+				return "#000000";
+				break;
+			}
+
+			return value == null ? string.Empty : value.ToString();
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixa":
+				return "#FF9800";
+			case "Média":
+				return "#FFF176";
+			case "Adequada":
+				return "#8BC34A";
+			case "Alta":
+				return "#4DD0E1";
+			default:
+				return "#000000";
+				break;
+			}
+		}
+	}
+
+	public class VCorValueConverter : IValueConverter
+	{
+		public static VCorValueConverter Instance = new VCorValueConverter();
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixa":
+				return "#F44336";
+			case "Média":
+				return "#FFF176";
+			case "Adequada":
+				return "#8BC34A";
+			case "Alta":
+				return "#4DD0E1";
+			case "Muito alta":
+				return "#0097A7";
+			default:
+				return "#000000";
+				break;
+			}
+
+			return value == null ? string.Empty : value.ToString();
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixa":
+				return "#F44336";
+			case "Média":
+				return "#FFF176";
+			case "Adequada":
+				return "#8BC34A";
+			case "Alta":
+				return "#4DD0E1";
+			case "Muito alta":
+				return "#0097A7";
+			default:
+				return "#000000";
+				break;
+			}
+		}
+	}
+
+	public class MCorValueConverter : IValueConverter
+	{
+		public static MCorValueConverter Instance = new MCorValueConverter();
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixa":
+				return "#8BC34A";
+			case "Alta":
+				return "#4DD0E1";
+			case "Muito alta":
+				return "#0097A7";
+			default:
+				return "#000000";
+				break;
+			}
+
+			return value == null ? string.Empty : value.ToString();
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var nivel = (value as string);
+
+			switch (nivel) {
+			case "Baixa":
+				return "#8BC34A";
+			case "Alta":
+				return "#4DD0E1";
+			case "Muito alta":
+				return "#0097A7";
+			default:
+				return "#000000";
 				break;
 			}
 		}
