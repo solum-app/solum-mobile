@@ -4,20 +4,29 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="Solum.AnalisesPage" 
 	Title="Análises">
-	<ListView x:Name="analisesList" HasUnevenRows="true" IsGroupingEnabled="true" GroupDisplayBinding="{Binding Key}">
-		<ListView.ItemTemplate>
-			<DataTemplate>
-				<ViewCell>
-					<Grid Padding="15">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto"/>
-						</Grid.RowDefinitions>
-						<Label Text="{Binding Talhao}" Grid.Row="0"/>
-						<Label Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="#757575" VerticalTextAlignment="Start"/>
-					</Grid>
-				</ViewCell>
-			</DataTemplate>
-		</ListView.ItemTemplate>
-	</ListView>
+	<AbsoluteLayout x:Name="absolute">
+		<ListView 
+			x:Name="analisesList" 
+			HasUnevenRows="true" 
+			IsGroupingEnabled="true" 
+			GroupDisplayBinding="{Binding Key}"
+			AbsoluteLayout.LayoutFlags="All"
+           	AbsoluteLayout.LayoutBounds="0,0,1,1">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<Grid Padding="15">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+							</Grid.RowDefinitions>
+							<Label Text="{Binding Talhao}" Grid.Row="0"/>
+							<Label Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="#757575" VerticalTextAlignment="Start"/>
+						</Grid>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+	</AbsoluteLayout>
+		
 </ContentPage>

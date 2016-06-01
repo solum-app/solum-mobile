@@ -219,4 +219,55 @@
 			</TableSection>
 		</TableRoot>
 	</TableView>
+<!--	<ScrollView Grid.Row="0" BackgroundColor="#EFEFF4">
+		<StackLayout Spacing="0">
+			<ContentView Padding="16,24,16,4">
+				<Label Text="INFORMAÇÕES" FontSize="Small" TextColor="#717175"/>
+			</ContentView>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<BoxView HeightRequest=".5" BackgroundColor="#C8C7CC" Grid.ColumnSpan="3" VerticalOptions="Start"/>
+				<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1"/>
+				<Entry Text="{Binding FazendaEntry}" Keyboard="Numeric" Grid.Column="2" Margin="16,0" Placeholder="Nome da Fazenda" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+				</Entry>
+				<BoxView HeightRequest=".5" BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End"/>
+			</Grid>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1"/>
+				<Entry Text="{Binding TalhaoEntry}" Keyboard="Numeric" Grid.Column="2" Margin="16,0" Placeholder="Identificação do Talhão" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+				</Entry>
+				<BoxView HeightRequest=".5" BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End"/>
+			</Grid>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Text="Data" VerticalOptions="Center" Grid.Column="1"/>
+				<DatePicker Date="{Binding DataEntry}" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="16,0">
+					<DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
+					<DatePicker.Effects>
+				        <effects:NoBorderEffect />
+				    </DatePicker.Effects>
+				</DatePicker>
+				<BoxView HeightRequest=".5" BackgroundColor="#C8C7CC" Grid.ColumnSpan="3" VerticalOptions="End"/>
+			</Grid>
+		</StackLayout>
+	</ScrollView>-->
 </ContentPage>
