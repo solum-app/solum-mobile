@@ -9,13 +9,14 @@
 			x:Name="analisesList" 
 			HasUnevenRows="true" 
 			IsGroupingEnabled="true" 
+			SeparatorVisibility="None"
 			GroupDisplayBinding="{Binding Key}"
 			AbsoluteLayout.LayoutFlags="All"
            	AbsoluteLayout.LayoutBounds="0,0,1,1">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<ViewCell>
-						<Grid Padding="15">
+						<Grid Padding="15" BackgroundColor="White">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto"/>
 								<RowDefinition Height="Auto"/>
