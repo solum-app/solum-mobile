@@ -3,8 +3,7 @@ using Solum.Droid.Effects;
 using Xamarin.Forms.Platform.Android;
 using System;
 
-
-[assembly:ResolutionGroupName ("Sydy")]
+[assembly: ResolutionGroupName("Sydy")]
 [assembly:ExportEffect (typeof(NoBorderEffect), "NoBorderEffect")]
 namespace Solum.Droid.Effects
 

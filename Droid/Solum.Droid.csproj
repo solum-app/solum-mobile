@@ -98,6 +98,7 @@
     <Compile Include="Renderers\FloatingActionButtonViewRenderer.cs" />
     <Compile Include="Handlers\PdfViewer.cs" />
     <Compile Include="Effects\NoBordsEffect.cs" />
+    <Compile Include="Effects\TextSizeEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

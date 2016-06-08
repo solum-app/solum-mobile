@@ -219,25 +219,56 @@
 			</TableSection>
 		</TableRoot>
 	</TableView>
-<!--	<ScrollView Grid.Row="0" BackgroundColor="#EFEFF4">
+	<ScrollView Grid.Row="0" BackgroundColor="#EEEEEE">
 		<StackLayout Spacing="0">
-			<ContentView Padding="16,24,16,4">
-				<Label Text="INFORMAÇÕES" FontSize="Small" TextColor="#717175"/>
-			</ContentView>
+			<Label TextColor="#717175">
+				<Label.Margin>
+					<OnPlatform x:TypeArguments="Thickness"
+						iOS="16,24,16,4"
+						Android="16, 13"/>
+				</Label.Margin>
+				<Label.Text>
+					<OnPlatform x:TypeArguments="x:String"
+						iOS="INFORMAÇÕES"
+						Android="Informações"/>
+				</Label.Text>
+				<Label.FontSize>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="13"
+						Android="14"/>
+				</Label.FontSize>
+			</Label>
 			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="16"/>
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<BoxView HeightRequest=".5" BackgroundColor="#C8C7CC" Grid.ColumnSpan="3" VerticalOptions="Start"/>
+				<BoxView Grid.ColumnSpan="3" BackgroundColor="#C8C7CC" VerticalOptions="Start">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
 				<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1"/>
-				<Entry Text="{Binding FazendaEntry}" Keyboard="Numeric" Grid.Column="2" Margin="16,0" Placeholder="Nome da Fazenda" HorizontalTextAlignment="End">
+				<Entry Text="{Binding FazendaEntry}" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Nome da Fazenda" HorizontalTextAlignment="End">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
 				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
 				</Entry>
-				<BoxView HeightRequest=".5" BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End"/>
+				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
 			</Grid>
 			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
 				<Grid.ColumnDefinitions>
@@ -246,12 +277,23 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1"/>
-				<Entry Text="{Binding TalhaoEntry}" Keyboard="Numeric" Grid.Column="2" Margin="16,0" Placeholder="Identificação do Talhão" HorizontalTextAlignment="End">
+				<Entry Text="{Binding TalhaoEntry}" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Identificação do Talhão" HorizontalTextAlignment="End">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
 				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
 				</Entry>
-				<BoxView HeightRequest=".5" BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End"/>
+				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
 			</Grid>
 			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
 				<Grid.ColumnDefinitions>
@@ -263,11 +305,18 @@
 				<DatePicker Date="{Binding DataEntry}" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="16,0">
 					<DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
 					<DatePicker.Effects>
-				        <effects:NoBorderEffect />
+				        <effects:NoBorderEffect/>
+						<effects:TextSizeEffect TextSize="14"/>
 				    </DatePicker.Effects>
 				</DatePicker>
-				<BoxView HeightRequest=".5" BackgroundColor="#C8C7CC" Grid.ColumnSpan="3" VerticalOptions="End"/>
+				<BoxView BackgroundColor="#C8C7CC" Grid.ColumnSpan="3" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0"/>
+					</BoxView.HeightRequest>
+				</BoxView>
 			</Grid>
 		</StackLayout>
-	</ScrollView>-->
+	</ScrollView>
 </ContentPage>

@@ -6,10 +6,10 @@
 	Title="Análises">
 	<AbsoluteLayout x:Name="absolute">
 		<ListView 
-			x:Name="analisesList" 
+			x:Name="analisesList"
 			HasUnevenRows="true" 
-			IsGroupingEnabled="true" 
-			SeparatorVisibility="None"
+			IsGroupingEnabled="true"
+			SeparatorColor="#C8C7CC"
 			GroupDisplayBinding="{Binding Key}"
 			AbsoluteLayout.LayoutFlags="All"
            	AbsoluteLayout.LayoutBounds="0,0,1,1">
