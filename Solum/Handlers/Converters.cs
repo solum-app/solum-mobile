@@ -22,10 +22,7 @@ namespace Solum.Handlers
 				return "4,1 a 6";
 			default:
 				return "";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -43,7 +40,6 @@ namespace Solum.Handlers
 				return "4,1 a 6";
 			default:
 				return "";
-				break;
 			}
 		}
 	}
@@ -60,8 +56,6 @@ namespace Solum.Handlers
 			} else {
 				return "51 a 80";
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -94,10 +88,7 @@ namespace Solum.Handlers
 				return "12,1 a 18,0";
 			default:
 				return "";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -115,7 +106,6 @@ namespace Solum.Handlers
 				return "12,1 a 18,0";
 			default:
 				return "";
-				break;
 			}
 		}
 	}
@@ -138,10 +128,7 @@ namespace Solum.Handlers
 				return "36 a 52";
 			default:
 				return "";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -159,7 +146,6 @@ namespace Solum.Handlers
 				return "36 a 52";
 			default:
 				return "";
-				break;
 			}
 		}
 	}
@@ -184,10 +170,7 @@ namespace Solum.Handlers
 				return "#0097A7";
 			default:
 				return "#000000";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -207,9 +190,7 @@ namespace Solum.Handlers
 				return "#0097A7";
 			default:
 				return "#000000";
-				break;
 			}
-
 		}
 	}
 
@@ -233,10 +214,7 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "#000000";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -256,7 +234,6 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "#000000";
-				break;
 			}
 		}
 	}
@@ -279,10 +256,7 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "#000000";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -300,7 +274,6 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "#000000";
-				break;
 			}
 		}
 	}
@@ -321,10 +294,7 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "#000000";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -340,7 +310,6 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "#000000";
-				break;
 			}
 		}
 	}
@@ -363,10 +332,7 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "#000000";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -384,7 +350,6 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "#000000";
-				break;
 			}
 		}
 	}
@@ -407,10 +372,7 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "#000000";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -428,7 +390,6 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "";
-				break;
 			}
 		}
 	}
@@ -451,10 +412,7 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "#000000";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -472,7 +430,6 @@ namespace Solum.Handlers
 				return "#4DD0E1";
 			default:
 				return "#000000";
-				break;
 			}
 		}
 	}
@@ -497,10 +454,7 @@ namespace Solum.Handlers
 				return "#0097A7";
 			default:
 				return "#000000";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -520,7 +474,6 @@ namespace Solum.Handlers
 				return "#0097A7";
 			default:
 				return "#000000";
-				break;
 			}
 		}
 	}
@@ -541,10 +494,7 @@ namespace Solum.Handlers
 				return "#0097A7";
 			default:
 				return "#000000";
-				break;
 			}
-
-			return value == null ? string.Empty : value.ToString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -560,7 +510,6 @@ namespace Solum.Handlers
 				return "#0097A7";
 			default:
 				return "#000000";
-				break;
 			}
 		}
 	}

@@ -106,7 +106,6 @@ namespace Solum.Handlers
 				}
 			default:
 				return "";
-				break;
 			}
 		}
 
@@ -278,7 +277,6 @@ namespace Solum.Handlers
 				}
 			default:
 				return "";
-				break;
 			}
 		}
 
@@ -338,7 +336,6 @@ namespace Solum.Handlers
 				}
 			default:
 				return "";
-				break;
 			}
 		}
 	}

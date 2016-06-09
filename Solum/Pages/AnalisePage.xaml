@@ -5,220 +5,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="Solum.Pages.AnalisePage"
 	Title="Análise">
-	<TableView Intent="Form">
-		<TableRoot>
-			<TableSection Title="Informações">
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="Fazenda" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding FazendaEntry}" Keyboard="Text" Grid.Column="1" Placeholder="Nome da Fazenda" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="Talhão" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding TalhaoEntry}" Keyboard="Text" Grid.Column="1" Placeholder="Identificação do Talhão" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="Data" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<DatePicker Date="{Binding DataEntry}" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
-							<DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
-							<DatePicker.Effects>
-						        <effects:NoBorderEffect />
-						    </DatePicker.Effects>
-						</DatePicker>
-					</Grid>
-				</ViewCell>
-			</TableSection>
-			<TableSection Title="Elementos">
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="pH (CaCl2)" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding PhEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Potêncial Hidrogênico" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="P" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding PEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Fósforo" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="K" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding KEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Potássio" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="Ca" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding CaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Sódio" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="Mg" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding MgEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Magnésio" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="Al" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding AlEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Alumínio" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="H" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding HEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Hidrogênio" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-			</TableSection>
-			<TableSection Title="Textura">
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="Mat. Org." Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding MateriaOrganicaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Matéria Orgânica" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="Areia" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding AreiaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Areia" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="Silte" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding SilteEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1" Placeholder="Silte" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-				<ViewCell>
-					<Grid Padding="15,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Label Text="Argila" Grid.Column="0" VerticalTextAlignment="Center"/>
-						<Entry Text="{Binding ArgilaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" Grid.Column="1"  Placeholder="Argila" HorizontalTextAlignment="End">
-							<Entry.Effects>
-						        <effects:NoBorderEffect />
-						    </Entry.Effects>
-						</Entry>
-					</Grid>
-				</ViewCell>
-			</TableSection>
-			<TableSection Title=" ">
-				<ViewCell>
-					<ContentView Padding="8,0">
-						<Button x:Name ="AnaliseButton" Text="Interpretar" FontAttributes="Bold" IsEnabled="true" Command="{Binding ButtonClickedCommand}" BackgroundColor="#2fc364" TextColor="White"/>
-					</ContentView>
-				</ViewCell>
-			</TableSection>
-		</TableRoot>
-	</TableView>
+
 	<ScrollView Grid.Row="0" BackgroundColor="#EEEEEE">
 		<StackLayout Spacing="0">
 			<Label TextColor="#717175">
@@ -251,7 +38,7 @@
 							Android="0.3"/>
 					</BoxView.HeightRequest>
 				</BoxView>
-				<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1"/>
+				<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
 				<Entry Text="{Binding FazendaEntry}" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Nome da Fazenda" HorizontalTextAlignment="End">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
@@ -276,7 +63,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1"/>
+				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
 				<Entry Text="{Binding TalhaoEntry}" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Identificação do Talhão" HorizontalTextAlignment="End">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
@@ -301,7 +88,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="Data" VerticalOptions="Center" Grid.Column="1"/>
+				<Label Text="Data" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
 				<DatePicker Date="{Binding DataEntry}" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="16,0">
 					<DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
 					<DatePicker.Effects>
@@ -309,14 +96,340 @@
 						<effects:TextSizeEffect TextSize="14"/>
 				    </DatePicker.Effects>
 				</DatePicker>
-				<BoxView BackgroundColor="#C8C7CC" Grid.ColumnSpan="3" VerticalOptions="End">
+			</Grid>
+			<BoxView BackgroundColor="#C8C7CC" VerticalOptions="End">
+				<BoxView.HeightRequest>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="0.5"
+						Android="0"/>
+				</BoxView.HeightRequest>
+			</BoxView>
+
+			<Label TextColor="#717175">
+				<Label.Margin>
+					<OnPlatform x:TypeArguments="Thickness"
+						iOS="16,24,16,4"
+						Android="16, 13"/>
+				</Label.Margin>
+				<Label.Text>
+					<OnPlatform x:TypeArguments="x:String"
+						iOS="ANÁLISE QUÍMICA"
+						Android="Análise Química"/>
+				</Label.Text>
+				<Label.FontSize>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="13"
+						Android="14"/>
+				</Label.FontSize>
+			</Label>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<BoxView Grid.ColumnSpan="3" BackgroundColor="#C8C7CC" VerticalOptions="Start">
 					<BoxView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double"
 							iOS="0.5"
-							Android="0"/>
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
+				<Label Text="pH (CaCl2)" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Entry Text="{Binding PhEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Potêncial Hidrogênico" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
+				</Entry>
+				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
 					</BoxView.HeightRequest>
 				</BoxView>
 			</Grid>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Text="P" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Entry Text="{Binding PEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Fósforo" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
+				</Entry>
+				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
+			</Grid>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Text="K" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Entry Text="{Binding KEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Potássio" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
+				</Entry>
+				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
+			</Grid>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Text="Ca" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Entry Text="{Binding CaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Sódio" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
+				</Entry>
+				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
+			</Grid>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Text="Mg" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Entry Text="{Binding MgEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Magnésio" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
+				</Entry>
+				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
+			</Grid>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Text="Al" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Entry Text="{Binding AlEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Alumínio" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
+				</Entry>
+				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
+			</Grid>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Text="H" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Entry Text="{Binding HEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Hidrogênio" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
+				</Entry>
+			</Grid>
+			<BoxView BackgroundColor="#C8C7CC" VerticalOptions="End">
+				<BoxView.HeightRequest>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="0.5"
+						Android="0"/>
+				</BoxView.HeightRequest>
+			</BoxView>
+
+			<Label TextColor="#717175">
+				<Label.Margin>
+					<OnPlatform x:TypeArguments="Thickness"
+						iOS="16,24,16,4"
+						Android="16, 13"/>
+				</Label.Margin>
+				<Label.Text>
+					<OnPlatform x:TypeArguments="x:String"
+						iOS="ANÁLISE FÍSICA"
+						Android="Análise Física"/>
+				</Label.Text>
+				<Label.FontSize>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="13"
+						Android="14"/>
+				</Label.FontSize>
+			</Label>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<BoxView Grid.ColumnSpan="3" BackgroundColor="#C8C7CC" VerticalOptions="Start">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
+				<Label Text="Mat. Org." VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Entry Text="{Binding MateriaOrganicaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Matéria Orgânica" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
+				</Entry>
+				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
+			</Grid>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Text="Areia" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Entry Text="{Binding AreiaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Areia" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
+				</Entry>
+				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
+			</Grid>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Text="Silte" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Entry Text="{Binding SilteEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Silte" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
+				</Entry>
+				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+					</BoxView.HeightRequest>
+				</BoxView>
+			</Grid>
+			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="16"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Label Text="Argila" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Entry Text="{Binding ArgilaEntry, StringFormat='{0:#.##}'}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Argila" HorizontalTextAlignment="End">
+					<Entry.Effects>
+				        <effects:NoBorderEffect />
+				    </Entry.Effects>
+					<Entry.FontSize>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+					</Entry.FontSize>
+				</Entry>
+			</Grid>
+			<BoxView BackgroundColor="#C8C7CC" VerticalOptions="End">
+				<BoxView.HeightRequest>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="0.5"
+						Android="0"/>
+				</BoxView.HeightRequest>
+			</BoxView>
+			<Button Text="Interpretar" FontAttributes="Bold" IsEnabled="true" Command="{Binding ButtonClickedCommand}" Margin="16" BackgroundColor="#2fc364" TextColor="White"/>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

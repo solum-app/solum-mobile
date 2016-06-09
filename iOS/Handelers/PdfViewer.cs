@@ -23,18 +23,18 @@ namespace Solum.iOS.Handelers
 
 		}
 
-		public async void PreviewPdf(MemoryStream stream){
+		public void PreviewPdf(MemoryStream stream){
 
 			QLPreviewController previewController = new QLPreviewController();             
 
 			UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(previewController, true, null);
 
-			var dataSource = await SaveFile (stream);
+			var dataSource =  SaveFile (stream);
 
 			previewController.DataSource = new ImageQLPreviewControllerDataSource(dataSource); 
 		}
 
-		private static async Task<string> SaveFile(MemoryStream stream) {
+		private static string SaveFile(MemoryStream stream) {
 
 			string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 			string filePath = Path.Combine(path, "temp.pdf");
@@ -46,7 +46,7 @@ namespace Solum.iOS.Handelers
 				fileStream.Flush();
 				fileStream.Close();
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				filePath = "Não foi possível exibir este arquivo";
 			}
