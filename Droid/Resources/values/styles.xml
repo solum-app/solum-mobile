@@ -22,7 +22,7 @@
 		<item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
 	</style>
 	<style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-		<item name="colorAccent">#FF4081</item>
+		<item name="colorAccent">#FFCD74</item>
 	</style>
 	<!--Splash Screen-->
 	<style name="Theme.Splash" parent="Theme.AppCompat.Light">
