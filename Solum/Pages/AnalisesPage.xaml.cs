@@ -47,9 +47,9 @@ namespace Solum
 			if (Device.OS == TargetPlatform.Android) {
 				var fab = new FloatingActionButtonView () {
 					ImageName = "ic_add",
-					ColorNormal = Color.FromHex ("FFCD74"),
-					ColorPressed = Color.FromHex ("FFC254"),
-					ColorRipple = Color.FromHex ("FFCD74"),
+					ColorNormal = Color.FromHex ("FFD54F"),
+					ColorPressed = Color.FromHex ("E6C047"),
+					ColorRipple = Color.FromHex ("FFD54F"),
 					Clicked = async (sender, args) => 
 						await Navigation.PushAsync (new AnalisePage ())
 				};

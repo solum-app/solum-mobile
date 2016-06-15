@@ -429,7 +429,7 @@
 						Android="0"/>
 				</BoxView.HeightRequest>
 			</BoxView>
-			<Button Text="Interpretar" IsEnabled="true" Command="{Binding ButtonClickedCommand}" Margin="16" BackgroundColor="#FFCD74" TextColor="Black"/>
+			<Button Text="Interpretar" IsEnabled="true" Command="{Binding ButtonClickedCommand}" Margin="16" BackgroundColor="#FFD54F" TextColor="Black"/>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

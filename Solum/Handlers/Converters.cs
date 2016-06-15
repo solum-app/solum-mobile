@@ -159,15 +159,15 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Acidez alta":
-				return "#F44336";
+				return "#E57373";
 			case "Acidez média":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Acidez adequada":
-				return "#8BC34A";
+				return "#81C784";
 			case "Acidez baixa":
-				return "#4DD0E1";
+				return "#81D4FA";
 			case "Acidez muito baixa":
-				return "#0097A7";
+				return "#CE93D8";
 			default:
 				return "#000000";
 			}
@@ -179,15 +179,15 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Acidez alta":
-				return "#F44336";
+				return "#E57373";
 			case "Acidez média":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Acidez adequada":
-				return "#8BC34A";
+				return "#81C784";
 			case "Acidez baixa":
-				return "#4DD0E1";
+				return "#81D4FA";
 			case "Acidez muito baixa":
-				return "#0097A7";
+				return "#CE93D8";
 			default:
 				return "#000000";
 			}
@@ -203,15 +203,15 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Muito baixo":
-				return "#F44336";
+				return "#E57373";
 			case "Baixo":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Médio":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequado":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alto":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "#000000";
 			}
@@ -223,15 +223,15 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Muito baixo":
-				return "#F44336";
+				return "#E57373";
 			case "Baixo":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Médio":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequado":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alto":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "#000000";
 			}
@@ -247,13 +247,13 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixo":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Médio":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequado":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alto":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "#000000";
 			}
@@ -265,13 +265,13 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixo":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Médio":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequado":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alto":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "#000000";
 			}
@@ -287,11 +287,11 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixo":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Adequado":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alto":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "#000000";
 			}
@@ -303,11 +303,11 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixo":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Adequado":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alto":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "#000000";
 			}
@@ -323,13 +323,13 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixa":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Média":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequada":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alta":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "#000000";
 			}
@@ -341,13 +341,13 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixa":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Média":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequada":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alta":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "#000000";
 			}
@@ -363,13 +363,13 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixa":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Média":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequada":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alta":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "#000000";
 			}
@@ -381,13 +381,13 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixa":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Média":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequada":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alta":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "";
 			}
@@ -403,13 +403,13 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixa":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Média":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequada":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alta":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "#000000";
 			}
@@ -421,13 +421,13 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixa":
-				return "#FF9800";
+				return "#FFCC80";
 			case "Média":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequada":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alta":
-				return "#4DD0E1";
+				return "#81D4FA";
 			default:
 				return "#000000";
 			}
@@ -443,15 +443,15 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixa":
-				return "#F44336";
+				return "#E57373";
 			case "Média":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequada":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alta":
-				return "#4DD0E1";
+				return "#81D4FA";
 			case "Muito alta":
-				return "#0097A7";
+				return "#CE93D8";
 			default:
 				return "#000000";
 			}
@@ -463,15 +463,15 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixa":
-				return "#F44336";
+				return "#E57373";
 			case "Média":
-				return "#FFF176";
+				return "#FFF59D";
 			case "Adequada":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alta":
-				return "#4DD0E1";
+				return "#81D4FA";
 			case "Muito alta":
-				return "#0097A7";
+				return "#CE93D8";
 			default:
 				return "#000000";
 			}
@@ -487,11 +487,11 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixa":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alta":
-				return "#4DD0E1";
+				return "#81D4FA";
 			case "Muito alta":
-				return "#0097A7";
+				return "#CE93D8";
 			default:
 				return "#000000";
 			}
@@ -503,11 +503,11 @@ namespace Solum.Handlers
 
 			switch (nivel) {
 			case "Baixa":
-				return "#8BC34A";
+				return "#81C784";
 			case "Alta":
-				return "#4DD0E1";
+				return "#81D4FA";
 			case "Muito alta":
-				return "#0097A7";
+				return "#CE93D8";
 			default:
 				return "#000000";
 			}

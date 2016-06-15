@@ -2,6 +2,11 @@
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Solum.RootPage">
 	<MasterDetailPage.Master>
 		<ContentPage BackgroundColor="Black" Title="Solum" Icon="ic_menu">
+			<StackLayout>
+				<ContentView BackgroundColor="Aqua">
+					<Label Text="Solum"/>
+				</ContentView>
+			</StackLayout>
 		</ContentPage>
 	</MasterDetailPage.Master>
 </MasterDetailPage>

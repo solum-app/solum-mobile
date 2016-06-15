@@ -12,8 +12,8 @@ namespace Solum
 			InitializeComponent ();
 
 			Detail = new NavigationPage(new AnalisesPage ()){
-				BarBackgroundColor = Color.FromHex("#86E2D5"),
-				BarTextColor = Color.Black
+				BarBackgroundColor = Color.FromHex("#24BE55"),
+				BarTextColor = Color.White
 			};
 		}
 	}
