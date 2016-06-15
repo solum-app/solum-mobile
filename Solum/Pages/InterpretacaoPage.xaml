@@ -9,7 +9,7 @@
 		<StackLayout Padding="0,4,0,0" Spacing="0">
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="#27a492" />
+					<BoxView WidthRequest="6" BackgroundColor="#3E3F41" />
 					<Grid Padding="8" HorizontalOptions="FillAndExpand">
  					<Grid.RowDefinitions>
  						<RowDefinition  Height="Auto"/>
