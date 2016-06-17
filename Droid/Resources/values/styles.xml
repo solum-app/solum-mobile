@@ -28,6 +28,6 @@
 	<style name="Theme.Splash" parent="Theme.AppCompat.Light">
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowTitleSize">0dp</item>
-		<item name="android:windowBackground">@drawable/ic_menu</item>
+		<item name="android:windowBackground">@drawable/ic_solum</item>
 	</style>
 </resources>

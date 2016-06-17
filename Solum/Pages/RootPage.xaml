@@ -1,11 +1,35 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Solum.RootPage">
 	<MasterDetailPage.Master>
-		<ContentPage BackgroundColor="White" Title="Solum" Icon="ic_menu">
+		<ContentPage BackgroundColor="#ECEFF1" Title="Solum" Icon="ic_menu">
 			<StackLayout>
 				<ContentView BackgroundColor="#3E3F41" HeightRequest="140">
-					<Label Text="Solum"/>
+					<Image Source="ic_solum_menu" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,10,0,0"/>
 				</ContentView>
+				<Grid Padding="16,10" ColumnSpacing="24">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Image Source="ic_analises" VerticalOptions="Center" Grid.Column="0"/>
+					<Label Text="Análises" YAlign="Center" Grid.Column="1" FontAttributes="Bold" TextColor="#3E3F41"/>
+				</Grid>
+				<Grid Padding="16,10" ColumnSpacing="24">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Image Source="ic_nova_analise" VerticalOptions="Center" Grid.Column="0"/>
+					<Label Text="Nova análise" YAlign="Center" Grid.Column="1" FontAttributes="Bold" TextColor="#3E3F41"/>
+				</Grid>
+				<Grid Padding="16,10" ColumnSpacing="24">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Image Source="ic_sobre" VerticalOptions="Center" Grid.Column="0"/>
+					<Label Text="Sobre" YAlign="Center" Grid.Column="1" FontAttributes="Bold" TextColor="#3E3F41"/>
+				</Grid>
 			</StackLayout>
 		</ContentPage>
 	</MasterDetailPage.Master>

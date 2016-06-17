@@ -126,6 +126,21 @@
     <BundleResource Include="Resources\ic_add.png" />
     <BundleResource Include="Resources\ic_add%403x.png" />
     <BundleResource Include="Resources\ic_add%402x.png" />
+    <BundleResource Include="Resources\ic_solum.png" />
+    <BundleResource Include="Resources\ic_solum%402x.png" />
+    <BundleResource Include="Resources\ic_solum%403x.png" />
+    <BundleResource Include="Resources\ic_solum_menu.png" />
+    <BundleResource Include="Resources\ic_solum_menu%402x.png" />
+    <BundleResource Include="Resources\ic_solum_menu%403x.png" />
+    <BundleResource Include="Resources\ic_nova_analise.png" />
+    <BundleResource Include="Resources\ic_nova_analise%402x.png" />
+    <BundleResource Include="Resources\ic_nova_analise%403x.png" />
+    <BundleResource Include="Resources\ic_analises%403x.png" />
+    <BundleResource Include="Resources\ic_analises%402x.png" />
+    <BundleResource Include="Resources\ic_analises.png" />
+    <BundleResource Include="Resources\ic_sobre%403x.png" />
+    <BundleResource Include="Resources\ic_sobre%402x.png" />
+    <BundleResource Include="Resources\ic_sobre.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Effects\" />
