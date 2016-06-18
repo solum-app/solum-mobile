@@ -141,6 +141,9 @@
     <BundleResource Include="Resources\ic_sobre%403x.png" />
     <BundleResource Include="Resources\ic_sobre%402x.png" />
     <BundleResource Include="Resources\ic_sobre.png" />
+    <BundleResource Include="Resources\ic_save.png" />
+    <BundleResource Include="Resources\ic_save%403x.png" />
+    <BundleResource Include="Resources\ic_save%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Effects\" />

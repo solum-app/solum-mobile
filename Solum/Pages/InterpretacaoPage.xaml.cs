@@ -28,7 +28,7 @@ namespace Solum.Pages
 			BindingContext = new InterpretacaoViewModel (Navigation, analise);
 			InitializeComponent ();
 
-			var item = new ToolbarItem ("Add", "ic_add", ()=> GeneratePdf());
+			var item = new ToolbarItem ("Salvar", "ic_save", ()=> GeneratePdf());
 			this.ToolbarItems.Add (item);
 		}
 
