@@ -30,6 +30,8 @@ namespace Solum.Pages
 
 			var item = new ToolbarItem ("Salvar", "ic_save", ()=> GeneratePdf());
 			this.ToolbarItems.Add (item);
+			var item2 = new ToolbarItem("PDF", "ic_pdf", () => GeneratePdf());
+			this.ToolbarItems.Add(item2);
 		}
 
 		void GeneratePdf()
