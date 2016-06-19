@@ -141,6 +141,16 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_solum.9.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_solum.9.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_solum.9.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_save.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_save.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_save.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_save.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_pdf.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_pdf.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_pdf.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_save.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_pdf.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_pdf.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
