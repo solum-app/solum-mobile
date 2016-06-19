@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using Solum.Rederers;
 using System.Threading.Tasks;
 using System.Linq;
+using Solum.ViewModel;
 
 namespace Solum
 {
@@ -19,30 +20,7 @@ namespace Solum
 
 			InitializeComponent ();
 
-			var list = new List<Analise>();
-
-			for (int i = 0; i < 5; i++)
-			{
-				var analise = new Analise();
-				analise.Fazenda = "Fazenda Santo Augustinho";
-				analise.Talhao = "Talhão " + (i + 1);
-				analise.Data = DateTime.Now;
-
-				list.Add(analise);
-
-				var analise2 = new Analise();
-				analise2.Fazenda = "Fazenda Esperança";
-				analise2.Talhao = "Talhão " + (i + 1);
-				analise2.Data = DateTime.Now;
-
-				list.Add(analise2);
-			}
-
-			var groupList =
-				list.OrderBy (a => a.Fazenda)
-					.GroupBy (a => a.Fazenda).ToList ();
-			
-			analisesList.ItemsSource = new ObservableCollection<IGrouping<string, Analise>>(groupList);
+			BindingContext = new AnalisesViewModel (Navigation);
 
 			if (Device.OS == TargetPlatform.Android) {
 				var fab = new FloatingActionButtonView () {
@@ -62,6 +40,15 @@ namespace Solum
 				var item = new ToolbarItem ("Add", "ic_add", async () => await Navigation.PushAsync (new AnalisePage ()));
 				this.ToolbarItems.Add (item);
 			}
+		}
+
+		void OnEdit(object sender, EventArgs e){
+			(BindingContext as AnalisesViewModel).EditarCommand.Execute (sender);
+		}
+
+		void OnDelete (object sender, EventArgs e)
+		{
+			(BindingContext as AnalisesViewModel).ExcluirCommand.Execute (sender);
 		}
 	}
 }

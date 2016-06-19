@@ -10,6 +10,7 @@
 			HasUnevenRows="true" 
 			IsGroupingEnabled="true"
 			SeparatorColor="#C8C7CC"
+			ItemsSource="{Binding Analises}"
 			GroupDisplayBinding="{Binding Key}"
 			AbsoluteLayout.LayoutFlags="All"
            	AbsoluteLayout.LayoutBounds="0,0,1,1">
@@ -24,6 +25,12 @@
 							<Label Text="{Binding Talhao}" Grid.Row="0" TextColor="Black"/>
 							<Label Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="#757575" VerticalTextAlignment="Start"/>
 						</Grid>
+						<ViewCell.ContextActions>
+				            <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit"
+				               	Text="Editar" />
+				            <MenuItem CommandParameter="{Binding .}" Clicked="OnDelete"
+				               	Text="Deletar" IsDestructive="True" />
+				         </ViewCell.ContextActions>
 					</ViewCell>
 				</DataTemplate>
 			</ListView.ItemTemplate>

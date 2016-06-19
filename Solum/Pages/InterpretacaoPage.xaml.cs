@@ -28,10 +28,23 @@ namespace Solum.Pages
 			BindingContext = new InterpretacaoViewModel (Navigation, analise);
 			InitializeComponent ();
 
-			var item = new ToolbarItem ("Salvar", "ic_save", ()=> GeneratePdf());
+			var item = new ToolbarItem {
+				Icon = "ic_save",
+			};
+			item.Clicked += OnSalvarTapped;
+
 			this.ToolbarItems.Add (item);
-			var item2 = new ToolbarItem("PDF", "ic_pdf", () => GeneratePdf());
-			this.ToolbarItems.Add(item2);
+		}
+
+		async void OnSalvarTapped (object sender, EventArgs e)
+		{
+			var action = await DisplayActionSheet (null, "Cancelar", null, "Salvar", "Salvar e exportar");
+			if (action == "Salvar") {
+				await Navigation.PopToRootAsync ();
+			} else if (action == "Salvar e exportar") {
+				GeneratePdf ();
+				await Navigation.PopToRootAsync ();
+			}
 		}
 
 		void GeneratePdf()
