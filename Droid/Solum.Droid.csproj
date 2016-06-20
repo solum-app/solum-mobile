@@ -151,6 +151,31 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_save.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_pdf.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_pdf.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_analises.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_analises.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_analises.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_analises.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_analises.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_nova_analise.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_nova_analise.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_nova_analise.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_nova_analise.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_nova_analise.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_sobre.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_sobre.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_sobre.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_sobre.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_sobre.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_editar.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_editar.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_editar.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_editar.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_editar.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_excluir.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_excluir.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_excluir.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_excluir.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_excluir.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

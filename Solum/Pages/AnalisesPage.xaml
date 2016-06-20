@@ -27,9 +27,9 @@
 						</Grid>
 						<ViewCell.ContextActions>
 				            <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit"
-				               	Text="Editar" />
+				               	Text="Editar" Icon="ic_editar" />
 				            <MenuItem CommandParameter="{Binding .}" Clicked="OnDelete"
-				               	Text="Deletar" IsDestructive="True" />
+				               	Text="Deletar" IsDestructive="True" Icon="ic_excluir" />
 				         </ViewCell.ContextActions>
 					</ViewCell>
 				</DataTemplate>
