@@ -160,16 +160,16 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float _siliteEntry;
-		public float SiliteEntry
+		float _silteEntry;
+		public float SilteEntry
 		{
 			get
 			{
-				return _siliteEntry;
+				return _silteEntry;
 			}
 			set
 			{
-				SetPropertyChanged(ref _siliteEntry, value);
+				SetPropertyChanged(ref _silteEntry, value);
 			}
 		}
 
@@ -197,7 +197,63 @@ namespace Solum.ViewModel
 		}
 
 		protected async Task ExecuteButtonClickedCommand()
-		{	
+		{
+			if (PhEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para pH", "OK");
+				return;
+			}
+			if (PEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para P", "OK");
+				return;
+			}
+			if (KEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para K", "OK");
+				return;
+			}
+			if (CaEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para Ca", "OK");
+				return;
+			}
+			if (MgEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para Mg", "OK");
+				return;
+			}
+			if (AlEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para Al", "OK");
+				return;
+			}
+			if (HEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para H", "OK");
+				return;
+			}
+			if (MateriaOrganicaEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para Materia Orgânica", "OK");
+				return;
+			}
+			if (AreiaEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para Areia", "OK");
+				return;
+			}
+			if (SilteEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para Silte", "OK");
+				return;
+			}
+			if (ArgilaEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para Argila", "OK");
+				return;
+			}
+
 			var analise = new Analise (){
 				Fazenda = FazendaEntry,
 				Talhao = TalhaoEntry,
@@ -211,7 +267,7 @@ namespace Solum.ViewModel
 				H = HEntry,
 				MateriaOrganica = MateriaOrganicaEntry,
 				Areia = AreiaEntry,
-				Silte = SiliteEntry,
+				Silte = SilteEntry,
 				Argila = ArgilaEntry
 			};
 
