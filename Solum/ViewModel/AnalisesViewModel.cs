@@ -6,36 +6,23 @@ using Solum.Models;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Realms;
+using Solum.Pages;
 
 namespace Solum.ViewModel
 {
 	public class AnalisesViewModel : BaseViewModel
 	{
+
+		IList<Analise> analises;
+
 		public AnalisesViewModel (INavigation navigation) : base(navigation)
 		{
-			var list = new List<Analise> ();
+			var realm = Realm.GetInstance ();
 
-			for (int i = 0; i < 5; i++) {
-				var analise = new Analise ();
-				analise.Fazenda = "Fazenda Santo Augustinho";
-				analise.Talhao = "Talhão " + (i + 1);
-				analise.Data = DateTime.Now;
+			analises = realm.All<Analise> ().OrderBy (e => e.Fazenda).ToList ();
 
-				list.Add (analise);
-
-				var analise2 = new Analise ();
-				analise2.Fazenda = "Fazenda Esperança";
-				analise2.Talhao = "Talhão " + (i + 1);
-				analise2.Data = DateTime.Now;
-
-				list.Add (analise2);
-			}
-
-			var groupList =
-				list.OrderBy (a => a.Fazenda)
-					.GroupBy (a => a.Fazenda).ToList ();
-
-			Analises = new ObservableCollection<IGrouping<string, Analise>> (groupList);
+			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda));
 		}
 
 		IList<IGrouping<string, Analise>> _analises;
@@ -53,13 +40,24 @@ namespace Solum.ViewModel
 
 		public Command ExcluirCommand {
 			get {
-				return _excluirCommand ?? (_excluirCommand = new Command (async (obj) => await ExecuteExcluirCommand (obj)));
+				return _excluirCommand ?? (_excluirCommand = new Command ((obj) => ExecuteExcluirCommand (obj)));
 			}
 		}
 
-		protected async Task ExecuteExcluirCommand (object obj)
+		protected void ExecuteExcluirCommand (object obj)
 		{
-			Debug.WriteLine ("Excluir");
+			var analise = (obj as Analise);
+
+			var realm = Realm.GetInstance ();
+
+			using (var trans = realm.BeginWrite ()) {
+				realm.Remove (analise);
+				trans.Commit ();
+			}
+
+			analises.Remove (analise);
+
+			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda));
 		}
 
 		private Command _editarCommand;
@@ -72,7 +70,9 @@ namespace Solum.ViewModel
 
 		protected async Task ExecuteEditarCommand (object obj)
 		{
-			Debug.WriteLine ("Editar");
+			var analise = (obj as Analise);
+
+			await Navigation.PushAsync (new AnalisePage (analise));
 		}
 	}
 }

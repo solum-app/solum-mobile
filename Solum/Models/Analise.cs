@@ -1,11 +1,19 @@
 ﻿using System;
 using Solum.Handler;
+using Realms;
 
 
 namespace Solum.Models
 {
-	public class Analise
+	public class Analise : RealmObject
 	{
+
+		[ObjectId]
+		public int Id {
+			get;
+			set;
+		}
+
 		public string Fazenda {
 			get;
 			set;
@@ -16,7 +24,7 @@ namespace Solum.Models
 			set;
 		}
 
-		public DateTime Data {
+		public DateTimeOffset Data {
 			get;
 			set;
 		}
@@ -75,6 +83,7 @@ namespace Solum.Models
 			set; 
 		}
 
+		[Ignored]
 		public float SB { 
 			get
 			{
@@ -82,6 +91,7 @@ namespace Solum.Models
 			}
 		}
 
+		[Ignored]
 		public float CTC { 
 			get
 			{
@@ -89,6 +99,7 @@ namespace Solum.Models
 			}
 		}
 
+		[Ignored]
 		public float V { 
 			get
 			{
@@ -96,6 +107,7 @@ namespace Solum.Models
 			}
 		}
 
+		[Ignored]
 		public float M { 
 			get
 			{
@@ -103,6 +115,7 @@ namespace Solum.Models
 			}
 		}
 
+		[Ignored]
 		public float CaMg {
 			get
 			{
@@ -110,6 +123,7 @@ namespace Solum.Models
 			}
 		}
 
+		[Ignored]
 		public float CaK {
 			get
 			{
@@ -117,6 +131,7 @@ namespace Solum.Models
 			} 
 		}
 
+		[Ignored]
 		public float MgK {
 			get
 			{

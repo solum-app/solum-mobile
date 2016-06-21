@@ -2,6 +2,9 @@
 using Xamarin.Forms;
 using Solum.Models;
 using Solum.Handlers;
+using System.Threading.Tasks;
+using Realms;
+using System.Linq;
 
 namespace Solum.ViewModel
 {
@@ -191,6 +194,54 @@ namespace Solum.ViewModel
 			set
 			{
 				SetPropertyChanged(ref _interpretacaoMo, value);
+			}
+		}
+
+		public void SalvarAnalise ()
+		{
+			var realm = Realm.GetInstance ();
+
+			if (Analise.Id != default(int)){
+				var realmObject = realm.All<Analise> ().First (e => e.Id == Analise.Id);
+				using (var transaction = realm.BeginWrite ()) {
+					realmObject.Al = Analise.Al;
+					realmObject.Areia = Analise.Areia;
+					realmObject.Argila = Analise.Argila;
+					realmObject.Ca = Analise.Ca;
+					realmObject.Data = Analise.Data;
+					realmObject.Fazenda = Analise.Fazenda;
+					realmObject.H = Analise.H;
+					realmObject.K = Analise.K;
+					realmObject.MateriaOrganica = Analise.MateriaOrganica;
+					realmObject.Mg = Analise.Mg;
+					realmObject.P = Analise.P;
+					realmObject.Ph = Analise.Ph;
+					realmObject.Silte = Analise.Silte;
+					realmObject.Talhao = Analise.Talhao;
+
+					transaction.Commit ();
+				}
+			} else {
+				using (var transaction = realm.BeginWrite ()) {
+					var realmObject = realm.CreateObject<Analise> ();
+
+					realmObject.Al = Analise.Al;
+					realmObject.Areia = Analise.Areia;
+					realmObject.Argila = Analise.Argila;
+					realmObject.Ca = Analise.Ca;
+					realmObject.Data = Analise.Data;
+					realmObject.Fazenda = Analise.Fazenda;
+					realmObject.H = Analise.H;
+					realmObject.K = Analise.K;
+					realmObject.MateriaOrganica = Analise.MateriaOrganica;
+					realmObject.Mg = Analise.Mg;
+					realmObject.P = Analise.P;
+					realmObject.Ph = Analise.Ph;
+					realmObject.Silte = Analise.Silte;
+					realmObject.Talhao = Analise.Talhao;
+
+					transaction.Commit ();
+				}
 			}
 		}
 	}

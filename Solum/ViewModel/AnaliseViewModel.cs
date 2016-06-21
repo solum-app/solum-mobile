@@ -9,9 +9,31 @@ namespace Solum.ViewModel
 {
 	public class AnaliseViewModel : BaseViewModel
 	{
+		Analise analise;
+
 		public AnaliseViewModel (INavigation navigation):base(navigation)
 		{
 			
+		}
+
+		public AnaliseViewModel (INavigation navigation, Analise analise) : base (navigation)
+		{
+			FazendaEntry = analise.Fazenda;
+			TalhaoEntry = analise.Talhao;
+			DataEntry = analise.Data;
+			PhEntry = analise.Ph;
+			PEntry = analise.P;
+			KEntry = analise.K;
+			CaEntry = analise.Ca;
+			MgEntry = analise.Mg;
+			AlEntry = analise.Al;
+			HEntry = analise.H;
+			MateriaOrganicaEntry = analise.MateriaOrganica;
+			AreiaEntry = analise.Areia;
+			SiliteEntry = analise.Silte;
+			ArgilaEntry = analise.Argila;
+
+			this.analise = analise;
 		}
 
 		string _fazenda;
@@ -33,8 +55,8 @@ namespace Solum.ViewModel
 				SetPropertyChanged(ref _talhao, value);
 			}
 		}
-		DateTime _data = DateTime.Now;
-		public DateTime DataEntry {
+		DateTimeOffset _data = DateTimeOffset.Now;
+		public DateTimeOffset DataEntry {
 			get{
 				return _data;
 			}
@@ -269,22 +291,25 @@ namespace Solum.ViewModel
 			//	return;
 			//}
 
-			var analise = new Analise (){
-				Fazenda = FazendaEntry,
-				Talhao = TalhaoEntry,
-				Data = DataEntry,
-				Ph = PhEntry,
-				P = PEntry,
-				K = KEntry,
-				Ca = CaEntry,
-				Mg = MgEntry,
-				Al = AlEntry,
-				H = HEntry,
-				MateriaOrganica = MateriaOrganicaEntry,
-				Areia = AreiaEntry,
-				Silte = SilteEntry,
-				Argila = ArgilaEntry
-			};
+		
+			if (analise == default(Analise)){
+				analise = new Analise () {
+					Fazenda = FazendaEntry,
+					Talhao = TalhaoEntry,
+					Data = DataEntry,
+					Ph = PhEntry,
+					P = PEntry,
+					K = KEntry,
+					Ca = CaEntry,
+					Mg = MgEntry,
+					Al = AlEntry,
+					H = HEntry,
+					MateriaOrganica = MateriaOrganicaEntry,
+					Areia = AreiaEntry,
+					Silte = SiliteEntry,
+					Argila = ArgilaEntry
+				};
+			}
 
 			await Navigation.PushAsync (new InterpretacaoPage (analise));
 		}

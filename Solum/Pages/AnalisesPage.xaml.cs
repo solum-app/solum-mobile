@@ -43,12 +43,14 @@ namespace Solum
 		}
 
 		void OnEdit(object sender, EventArgs e){
-			(BindingContext as AnalisesViewModel).EditarCommand.Execute (sender);
+			var analise = (sender as MenuItem).CommandParameter;
+			(BindingContext as AnalisesViewModel).EditarCommand.Execute (analise);
 		}
 
 		void OnDelete (object sender, EventArgs e)
 		{
-			(BindingContext as AnalisesViewModel).ExcluirCommand.Execute (sender);
+			var analise = (sender as MenuItem).CommandParameter;
+			(BindingContext as AnalisesViewModel).ExcluirCommand.Execute (analise);
 		}
 	}
 }

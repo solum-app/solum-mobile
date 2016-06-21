@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using Solum.ViewModel;
+using Solum.Models;
 
 namespace Solum.Pages
 {
@@ -11,6 +12,14 @@ namespace Solum.Pages
 
 			InitializeComponent ();
 			BindingContext = new AnaliseViewModel (Navigation);
+		}
+
+		public AnalisePage (Analise analise)
+		{
+			NavigationPage.SetBackButtonTitle (this, "Voltar");
+
+			InitializeComponent ();
+			BindingContext = new AnaliseViewModel (Navigation, analise);
 		}
 	}
 }

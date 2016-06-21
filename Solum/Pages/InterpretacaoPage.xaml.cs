@@ -39,10 +39,13 @@ namespace Solum.Pages
 		async void OnSalvarTapped (object sender, EventArgs e)
 		{
 			var action = await DisplayActionSheet (null, "Cancelar", null, "Salvar", "Salvar e exportar");
+
 			if (action == "Salvar") {
+				(BindingContext as InterpretacaoViewModel).SalvarAnalise ();
 				await Navigation.PopToRootAsync ();
 			} else if (action == "Salvar e exportar") {
 				GeneratePdf ();
+				(BindingContext as InterpretacaoViewModel).SalvarAnalise ();
 				await Navigation.PopToRootAsync ();
 			}
 		}
