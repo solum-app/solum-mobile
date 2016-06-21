@@ -30,7 +30,7 @@ namespace Solum.ViewModel
 			HEntry = analise.H;
 			MateriaOrganicaEntry = analise.MateriaOrganica;
 			AreiaEntry = analise.Areia;
-			SiliteEntry = analise.Silte;
+			SilteEntry = analise.Silte;
 			ArgilaEntry = analise.Argila;
 
 			this.analise = analise;
@@ -306,7 +306,7 @@ namespace Solum.ViewModel
 					H = HEntry,
 					MateriaOrganica = MateriaOrganicaEntry,
 					Areia = AreiaEntry,
-					Silte = SiliteEntry,
+					Silte = SilteEntry,
 					Argila = ArgilaEntry
 				};
 			}
