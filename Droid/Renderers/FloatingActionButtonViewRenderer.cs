@@ -1,5 +1,5 @@
 ﻿using System;
-using Solum.Rederers;
+using Solum.Renderers;
 using Xamarin.Forms;
 using Solum.Droid.Renderers;
 using Xamarin.Forms.Platform.Android;

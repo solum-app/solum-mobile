@@ -4,6 +4,21 @@ using Xamarin.Forms;
 
 namespace Solum.Handlers
 {
+
+	public class IverseBoolConverter : IValueConverter
+	{
+		public static IverseBoolConverter Instance = new IverseBoolConverter();
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return !(bool)value;
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return !(bool)value;
+		}
+	}
+
 	public class TexturaPValueConverter : IValueConverter
 	{
 		public static TexturaPValueConverter Instance = new TexturaPValueConverter();

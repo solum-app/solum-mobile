@@ -183,6 +183,8 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_excluir.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_excluir.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_excluir.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

@@ -4,9 +4,21 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="Solum.AnalisesPage" 
 	xmlns:renderers="clr-namespace:Solum.Renderers"
+	xmlns:handlers="clr-namespace:Solum.Handlers"
 	Title="Análises">
 	<AbsoluteLayout x:Name="absolute">
+
+		<Label
+			AbsoluteLayout.LayoutFlags="All"
+           	AbsoluteLayout.LayoutBounds="0,0,1,1"
+           	IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
+			VerticalOptions="Center"
+			HorizontalOptions="Center"
+			FontSize="Medium"
+			Text="Nenhuma análise salva"/>
+		
 		<renderers:BindableListView 
+			IsVisible="{Binding HasItems}"
 			x:Name="analisesList"
 			HasUnevenRows="true" 
 			IsGroupingEnabled="true"

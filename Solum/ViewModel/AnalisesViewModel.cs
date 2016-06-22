@@ -25,6 +25,8 @@ namespace Solum.ViewModel
 
 			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda));
 
+			HasItems = Analises.Count > 0;
+
 			MessagingCenter.Subscribe<UpdateAnalisesMessage> (
 				this, UpdateAnalisesMessage.UpdateAnalises, UpdateAnalises
 			);
@@ -37,6 +39,8 @@ namespace Solum.ViewModel
 			analises = realm.All<Analise> ().OrderBy (e => e.Fazenda).ToList ();
 
 			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda));
+
+			HasItems = Analises.Count > 0;
 		}
 
 		IList<IGrouping<string, Analise>> _analises;
@@ -46,6 +50,19 @@ namespace Solum.ViewModel
 			}
 			set {
 				SetPropertyChanged (ref _analises, value);
+			}
+		}
+
+		bool _hasItems;
+		public bool HasItems
+		{
+			get
+			{
+				return _hasItems;
+			}
+			set
+			{
+				SetPropertyChanged(ref _hasItems, value);
 			}
 		}
 
@@ -72,6 +89,8 @@ namespace Solum.ViewModel
 			analises.Remove (analise);
 
 			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda));
+
+			HasItems = Analises.Count > 0;
 		}
 
 		private Command _editarCommand;
