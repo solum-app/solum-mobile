@@ -9,7 +9,7 @@ namespace Solum.ViewModel
 {
 	public class AnaliseViewModel : BaseViewModel
 	{
-		Analise analise;
+		Analise realmAnalise;
 
 		public AnaliseViewModel (INavigation navigation):base(navigation)
 		{
@@ -33,7 +33,7 @@ namespace Solum.ViewModel
 			SilteEntry = analise.Silte;
 			ArgilaEntry = analise.Argila;
 
-			this.analise = analise;
+			realmAnalise = analise;
 		}
 
 		string _fazenda;
@@ -55,6 +55,7 @@ namespace Solum.ViewModel
 				SetPropertyChanged(ref _talhao, value);
 			}
 		}
+
 		DateTimeOffset _data = DateTimeOffset.Now;
 		public DateTimeOffset DataEntry {
 			get{
@@ -208,6 +209,17 @@ namespace Solum.ViewModel
 			}
 		}
 
+		Command _dateSelectedCommand;
+		public Command DateSelectedCommand {
+			get {
+				return _dateSelectedCommand ?? (_dateSelectedCommand = new Command ((obj) => ExecuteDateSelectedCommand (obj)));
+			}
+		}
+
+		protected void ExecuteDateSelectedCommand (object parameter)
+		{
+			_data = (DateTime)parameter;
+		}
 
 		Command _buttonClickedCommand;
 		public Command ButtonClickedCommand
@@ -292,26 +304,29 @@ namespace Solum.ViewModel
 			//}
 
 		
-			if (analise == default(Analise)){
-				analise = new Analise () {
-					Fazenda = FazendaEntry,
-					Talhao = TalhaoEntry,
-					Data = DataEntry,
-					Ph = PhEntry,
-					P = PEntry,
-					K = KEntry,
-					Ca = CaEntry,
-					Mg = MgEntry,
-					Al = AlEntry,
-					H = HEntry,
-					MateriaOrganica = MateriaOrganicaEntry,
-					Areia = AreiaEntry,
-					Silte = SilteEntry,
-					Argila = ArgilaEntry
-				};
-			}
+			var analise = new Analise () {
+				Fazenda = FazendaEntry,
+				Talhao = TalhaoEntry,
+				Data = DataEntry,
+				Ph = PhEntry,
+				P = PEntry,
+				K = KEntry,
+				Ca = CaEntry,
+				Mg = MgEntry,
+				Al = AlEntry,
+				H = HEntry,
+				MateriaOrganica = MateriaOrganicaEntry,
+				Areia = AreiaEntry,
+				Silte = SilteEntry,
+				Argila = ArgilaEntry
+			};
 
-			await Navigation.PushAsync (new InterpretacaoPage (analise));
+			if (realmAnalise == default(Analise))
+			{
+				await Navigation.PushAsync (new InterpretacaoPage (analise, false));
+			} else {
+				await Navigation.PushAsync (new InterpretacaoPage (analise, realmAnalise, false));
+			}
 		}
 	}
 }

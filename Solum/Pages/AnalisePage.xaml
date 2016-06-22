@@ -2,6 +2,7 @@
 <ContentPage 
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:effects="clr-namespace:Solum.Effects"
+	xmlns:renderers="clr-namespace:Solum.Renderers"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="Solum.Pages.AnalisePage"
 	Title="Nova Análise">
@@ -89,13 +90,13 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<Label Text="Data" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
-				<DatePicker Date="{Binding DataEntry}" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="16,0">
+				<renderers:BindableDatePicker Date="{Binding DataEntry}" DateSelectedCommand="{Binding DateSelectedCommand}" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="16,0">
 					<DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
 					<DatePicker.Effects>
 				        <effects:NoBorderEffect/>
 						<effects:TextSizeEffect TextSize="14"/>
 				    </DatePicker.Effects>
-				</DatePicker>
+				</renderers:BindableDatePicker>
 			</Grid>
 			<BoxView BackgroundColor="#C8C7CC" VerticalOptions="End">
 				<BoxView.HeightRequest>

@@ -5,13 +5,27 @@ using Solum.Handlers;
 using System.Threading.Tasks;
 using Realms;
 using System.Linq;
+using Solum.Messages;
 
 namespace Solum.ViewModel
 {
 	public class InterpretacaoViewModel : BaseViewModel
 	{
+
+		Analise realmAnalise;
+
 		public InterpretacaoViewModel (INavigation navigation, Analise analise) : base(navigation)
 		{
+			Init (analise);
+		}
+
+		public InterpretacaoViewModel (INavigation navigation, Analise analise, Analise realmAnalise) : base (navigation)
+		{
+			this.realmAnalise = realmAnalise;
+			Init (analise);
+		}
+
+		void Init(Analise analise) {
 			Analise = analise;
 			InterpretacaoTextura = InterpretaHandler.InterpretaTextura (analise.Argila, analise.Silte);
 			InterpretacaoPh = InterpretaHandler.InterpretaPh (analise.Ph);
@@ -25,7 +39,6 @@ namespace Solum.ViewModel
 			InterpretacaoV = InterpretaHandler.InterpretaV (analise.V);
 			InterpretacaoCtc = InterpretaHandler.InterpretaCtc (analise.CTC, InterpretacaoTextura);
 			InterpretacaoMo = InterpretaHandler.InterpretaMo (analise.MateriaOrganica, InterpretacaoTextura);
-
 		}
 
 		Analise _analise;
@@ -201,48 +214,51 @@ namespace Solum.ViewModel
 		{
 			var realm = Realm.GetInstance ();
 
-			if (Analise.Id != default(int)){
-				var realmObject = realm.All<Analise> ().First (e => e.Id == Analise.Id);
+			if (realmAnalise == default(Analise)){
 				using (var transaction = realm.BeginWrite ()) {
-					realmObject.Al = Analise.Al;
-					realmObject.Areia = Analise.Areia;
-					realmObject.Argila = Analise.Argila;
-					realmObject.Ca = Analise.Ca;
-					realmObject.Data = Analise.Data;
-					realmObject.Fazenda = Analise.Fazenda;
-					realmObject.H = Analise.H;
-					realmObject.K = Analise.K;
-					realmObject.MateriaOrganica = Analise.MateriaOrganica;
-					realmObject.Mg = Analise.Mg;
-					realmObject.P = Analise.P;
-					realmObject.Ph = Analise.Ph;
-					realmObject.Silte = Analise.Silte;
-					realmObject.Talhao = Analise.Talhao;
+					realmAnalise = realm.CreateObject<Analise> ();
+					realmAnalise.Al = Analise.Al;
+					realmAnalise.Areia = Analise.Areia;
+					realmAnalise.Argila = Analise.Argila;
+					realmAnalise.Ca = Analise.Ca;
+					realmAnalise.Data = Analise.Data;
+					realmAnalise.Fazenda = Analise.Fazenda;
+					realmAnalise.H = Analise.H;
+					realmAnalise.K = Analise.K;
+					realmAnalise.MateriaOrganica = Analise.MateriaOrganica;
+					realmAnalise.Mg = Analise.Mg;
+					realmAnalise.P = Analise.P;
+					realmAnalise.Ph = Analise.Ph;
+					realmAnalise.Silte = Analise.Silte;
+					realmAnalise.Talhao = Analise.Talhao;
 
 					transaction.Commit ();
 				}
 			} else {
 				using (var transaction = realm.BeginWrite ()) {
-					var realmObject = realm.CreateObject<Analise> ();
-
-					realmObject.Al = Analise.Al;
-					realmObject.Areia = Analise.Areia;
-					realmObject.Argila = Analise.Argila;
-					realmObject.Ca = Analise.Ca;
-					realmObject.Data = Analise.Data;
-					realmObject.Fazenda = Analise.Fazenda;
-					realmObject.H = Analise.H;
-					realmObject.K = Analise.K;
-					realmObject.MateriaOrganica = Analise.MateriaOrganica;
-					realmObject.Mg = Analise.Mg;
-					realmObject.P = Analise.P;
-					realmObject.Ph = Analise.Ph;
-					realmObject.Silte = Analise.Silte;
-					realmObject.Talhao = Analise.Talhao;
+					realmAnalise.Al = Analise.Al;
+					realmAnalise.Areia = Analise.Areia;
+					realmAnalise.Argila = Analise.Argila;
+					realmAnalise.Ca = Analise.Ca;
+					realmAnalise.Data = Analise.Data;
+					realmAnalise.Fazenda = Analise.Fazenda;
+					realmAnalise.H = Analise.H;
+					realmAnalise.K = Analise.K;
+					realmAnalise.MateriaOrganica = Analise.MateriaOrganica;
+					realmAnalise.Mg = Analise.Mg;
+					realmAnalise.P = Analise.P;
+					realmAnalise.Ph = Analise.Ph;
+					realmAnalise.Silte = Analise.Silte;
+					realmAnalise.Talhao = Analise.Talhao;
 
 					transaction.Commit ();
 				}
 			}
+
+			MessagingCenter.Send<UpdateAnalisesMessage> (
+				new UpdateAnalisesMessage (), 
+				UpdateAnalisesMessage.UpdateAnalises
+			);
 		}
 	}
 }

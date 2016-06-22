@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Solum.Rederers
+namespace Solum.Renderers
 {
 	public class FloatingActionButtonView : View
 	{

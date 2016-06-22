@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Solum.Rederers
+namespace Solum.Renderers
 {
 	public enum FloatingActionButtonSize
 	{

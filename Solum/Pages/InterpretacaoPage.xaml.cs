@@ -23,15 +23,34 @@ namespace Solum.Pages
 		Syncfusion.Drawing.Color white = Syncfusion.Drawing.Color.FromArgb(255, 255, 255, 255);
 		Syncfusion.Drawing.Color violet = Syncfusion.Drawing.Color.FromArgb(255, 151, 108, 174);
 
-		public InterpretacaoPage (Analise analise)
+		public InterpretacaoPage (Analise analise, bool isVisualizacao)
 		{
 			BindingContext = new InterpretacaoViewModel (Navigation, analise);
+			Init (isVisualizacao);
+		}
+
+		public InterpretacaoPage (Analise analise, Analise realmAnalise, bool isVisualizacao)
+		{
+			BindingContext = new InterpretacaoViewModel (Navigation, analise, realmAnalise);
+			Init (isVisualizacao);
+		}
+
+		void Init(bool isVisualizacao) {
 			InitializeComponent ();
 
-			var item = new ToolbarItem {
-				Icon = "ic_save",
-			};
-			item.Clicked += OnSalvarTapped;
+			ToolbarItem item;
+
+			if (isVisualizacao) {
+				item = new ToolbarItem {
+					Icon = "ic_pdf",
+				};
+				item.Clicked += OnPdfTapped;
+			} else {
+				item = new ToolbarItem {
+					Icon = "ic_save",
+				};
+				item.Clicked += OnSalvarTapped;
+			}
 
 			this.ToolbarItems.Add (item);
 		}
@@ -48,6 +67,11 @@ namespace Solum.Pages
 				(BindingContext as InterpretacaoViewModel).SalvarAnalise ();
 				await Navigation.PopToRootAsync ();
 			}
+		}
+
+		void OnPdfTapped(object sender, EventArgs e)
+		{
+			GeneratePdf ();
 		}
 
 		void GeneratePdf()

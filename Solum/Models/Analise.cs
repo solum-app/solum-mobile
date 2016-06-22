@@ -7,13 +7,6 @@ namespace Solum.Models
 {
 	public class Analise : RealmObject
 	{
-
-		[ObjectId]
-		public int Id {
-			get;
-			set;
-		}
-
 		public string Fazenda {
 			get;
 			set;

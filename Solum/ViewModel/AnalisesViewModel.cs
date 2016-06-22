@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Realms;
 using Solum.Pages;
+using Solum.Messages;
 
 namespace Solum.ViewModel
 {
@@ -17,6 +18,19 @@ namespace Solum.ViewModel
 		IList<Analise> analises;
 
 		public AnalisesViewModel (INavigation navigation) : base(navigation)
+		{
+			var realm = Realm.GetInstance ();
+
+			analises = realm.All<Analise> ().OrderBy (e => e.Fazenda).ToList ();
+
+			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda));
+
+			MessagingCenter.Subscribe<UpdateAnalisesMessage> (
+				this, UpdateAnalisesMessage.UpdateAnalises, UpdateAnalises
+			);
+		}
+
+		void UpdateAnalises (object sender)
 		{
 			var realm = Realm.GetInstance ();
 
@@ -73,6 +87,21 @@ namespace Solum.ViewModel
 			var analise = (obj as Analise);
 
 			await Navigation.PushAsync (new AnalisePage (analise));
+		}
+
+		private Command _itemTappedCommand;
+
+		public Command ItemTappedCommand {
+			get {
+				return _itemTappedCommand ?? (_itemTappedCommand = new Command (async (obj) => await ExecuteItemTappedCommand (obj)));
+			}
+		}
+
+		protected async Task ExecuteItemTappedCommand (object obj)
+		{
+			var analise = (obj as Analise);
+
+			await Navigation.PushAsync (new InterpretacaoPage (analise, true));
 		}
 	}
 }

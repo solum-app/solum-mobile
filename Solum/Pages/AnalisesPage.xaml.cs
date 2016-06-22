@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
-using Solum.Models;
 using Solum.Pages;
-using System.Collections.ObjectModel;
-using Solum.Rederers;
-using System.Threading.Tasks;
-using System.Linq;
+using Solum.Renderers;
 using Solum.ViewModel;
 
 namespace Solum
