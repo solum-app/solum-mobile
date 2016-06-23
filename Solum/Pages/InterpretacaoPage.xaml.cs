@@ -91,20 +91,23 @@ namespace Solum.Pages
 			g.DrawImage (PdfImage.FromStream (imgStream), 20, 20, 72, 72);
 
 			PdfFont headerFont = new PdfStandardFont(PdfFontFamily.Helvetica, 16, PdfFontStyle.Bold);
-			PdfFont subHeadingFont = new PdfStandardFont(PdfFontFamily.Helvetica, 14);
-			PdfFont textFont = new PdfStandardFont (PdfFontFamily.Helvetica, 12);
+			PdfFont subHeadingFont = new PdfStandardFont(PdfFontFamily.Helvetica, 12, PdfFontStyle.Bold);
+			PdfFont textFont = new PdfStandardFont (PdfFontFamily.Helvetica, 10);
 
 			//Header 
-			g.DrawString ("Relatório de iterpretação de análise de solo", headerFont, new PdfSolidBrush (black), new PointF (110, 20));
+			g.DrawString ("Relatório de Iterpretação de Análise de Solo", headerFont, new PdfSolidBrush (black), new PointF (110, 20));
 			g.DrawString (analise.Fazenda, subHeadingFont, new PdfSolidBrush (black), new PointF (110, 52));
 			g.DrawString ("Talhão: " + analise.Talhao, textFont, new PdfSolidBrush (black), new PointF (110, 74));
 			g.DrawString (String.Format ("{0:dd/MM/yyyy}", analise.Data), textFont, new PdfSolidBrush (black), new PointF (page.Graphics.ClientSize.Width - 80, 25));
 			g.DrawRectangle (new PdfSolidBrush (green), new RectangleF (0, 105, page.Graphics.ClientSize.Width, 5));
 
-			g.DrawString ("Propriedade", subHeadingFont, new PdfSolidBrush (black), new PointF (25, 150));
-			g.DrawString ("Valor atual", subHeadingFont, new PdfSolidBrush (black), new PointF (175, 150));
-			g.DrawString ("Nível adequado", subHeadingFont, new PdfSolidBrush (black), new PointF (325, 150));
-			g.DrawString ("Classe", subHeadingFont, new PdfSolidBrush (black), new PointF (475, 150));
+			var textura = (BindingContext as InterpretacaoViewModel).InterpretacaoTextura;
+			g.DrawString ("Textura: " + textura, subHeadingFont, new PdfSolidBrush (black), new PointF (25, 130));
+
+			g.DrawString ("Propriedade", subHeadingFont, new PdfSolidBrush (black), new PointF (25, 160));
+			g.DrawString ("Valor atual", subHeadingFont, new PdfSolidBrush (black), new PointF (175, 160));
+			g.DrawString ("Nível adequado", subHeadingFont, new PdfSolidBrush (black), new PointF (325, 160));
+			g.DrawString ("Classe", subHeadingFont, new PdfSolidBrush (black), new PointF (475, 160));
 
 
 			//pH (CaCl2)
@@ -172,7 +175,7 @@ namespace Solum.Pages
 
 			//m%
 			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.M.ToString ();
-			valorAdequado = "-";
+			valorAdequado = "Baixo";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoM;
 
 			y = BodyContent (g, "m%", valorAtual, valorAdequado, classe, y, white);
@@ -202,15 +205,15 @@ namespace Solum.Pages
 
 		private float BodyContent (PdfGraphics pg, string propriedade, string valorAtual, string valorAdequado, string classe, float yPosition, Syncfusion.Drawing.Color color)
 		{
-			PdfFont textFont = new PdfStandardFont (PdfFontFamily.Helvetica, 12);
+			PdfFont textFont = new PdfStandardFont (PdfFontFamily.Helvetica, 10);
 
 			pg.DrawRectangle (new PdfSolidBrush (gray), new RectangleF (20, yPosition, page.Graphics.ClientSize.Width - 40, 30));
 			pg.DrawRectangle (new PdfSolidBrush (color), new RectangleF (21, yPosition + 1, page.Graphics.ClientSize.Width - 42, 28));
 
-			pg.DrawString (propriedade, textFont, new PdfSolidBrush (black), new PointF (25, yPosition + 8));
-			pg.DrawString (valorAtual, textFont, new PdfSolidBrush (black), new PointF (175, yPosition + 8));
-			pg.DrawString (valorAdequado, textFont, new PdfSolidBrush (black), new PointF (325, yPosition + 8));
-			pg.DrawString (classe, textFont, new PdfSolidBrush (black), new PointF (475, yPosition + 8));
+			pg.DrawString (propriedade, textFont, new PdfSolidBrush (black), new PointF (25, yPosition + 9));
+			pg.DrawString (valorAtual, textFont, new PdfSolidBrush (black), new PointF (175, yPosition + 9));
+			pg.DrawString (valorAdequado, textFont, new PdfSolidBrush (black), new PointF (325, yPosition + 9));
+			pg.DrawString (classe, textFont, new PdfSolidBrush (black), new PointF (475, yPosition + 9));
 
 			return yPosition + 29;
 		}
