@@ -93,11 +93,11 @@
     <EmbeddedResource Include="Pages\InterpretacaoPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="teste.jpg" />
     <EmbeddedResource Include="Pages\SobrePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\sobre.html" />
+    <EmbeddedResource Include="ic_solum.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
