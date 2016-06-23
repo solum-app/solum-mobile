@@ -232,76 +232,76 @@ namespace Solum.ViewModel
 
 		protected async Task ExecuteButtonClickedCommand()
 		{
-			//if (string.IsNullOrEmpty(FazendaEntry))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um nome para a Fazenda", "OK");
-			//	return;
-			//}
-			//if (string.IsNullOrEmpty(TalhaoEntry))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira uma identificação para o Talhão", "OK");
-			//	return;
-			//}
-			//if (DataEntry == default(DateTime))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Data", "OK");
-			//	return;
-			//}
-			//if (PhEntry == default(float))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o pH", "OK");
-			//	return;
-			//}
-			//if (PEntry == default(float))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o P", "OK");
-			//	return;
-			//}
-			//if (KEntry == default(float))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o K", "OK");
-			//	return;
-			//}
-			//if (CaEntry == default(float))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Ca", "OK");
-			//	return;
-			//}
-			//if (MgEntry == default(float))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Mg", "OK");
-			//	return;
-			//}
-			//if (AlEntry == default(float))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Al", "OK");
-			//	return;
-			//}
-			//if (HEntry == default(float))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para H", "OK");
-			//	return;
-			//}
-			//if (MateriaOrganicaEntry == default(float))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Materia Orgânica", "OK");
-			//	return;
-			//}
-			//if (AreiaEntry == default(float))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Areia", "OK");
-			//	return;
-			//}
-			//if (SilteEntry == default(float))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Silte", "OK");
-			//	return;
-			//}
-			//if (ArgilaEntry == default(float))
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Argila", "OK");
-			//	return;
-			//}
+			if (string.IsNullOrEmpty(FazendaEntry))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um nome para a Fazenda", "OK");
+				return;
+			}
+			if (string.IsNullOrEmpty(TalhaoEntry))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira uma identificação para o Talhão", "OK");
+				return;
+			}
+			if (DataEntry == default(DateTime))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Data", "OK");
+				return;
+			}
+			if (PhEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o pH", "OK");
+				return;
+			}
+			if (PEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o P", "OK");
+				return;
+			}
+			if (KEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o K", "OK");
+				return;
+			}
+			if (CaEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Ca", "OK");
+				return;
+			}
+			if (MgEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Mg", "OK");
+				return;
+			}
+			if (AlEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Al", "OK");
+				return;
+			}
+			if (HEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para H", "OK");
+				return;
+			}
+			if (MateriaOrganicaEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Materia Orgânica", "OK");
+				return;
+			}
+			if (AreiaEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Areia", "OK");
+				return;
+			}
+			if (SilteEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Silte", "OK");
+				return;
+			}
+			if (ArgilaEntry == default(float))
+			{
+				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Argila", "OK");
+				return;
+			}
 
 		
 			var analise = new Analise () {

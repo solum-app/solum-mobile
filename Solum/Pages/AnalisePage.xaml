@@ -40,7 +40,7 @@
 					</BoxView.HeightRequest>
 				</BoxView>
 				<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
-				<Entry Text="{Binding FazendaEntry}" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Nome da Fazenda" HorizontalTextAlignment="End">
+				<Entry Text="{Binding FazendaEntry}" Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Nome da Fazenda" HorizontalTextAlignment="End">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
 				    </Entry.Effects>
@@ -65,7 +65,7 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
-				<Entry Text="{Binding TalhaoEntry}" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Identificação do Talhão" HorizontalTextAlignment="End">
+				<Entry Text="{Binding TalhaoEntry}" Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Identificação do Talhão" HorizontalTextAlignment="End">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
 				    </Entry.Effects>
