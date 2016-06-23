@@ -13,15 +13,23 @@
 					</Grid.ColumnDefinitions>
 					<Image Source="ic_analises" VerticalOptions="Center" Grid.Column="0"/>
 					<Label Text="Análises" YAlign="Center" Grid.Column="1" FontAttributes="Bold" TextColor="#3E3F41"/>
+					<Grid.GestureRecognizers>
+				        <TapGestureRecognizer
+				                Tapped="OnAnalisesTapped" />
+				  	</Grid.GestureRecognizers>
 				</Grid>
-				<Grid Padding="16,10" ColumnSpacing="24">
+				<!--<Grid Padding="16,10" ColumnSpacing="24">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
 					<Image Source="ic_nova_analise" VerticalOptions="Center" Grid.Column="0"/>
 					<Label Text="Nova análise" YAlign="Center" Grid.Column="1" FontAttributes="Bold" TextColor="#3E3F41"/>
-				</Grid>
+					<Grid.GestureRecognizers>
+				        <TapGestureRecognizer
+				                Tapped="OnNovaAnaliseTapped" />
+				  	</Grid.GestureRecognizers>
+				</Grid>-->
 				<Grid Padding="16,10" ColumnSpacing="24">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto"/>
@@ -29,6 +37,10 @@
 					</Grid.ColumnDefinitions>
 					<Image Source="ic_sobre" VerticalOptions="Center" Grid.Column="0"/>
 					<Label Text="Sobre" YAlign="Center" Grid.Column="1" FontAttributes="Bold" TextColor="#3E3F41"/>
+					<Grid.GestureRecognizers>
+				        <TapGestureRecognizer
+				                Tapped="OnSobreTapped" />
+				  	</Grid.GestureRecognizers>
 				</Grid>
 			</StackLayout>
 		</ContentPage>
