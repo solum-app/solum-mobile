@@ -97,8 +97,8 @@ namespace Solum.Pages
 			//Header 
 			g.DrawString ("Relatório de Iterpretação de Análise de Solo", headerFont, new PdfSolidBrush (black), new PointF (110, 20));
 			g.DrawString (analise.Fazenda, subHeadingFont, new PdfSolidBrush (black), new PointF (110, 52));
-			g.DrawString ("Talhão: " + analise.Talhao, textFont, new PdfSolidBrush (black), new PointF (110, 74));
-			g.DrawString (String.Format ("{0:dd/MM/yyyy}", analise.Data), textFont, new PdfSolidBrush (black), new PointF (page.Graphics.ClientSize.Width - 80, 25));
+			g.DrawString ("Talhão " + analise.Talhao, textFont, new PdfSolidBrush (black), new PointF (110, 74));
+			g.DrawString (String.Format ("{0:dd/MM/yyyy}", analise.Data), textFont, new PdfSolidBrush (black), new PointF (page.Graphics.ClientSize.Width - 75, 25));
 			g.DrawRectangle (new PdfSolidBrush (green), new RectangleF (0, 105, page.Graphics.ClientSize.Width, 5));
 
 			var textura = (BindingContext as InterpretacaoViewModel).InterpretacaoTextura;
