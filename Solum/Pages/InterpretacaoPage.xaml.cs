@@ -11,6 +11,7 @@ using Solum.Interfaces;
 using System.Reflection;
 using System;
 using Solum.Handlers;
+using System.Globalization;
 
 namespace Solum.Pages
 {
@@ -111,74 +112,81 @@ namespace Solum.Pages
 
 
 			//pH (CaCl2)
-			var valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Ph.ToString ();
-			var valorAdequado = "4,9 a 5,5";
+			var valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Ph.ToString ("F", CultureInfo.InvariantCulture);
+			var valorAdequado = "4,81 a 5,50";
 			var classe = (BindingContext as InterpretacaoViewModel).InterpretacaoPh;
 
 			var y = BodyContent (g, "pH (CaCl2)", valorAtual, valorAdequado, classe, 180, grayLight);
 
 			//P
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.P.ToString ();
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.P.ToString ("F", CultureInfo.InvariantCulture);
 			valorAdequado = TexturaPConverter ((BindingContext as InterpretacaoViewModel).InterpretacaoTextura);
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoP;
 
 			y = BodyContent (g, "P", valorAtual, valorAdequado, classe, y, white);
 
+			//K
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.K.ToString("F", CultureInfo.InvariantCulture);
+			valorAdequado = CtcKConverter(analise.CTC);
+			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoP;
+
+			y = BodyContent(g, "K", valorAtual, valorAdequado, classe, y, grayLight);
+
 			//Ca
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Ca.ToString ();
-			valorAdequado = "1,5 a 7,0";
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Ca.ToString ("F", CultureInfo.InvariantCulture);
+			valorAdequado = "1,50 a 7,00";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoCa;
 
-			y = BodyContent (g, "Ca", valorAtual, valorAdequado, classe, y, grayLight);
+			y = BodyContent (g, "Ca", valorAtual, valorAdequado, classe, y, white);
 
 			//Mg
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Mg.ToString ();
-			valorAdequado = "0,5 a 2,0";
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Mg.ToString ("F", CultureInfo.InvariantCulture);
+			valorAdequado = "0,50 a 2,00";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoMg;
 
-			y = BodyContent (g, "Mg", valorAtual, valorAdequado, classe, y, white);
+			y = BodyContent (g, "Mg", valorAtual, valorAdequado, classe, y, grayLight);
 
 			//V(%)
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.V.ToString ();
-			valorAdequado = "36 a 60";
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.V.ToString ("F", CultureInfo.InvariantCulture) + "%";
+			valorAdequado = "35,01 a 60,00";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoV;
 
-			y = BodyContent (g, "V(%)", valorAtual, valorAdequado, classe, y, grayLight);
+			y = BodyContent (g, "V(%)", valorAtual, valorAdequado, classe, y, white);
 
 			//CTC(T)
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.CTC.ToString ();
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.CTC.ToString ("F", CultureInfo.InvariantCulture);
 			valorAdequado = TexturaCTCConverter ((BindingContext as InterpretacaoViewModel).InterpretacaoTextura);
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoCtc;
 
-			y = BodyContent (g, "CTC(T)", valorAtual, valorAdequado, classe, y, white);
+			y = BodyContent (g, "CTC(T)", valorAtual, valorAdequado, classe, y, grayLight);
 
 			//Matéria Orgânica
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.MateriaOrganica.ToString ();
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.MateriaOrganica.ToString ("F", CultureInfo.InvariantCulture);
 			valorAdequado = TexturaMoConverter ((BindingContext as InterpretacaoViewModel).InterpretacaoTextura);
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoMo;
 
-			y = BodyContent (g, "Matéria Orgânica", valorAtual, valorAdequado, classe, y, grayLight);
+			y = BodyContent (g, "Matéria Orgânica", valorAtual, valorAdequado, classe, y, white);
 
 			//Ca/K
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.CaK.ToString ();
-			valorAdequado = "15 a 25";
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.CaK.ToString ("F", CultureInfo.InvariantCulture);
+			valorAdequado = "14,01 a 25,00";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoCaK;
 
-			y = BodyContent (g, "Ca/K", valorAtual, valorAdequado, classe, y, white);
+			y = BodyContent (g, "Ca/K", valorAtual, valorAdequado, classe, y, grayLight);
 
 			//Mg/K
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.MgK.ToString ();
-			valorAdequado = "5 a 15";
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.MgK.ToString ("F", CultureInfo.InvariantCulture);
+			valorAdequado = "4,01 a 15,00";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoMgK;
 
-			y = BodyContent (g, "Mg/K", valorAtual, valorAdequado, classe, y, grayLight);
+			y = BodyContent (g, "Mg/K", valorAtual, valorAdequado, classe, y, white);
 
 			//m%
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.M.ToString ();
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.M.ToString ("F", CultureInfo.InvariantCulture) + "%";
 			valorAdequado = "Baixo";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoM;
 
-			y = BodyContent (g, "m%", valorAtual, valorAdequado, classe, y, white);
+			y = BodyContent (g, "m%", valorAtual, valorAdequado, classe, y, grayLight);
 
 			PdfFont footerBoldFont = new PdfStandardFont (PdfFontFamily.Helvetica, 10, PdfFontStyle.Bold);
 			PdfFont footerFont = new PdfStandardFont (PdfFontFamily.Helvetica, 10);
@@ -219,47 +227,61 @@ namespace Solum.Pages
 		}
 
 		string TexturaPConverter(string textura){
-			switch (textura) {
-			case "Arenosa":
-				return "18,1 a 25";
-			case "Média":
-				return "15,1 a 20";
-			case "Argilosa":
-				return "8,1 a 12";
-			case "Muito argilosa":
-				return "4,1 a 6";
-			default:
-				return "";
+			switch (textura)
+			{
+				case "Arenosa":
+					return "18,01 a 25,00";
+				case "Média":
+					return "15,01 a 20,00";
+				case "Argilosa":
+					return "8,01 a 12,00";
+				case "Muito argilosa":
+					return "4,01 a 6,00";
+				default:
+					return "";
+			}
+		}
+
+		string CtcKConverter(float ctc)
+		{
+			if (ctc < 4)
+			{
+				return "30,01 a 40,00";
+			}
+			else {
+				return "50,01 a 80,00";
 			}
 		}
 
 		string TexturaCTCConverter(string textura){
-			switch (textura) {
-			case "Arenosa":
-				return "4,1 a 6,0";
-			case "Média":
-				return "6,1 a 9,0";
-			case "Argilosa":
-				return "9,1 a 13,5";
-			case "Muito argilosa":
-				return "12,1 a 18,0";
-			default:
-				return "";
+			switch (textura)
+			{
+				case "Arenosa":
+					return "4,01 a 6,00";
+				case "Média":
+					return "6,01 a 9,00";
+				case "Argilosa":
+					return "9,01 a 13,50";
+				case "Muito argilosa":
+					return "12,01 a 18,00";
+				default:
+					return "";
 			}
 		}
 
 		string TexturaMoConverter(string textura){
-			switch (textura) {
-			case "Arenosa":
-				return "11 a 15";
-			case "Média":
-				return "21 a 30";
-			case "Argilosa":
-				return "31 a 45";
-			case "Muito argilosa":
-				return "36 a 52";
-			default:
-				return "";
+			switch (textura)
+			{
+				case "Arenosa":
+					return "10,01 a 15,00";
+				case "Média":
+					return "20,01 a 30,00";
+				case "Argilosa":
+					return "30,01 a 45,00";
+				case "Muito argilosa":
+					return "35,01 a 52,00";
+				default:
+					return "";
 			}
 		}
 	}

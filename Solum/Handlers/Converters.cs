@@ -26,17 +26,18 @@ namespace Solum.Handlers
 		{
 			var textura = (value as string);
 
-			switch (textura) {
-			case "Arenosa":
-				return "18,1 a 25";
-			case "Média":
-				return "15,1 a 20";
-			case "Argilosa":
-				return "8,1 a 12";
-			case "Muito argilosa":
-				return "4,1 a 6";
-			default:
-				return "";
+			switch (textura)
+			{
+				case "Arenosa":
+					return "18,01 a 25,00";
+				case "Média":
+					return "15,01 a 20,00";
+				case "Argilosa":
+					return "8,01 a 12,00";
+				case "Muito argilosa":
+					return "4,01 a 6,00";
+				default:
+					return "";
 			}
 		}
 
@@ -44,17 +45,18 @@ namespace Solum.Handlers
 		{
 			var textura = (value as string);
 
-			switch (textura) {
-			case "Arenosa":
-				return "18,1 a 25";
-			case "Média":
-				return "15,1 a 20";
-			case "Argilosa":
-				return "8,1 a 12";
-			case "Muito argilosa":
-				return "4,1 a 6";
-			default:
-				return "";
+			switch (textura)
+			{
+				case "Arenosa":
+					return "18,01 a 25,00";
+				case "Média":
+					return "15,01 a 20,00";
+				case "Argilosa":
+					return "8,01 a 12,00";
+				case "Muito argilosa":
+					return "4,01 a 6,00";
+				default:
+					return "";
 			}
 		}
 	}
@@ -66,10 +68,12 @@ namespace Solum.Handlers
 		{
 			var ctc = (float)value;
 
-			if (ctc < 4) {
-				return "31 a 40";
-			} else {
-				return "51 a 80";
+			if (ctc < 4)
+			{
+				return "30,01 a 40,00";
+			}
+			else {
+				return "50,01 a 80,00";
 			}
 		}
 
@@ -77,10 +81,12 @@ namespace Solum.Handlers
 		{
 			var ctc = (float)value;
 
-			if (ctc < 4) {
-				return "31 a 40";
-			} else {
-				return "51 a 80";
+			if (ctc < 4)
+			{
+				return "30,01 a 40,00";
+			}
+			else {
+				return "50,01 a 80,00";
 			}
 		}
 	}
@@ -92,17 +98,18 @@ namespace Solum.Handlers
 		{
 			var textura = (value as string);
 
-			switch (textura) {
-			case "Arenosa":
-				return "4,1 a 6,0";
-			case "Média":
-				return "6,1 a 9,0";
-			case "Argilosa":
-				return "9,1 a 13,5";
-			case "Muito argilosa":
-				return "12,1 a 18,0";
-			default:
-				return "";
+			switch (textura)
+			{
+				case "Arenosa":
+					return "4,01 a 6,00";
+				case "Média":
+					return "6,01 a 9,00";
+				case "Argilosa":
+					return "9,01 a 13,50";
+				case "Muito argilosa":
+					return "12,01 a 18,00";
+				default:
+					return "";
 			}
 		}
 
@@ -110,17 +117,18 @@ namespace Solum.Handlers
 		{
 			var textura = (value as string);
 
-			switch (textura) {
-			case "Arenosa":
-				return "4,1 a 6,0";
-			case "Média":
-				return "6,1 a 9,0";
-			case "Argilosa":
-				return "9,1 a 13,5";
-			case "Muito argilosa":
-				return "12,1 a 18,0";
-			default:
-				return "";
+			switch (textura)
+			{
+				case "Arenosa":
+					return "4,01 a 6,00";
+				case "Média":
+					return "6,01 a 9,00";
+				case "Argilosa":
+					return "9,01 a 13,50";
+				case "Muito argilosa":
+					return "12,01 a 18,00";
+				default:
+					return "";
 			}
 		}
 	}
@@ -132,17 +140,18 @@ namespace Solum.Handlers
 		{
 			var textura = (value as string);
 
-			switch (textura) {
-			case "Arenosa":
-				return "11 a 15";
-			case "Média":
-				return "21 a 30";
-			case "Argilosa":
-				return "31 a 45";
-			case "Muito argilosa":
-				return "36 a 52";
-			default:
-				return "";
+			switch (textura)
+			{
+				case "Arenosa":
+					return "10,01 a 15,00";
+				case "Média":
+					return "20,01 a 30,00";
+				case "Argilosa":
+					return "30,01 a 45,00";
+				case "Muito argilosa":
+					return "35,01 a 52,00";
+				default:
+					return "";
 			}
 		}
 
@@ -150,17 +159,18 @@ namespace Solum.Handlers
 		{
 			var textura = (value as string);
 
-			switch (textura) {
-			case "Arenosa":
-				return "11 a 15";
-			case "Média":
-				return "21 a 30";
-			case "Argilosa":
-				return "31 a 45";
-			case "Muito argilosa":
-				return "36 a 52";
-			default:
-				return "";
+			switch (textura)
+			{
+				case "Arenosa":
+					return "10,01 a 15,00";
+				case "Média":
+					return "20,01 a 30,00";
+				case "Argilosa":
+					return "30,01 a 45,00";
+				case "Muito argilosa":
+					return "35,01 a 52,00";
+				default:
+					return "";
 			}
 		}
 	}

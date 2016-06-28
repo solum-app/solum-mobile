@@ -184,7 +184,7 @@ namespace Solum.Handlers
 			if (mgK > 2 && mgK <=4){
 				return "Média";
 			}
-			if (mgK > 5 && mgK <= 15) {
+			if (mgK > 4 && mgK <= 15) {
 				return "Adequanda";
 			} 
 			else {

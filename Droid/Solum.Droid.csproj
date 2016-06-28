@@ -90,6 +90,9 @@
     <Reference Include="Realm">
       <HintPath>..\packages\Realm.0.76.1\lib\MonoAndroid44\Realm.dll</HintPath>
     </Reference>
+    <Reference Include="HockeySDK">
+      <HintPath>..\packages\HockeySDK.Xamarin.4.1.0-beta1\lib\MonoAndroid403\HockeySDK.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Solum\Solum.csproj">

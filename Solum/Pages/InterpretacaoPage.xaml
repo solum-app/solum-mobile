@@ -9,7 +9,7 @@
 		<StackLayout Padding="0,4,0,0" Spacing="0">
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="#3E3F41" />
+					<BoxView WidthRequest="6" BackgroundColor="#009245" />
 					<Grid Padding="8" HorizontalOptions="FillAndExpand">
  					<Grid.RowDefinitions>
  						<RowDefinition  Height="Auto"/>
@@ -45,7 +45,7 @@
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Ph, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="4,9 a 5,5 " HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="4,81 a 5,50" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 				</Grid>
 	 			</StackLayout>
 			</Frame>
@@ -75,6 +75,29 @@
 
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
+					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoK, Converter={x:Static handlers:KCorValueConverter.Instance} }" />
+	 				<Grid Padding="8" HorizontalOptions="FillAndExpand">
+	 					<Grid.RowDefinitions>
+	 						<RowDefinition  Height="Auto"/>
+	 						<RowDefinition  Height="Auto"/>
+	 						<RowDefinition  Height="Auto"/>
+	 					</Grid.RowDefinitions>
+	 					<Grid.ColumnDefinitions>
+	 						<ColumnDefinition Width="Auto"/>
+	 						<ColumnDefinition Width="*"/>
+	 					</Grid.ColumnDefinitions>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="K"/>
+	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoK}" FontSize="Small" HorizontalTextAlignment="End"/>
+	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.K, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding Analise.CTC, Converter={x:Static handlers:CtcKValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 				</Grid>
+	 			</StackLayout>
+			</Frame>
+
+			<Frame Margin="8,4" Padding="0">
+				<StackLayout Spacing="0" Orientation="Horizontal">
 					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoCa, Converter={x:Static handlers:CaMgCorValueConverter.Instance} }" />
 	 				<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
@@ -91,7 +114,7 @@
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Ca, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="1,5 a 7,0" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="1,50 a 7,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 				</Grid>
 	 			</StackLayout>
 			</Frame>
@@ -114,7 +137,7 @@
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Mg, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="0,5 a 2,0" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="0,50 a 2,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 				</Grid>
 	 			</StackLayout>
 			</Frame>
@@ -137,7 +160,7 @@
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.V, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="36 a 60" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="35,01 a 60,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 				</Grid>
 	 			</StackLayout>
 			</Frame>
@@ -206,7 +229,7 @@
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.CaK, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="15 a 25" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="14,01 a 25,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 				</Grid>
 	 			</StackLayout>
 			</Frame>
@@ -229,7 +252,7 @@
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.MgK, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="5 a 15" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="4,01 a 15,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
 	 				</Grid>
 	 			</StackLayout>
 			</Frame>

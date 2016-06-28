@@ -51,8 +51,9 @@
     <MtouchArch>i386</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution: Sidnei Polo (DL45CHGLRM)</CodesignKey>
     <MtouchUseSGen>true</MtouchUseSGen>
+    <CodesignProvision>e8c6b191-823f-4108-a71a-0ae00ebb1468</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -69,7 +70,7 @@
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchDebug>true</MtouchDebug>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution</CodesignKey>
     <MtouchUseSGen>true</MtouchUseSGen>
     <IpaPackageName>
     </IpaPackageName>
@@ -97,6 +98,9 @@
     </Reference>
     <Reference Include="Realm">
       <HintPath>..\packages\Realm.0.76.1\lib\Xamarin.iOS10\Realm.dll</HintPath>
+    </Reference>
+    <Reference Include="HockeySDK">
+      <HintPath>..\packages\HockeySDK.Xamarin.4.1.0-beta1\lib\Xamarin.iOS10\HockeySDK.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

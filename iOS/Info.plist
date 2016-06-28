@@ -6,8 +6,6 @@
 	<string>Solum</string>
 	<key>CFBundleIdentifier</key>
 	<string>br.com.sydy.solum</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -44,5 +42,7 @@
 	<string>Solum</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
 </dict>
 </plist>

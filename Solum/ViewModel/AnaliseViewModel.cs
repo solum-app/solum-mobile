@@ -2,8 +2,8 @@
 using Xamarin.Forms;
 using Solum.Models;
 using System.Threading.Tasks;
-using Solum.Handler;
 using Solum.Pages;
+using System.Globalization;
 
 namespace Solum.ViewModel
 {
@@ -21,17 +21,17 @@ namespace Solum.ViewModel
 			FazendaEntry = analise.Fazenda;
 			TalhaoEntry = analise.Talhao;
 			DataEntry = analise.Data;
-			PhEntry = analise.Ph;
-			PEntry = analise.P;
-			KEntry = analise.K;
-			CaEntry = analise.Ca;
-			MgEntry = analise.Mg;
-			AlEntry = analise.Al;
-			HEntry = analise.H;
-			MateriaOrganicaEntry = analise.MateriaOrganica;
-			AreiaEntry = analise.Areia;
-			SilteEntry = analise.Silte;
-			ArgilaEntry = analise.Argila;
+			PhEntry = analise.Ph.ToString();
+			PEntry = analise.P.ToString();
+			KEntry = analise.K.ToString();
+			CaEntry = analise.Ca.ToString();
+			MgEntry = analise.Mg.ToString();
+			AlEntry = analise.Al.ToString();
+			HEntry = analise.H.ToString();
+			MateriaOrganicaEntry = analise.MateriaOrganica.ToString();
+			AreiaEntry = analise.Areia.ToString();
+			SilteEntry = analise.Silte.ToString();
+			ArgilaEntry = analise.Argila.ToString();
 
 			realmAnalise = analise;
 		}
@@ -66,8 +66,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float _phEntry;
-		public float PhEntry
+		string _phEntry;
+		public string PhEntry
 		{
 			get
 			{
@@ -75,12 +75,12 @@ namespace Solum.ViewModel
 			}
 			set
 			{
-				SetPropertyChanged(ref _phEntry, value);
+				SetPropertyChanged(ref _phEntry, string.Format("{0:0.00}", value));
 			}
 		}
 
-		float _pEntry;
-		public float PEntry
+		string _pEntry;
+		public string PEntry
 		{
 			get
 			{
@@ -92,8 +92,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float _kEntry;
-		public float KEntry
+		string _kEntry;
+		public string KEntry
 		{
 			get
 			{
@@ -105,8 +105,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float _caEntry;
-		public float CaEntry
+		string _caEntry;
+		public string CaEntry
 		{
 			get
 			{
@@ -118,8 +118,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float _mgEntry;
-		public float MgEntry
+		string _mgEntry;
+		public string MgEntry
 		{
 			get
 			{
@@ -131,8 +131,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float _alEntry;
-		public float AlEntry
+		string _alEntry;
+		public string AlEntry
 		{
 			get
 			{
@@ -144,8 +144,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float _hEntry;
-		public float HEntry
+		string _hEntry;
+		public string HEntry
 		{
 			get
 			{
@@ -157,8 +157,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float _materiaOrganicaEntry;
-		public float MateriaOrganicaEntry
+		string _materiaOrganicaEntry;
+		public string MateriaOrganicaEntry
 		{
 			get
 			{
@@ -170,8 +170,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float _areiaEntry;
-		public float AreiaEntry
+		string _areiaEntry;
+		public string AreiaEntry
 		{
 			get
 			{
@@ -183,8 +183,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float _silteEntry;
-		public float SilteEntry
+		string _silteEntry;
+		public string SilteEntry
 		{
 			get
 			{
@@ -196,8 +196,8 @@ namespace Solum.ViewModel
 			}
 		}
 
-		float _argilaEntry;
-		public float ArgilaEntry
+		string _argilaEntry;
+		public string ArgilaEntry
 		{
 			get
 			{
@@ -247,57 +247,57 @@ namespace Solum.ViewModel
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Data", "OK");
 				return;
 			}
-			if (PhEntry == default(float))
+			if (string.IsNullOrEmpty(PhEntry))
 			{
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o pH", "OK");
 				return;
 			}
-			if (PEntry == default(float))
+			if (string.IsNullOrEmpty(PEntry))
 			{
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o P", "OK");
 				return;
 			}
-			if (KEntry == default(float))
+			if (string.IsNullOrEmpty(KEntry))
 			{
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o K", "OK");
 				return;
 			}
-			if (CaEntry == default(float))
+			if (string.IsNullOrEmpty(CaEntry))
 			{
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Ca", "OK");
 				return;
 			}
-			if (MgEntry == default(float))
+			if (string.IsNullOrEmpty(MgEntry))
 			{
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Mg", "OK");
 				return;
 			}
-			if (AlEntry == default(float))
+			if (string.IsNullOrEmpty(AlEntry))
 			{
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Al", "OK");
 				return;
 			}
-			if (HEntry == default(float))
+			if (string.IsNullOrEmpty(HEntry))
 			{
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para H", "OK");
 				return;
 			}
-			if (MateriaOrganicaEntry == default(float))
+			if (string.IsNullOrEmpty(MateriaOrganicaEntry))
 			{
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Materia Orgânica", "OK");
 				return;
 			}
-			if (AreiaEntry == default(float))
+			if (string.IsNullOrEmpty(AreiaEntry))
 			{
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Areia", "OK");
 				return;
 			}
-			if (SilteEntry == default(float))
+			if (string.IsNullOrEmpty(SilteEntry))
 			{
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Silte", "OK");
 				return;
 			}
-			if (ArgilaEntry == default(float))
+			if (string.IsNullOrEmpty(ArgilaEntry))
 			{
 				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Argila", "OK");
 				return;
@@ -308,17 +308,17 @@ namespace Solum.ViewModel
 				Fazenda = FazendaEntry,
 				Talhao = TalhaoEntry,
 				Data = DataEntry,
-				Ph = PhEntry,
-				P = PEntry,
-				K = KEntry,
-				Ca = CaEntry,
-				Mg = MgEntry,
-				Al = AlEntry,
-				H = HEntry,
-				MateriaOrganica = MateriaOrganicaEntry,
-				Areia = AreiaEntry,
-				Silte = SilteEntry,
-				Argila = ArgilaEntry
+				Ph = float.Parse(PhEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				P = float.Parse(PEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				K = float.Parse(KEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Ca = float.Parse(CaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Mg = float.Parse(MgEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Al = float.Parse(AlEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				H = float.Parse(HEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				MateriaOrganica = float.Parse(MateriaOrganicaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Areia = float.Parse(AreiaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Silte = float.Parse(SilteEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Argila = float.Parse(ArgilaEntry.Replace(',', '.'), CultureInfo.InvariantCulture)
 			};
 
 			if (realmAnalise == default(Analise))
