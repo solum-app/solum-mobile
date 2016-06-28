@@ -308,17 +308,17 @@ namespace Solum.ViewModel
 				Fazenda = FazendaEntry,
 				Talhao = TalhaoEntry,
 				Data = DataEntry,
-				Ph = float.Parse(PhEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				P = float.Parse(PEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				K = float.Parse(KEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Ca = float.Parse(CaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Mg = float.Parse(MgEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Al = float.Parse(AlEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				H = float.Parse(HEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				MateriaOrganica = float.Parse(MateriaOrganicaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Areia = float.Parse(AreiaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Silte = float.Parse(SilteEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Argila = float.Parse(ArgilaEntry.Replace(',', '.'), CultureInfo.InvariantCulture)
+				Ph = float.Parse("0" + PhEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				P = float.Parse("0" + PEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				K = float.Parse("0" + KEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Ca = float.Parse("0" + CaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Mg = float.Parse("0" + MgEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Al = float.Parse("0" + AlEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				H = float.Parse("0" + HEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				MateriaOrganica = float.Parse("0" + MateriaOrganicaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Areia = float.Parse("0" + AreiaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Silte = float.Parse("0" + SilteEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Argila = float.Parse("0" + ArgilaEntry.Replace(',', '.'), CultureInfo.InvariantCulture)
 			};
 
 			if (realmAnalise == default(Analise))
