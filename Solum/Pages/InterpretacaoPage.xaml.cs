@@ -111,7 +111,7 @@ namespace Solum.Pages
 			g.DrawString ("Classe", subHeadingFont, new PdfSolidBrush (black), new PointF (475, 160));
 
 
-			//pH (CaCl2)
+			//pH
 			var valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Ph.ToString ("F", CultureInfo.InvariantCulture);
 			var valorAdequado = "4,81 a 5,50";
 			var classe = (BindingContext as InterpretacaoViewModel).InterpretacaoPh;
@@ -160,7 +160,7 @@ namespace Solum.Pages
 
 			y = BodyContent (g, "CTC(T)", valorAtual, valorAdequado, classe, y, grayLight);
 
-			//Matéria Orgânica
+			//M.O.
 			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.MateriaOrganica.ToString ("F", CultureInfo.InvariantCulture);
 			valorAdequado = TexturaMoConverter ((BindingContext as InterpretacaoViewModel).InterpretacaoTextura);
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoMo;
@@ -181,7 +181,7 @@ namespace Solum.Pages
 
 			y = BodyContent (g, "Mg/K", valorAtual, valorAdequado, classe, y, white);
 
-			//m%
+			//m(%)
 			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.M.ToString ("F", CultureInfo.InvariantCulture) + "%";
 			valorAdequado = "Baixo";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoM;
