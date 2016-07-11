@@ -201,7 +201,7 @@
 	 						<ColumnDefinition Width="Auto"/>
 	 						<ColumnDefinition Width="*"/>
 	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="Mat. Org. (g/dm³)"/>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="M.O. (g/dm³)"/>
 	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoMo}" FontSize="Small" HorizontalTextAlignment="End"/>
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.MateriaOrganica, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>

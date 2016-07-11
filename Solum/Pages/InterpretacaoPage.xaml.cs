@@ -165,7 +165,7 @@ namespace Solum.Pages
 			valorAdequado = TexturaMoConverter ((BindingContext as InterpretacaoViewModel).InterpretacaoTextura);
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoMo;
 
-			y = BodyContent (g, "Matéria Orgânica", valorAtual, valorAdequado, classe, y, white);
+			y = BodyContent (g, "M.O.", valorAtual, valorAdequado, classe, y, white);
 
 			//Ca/K
 			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.CaK.ToString ("F", CultureInfo.InvariantCulture);
