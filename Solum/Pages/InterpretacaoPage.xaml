@@ -27,6 +27,7 @@
 				</StackLayout>
 			</Frame>
 
+			<!--pH-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
 					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoPh, Converter={x:Static handlers:PhCorValueConverter.Instance} }" />
@@ -50,6 +51,7 @@
 	 			</StackLayout>
 			</Frame>
 
+			<!--P-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
 					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoP, Converter={x:Static handlers:PCorValueConverter.Instance} }" />
@@ -73,6 +75,7 @@
 	 			</StackLayout>
 			</Frame>
 
+			<!--K-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
 					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoK, Converter={x:Static handlers:KCorValueConverter.Instance} }" />
@@ -96,6 +99,7 @@
 	 			</StackLayout>
 			</Frame>
 
+			<!--Ca-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
 					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoCa, Converter={x:Static handlers:CaMgCorValueConverter.Instance} }" />
@@ -119,6 +123,7 @@
 	 			</StackLayout>
 			</Frame>
 
+			<!--Mg-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
 					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoMg, Converter={x:Static handlers:CaMgCorValueConverter.Instance} }" />
@@ -142,52 +147,7 @@
 	 			</StackLayout>
 			</Frame>
 
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoV, Converter={x:Static handlers:VCorValueConverter.Instance} }" />
-					<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="V(%)"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoV}" FontSize="Small" HorizontalTextAlignment="End"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.V, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="35,01 a 60,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoCtc, Converter={x:Static handlers:CtcCorValueConverter.Instance} }" />
-					<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="CTC(T)(cmolc/dm³) "/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoCtc}" FontSize="Small" HorizontalTextAlignment="End"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.CTC, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding InterpretacaoTextura, Converter={x:Static handlers:TexturaCtcValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
+			<!--M.O.-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
 					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoMo, Converter={x:Static handlers:MoCorValueConverter.Instance} }" />
@@ -211,6 +171,79 @@
 	 			</StackLayout>
 			</Frame>
 
+			<!--CTC(T)-->
+			<Frame Margin="8,4" Padding="0">
+				<StackLayout Spacing="0" Orientation="Horizontal">
+					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoCtc, Converter={x:Static handlers:CtcCorValueConverter.Instance} }" />
+					<Grid Padding="8" HorizontalOptions="FillAndExpand">
+	 					<Grid.RowDefinitions>
+	 						<RowDefinition  Height="Auto"/>
+	 						<RowDefinition  Height="Auto"/>
+	 						<RowDefinition  Height="Auto"/>
+	 					</Grid.RowDefinitions>
+	 					<Grid.ColumnDefinitions>
+	 						<ColumnDefinition Width="Auto"/>
+	 						<ColumnDefinition Width="*"/>
+	 					</Grid.ColumnDefinitions>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="CTC(T)(cmolc/dm³) "/>
+	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoCtc}" FontSize="Small" HorizontalTextAlignment="End"/>
+	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.CTC, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding InterpretacaoTextura, Converter={x:Static handlers:TexturaCtcValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 				</Grid>
+	 			</StackLayout>
+			</Frame>
+
+			<!--V(%)-->
+			<Frame Margin="8,4" Padding="0">
+				<StackLayout Spacing="0" Orientation="Horizontal">
+					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoV, Converter={x:Static handlers:VCorValueConverter.Instance} }" />
+					<Grid Padding="8" HorizontalOptions="FillAndExpand">
+	 					<Grid.RowDefinitions>
+	 						<RowDefinition  Height="Auto"/>
+	 						<RowDefinition  Height="Auto"/>
+	 						<RowDefinition  Height="Auto"/>
+	 					</Grid.RowDefinitions>
+	 					<Grid.ColumnDefinitions>
+	 						<ColumnDefinition Width="Auto"/>
+	 						<ColumnDefinition Width="*"/>
+	 					</Grid.ColumnDefinitions>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="V(%)"/>
+	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoV}" FontSize="Small" HorizontalTextAlignment="End"/>
+	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.V, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="35,01 a 60,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 				</Grid>
+	 			</StackLayout>
+			</Frame>
+
+			<!--m(%)-->
+			<Frame Margin="8,4" Padding="0">
+				<StackLayout Spacing="0" Orientation="Horizontal">
+					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoM, Converter={x:Static handlers:MCorValueConverter.Instance} }" />
+					<Grid Padding="8" HorizontalOptions="FillAndExpand">
+	 					<Grid.RowDefinitions>
+	 						<RowDefinition  Height="Auto"/>
+	 						<RowDefinition  Height="Auto"/>
+	 						<RowDefinition  Height="Auto"/>
+	 					</Grid.RowDefinitions>
+	 					<Grid.ColumnDefinitions>
+	 						<ColumnDefinition Width="Auto"/>
+	 						<ColumnDefinition Width="*"/>
+	 					</Grid.ColumnDefinitions>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="m (%)"/>
+	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoM}" FontSize="Small" HorizontalTextAlignment="End"/>
+	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.M, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+						<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="#757575"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="Baixo" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
+	 				</Grid>
+	 			</StackLayout>
+			</Frame>
+			
+			<!--Ca/K-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
 					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoCaK, Converter={x:Static handlers:CaMgKCorValueConverter.Instance} }" />
@@ -234,6 +267,7 @@
 	 			</StackLayout>
 			</Frame>
 
+			<!--Mg/K-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
 					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoMgK, Converter={x:Static handlers:CaMgKCorValueConverter.Instance} }" />
@@ -257,25 +291,6 @@
 	 			</StackLayout>
 			</Frame>
 
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoM, Converter={x:Static handlers:MCorValueConverter.Instance} }" />
-					<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="m (%)"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoM}" FontSize="Small" HorizontalTextAlignment="End"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.M, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

@@ -96,7 +96,7 @@ namespace Solum.Pages
 			PdfFont textFont = new PdfStandardFont (PdfFontFamily.Helvetica, 10);
 
 			//Header 
-			g.DrawString ("Relatório de Iterpretação de Análise de Solo", headerFont, new PdfSolidBrush (black), new PointF (110, 20));
+			g.DrawString ("Relatório de Interpretação de Análise de Solo", headerFont, new PdfSolidBrush (black), new PointF (110, 20));
 			g.DrawString (analise.Fazenda, subHeadingFont, new PdfSolidBrush (black), new PointF (110, 52));
 			g.DrawString ("Talhão " + analise.Talhao, textFont, new PdfSolidBrush (black), new PointF (110, 74));
 			g.DrawString (String.Format ("{0:dd/MM/yyyy}", analise.Data), textFont, new PdfSolidBrush (black), new PointF (page.Graphics.ClientSize.Width - 75, 25));
@@ -146,6 +146,20 @@ namespace Solum.Pages
 
 			y = BodyContent (g, "Mg", valorAtual, valorAdequado, classe, y, grayLight);
 
+			//M.O.
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.MateriaOrganica.ToString("F", CultureInfo.InvariantCulture);
+			valorAdequado = TexturaMoConverter((BindingContext as InterpretacaoViewModel).InterpretacaoTextura);
+			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoMo;
+
+			y = BodyContent(g, "M.O.", valorAtual, valorAdequado, classe, y, white);
+
+			//CTC(T)
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.CTC.ToString("F", CultureInfo.InvariantCulture);
+			valorAdequado = TexturaCTCConverter((BindingContext as InterpretacaoViewModel).InterpretacaoTextura);
+			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoCtc;
+
+			y = BodyContent(g, "CTC(T)", valorAtual, valorAdequado, classe, y, grayLight);
+
 			//V(%)
 			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.V.ToString ("F", CultureInfo.InvariantCulture) + "%";
 			valorAdequado = "35,01 a 60,00";
@@ -153,19 +167,12 @@ namespace Solum.Pages
 
 			y = BodyContent (g, "V(%)", valorAtual, valorAdequado, classe, y, white);
 
-			//CTC(T)
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.CTC.ToString ("F", CultureInfo.InvariantCulture);
-			valorAdequado = TexturaCTCConverter ((BindingContext as InterpretacaoViewModel).InterpretacaoTextura);
-			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoCtc;
+			//m(%)
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.M.ToString("F", CultureInfo.InvariantCulture) + "%";
+			valorAdequado = "Baixo";
+			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoM;
 
-			y = BodyContent (g, "CTC(T)", valorAtual, valorAdequado, classe, y, grayLight);
-
-			//M.O.
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.MateriaOrganica.ToString ("F", CultureInfo.InvariantCulture);
-			valorAdequado = TexturaMoConverter ((BindingContext as InterpretacaoViewModel).InterpretacaoTextura);
-			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoMo;
-
-			y = BodyContent (g, "M.O.", valorAtual, valorAdequado, classe, y, white);
+			y = BodyContent(g, "m%", valorAtual, valorAdequado, classe, y, grayLight);
 
 			//Ca/K
 			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.CaK.ToString ("F", CultureInfo.InvariantCulture);
@@ -180,13 +187,6 @@ namespace Solum.Pages
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoMgK;
 
 			y = BodyContent (g, "Mg/K", valorAtual, valorAdequado, classe, y, white);
-
-			//m(%)
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.M.ToString ("F", CultureInfo.InvariantCulture) + "%";
-			valorAdequado = "Baixo";
-			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoM;
-
-			y = BodyContent (g, "m%", valorAtual, valorAdequado, classe, y, grayLight);
 
 			PdfFont footerBoldFont = new PdfStandardFont (PdfFontFamily.Helvetica, 10, PdfFontStyle.Bold);
 			PdfFont footerFont = new PdfStandardFont (PdfFontFamily.Helvetica, 10);
