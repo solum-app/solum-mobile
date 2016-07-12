@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.Generic;
 using Solum.Models;
 using System.Linq;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using Realms;
 using Solum.Pages;
 using Solum.Messages;
@@ -19,6 +17,10 @@ namespace Solum.ViewModel
 
 		public AnalisesViewModel (INavigation navigation) : base(navigation)
 		{
+			MessagingCenter.Subscribe<UpdateAnalisesMessage> (
+				this, UpdateAnalisesMessage.UpdateAnalises, UpdateAnalises
+			);
+
 			var realm = Realm.GetInstance ();
 
 			analises = realm.All<Analise> ().OrderBy (e => e.Fazenda).ToList ();
@@ -26,10 +28,6 @@ namespace Solum.ViewModel
 			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda));
 
 			HasItems = Analises.Count > 0;
-
-			MessagingCenter.Subscribe<UpdateAnalisesMessage> (
-				this, UpdateAnalisesMessage.UpdateAnalises, UpdateAnalises
-			);
 		}
 
 		void UpdateAnalises (object sender)
