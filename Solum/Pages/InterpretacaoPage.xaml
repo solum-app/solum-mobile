@@ -41,7 +41,7 @@
 	 						<ColumnDefinition Width="Auto"/>
 	 						<ColumnDefinition Width="*"/>
 	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="pH (CaCl2)"/>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="pH (CaCl₂)"/>
 	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoPh}" FontSize="Small" HorizontalTextAlignment="End"/>
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Ph, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
@@ -65,7 +65,7 @@
 	 						<ColumnDefinition Width="Auto"/>
 	 						<ColumnDefinition Width="*"/>
 	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="P (mg/dm³)"/>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="P (mg dm⁻³)"/>
 	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoP}" FontSize="Small" HorizontalTextAlignment="End"/>
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.P, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
@@ -89,7 +89,7 @@
 	 						<ColumnDefinition Width="Auto"/>
 	 						<ColumnDefinition Width="*"/>
 	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="K (mg/dm³)"/>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="K (mg dm⁻³)"/>
 	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoK}" FontSize="Small" HorizontalTextAlignment="End"/>
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.K, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
@@ -113,7 +113,7 @@
 	 						<ColumnDefinition Width="Auto"/>
 	 						<ColumnDefinition Width="*"/>
 	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="Ca (cmolc/dm³)"/>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="Ca (cmolc dm⁻³)"/>
 	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoCa}" FontSize="Small" HorizontalTextAlignment="End"/>
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Ca, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
@@ -137,7 +137,7 @@
 	 						<ColumnDefinition Width="Auto"/>
 	 						<ColumnDefinition Width="*"/>
 	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="Mg (cmolc/dm³)"/>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="Mg (cmolc dm⁻³)"/>
 	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoMg}" FontSize="Small" HorizontalTextAlignment="End"/>
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Mg, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
@@ -161,7 +161,7 @@
 	 						<ColumnDefinition Width="Auto"/>
 	 						<ColumnDefinition Width="*"/>
 	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="M.O. (g/dm³)"/>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="M.O. (g dm⁻³)"/>
 	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoMo}" FontSize="Small" HorizontalTextAlignment="End"/>
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.MateriaOrganica, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
@@ -185,7 +185,7 @@
 	 						<ColumnDefinition Width="Auto"/>
 	 						<ColumnDefinition Width="*"/>
 	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="CTC(T)(cmolc/dm³) "/>
+	 					<Label Grid.Row="0" Grid.Column="0" Text="CTC(T)(cmolc dm⁻³) "/>
 	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoCtc}" FontSize="Small" HorizontalTextAlignment="End"/>
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="#757575"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.CTC, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>

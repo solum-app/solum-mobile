@@ -15,7 +15,8 @@
 			VerticalOptions="Center"
 			HorizontalOptions="Center"
 			FontSize="Medium"
-			Text="Nenhuma análise salva"/>
+			Text="Nenhuma análise salva"
+			TextColor="#757575"/>
 		
 		<renderers:BindableListView 
 			IsVisible="{Binding HasItems}"
