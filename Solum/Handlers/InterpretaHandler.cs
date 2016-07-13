@@ -185,7 +185,7 @@ namespace Solum.Handlers
 				return "Média";
 			}
 			if (mgK > 4 && mgK <= 15) {
-				return "Adequanda";
+				return "Adequada";
 			} 
 			else {
 				return "Alta";
