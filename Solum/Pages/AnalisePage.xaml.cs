@@ -39,6 +39,17 @@ namespace Solum.Pages
 			//areiaEntry.Completed += (s, e) => sliteEntry.Focus ();
 			//sliteEntry.Completed += (s, e) => argilaEntry.Focus ();
 		}
+
+		void OnEntryFocused (object sender, EventArgs e){
+			if (Device.OS == TargetPlatform.Android)
+				boxSpacing.IsVisible = !boxSpacing.IsVisible;
+		}
+
+		void OnEntryUnfocused(object sender, EventArgs e)
+		{
+			if (Device.OS == TargetPlatform.Android)
+				boxSpacing.IsVisible = false;
+		}
 	}
 }
 
