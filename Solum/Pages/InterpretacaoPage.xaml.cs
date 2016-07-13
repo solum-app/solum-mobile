@@ -179,18 +179,20 @@ namespace Solum.Pages
 			valorAdequado = "14,01 a 25,00";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoCaK;
 
-			y = BodyContent (g, "Ca/K", valorAtual, valorAdequado, classe, y, grayLight);
+			y = BodyContent (g, "Ca/K", valorAtual, valorAdequado, classe, y, white);
 
 			//Mg/K
 			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.MgK.ToString ("F", CultureInfo.InvariantCulture);
 			valorAdequado = "4,01 a 15,00";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoMgK;
 
-			y = BodyContent (g, "Mg/K", valorAtual, valorAdequado, classe, y, white);
+			y = BodyContent (g, "Mg/K", valorAtual, valorAdequado, classe, y, grayLight);
+
+			//Texto
+			g.DrawString ("Fonte das tabelas: Sousa, D.M.G. de; Lobato, E. Cerrado – Correção do solo e adubação. 2ª ed. (2004).\npH (CaCl2) – solução de Cloreto de Cálcio 0,01 M na proporção 1:2,5\nP e K (mg/dm³) - Extrator: solução Mehlich 1 (HCl 0,05 N e H2SO4 0,025 N)\nCa, Mg e Al (cmolc/dm³) – Extrator: solução de Cloreto de Potássio 1N (KCl) \nH (cmolc/dm³) – Extrator: Solução de Acetato de Cálcio\nM.O. (Matéria Orgânica) (g/dm³) – Extrator: Oxidação com Bicromato de Potássio e determinação colorimétrica \nAreia, Silte e Argila (g/kg) – Extrator: dispersante NaOH e determinação por densímetro\nCTC (T) (cmolc/dm³) – Capacidade de Troca de Cátions \nV (%) – Porcentagem de Saturação por bases\nm (%) – Porcentagem de Saturação por alumínio\n\nObservações:\nConsulte um Engenheiro Agrônomo para recomendação de calagem e adubação.\nA amostragem de solo não é de responsabilidade do laboratório e nem da empresa que gerou o aplicativo Solum.\nEste laudo não tem fins jurídicos", textFont, new PdfSolidBrush (black), new PointF (20, y + 50));
 
 			PdfFont footerBoldFont = new PdfStandardFont (PdfFontFamily.Helvetica, 10, PdfFontStyle.Bold);
 			PdfFont footerFont = new PdfStandardFont (PdfFontFamily.Helvetica, 10);
-
 
 			//Footer
 			g.DrawRectangle (new PdfSolidBrush (green), new RectangleF (0, page.Graphics.ClientSize.Height - 80, page.Graphics.ClientSize.Width, 5));
