@@ -29,6 +29,26 @@
 			GroupDisplayBinding="{Binding Key}"
 			AbsoluteLayout.LayoutFlags="All"
            	AbsoluteLayout.LayoutBounds="0,0,1,1">
+		   	<ListView.GroupHeaderTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<Grid BackgroundColor="#EEEEEE">
+							<Label TextColor="#717175" Text="{Binding Key}" LineBreakMode="TailTruncation">
+								<Label.Margin>
+									<OnPlatform x:TypeArguments="Thickness"
+										iOS="16,24,16,4"
+										Android="16, 13"/>
+								</Label.Margin>
+								<Label.FontSize>
+									<OnPlatform x:TypeArguments="x:Double"
+										iOS="13"
+										Android="14"/>
+								</Label.FontSize>
+							</Label>
+						</Grid>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.GroupHeaderTemplate>
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<ViewCell>

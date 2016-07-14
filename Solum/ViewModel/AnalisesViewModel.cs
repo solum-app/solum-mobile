@@ -25,7 +25,7 @@ namespace Solum.ViewModel
 
 			analises = realm.All<Analise> ().OrderBy (e => e.Fazenda).ToList ();
 
-			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda));
+			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda.ToUpper ()));
 
 			HasItems = Analises.Count > 0;
 		}
@@ -36,7 +36,7 @@ namespace Solum.ViewModel
 
 			analises = realm.All<Analise> ().OrderBy (e => e.Fazenda).ToList ();
 
-			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda));
+			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda.ToUpper ()));
 
 			HasItems = Analises.Count > 0;
 		}
@@ -63,7 +63,6 @@ namespace Solum.ViewModel
 				SetPropertyChanged(ref _hasItems, value);
 			}
 		}
-
 
 		private Command _excluirCommand;
 

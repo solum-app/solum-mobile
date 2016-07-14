@@ -38,5 +38,11 @@
         <image name="ic_menu.png" width="24" height="24"/>
         <image name="ic_add.png" width="24" height="24"/>
         <image name="ic_solum.png" width="160" height="160"/>
+        <image name="ic_solum_menu.png" width="263" height="73"/>
+        <image name="ic_nova_analise.png" width="24" height="24"/>
+        <image name="ic_analises.png" width="24" height="24"/>
+        <image name="ic_sobre.png" width="24" height="24"/>
+        <image name="ic_save.png" width="24" height="24"/>
+        <image name="ic_pdf.png" width="24" height="24"/>
     </resources>
 </document>

@@ -5,21 +5,16 @@
 	xmlns:renderers="clr-namespace:Solum.Renderers"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="Solum.Pages.AnalisePage"
-	Title="Nova Análise">
+	Title="{Binding Title}">
 
 	<ScrollView Grid.Row="0" BackgroundColor="#EEEEEE">
 		<StackLayout Spacing="0">
-			<Label TextColor="#717175">
+			<Label TextColor="#717175" Text="INFORMAÇÕES">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness"
 						iOS="16,24,16,4"
 						Android="16, 13"/>
 				</Label.Margin>
-				<Label.Text>
-					<OnPlatform x:TypeArguments="x:String"
-						iOS="INFORMAÇÕES"
-						Android="Informações"/>
-				</Label.Text>
 				<Label.FontSize>
 					<OnPlatform x:TypeArguments="x:Double"
 						iOS="13"
@@ -106,17 +101,12 @@
 				</BoxView.HeightRequest>
 			</BoxView>
 
-			<Label TextColor="#717175">
+			<Label TextColor="#717175" Text="ANÁLISE QUÍMICA">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness"
 						iOS="16,24,16,4"
 						Android="16, 13"/>
 				</Label.Margin>
-				<Label.Text>
-					<OnPlatform x:TypeArguments="x:String"
-						iOS="ANÁLISE QUÍMICA"
-						Android="Análise Química"/>
-				</Label.Text>
 				<Label.FontSize>
 					<OnPlatform x:TypeArguments="x:Double"
 						iOS="13"
@@ -137,7 +127,7 @@
 					</BoxView.HeightRequest>
 				</BoxView>
 				<Label Text="pH" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
-				<Entry x:Name="phEntry" Unfocused="OnEntryUnfocused" Focused="OnEntryFocused" Text="{Binding PhEntry}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Potêncial de Hidrogênico (CaCl₂)" HorizontalTextAlignment="End">
+				<Entry x:Name="phEntry" Unfocused="OnEntryUnfocused" Focused="OnEntryFocused" Text="{Binding PhEntry}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Potencial Hidrogeniônico (CaCl₂)" HorizontalTextAlignment="End">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
 				    </Entry.Effects>
@@ -331,17 +321,12 @@
 				</BoxView.HeightRequest>
 			</BoxView>
 
-			<Label TextColor="#717175">
+			<Label TextColor="#717175" Text="ANÁLISE FÍSICA">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness"
 						iOS="16,24,16,4"
 						Android="16, 13"/>
 				</Label.Margin>
-				<Label.Text>
-					<OnPlatform x:TypeArguments="x:String"
-						iOS="ANÁLISE FÍSICA"
-						Android="Análise Física"/>
-				</Label.Text>
 				<Label.FontSize>
 					<OnPlatform x:TypeArguments="x:Double"
 						iOS="13"

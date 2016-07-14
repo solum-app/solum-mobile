@@ -13,11 +13,13 @@ namespace Solum.ViewModel
 
 		public AnaliseViewModel (INavigation navigation):base(navigation)
 		{
-			
+			Title = "Nova Análise";
 		}
 
 		public AnaliseViewModel (INavigation navigation, Analise analise) : base (navigation)
 		{
+			Title = "Edição de Análise";
+
 			FazendaEntry = analise.Fazenda;
 			TalhaoEntry = analise.Talhao;
 			DataEntry = analise.Data;
@@ -34,6 +36,16 @@ namespace Solum.ViewModel
 			ArgilaEntry = analise.Argila.ToString();
 
 			realmAnalise = analise;
+		}
+
+		string _title;
+		public string Title {
+			get {
+				return _title;
+			}
+			set {
+				SetPropertyChanged (ref _title, value);
+			}
 		}
 
 		string _fazenda;
@@ -305,7 +317,7 @@ namespace Solum.ViewModel
 
 		
 			var analise = new Analise () {
-				Fazenda = FazendaEntry,
+				Fazenda = FazendaEntry.Trim (),
 				Talhao = TalhaoEntry,
 				Data = DataEntry,
 				Ph = float.Parse("0" + PhEntry.Replace(',', '.'), CultureInfo.InvariantCulture),

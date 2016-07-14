@@ -19,7 +19,7 @@
  						<ColumnDefinition Width="*"/>
  						<ColumnDefinition Width="Auto"/>
  					</Grid.ColumnDefinitions>
- 					<Label Grid.Row="0" Grid.Column="0" Text="{Binding Analise.Fazenda}"/>
+ 					<Label Grid.Row="0" Grid.Column="0" Text="{Binding Analise.Fazenda, Converter={x:Static handlers:ToUpperConverter.Instance} }" LineBreakMode="TailTruncation"/>
  					<Label Grid.Row="0" Grid.Column="1" Text="{Binding Analise.Data, StringFormat='{0:dd/MM/yyyy}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="#757575"/>
  					<Label Grid.Row="1" Grid.Column="0" Text="{Binding Analise.Talhao, StringFormat='Talhão {0}'}" FontSize="Small" TextColor="#757575"/>
  					<Label Grid.Row="1" Grid.Column="1" Text="{Binding InterpretacaoTextura, StringFormat='Textura {0}'}" FontSize="Small" TextColor="#757575" HorizontalTextAlignment="End"/>

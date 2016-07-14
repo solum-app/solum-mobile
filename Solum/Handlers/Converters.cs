@@ -19,6 +19,22 @@ namespace Solum.Handlers
 		}
 	}
 
+	public class ToUpperConverter : IValueConverter
+	{
+		public static ToUpperConverter Instance = new ToUpperConverter ();
+		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var text = (value as string);
+			return text.ToUpper ();
+		}
+
+		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var text = (value as string);
+			return text.ToUpper ();
+		}
+	}
+
 	public class TexturaPValueConverter : IValueConverter
 	{
 		public static TexturaPValueConverter Instance = new TexturaPValueConverter();
