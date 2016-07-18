@@ -42,10 +42,14 @@ namespace Solum
 			(BindingContext as AnalisesViewModel).EditarCommand.Execute (analise);
 		}
 
-		void OnDelete (object sender, EventArgs e)
+		async void OnDelete (object sender, EventArgs e)
 		{
-			var analise = (sender as MenuItem).CommandParameter;
-			(BindingContext as AnalisesViewModel).ExcluirCommand.Execute (analise);
+			var confirm = await DisplayAlert ("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
+
+			if (confirm) {
+				var analise = (sender as MenuItem).CommandParameter;
+				(BindingContext as AnalisesViewModel).ExcluirCommand.Execute (analise);
+			}
 		}
 	}
 }

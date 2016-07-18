@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Windows.Input;
 using Xamarin.Forms;
+
 namespace Solum.Renderers
 {
 	public class BindableListView : ListView

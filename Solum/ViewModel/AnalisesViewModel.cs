@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using Realms;
 using Solum.Pages;
 using Solum.Messages;
+using Solum.Handlers;
 
 namespace Solum.ViewModel
 {
@@ -25,7 +26,11 @@ namespace Solum.ViewModel
 
 			analises = realm.All<Analise> ().OrderBy (e => e.Fazenda).ToList ();
 
-			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda.ToUpper ()));
+			var groupList =
+				analises.GroupBy (a => a.Fazenda.ToUpper ())
+					.Select (a => new Grouping<string, Analise> (a.Key, a));
+
+			Analises = new ObservableCollection<Grouping<string, Analise>> (groupList);
 
 			HasItems = Analises.Count > 0;
 		}
@@ -36,13 +41,17 @@ namespace Solum.ViewModel
 
 			analises = realm.All<Analise> ().OrderBy (e => e.Fazenda).ToList ();
 
-			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda.ToUpper ()));
+			var groupList =
+				analises.GroupBy (a => a.Fazenda.ToUpper ())
+					.Select (a => new Grouping<string, Analise> (a.Key, a));
+
+			Analises = new ObservableCollection<Grouping<string, Analise>> (groupList);
 
 			HasItems = Analises.Count > 0;
 		}
 
-		IList<IGrouping<string, Analise>> _analises;
-		public IList<IGrouping<string, Analise>> Analises {
+		IList<Grouping<string, Analise>> _analises;
+		public IList<Grouping<string, Analise>> Analises {
 			get {
 				return _analises;
 			}
@@ -85,7 +94,11 @@ namespace Solum.ViewModel
 
 			analises.Remove (analise);
 
-			Analises = new ObservableCollection<IGrouping<string, Analise>> (analises.GroupBy (e => e.Fazenda));
+			var groupList =
+				analises.GroupBy (a => a.Fazenda.ToUpper ())
+					.Select (a => new Grouping<string, Analise> (a.Key, a));
+
+			Analises = new ObservableCollection<Grouping<string, Analise>> (groupList);
 
 			HasItems = Analises.Count > 0;
 		}
