@@ -128,7 +128,7 @@ namespace Solum.Pages
 			//K
 			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.K.ToString("F", CultureInfo.InvariantCulture);
 			valorAdequado = CtcKConverter(analise.CTC);
-			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoP;
+			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoK;
 
 			y = BodyContent(g, "K", valorAtual, valorAdequado, classe, y, grayLight);
 
@@ -196,7 +196,7 @@ namespace Solum.Pages
 
 			//Footer
 			g.DrawRectangle (new PdfSolidBrush (green), new RectangleF (0, page.Graphics.ClientSize.Height - 80, page.Graphics.ClientSize.Width, 5));
-			g.DrawString ("Base de cálculo: Região Centro-Oeste", footerFont, new PdfSolidBrush (black), new PointF (20, page.Graphics.ClientSize.Height - 60));
+			g.DrawString ("Base de cálculo: Bioma Cerrado", footerFont, new PdfSolidBrush (black), new PointF (20, page.Graphics.ClientSize.Height - 60));
 			g.DrawString ("Relatório gerado pelo aplicativo Solum", footerBoldFont, new PdfSolidBrush (black), new PointF (20, page.Graphics.ClientSize.Height - 40));
 			g.DrawString ("Desenvolvido por Sydy Tecnologia", footerFont, new PdfSolidBrush (black), new PointF (page.Graphics.ClientSize.Width - 175, page.Graphics.ClientSize.Height - 60));
 			PdfTextWebLink linkAnnot = new PdfTextWebLink ();

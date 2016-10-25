@@ -9,28 +9,35 @@ namespace Solum
 {
 	public partial class SobrePage : ContentPage
 	{
-		public SobrePage()
+		public SobrePage ()
 		{
-			InitializeComponent();
+			InitializeComponent ();
 
-			Task.Run(() => LoadHtml ());
+			LoadHtml ();
 		}
 
-		void LoadHtml(){
-			var assembly = typeof(SobrePage).GetTypeInfo().Assembly;
-			Stream stream = assembly.GetManifestResourceStream("Solum.Resources.sobre.html");
+		async Task LoadHtml ()
+		{
 			var html = "";
-			using (var reader = new StreamReader(stream))
-			{
-				html = reader.ReadToEnd();
+
+			try {
+				var assembly = typeof (SobrePage).GetTypeInfo ().Assembly;
+				Stream stream = assembly.GetManifestResourceStream ("Solum.Resources.sobre.html");
+
+				using (var reader = new StreamReader (stream)) {
+					html = await reader.ReadToEndAsync ();
+				}
+
+				Device.BeginInvokeOnMainThread (() => {
+					webView.Source = new HtmlWebViewSource () {
+						Html = html
+					};
+				});
+
+			} catch (Exception) {
+				
 			}
-
-			webView.Source = new HtmlWebViewSource()
-			{
-				Html = html
-			};
 		}
-
 	}
 }
 

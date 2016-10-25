@@ -25,7 +25,7 @@ namespace Solum.Droid.Handlers
 			Java.IO.File myDir = new Java.IO.File(root + "/Solum");
 			myDir.Mkdir();
 
-			Java.IO.File file = new Java.IO.File(myDir, "temp.pdf");
+			Java.IO.File file = new Java.IO.File(myDir, "Relatorio Solum.pdf");
 
 			if (file.Exists()) 
 				file.Delete();
