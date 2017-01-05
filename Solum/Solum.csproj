@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Models\Bindings.cs" />
+    <Compile Include="Models\Cidade.cs" />
     <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Solum.cs" />
