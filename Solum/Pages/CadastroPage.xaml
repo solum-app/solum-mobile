@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum"
+             xmlns:converters="clr-namespace:Solum.Converter;assembly=Solum"
+             xmlns:behaviors="clr-namespace:Solum.Behaviors;assembly=Solum"
+             Title="Cadastro"
+             x:Class="Solum.Pages.CadastroPage">
+
+	<StackLayout VerticalOptions="CenterAndExpand">
+
+		<Entry x:Name="NameEntry" Placeholder="Nome Completo"
+		       Text="{Binding Name, Mode=TwoWay}" />
+
+		<Entry x:Name="EmailEntry" Placeholder="Email Válido"
+		       Text="{Binding Email, Mode=TwoWay}">
+			<Entry.Behaviors>
+				<behaviors:EmailValidatorBehavior />
+			</Entry.Behaviors>
+		</Entry>
+
+		<Entry x:Name="PasswordEntry" Placeholder="Senha"
+		       Text="{Binding Password, Mode=TwoWay}" IsPassword="True">
+			<Entry.Behaviors>
+				<behaviors:RequiredValidatorBehavior />
+			</Entry.Behaviors>
+		</Entry>
+
+		<Entry x:Name="ConfirmPasswordEntry" Placeholder="Confirma Senha"
+		       Text="{Binding ConfirmPassword, Mode=TwoWay}" IsPassword="True">
+			<Entry.Behaviors>
+				<behaviors:ConfirmPasswordBehavior CompareToEntry="{Binding Source={x:Reference PasswordEntry}}" />
+			</Entry.Behaviors>
+		</Entry>
+
+		<renderers:BindablePicker x:Name="EstadosPicker" ItemsSource="{Binding Estados}"
+		                          SelectedItem="{Binding EstadoSelected}"
+		                          ItemSelectedCommand="{Binding UpdateCidadesCommand}"
+		                          Title="Selecione o Estado" />
+
+		<renderers:BindablePicker x:Name="CidadesPicker" ItemsSource="{Binding Cidades}"
+		                          SelectedItem="{Binding CidadeSelected}"
+		                          SelectedIndex="0"
+		                          Title="Selecione a Cidade" />
+
+		<ActivityIndicator IsRunning="{Binding IsCarregandoEstados}" />
+		<Button Text="Enviar" Command="{Binding RegisterCommand}" />
+
+	</StackLayout>
+</ContentPage>

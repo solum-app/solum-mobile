@@ -1,5 +1,6 @@
 ﻿using System;
-
+using Solum.Pages;
+using Solum.Service;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,7 @@ namespace Solum
 	{
 		public App ()
 		{
-			MainPage = new RootPage();
+			MainPage = new NavigationPage(new LoginPage());
 		}
 
 		protected override void OnStart ()

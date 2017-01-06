@@ -14,6 +14,11 @@ namespace Solum.Models
 
         public string Nome { get; set; }
         public string Uf { get; set; }
-        public IList<Cidade> Cidades { get; set; }
+        public IList<Cidade> Cidades { get; }
+
+        public override string ToString()
+        {
+            return $"{Nome} - {Uf}";
+        }
     }
 }
