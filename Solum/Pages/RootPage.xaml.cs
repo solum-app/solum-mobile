@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Solum.Pages;
 using Xamarin.Forms;
 
-namespace Solum
+namespace Solum.Pages
 {
 	public partial class RootPage : MasterDetailPage
 	{
