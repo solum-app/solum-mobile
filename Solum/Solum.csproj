@@ -45,9 +45,11 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Remotes\AccountRemote.cs" />
-    <Compile Include="Remotes\AuthResult.cs" />
+    <Compile Include="Remotes\Results\RefreshTokenResult.cs" />
+    <Compile Include="Remotes\Results\AuthResult.cs" />
     <Compile Include="Remotes\BaseRemote.cs" />
     <Compile Include="Remotes\EstadoRemote.cs" />
+    <Compile Include="Remotes\Results\RegisterResult.cs" />
     <Compile Include="Renderers\BindablePicker.cs" />
     <Compile Include="Service\AuthService.cs" />
     <Compile Include="Service\DataService.cs" />

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Realms;
 using Solum.Models;
+using Solum.Remotes.Results;
 using Solum.Service;
 using Xamarin.Forms;
 
@@ -11,20 +13,22 @@ namespace Solum.ViewModel
 {
     public class CadastroViewModel : BaseViewModel
     {
+        private string _aviso;
         private IList<Cidade> _cidades = new List<Cidade>();
-        private IList<Estado> _estados = new List<Estado>();
 
         private Cidade _cidadeSelected;
+        private string _confirmPassword;
+        private string _email;
+        private IList<Estado> _estados = new List<Estado>();
         private Estado _estadoSelected;
+        private bool _isAvisoVisible;
+
+        private bool _isCarregandoEstados = true;
+        private bool _isCidadesCarregadas;
 
         private string _name;
         private string _password;
-        private string _confirmPassword;
-        private string _email;
 
-        private bool _isCarregandoEstados = true;
-        private bool _isCidadesCarregadas = false;
-        
         private ICommand _registerCommand;
         private ICommand _updateCidadesCommand;
 
@@ -93,6 +97,18 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _isCidadesCarregadas, value); }
         }
 
+        public bool IsAvisoVisible
+        {
+            get { return _isAvisoVisible; }
+            set { SetPropertyChanged(ref _isAvisoVisible, value); }
+        }
+
+        public string Aviso
+        {
+            get { return _aviso; }
+            set { SetPropertyChanged(ref _aviso, value); }
+        }
+
         public ICommand RegisterCommand
         {
             get { return _registerCommand ?? (_registerCommand = new Command(Cadastrar)); }
@@ -115,16 +131,29 @@ namespace Solum.ViewModel
             };
             var authService = new AuthService();
             var result = await authService.Register(registerBinding);
+            IsAvisoVisible = true;
+            if (result == RegisterResult.RegisterSuccefully)
+            {
+                Aviso = "Seu cadastro foi realizado com sucesso!";
+            }
+            if (result == RegisterResult.RegisterUnsuccessfully)
+            {
+                Aviso = "Seu cadastro não foi realizado com sucesso.";
+            }
+            Name = string.Empty;
+            Email = string.Empty;
+            Password = string.Empty;
+            ConfirmPassword = string.Empty;
+            CidadeSelected = null;
+            EstadoSelected = null;
         }
 
         public async Task CarregarEstados()
         {
             var realm = Realm.GetInstance();
             Estados = realm.All<Estado>().OrderBy(x => x.Nome).ToList();
-            if (Estados == default (IList<Estado>) || Estados.Count < 27)
-            {
+            if (Estados == default(IList<Estado>) || Estados.Count < 27)
                 await SyncService.CidadeEstadoSync();
-            }
             Estados = realm.All<Estado>().OrderBy(x => x.Nome).ToList();
             IsCarregandoEstados = false;
         }

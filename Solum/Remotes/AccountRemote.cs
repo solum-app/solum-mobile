@@ -43,5 +43,18 @@ namespace Solum.Remotes
             var url = $"{Settings.BaseUri}{Settings.AccountLoginUri}";
             return await Client.PostAsync(url, content);
         }
+
+        public async Task<HttpResponseMessage> RefreshToken(RefreshTokenBinding refreshToken)
+        {
+            if (!CrossConnectivity.Current.IsConnected) throw new Exception("Sem conexão com a Internet");
+            var dict = new Dictionary<string, string>()
+            {
+                {"refresh_token", refreshToken.RefreshToken },
+                {"grant_type", RefreshTokenBinding.GrantType }
+            };
+            var content = new FormUrlEncodedContent(dict);
+            var url = $"{Settings.BaseUri}{Settings.TokenUri}";
+            return await Client.PostAsync(url, content);
+        }
     }
 }

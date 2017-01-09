@@ -1,15 +1,18 @@
 ﻿using System.Windows.Input;
 using Solum.Models;
 using Solum.Pages;
-using Solum.Remotes;
+using Solum.Remotes.Results;
+using Solum.Service;
 using Xamarin.Forms;
 
 namespace Solum.ViewModel
 {
     public class LoginViewModel : BaseViewModel
     {
+        private string _aviso;
         private ICommand _cadastrarCommand;
-        private bool _inLoggin; // variável para controle do activity indicator na tela de login;
+        private bool _inLogin; // variável para controle do activity indicator na tela de login;
+        private bool _isAvisoVisible;
         private ICommand _loginCommand;
         private string _password;
         private string _username;
@@ -30,10 +33,23 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _password, value); }
         }
 
-        public bool InLoggin
+        public string Aviso
         {
-            get { return _inLoggin; }
-            set { SetPropertyChanged(ref _inLoggin, value); }
+            get { return _aviso; }
+            set { SetPropertyChanged(ref _aviso, value); }
+        }
+
+        public bool InLogin
+        {
+            get { return _inLogin; }
+            set { SetPropertyChanged(ref _inLogin, value); }
+        }
+
+
+        public bool IsAvisoVisible
+        {
+            get { return _isAvisoVisible; }
+            set { SetPropertyChanged(ref _isAvisoVisible, value); }
         }
 
         public ICommand LoginCommand => _loginCommand ?? (_loginCommand = new Command(Logar));
@@ -42,14 +58,17 @@ namespace Solum.ViewModel
 
         public async void Logar()
         {
-            var accontRemote = new AccountRemote();
-            var loginBinding = new LoginBinding {Username = _username, Password = _password};
-            _inLoggin = true;
-            var result = await accontRemote.Login(loginBinding);
-            _inLoggin = false;
-            //if (result)
-            //    await Navigation.PushAsync(new RootPage(), true);
-            // mostrar alerta na tela 
+            IsAvisoVisible = false;
+            var loginBinding = new LoginBinding {Username = Username, Password = Password};
+            InLogin = true;
+            var authService = new AuthService();
+            var login = await authService.Login(loginBinding);
+            InLogin = false;
+            if (login == AuthResult.LoginSuccessFully)
+                await Navigation.PushAsync(new RootPage(), true);
+            Aviso =
+                "Não foi possível realizar login, as credenciais podem estar inválidas, sua conta pode não estar confirmada ou não existe conexão com a internet";
+            IsAvisoVisible = true;
         }
 
         public async void Cadastrar()

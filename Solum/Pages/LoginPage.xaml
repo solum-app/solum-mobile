@@ -8,8 +8,10 @@
 	<StackLayout VerticalOptions="Center">
 		<Entry x:Name="UsernameEntry" Placeholder="Usuário" Text="{Binding Username}" />
 		<Entry x:Name="PasswordEntry" Placeholder="Senha" IsPassword="True" Text="{Binding Password}" />
-		<Button x:Name="EntrarButton" Text="Entrar" Command="{Binding EntrarCommand}" />
+		<Button x:Name="EntrarButton" Text="Entrar" Command="{Binding LoginCommand}" />
 		<Button x:Name="CadastrarButton" Text="Cadastrar" Command="{Binding CadastrarCommand}" />
+    <ActivityIndicator IsRunning="{Binding InLogin}"/>
+    <Label x:Name="AvisoLabel" Text="{Binding Aviso}" IsVisible="{Binding IsAvisoVisible}"/>
 	</StackLayout>
 
 </ContentPage>
