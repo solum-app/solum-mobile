@@ -17,7 +17,7 @@ namespace Solum
             if (user != default(Usuario))
                 MainPage = new RootPage();
             else
-                MainPage = new LoginPage();
+                MainPage =new LoginPage();
         }
 
         protected override void OnStart()

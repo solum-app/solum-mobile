@@ -7,8 +7,8 @@ namespace Solum.Pages
     {
         public LoginPage()
         {
-            BindingContext = new LoginViewModel(Navigation);
             InitializeComponent();
+            BindingContext = new LoginViewModel(Navigation);
         }
     }
 }

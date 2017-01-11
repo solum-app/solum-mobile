@@ -1,96 +1,144 @@
 ﻿using System;
+using Solum.Models;
+using Solum.Service;
 using Xamarin.Forms;
 
 namespace Solum.Pages
 {
-	public partial class RootPage : MasterDetailPage
-	{
-		NavigationPage navigationPage;
-		Page currentPage;
+    public partial class RootPage : MasterDetailPage
+    {
+        private readonly NavigationPage _navigationPage;
+        private Page _currentPage;
+        private Usuario _user;
+        public string User { get; }
+        public string Username { get; }
 
-		public RootPage ()
-		{
-			InitializeComponent ();
+        public RootPage()
+        {
+            InitializeComponent();
+            _currentPage = new AnalisesPage();
+            _navigationPage = new NavigationPage(_currentPage)
+            {
+                BarBackgroundColor = Color.FromHex("#24BE55"),
+                BarTextColor = Color.White
+            };
+            Detail = _navigationPage;
 
-			currentPage = new AnalisesPage();
+            var analiseGesture = new TapGestureRecognizer();
+            analiseGesture.Tapped += OnAnalisesTapped;
+            AnalisesLabel.GestureRecognizers.Add(analiseGesture);
 
-			navigationPage = new NavigationPage(currentPage){
-				BarBackgroundColor = Color.FromHex("#24BE55"),
-				BarTextColor = Color.White
-			};
+            var fazendaGesture = new TapGestureRecognizer();
+            fazendaGesture.Tapped += OnFazendasTapped;
+            FazendasLabel.GestureRecognizers.Add(fazendaGesture);
 
-			Detail = navigationPage;
-		}
+            var sobreGesture = new TapGestureRecognizer();
+            sobreGesture.Tapped += OnSobreTapped;
+            SobreLabel.GestureRecognizers.Add(sobreGesture);
 
-		async void OnAnalisesTapped(object sender, EventArgs e){
-			if (Device.OS == TargetPlatform.iOS) {
-				if (currentPage.GetType() == typeof(AnalisesPage))
-				{
-					IsPresented = false;
-				}
-				else {
-					currentPage = new AnalisesPage();
-					Detail = new NavigationPage(currentPage)
-					{
-						BarBackgroundColor = Color.FromHex("#24BE55"),
-						BarTextColor = Color.White
-					};
-					IsPresented = false;
-				}
-			} else {
-				var page = new AnalisesPage();
-				await navigationPage.Navigation.PushAsync(page);
-				navigationPage.Navigation.RemovePage(currentPage);
-				currentPage = page;
+            var sairGesture = new TapGestureRecognizer();
+            sairGesture.Tapped += OnSairTapped;
+            SairLabel.GestureRecognizers.Add(sairGesture);
 
-				IsPresented = false;
-			}
-		}
+            _user = new UserDataService().GetLoggedUser();
+            User = _user.Nome;
+            Username = _user.Username;
+        }
 
-		//void OnNovaAnaliseTapped(object sender, EventArgs e)
-		//{
-		//	if (currentPage.GetType() == typeof(AnalisePage))
-		//	{
-		//		IsPresented = false;
-		//	}
-		//	else {
-		//		currentPage = new AnalisePage();
-		//		Detail = new NavigationPage(currentPage)
-		//		{
-		//			BarBackgroundColor = Color.FromHex("#24BE55"),
-		//			BarTextColor = Color.White
-		//		};
-		//		IsPresented = false;
-		//	}
-		//}
+        public async void OnAnalisesTapped(object sender, EventArgs e)
+        {
+            if (Device.OS == TargetPlatform.iOS)
+            {
+                if (_currentPage.GetType() == typeof(AnalisesPage))
+                {
+                    IsPresented = false;
+                }
+                else
+                {
+                    _currentPage = new AnalisesPage();
+                    Detail = new NavigationPage(_currentPage)
+                    {
+                        BarBackgroundColor = Color.FromHex("#24BE55"),
+                        BarTextColor = Color.White
+                    };
+                    IsPresented = false;
+                }
+            }
+            else
+            {
+                var page = new AnalisesPage();
+                await _navigationPage.Navigation.PushAsync(page);
+                _navigationPage.Navigation.RemovePage(_currentPage);
+                _currentPage = page;
+                IsPresented = false;
+            }
+        }
 
-		async void OnSobreTapped(object sender, EventArgs e)
-		{
-			if (Device.OS == TargetPlatform.iOS)
-			{
-				if (currentPage.GetType() == typeof(SobrePage))
-				{
-					IsPresented = false;
-				}
-				else {
-					currentPage = new SobrePage();
-					Detail = new NavigationPage(currentPage)
-					{
-						BarBackgroundColor = Color.FromHex("#24BE55"),
-						BarTextColor = Color.White
-					};
-					IsPresented = false;
-				}
-			}
-			else {
-				var page = new SobrePage();
-				await navigationPage.Navigation.PushAsync(page);
-				navigationPage.Navigation.RemovePage(currentPage);
-				currentPage = page;
+        public async void OnFazendasTapped(object sender, EventArgs e)
+        {
+            if (Device.OS == TargetPlatform.iOS)
+            {
+                if (_currentPage.GetType() == typeof(FazendasPage))
+                {
+                    IsPresented = false;
+                }
+                else
+                {
+                    _currentPage = new FazendasPage();
+                    Detail = new NavigationPage(_currentPage)
+                    {
+                        BarBackgroundColor = Color.FromHex("#24BE55"),
+                        BarTextColor = Color.White
+                    };
+                    IsPresented = false;
+                }
+            }
+            else
+            {
+                var page = new FazendasPage();
+                await _navigationPage.Navigation.PushAsync(page);
+                _navigationPage.Navigation.RemovePage(_currentPage);
+                _currentPage = page;
+                IsPresented = false;
+            }
+        }
 
-				IsPresented = false;
-			}
-		}
-	}
+        public async void OnSobreTapped(object sender, EventArgs e)
+        {
+            if (Device.OS == TargetPlatform.iOS)
+            {
+                if (_currentPage.GetType() == typeof(SobrePage))
+                {
+                    IsPresented = false;
+                }
+                else
+                {
+                    _currentPage = new SobrePage();
+                    Detail = new NavigationPage(_currentPage)
+                    {
+                        BarBackgroundColor = Color.FromHex("#24BE55"),
+                        BarTextColor = Color.White
+                    };
+                    IsPresented = false;
+                }
+            }
+            else
+            {
+                var page = new SobrePage();
+                await _navigationPage.Navigation.PushAsync(page);
+                _navigationPage.Navigation.RemovePage(_currentPage);
+                _currentPage = page;
+                IsPresented = false;
+            }
+        }
+
+        public async void OnSairTapped(object sender, EventArgs e)
+        {
+            var command = await DisplayAlert("Sair", "Você realmente deseja sair do app?", "Sim", "Não");
+            if (command)
+            {
+                await _navigationPage.Navigation.PushAsync(new LoginPage(), true);
+            }
+        }
+    }
 }
-

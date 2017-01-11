@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage 
-	xmlns="http://xamarin.com/schemas/2014/forms" 
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-	x:Class="Solum.AnalisesPage" 
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="Solum.Pages.AnalisesPage"
 	xmlns:renderers="clr-namespace:Solum.Renderers"
 	xmlns:handlers="clr-namespace:Solum.Handlers"
 	Title="Análises">
-	<AbsoluteLayout x:Name="absolute">
+  <AbsoluteLayout x:Name="absolute">
 
-		<Label
+    <Label
 			AbsoluteLayout.LayoutFlags="All"
            	AbsoluteLayout.LayoutBounds="0,0,1,1"
            	IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
@@ -17,11 +17,11 @@
 			FontSize="Medium"
 			Text="Nenhuma análise salva"
 			TextColor="#757575"/>
-		
-		<renderers:BindableListView 
+
+    <renderers:BindableListView
 			IsVisible="{Binding HasItems}"
 			x:Name="analisesList"
-			HasUnevenRows="true" 
+			HasUnevenRows="true"
 			IsGroupingEnabled="true"
 			ItemClickedCommand="{Binding ItemTappedCommand}"
 			SeparatorColor="#C8C7CC"
@@ -29,47 +29,47 @@
 			GroupDisplayBinding="{Binding Key}"
 			AbsoluteLayout.LayoutFlags="All"
            	AbsoluteLayout.LayoutBounds="0,0,1,1">
-		   	<ListView.GroupHeaderTemplate>
-				<DataTemplate>
-					<ViewCell>
-						<Grid BackgroundColor="#EEEEEE">
-							<Label TextColor="#717175" Text="{Binding Key}" LineBreakMode="TailTruncation">
-								<Label.Margin>
-									<OnPlatform x:TypeArguments="Thickness"
+      <ListView.GroupHeaderTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Grid BackgroundColor="#EEEEEE">
+              <Label TextColor="#717175" Text="{Binding Key}" LineBreakMode="TailTruncation">
+                <Label.Margin>
+                  <OnPlatform x:TypeArguments="Thickness"
 										iOS="16,24,16,4"
 										Android="16, 13"/>
-								</Label.Margin>
-								<Label.FontSize>
-									<OnPlatform x:TypeArguments="x:Double"
+                </Label.Margin>
+                <Label.FontSize>
+                  <OnPlatform x:TypeArguments="x:Double"
 										iOS="13"
 										Android="14"/>
-								</Label.FontSize>
-							</Label>
-						</Grid>
-					</ViewCell>
-				</DataTemplate>
-			</ListView.GroupHeaderTemplate>
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<ViewCell>
-						<Grid Padding="15" BackgroundColor="White">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-							</Grid.RowDefinitions>
-							<Label Text="{Binding Talhao, StringFormat='Talhão {0}'}" Grid.Row="0" TextColor="Black"/>
-							<Label Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="#757575" VerticalTextAlignment="Start"/>
-						</Grid>
-						<ViewCell.ContextActions>
-				            <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit"
-				               	Text="Editar" Icon="ic_editar"/>
-				            <MenuItem CommandParameter="{Binding .}" Clicked="OnDelete"
-				               	Text="Excluir" IsDestructive="True" Icon="ic_excluir"/>
-				         </ViewCell.ContextActions>
-					</ViewCell>
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</renderers:BindableListView>
-	</AbsoluteLayout>
-		
+                </Label.FontSize>
+              </Label>
+            </Grid>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.GroupHeaderTemplate>
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Grid Padding="15" BackgroundColor="White">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <Label Text="{Binding Talhao, StringFormat='Talhão {0}'}" Grid.Row="0" TextColor="Black"/>
+              <Label Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="#757575" VerticalTextAlignment="Start"/>
+            </Grid>
+            <ViewCell.ContextActions>
+              <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit"
+                  Text="Editar" Icon="ic_editar"/>
+              <MenuItem CommandParameter="{Binding .}" Clicked="OnDelete"
+                  Text="Excluir" IsDestructive="True" Icon="ic_excluir"/>
+            </ViewCell.ContextActions>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </renderers:BindableListView>
+  </AbsoluteLayout>
+
 </ContentPage>

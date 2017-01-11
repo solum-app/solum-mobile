@@ -34,12 +34,16 @@
   <ItemGroup>
     <Compile Include="Behaviors\Behaviors.cs" />
     <Compile Include="Converter\Converters.cs" />
+    <Compile Include="Custom\ImageCircle.cs" />
     <Compile Include="Models\Bindings.cs" />
     <Compile Include="Models\Cidade.cs" />
     <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Pages\CadastroPage.xaml.cs">
       <DependentUpon>CadastroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FazendasPage.xaml.cs">
+      <DependentUpon>FazendasPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -93,6 +97,7 @@
     </Compile>
     <Compile Include="Handlers\Grouping.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\MenuViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
@@ -185,6 +190,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\CadastroPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\FazendasPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

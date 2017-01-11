@@ -1,35 +1,51 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Solum.Pages.RootPage">
-  <MasterDetailPage.Master>
-    <ContentPage BackgroundColor="#F5F5F5" Title="Solum" Icon="ic_menu">
-      <StackLayout>
-        <ContentView BackgroundColor="#3E3F41" HeightRequest="160" Margin="0,0,0,8">
-          <Image Source="ic_solum_menu" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,15,0,0"/>
-        </ContentView>
-        <Grid Padding="16,10" ColumnSpacing="24">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-          </Grid.ColumnDefinitions>
-          <Image Source="ic_analises" VerticalOptions="Center" Grid.Column="0"/>
-          <Label Text="Análises" YAlign="Center" Grid.Column="1" FontAttributes="Bold" TextColor="#3E3F41"/>
-          <Grid.GestureRecognizers>
-            <TapGestureRecognizer
-                    Tapped="OnAnalisesTapped" />
-          </Grid.GestureRecognizers>
-        </Grid>
 
-        <Grid Padding="16,10" ColumnSpacing="24">
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:local="clr-namespace:Solum.Custom;assembly=Solum"
+                  x:Class="Solum.Pages.RootPage">
+  <MasterDetailPage.Master>
+    <ContentPage Title="Menu">
+      <StackLayout>
+        <ContentView BackgroundColor="#30BC5A" HeightRequest="160" Margin="0,0,0,8">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition />
+              <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <local:ImageCircle Source="ic_menu_solum"
+                               HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                               Margin="0,15,0,0" Grid.Column="0" HeightRequest="100" WidthRequest="100"/>
+            <StackLayout Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+              <Label Text="Nome"/>
+              <Label Text="E-Mail"/>
+            </StackLayout>
+          </Grid>
+        </ContentView>
+        <Grid Margin="5,5,5,5" Padding="5,5,5,5">
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
-          <Image Source="ic_sobre" VerticalOptions="Center" Grid.Column="0"/>
-          <Label Text="Sobre" YAlign="Center" Grid.Column="1" FontAttributes="Bold" TextColor="#3E3F41"/>
-          <Grid.GestureRecognizers>
-            <TapGestureRecognizer
-                    Tapped="OnSobreTapped" />
-          </Grid.GestureRecognizers>
+
+          <Image Source="ic_menu_analises" Grid.Row="1" Grid.Column="0"/>
+          <Label x:Name="AnalisesLabel" Text="Analises" FontSize="25" Grid.Row="1" Grid.Column="1"/>
+          
+          <Image Source="ic_menu_fazendas" Grid.Row="0" Grid.Column="0"/>
+          <Label x:Name="FazendasLabel" Text="Fazendas" FontSize="25" Grid.Row="0" Grid.Column="1"/>
+
+          <Image Source="ic_menu_sobre" Grid.Row="2" Grid.Column="0"/>
+          <Label x:Name="SobreLabel" Text="Sobre" FontSize="25" Grid.Row="2" Grid.Column="1"/>
+
+          <Image Source="ic_menu_sair" Grid.Row="3" Grid.Column="0"/>
+          <Label x:Name="SairLabel" Text="Sair" FontSize="25" Grid.Row="3" Grid.Column="1"/>
+          
         </Grid>
       </StackLayout>
     </ContentPage>
