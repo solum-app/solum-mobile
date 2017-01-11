@@ -7,6 +7,11 @@
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public string CidadeId { get; set; }
+        public bool IsValid => !string.IsNullOrEmpty(Nome)
+                               && !string.IsNullOrEmpty(Email)
+                               && !string.IsNullOrEmpty(Password)
+                               && !string.IsNullOrEmpty(ConfirmPassword)
+                               && !string.IsNullOrEmpty(CidadeId);
     }
 
     public class LoginBinding
@@ -14,6 +19,7 @@
         public string Username { get; set; }
         public string Password { get; set; }
         public static string GrantType { get; } = "password";
+        public bool IsValid { get { return !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password); } }
     }
 
     public class RefreshTokenBinding

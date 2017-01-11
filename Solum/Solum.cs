@@ -5,34 +5,24 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-
 namespace Solum
 {
     public class App : Application
     {
         public App()
         {
-            var userdataservice = new UserDataService();
-            var user = userdataservice.GetLoggedUser();
-            if (user != default(Usuario))
-                MainPage = new RootPage();
+            var isUsuarioLogado = VerificaLogin();
+            if (!isUsuarioLogado)
+                MainPage = new NavigationPage(new LoginPage());
             else
-                MainPage = new LoginPage();
+                MainPage = new RootPage();
         }
 
-        protected override void OnStart()
+        private bool VerificaLogin()
         {
-            // Handle when your app starts
-        }
-
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
+            var dataService = new UserDataService();
+            var loggedUser = dataService.GetLoggedUser();
+            return loggedUser != default(Usuario);
         }
     }
 }

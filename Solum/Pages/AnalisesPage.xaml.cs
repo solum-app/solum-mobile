@@ -1,10 +1,9 @@
 ﻿using System;
-using Xamarin.Forms;
-using Solum.Pages;
 using Solum.Renderers;
 using Solum.ViewModel;
+using Xamarin.Forms;
 
-namespace Solum
+namespace Solum.Pages
 {
 	public partial class AnalisesPage : ContentPage
 	{
