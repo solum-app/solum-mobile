@@ -13,27 +13,24 @@ namespace Solum.ViewModel
 {
     public class CadastroViewModel : BaseViewModel
     {
-        private string _aviso;
+        private ICommand _registerCommand;
+        private ICommand _updateCidadesCommand;
         private IList<Cidade> _cidades = new List<Cidade>();
-
+        private IList<Estado> _estados = new List<Estado>();
         private Cidade _cidadeSelected;
+        private Estado _estadoSelected;
+        private string _name;
+        private string _password;
         private string _confirmPassword;
         private string _email;
-        private IList<Estado> _estados = new List<Estado>();
-        private Estado _estadoSelected;
-        private bool _isAvisoVisible;
-
         private bool _isCarregandoEstados = true;
         private bool _isCidadesCarregadas;
 
-        private string _name;
-        private string _password;
-
-        private ICommand _registerCommand;
-        private ICommand _updateCidadesCommand;
+        private AuthService _authService;
 
         public CadastroViewModel(INavigation navigation) : base(navigation)
         {
+            _authService = new AuthService();
             CarregarEstados();
         }
 
@@ -97,27 +94,9 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _isCidadesCarregadas, value); }
         }
 
-        public bool IsAvisoVisible
-        {
-            get { return _isAvisoVisible; }
-            set { SetPropertyChanged(ref _isAvisoVisible, value); }
-        }
+        public ICommand RegisterCommand => _registerCommand ?? (_registerCommand = new Command(Cadastrar));
 
-        public string Aviso
-        {
-            get { return _aviso; }
-            set { SetPropertyChanged(ref _aviso, value); }
-        }
-
-        public ICommand RegisterCommand
-        {
-            get { return _registerCommand ?? (_registerCommand = new Command(Cadastrar)); }
-        }
-
-        public ICommand UpdateCidadesCommand
-        {
-            get { return _updateCidadesCommand ?? (_updateCidadesCommand = new Command(AtualizarCidades)); }
-        }
+        public ICommand UpdateCidadesCommand => _updateCidadesCommand ?? (_updateCidadesCommand = new Command(AtualizarCidades));
 
         public async void Cadastrar()
         {
@@ -126,26 +105,35 @@ namespace Solum.ViewModel
                 Nome = Name,
                 Email = Email,
                 Password = Password,
-                ConfirmPassword = ConfirmPassword,
-                CidadeId = CidadeSelected.Id
+                ConfirmPassword = ConfirmPassword
             };
-            var authService = new AuthService();
-            var result = await authService.Register(registerBinding);
-            IsAvisoVisible = true;
+
+            if (CidadeSelected == default(Cidade))
+            {
+                MessagingCenter.Send(this, "CidadeNull", "Selecione uma cidade");
+                return;
+            }
+
+            registerBinding.CidadeId = CidadeSelected.Id;
+
+            if (!registerBinding.IsValid)
+            {
+                MessagingCenter.Send(this, "NullEntrys", "Preencha todos os campos, selecione o Estado e a Cidade que reside.");
+                return;
+            }
+            
+            var result = await _authService.Register(registerBinding);
+
             if (result == RegisterResult.RegisterSuccefully)
             {
-                Aviso = "Seu cadastro foi realizado com sucesso!";
+                MessagingCenter.Send(this, "RegisterSuccessful", "Seu cadastro foi realizado com sucesso. Em instantes receberá um email para confirmar sua conta");
+                await Navigation.PopAsync(true);
             }
+
             if (result == RegisterResult.RegisterUnsuccessfully)
             {
-                Aviso = "Seu cadastro não foi realizado com sucesso.";
+                MessagingCenter.Send(this, "RegisterUnsuccessful", "Seu cadastro não foi realizado. E-Mail já cadastrado!");
             }
-            Name = string.Empty;
-            Email = string.Empty;
-            Password = string.Empty;
-            ConfirmPassword = string.Empty;
-            CidadeSelected = null;
-            EstadoSelected = null;
         }
 
         public async Task CarregarEstados()

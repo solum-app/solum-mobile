@@ -6,7 +6,7 @@ namespace Solum.Behaviors
 {
     public class EmailValidatorBehavior : Behavior<Entry>
     {
-        private const string emailRegex =
+        private const string EmailRegex =
             @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
             @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
 
@@ -33,7 +33,7 @@ namespace Solum.Behaviors
 
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            IsValid = Regex.IsMatch(e.NewTextValue, emailRegex, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            IsValid = Regex.IsMatch(e.NewTextValue, EmailRegex, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
             ((Entry) sender).TextColor = IsValid ? Color.Green : Color.Red;
         }
     }
