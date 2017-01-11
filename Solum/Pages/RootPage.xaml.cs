@@ -1,5 +1,4 @@
 ﻿using System;
-using Solum.Models;
 using Solum.Service;
 using Xamarin.Forms;
 
@@ -9,7 +8,6 @@ namespace Solum.Pages
     {
         private readonly NavigationPage _navigationPage;
         private Page _currentPage;
-        private Usuario _user;
         public string User { get; }
         public string Username { get; }
 
@@ -40,9 +38,9 @@ namespace Solum.Pages
             sairGesture.Tapped += OnSairTapped;
             SairLabel.GestureRecognizers.Add(sairGesture);
 
-            _user = new UserDataService().GetLoggedUser();
-            User = _user.Nome;
-            Username = _user.Username;
+            var user = new UserDataService().GetLoggedUser();
+            User = user.Nome;
+            Username = user.Username;
         }
 
         public async void OnAnalisesTapped(object sender, EventArgs e)
@@ -137,7 +135,7 @@ namespace Solum.Pages
             var command = await DisplayAlert("Sair", "Você realmente deseja sair do app?", "Sim", "Não");
             if (command)
             {
-                await _navigationPage.Navigation.PushAsync(new LoginPage(), true);
+                Application.Current.MainPage = new LoginPage();
             }
         }
     }
