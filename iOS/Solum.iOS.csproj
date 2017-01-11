@@ -278,6 +278,15 @@
     <BundleResource Include="Resources\ic_pdf%403x.png" />
     <BundleResource Include="Resources\ic_pdf%402x.png" />
     <BundleResource Include="Resources\ic_pdf.png" />
+    <BundleResource Include="Resources\solum_login.png" />
+    <BundleResource Include="Resources\solum_login%402x.png" />
+    <BundleResource Include="Resources\solum_login%403x.png" />
+    <BundleResource Include="Resources\ic_user%402x.png" />
+    <BundleResource Include="Resources\ic_user%403x.png" />
+    <BundleResource Include="Resources\ic_user.png" />
+    <BundleResource Include="Resources\ic_password.png" />
+    <BundleResource Include="Resources\ic_password%403x.png" />
+    <BundleResource Include="Resources\ic_password%402x.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\packages\Realm.0.81.0\build\Realm.targets" Condition="Exists('..\packages\Realm.0.81.0\build\Realm.targets')" />

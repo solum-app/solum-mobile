@@ -1,17 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Solum.Pages.LoginPage"
-             Title="Login">
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:effects="clr-namespace:Solum.Effects"
+    x:Class="Solum.Pages.LoginPage"
+    Title="Login">
 
-	<StackLayout VerticalOptions="Center">
-		<Entry x:Name="UsernameEntry" Placeholder="Usuário" Text="{Binding Username}" />
-		<Entry x:Name="PasswordEntry" Placeholder="Senha" IsPassword="True" Text="{Binding Password}" />
-		<Button x:Name="EntrarButton" Text="Entrar" Command="{Binding LoginCommand}" />
-		<Button x:Name="CadastrarButton" Text="Cadastrar" Command="{Binding CadastrarCommand}" />
-    <ActivityIndicator IsRunning="{Binding InLogin}"/>
-    <Label x:Name="AvisoLabel" Text="{Binding Aviso}" IsVisible="{Binding IsAvisoVisible}"/>
+	<StackLayout
+		VerticalOptions="FillAndExpand"
+		HorizontalOptions="FillAndExpand"
+		BackgroundColor="#B7E2E4"
+		Spacing="0"
+		Padding="0,16">
+
+		<Image Source="solum_login" HorizontalOptions="Center" VerticalOptions="EndAndExpand"/>
+		<Label Text="Use suas credenciais para acessar suas informações" HorizontalTextAlignment="Center" TextColor="#3E3F41" Margin="16,32,16,32"/>
+		<Grid Margin="16, 8" ColumnSpacing="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="24"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Image Source="ic_user" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0"/>
+			<Entry x:Name="UsernameEntry" Placeholder="Email" Text="{Binding Username}" Margin="32,0,0,0" PlaceholderColor="#7B9092" Grid.Column="1">
+				<Entry.Effects>
+					<effects:NoBorderEffect />
+			    </Entry.Effects>
+				<Entry.FontSize>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="17"
+						Android="14"/>
+				</Entry.FontSize>
+			</Entry>
+			<BoxView BackgroundColor="#7B9092" Margin="32,0,0,0" HeightRequest="1" HorizontalOptions="FillAndExpand" Grid.Column="1" VerticalOptions="End"/>
+		</Grid>
+		
+		<Grid Margin="16,8" ColumnSpacing="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="24"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Image Source="ic_password" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0"/>
+			<Entry x:Name="PasswordEntry" Placeholder="Senha" IsPassword="True" Text="{Binding Password}" Margin="32,0,0,0" PlaceholderColor="#7B9092" Grid.Column="1">
+				<Entry.Effects>
+					<effects:NoBorderEffect />
+			    </Entry.Effects>
+				<Entry.FontSize>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="17"
+						Android="14"/>
+				</Entry.FontSize>
+			</Entry>
+			<BoxView BackgroundColor="#7B9092" Margin="32,0,0,0" HeightRequest="1" HorizontalOptions="FillAndExpand" Grid.Column="1" VerticalOptions="End"/>
+		</Grid>
+		<Label Text="Esqueceu a senha?" HorizontalTextAlignment="End" TextColor="#3E3F41" Margin="16,0" FontSize="Small"/>
+		<Button x:Name="EntrarButton" Text="Entrar" Command="{Binding LoginCommand}" Margin="16" BackgroundColor="#FFD54F" TextColor="Black" VerticalOptions="EndAndExpand"/>
+		<Label x:Name="CadastrarButton" Text="Cadastre-se gratuitamente" Margin="16,0,16,16" HorizontalTextAlignment="Center" TextColor="#3E3F41" VerticalOptions="End"/>
+		<!--<ActivityIndicator IsRunning="{Binding InLogin}"/>
+	    <Label x:Name="AvisoLabel" Text="{Binding Aviso}" IsVisible="{Binding IsAvisoVisible}"/>-->
 	</StackLayout>
 
 </ContentPage>
