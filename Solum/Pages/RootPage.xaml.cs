@@ -203,6 +203,9 @@ namespace Solum.Pages
             var command = await DisplayAlert("Sair", "Você realmente deseja sair do app?", "Sim", "Não");
             if (command)
             {
+                var authservice = new AuthService();
+                await authservice.Logoff();
+
                 var color = Color.Black;
                 if (Device.OS == TargetPlatform.Android)
                     DependencyService.Get<IStatusBarColor>().SetColor(color);

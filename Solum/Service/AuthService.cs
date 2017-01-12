@@ -61,6 +61,12 @@ namespace Solum.Service
             return RefreshTokenResult.Success;
         }
 
-       // public async Task Logoff() { }
+        public async Task Logoff()
+        {
+            //verificar dados não sincronizados primeiro;
+            await _accountRemote.Logout();
+            var loggedUser = _userDataService.GetLoggedUser();
+            _userDataService.Delete(loggedUser);
+        }
     }
 }

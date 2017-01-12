@@ -56,5 +56,11 @@ namespace Solum.Remotes
             var url = $"{Settings.BaseUri}{Settings.TokenUri}";
             return await Client.PostAsync(url, content);
         }
+
+        public async Task<HttpResponseMessage> Logout()
+        {
+            var url = $"{Settings.BaseUri}{Settings.AccountLogoutUri}";
+            return await Client.PostAsync(url, null);
+        }
     }
 }
