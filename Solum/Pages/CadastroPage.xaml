@@ -1,51 +1,106 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum"
-             xmlns:behaviors="clr-namespace:Solum.Behaviors;assembly=Solum"
-             Title="Cadastro"
-             x:Class="Solum.Pages.CadastroPage">
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum"
+	xmlns:effects="clr-namespace:Solum.Effects"
+	xmlns:behaviors="clr-namespace:Solum.Behaviors;assembly=Solum"
+	Title="Cadastro"
+	x:Class="Solum.Pages.CadastroPage">
 
-	<StackLayout VerticalOptions="CenterAndExpand">
-
-		<Entry x:Name="NameEntry" Placeholder="Nome Completo"
-		       Text="{Binding Name, Mode=TwoWay}" />
-
-		<Entry x:Name="EmailEntry" Placeholder="Email Válido"
-		       Text="{Binding Email, Mode=TwoWay}">
+	<StackLayout
+		VerticalOptions="FillAndExpand"
+		HorizontalOptions="FillAndExpand"
+		BackgroundColor="#B7E2E4"
+		Spacing="0"
+		Padding="16">
+		
+		<Label Text="Informações Pessoais" HorizontalTextAlignment="Center" TextColor="#7B9092" FontSize="Large" FontAttributes="Bold" Margin="0,32,0,16"/>
+		<Label Text="Todos os campos são obrigatórios" HorizontalTextAlignment="Center" FontSize="Small" TextColor="#3E3F41" Margin="0,0,0,32"/>
+		<Entry x:Name="NameEntry" Placeholder="Nome Completo" Text="{Binding Name, Mode=TwoWay}" PlaceholderColor="#90B0B7">
+			<Entry.Effects>
+	          <effects:NoBorderEffect />
+	        </Entry.Effects>
+	        <Entry.FontSize>
+				<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+	        </Entry.FontSize>
+		</Entry>
+    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,16"/>
+	
+		<Entry x:Name="EmailEntry" Placeholder="Email Válido" Text="{Binding Email, Mode=TwoWay}" PlaceholderColor="#90B0B7">
 			<Entry.Behaviors>
 				<behaviors:EmailValidatorBehavior />
 			</Entry.Behaviors>
+			<Entry.Effects>
+	          <effects:NoBorderEffect />
+	        </Entry.Effects>
+	        <Entry.FontSize>
+				<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+	        </Entry.FontSize>
 		</Entry>
+    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,16"/>
 
-		<Entry x:Name="PasswordEntry" Placeholder="Senha"
-		       Text="{Binding Password, Mode=TwoWay}" IsPassword="True">
+		<Entry x:Name="PasswordEntry" Placeholder="Senha" Text="{Binding Password, Mode=TwoWay}" IsPassword="True" PlaceholderColor="#90B0B7">
 			<Entry.Behaviors>
 				<behaviors:RequiredValidatorBehavior />
 			</Entry.Behaviors>
+			<Entry.Effects>
+	          <effects:NoBorderEffect />
+	        </Entry.Effects>
+	        <Entry.FontSize>
+				<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+	        </Entry.FontSize>
 		</Entry>
+    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,16"/>
 
-		<Entry x:Name="ConfirmPasswordEntry" Placeholder="Confirma Senha"
-		       Text="{Binding ConfirmPassword, Mode=TwoWay}" IsPassword="True">
+		<Entry x:Name="ConfirmPasswordEntry" Placeholder="Confirma Senha" Text="{Binding ConfirmPassword, Mode=TwoWay}" IsPassword="True" PlaceholderColor="#90B0B7">
 			<Entry.Behaviors>
 				<behaviors:ConfirmPasswordBehavior CompareToEntry="{Binding Source={x:Reference PasswordEntry}}" />
 			</Entry.Behaviors>
+			<Entry.Effects>
+	          <effects:NoBorderEffect />
+	        </Entry.Effects>
+	        <Entry.FontSize>
+				<OnPlatform x:TypeArguments="x:Double"
+							iOS="17"
+							Android="14"/>
+	        </Entry.FontSize>
 		</Entry>
+    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,16"/>
 
-		<renderers:BindablePicker x:Name="EstadosPicker" ItemsSource="{Binding Estados}"
-		                          SelectedItem="{Binding EstadoSelected}"
-		                          ItemSelectedCommand="{Binding UpdateCidadesCommand}"
-		                          Title="Selecione o Estado" />
+		<renderers:BindablePicker 
+			x:Name="EstadosPicker" ItemsSource="{Binding Estados}"
+			SelectedItem="{Binding EstadoSelected}"
+			ItemSelectedCommand="{Binding UpdateCidadesCommand}"
+			Title="Selecione o Estado">
+			<Entry.Effects>
+	          <effects:NoBorderEffect />
+	        </Entry.Effects>
 
-		<renderers:BindablePicker x:Name="CidadesPicker" ItemsSource="{Binding Cidades}"
-		                          SelectedItem="{Binding CidadeSelected}"
-		                          SelectedIndex="0"
-		                          Title="Selecione a Cidade" />
+		</renderers:BindablePicker>
+    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,16"/>
 
+		<renderers:BindablePicker 
+			x:Name="CidadesPicker" ItemsSource="{Binding Cidades}"
+			SelectedItem="{Binding CidadeSelected}"
+			SelectedIndex="0"
+			Title="Selecione a Cidade">
+			<Entry.Effects>
+	          <effects:NoBorderEffect />
+	        </Entry.Effects>
+		</renderers:BindablePicker>
+    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,16"/>
+		
 		<ActivityIndicator IsRunning="{Binding IsCarregandoEstados}" />
-		<Button Text="Enviar" Command="{Binding RegisterCommand}" />
-    <Button Text="Voltar" Command="{Binding VoltarCommand}" />
+		<Button Text="Enviar" Command="{Binding RegisterCommand}" Margin="0,16" BackgroundColor="#FFD54F" TextColor="Black" VerticalOptions="EndAndExpand"/>
+    	<Button Text="Voltar" Command="{Binding VoltarCommand}" />
 
 	</StackLayout>
 </ContentPage>
