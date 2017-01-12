@@ -20,7 +20,11 @@ namespace Solum
                 var color = Color.Black;
                 if (Device.OS == TargetPlatform.Android)
                     DependencyService.Get<IStatusBarColor>().SetColor(color);
-                MainPage = new NavigationPage(new LoginPage());
+                MainPage = new NavigationPage(new LoginPage())
+                {
+                    BackgroundColor = Color.Transparent,
+                    BarTextColor = Color.Black
+                };
             }
             else
             {

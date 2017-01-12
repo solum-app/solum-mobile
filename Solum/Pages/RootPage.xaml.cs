@@ -15,13 +15,13 @@ namespace Solum.Pages
         public RootPage()
         {
             InitializeComponent();
-            var color = Color.FromHex("#1FA549");
+            var color = Color.FromHex("#2FBC5A");
             if (Device.OS == TargetPlatform.Android)
                 DependencyService.Get<IStatusBarColor>().SetColor(color);
             _currentPage = new AnalisesPage();
             _navigationPage = new NavigationPage(_currentPage)
             {
-                BarBackgroundColor = Color.FromHex("#24BE55"),
+                BarBackgroundColor = color,
                 BarTextColor = Color.White
             };
             Detail = _navigationPage;
@@ -66,7 +66,7 @@ namespace Solum.Pages
                     _currentPage = new AnalisesPage();
                     Detail = new NavigationPage(_currentPage)
                     {
-                        BarBackgroundColor = Color.FromHex("#24BE55"),
+                        BarBackgroundColor = Color.FromHex("#2FBC5A"),
                         BarTextColor = Color.White
                     };
                     IsPresented = false;
@@ -95,7 +95,7 @@ namespace Solum.Pages
                     _currentPage = new FazendasPage();
                     Detail = new NavigationPage(_currentPage)
                     {
-                        BarBackgroundColor = Color.FromHex("#24BE55"),
+                        BarBackgroundColor = Color.FromHex("#2FBC5A"),
                         BarTextColor = Color.White
                     };
                     IsPresented = false;
@@ -124,7 +124,7 @@ namespace Solum.Pages
                     _currentPage = new SobrePage();
                     Detail = new NavigationPage(_currentPage)
                     {
-                        BarBackgroundColor = Color.FromHex("#24BE55"),
+                        BarBackgroundColor = Color.FromHex("#2FBC5A"),
                         BarTextColor = Color.White
                     };
                     IsPresented = false;
@@ -153,7 +153,7 @@ namespace Solum.Pages
                     _currentPage = new CalagemPage();
                     Detail = new NavigationPage(_currentPage)
                     {
-                        BarBackgroundColor = Color.FromHex("#24BE55"),
+                        BarBackgroundColor = Color.FromHex("#2FBC5A"),
                         BarTextColor = Color.White
                     };
                     IsPresented = false;
@@ -182,7 +182,7 @@ namespace Solum.Pages
                     _currentPage = new RecomendaCalagemPage();
                     Detail = new NavigationPage(_currentPage)
                     {
-                        BarBackgroundColor = Color.FromHex("#24BE55"),
+                        BarBackgroundColor = Color.FromHex("#2FBC5A"),
                         BarTextColor = Color.White
                     };
                     IsPresented = false;
@@ -212,8 +212,8 @@ namespace Solum.Pages
                 _currentPage = new LoginPage();
                 _navigationPage = new NavigationPage(_currentPage)
                 {
-                    BarBackgroundColor = Color.FromHex("#24BE55"),
-                    BarTextColor = Color.White
+                    BarBackgroundColor = Color.Transparent,
+                    BarTextColor = Color.Black
                 };
                 Application.Current.MainPage = _navigationPage;
             }
