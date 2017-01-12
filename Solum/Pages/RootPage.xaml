@@ -5,7 +5,7 @@
                   xmlns:local="clr-namespace:Solum.Custom;assembly=Solum"
                   x:Class="Solum.Pages.RootPage">
   <MasterDetailPage.Master>
-    <ContentPage Title="Menu">
+    <ContentPage BackgroundColor="#F5F5F5" Title="Solum" Icon="ic_menu">
       <StackLayout>
         <ContentView BackgroundColor="#30BC5A" HeightRequest="160" Margin="0,0,0,8">
           <Grid>
