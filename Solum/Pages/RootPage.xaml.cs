@@ -17,7 +17,7 @@ namespace Solum.Pages
             InitializeComponent();
             var color = Color.FromHex("#2FBC5A");
             if (Device.OS == TargetPlatform.Android)
-                DependencyService.Get<IStatusBarColor>().SetColor(color);
+                DependencyService.Get<IStatusBarColor>().SetColor(Color.FromHex("#1FA549"));
             _currentPage = new AnalisesPage();
             _navigationPage = new NavigationPage(_currentPage)
             {
