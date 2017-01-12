@@ -11,7 +11,7 @@ namespace Solum
             AccountUri = "account/";
             AccountRegisterUri = "account/register";
             AccountLoginUri = "account/login";
-            AccountLogoffUri = "account/logoff";
+            AccountLogoutUri = "account/logout";
             TokenUri = "token/";
             EstadoUri = "estado/";
         }
@@ -29,7 +29,7 @@ namespace Solum
         public static string AccountUri { get; set; }
         public static string AccountRegisterUri { get; set; }
         public static string AccountLoginUri { get; set; }
-        public static string AccountLogoffUri { get; set; }
+        public static string AccountLogoutUri { get; set; }
         public static string TokenUri { get; set; }
 
         #endregion
