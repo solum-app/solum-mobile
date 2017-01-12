@@ -1,6 +1,7 @@
 ﻿using System;
 using Solum.Effects;
 using Solum.Service;
+using Solum.ViewModel;
 using Xamarin.Forms;
 
 namespace Solum.Pages
@@ -24,6 +25,8 @@ namespace Solum.Pages
                 BarTextColor = Color.White
             };
             Detail = _navigationPage;
+
+            Master.BindingContext = new MenuViewModel(Navigation);
 
             var analiseGesture = new TapGestureRecognizer();
             analiseGesture.Tapped += OnAnalisesTapped;
