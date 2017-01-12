@@ -21,7 +21,7 @@ namespace Solum.Pages
             _currentPage = new AnalisesPage();
             _navigationPage = new NavigationPage(_currentPage)
             {
-                BarBackgroundColor = Color.FromHex("#24BE55"),
+                BarBackgroundColor = color,
                 BarTextColor = Color.White
             };
             Detail = _navigationPage;
@@ -212,7 +212,7 @@ namespace Solum.Pages
                 _currentPage = new LoginPage();
                 _navigationPage = new NavigationPage(_currentPage)
                 {
-                    BarBackgroundColor = Color.FromHex("#24BE55"),
+                    BarBackgroundColor = color,
                     BarTextColor = Color.White
                 };
                 Application.Current.MainPage = _navigationPage;
