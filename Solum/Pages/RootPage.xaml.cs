@@ -44,13 +44,13 @@ namespace Solum.Pages
             sairGesture.Tapped += OnSairTapped;
             SairLabel.GestureRecognizers.Add(sairGesture);
 
-            var calagemGesture = new TapGestureRecognizer();
-            calagemGesture.Tapped += OnCalagemTapped;
-            CalagemLabel.GestureRecognizers.Add(calagemGesture);
+            //var calagemGesture = new TapGestureRecognizer();
+            //calagemGesture.Tapped += OnCalagemTapped;
+            //CalagemLabel.GestureRecognizers.Add(calagemGesture);
 
-            var recomendacaoGesture = new TapGestureRecognizer();
-            recomendacaoGesture.Tapped += OnRecomendacaoTapped;
-            RecomendacaoLabel.GestureRecognizers.Add(recomendacaoGesture);
+            //var recomendacaoGesture = new TapGestureRecognizer();
+            //recomendacaoGesture.Tapped += OnRecomendacaoTapped;
+            //RecomendacaoLabel.GestureRecognizers.Add(recomendacaoGesture);
         }
 
         public async void OnAnalisesTapped(object sender, EventArgs e)

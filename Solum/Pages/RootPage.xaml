@@ -1,60 +1,83 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:local="clr-namespace:Solum.Custom;assembly=Solum"
-                  xmlns:viewModel="clr-namespace:Solum.ViewModel;assembly=Solum"
-                  x:Class="Solum.Pages.RootPage">
-  <MasterDetailPage.Master>
-    <ContentPage BackgroundColor="#F5F5F5" Title="Solum" Icon="ic_menu">
-      <StackLayout>
-        <ContentView BackgroundColor="#2FBC5A" HeightRequest="160" Margin="0,0,0,8">
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="65" />
-              <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <local:ImageCircle Source="ic_menu_solum"
-                               HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
-                               Margin="0,15,0,0" Grid.Column="0" HeightRequest="64" WidthRequest="64"/>
-            <StackLayout Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-              <Label Text="{Binding Nome}"/>
-              <Label Text="{Binding Email}"/>
-            </StackLayout>
-          </Grid>
-        </ContentView>
-        <Grid Margin="5,5,5,5" Padding="5,5,5,5">
-          <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-          </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*"/>
-          </Grid.ColumnDefinitions>
+<MasterDetailPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:local="clr-namespace:Solum.Custom;assembly=Solum"
+	xmlns:viewModel="clr-namespace:Solum.ViewModel;assembly=Solum"
+	x:Class="Solum.Pages.RootPage">
+	
+	<MasterDetailPage.Master>
+		<ContentPage BackgroundColor="#F5F5F5" Title="Solum" Icon="ic_menu">
+			<StackLayout>
+				<ContentView BackgroundColor="#30BC5A" HeightRequest="120" Margin="0,0,0,8">
+					<Grid Padding="16" ColumnSpacing="0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="64" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						
+						<local:ImageCircle 
+							Source="ic_menu_solum"
+							HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+							Margin="0,15,0,0" Grid.Column="0" HeightRequest="64" WidthRequest="64"/>
+						
+						<StackLayout Spacing="0" Padding="16,16,16,0" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+							<Label Text="{Binding Nome}" TextColor="White" FontSize="Large" FontAttributes="Bold"/>
+							<Label Text="{Binding Email}" TextColor="White" FontSize="Small"/>
+						</StackLayout>
+					</Grid>
+				</ContentView>
 
-          <Image Source="ic_menu_analises" Grid.Row="1" Grid.Column="0"/>
-          <Label x:Name="AnalisesLabel" Text="Analises" FontSize="25" Grid.Row="1" Grid.Column="1"/>
-          
-          <Image Source="ic_menu_fazendas" Grid.Row="0" Grid.Column="0"/>
-          <Label x:Name="FazendasLabel" Text="Fazendas" FontSize="25" Grid.Row="0" Grid.Column="1"/>
+				<StackLayout  Padding="16,0,0,0" Spacing="0">
+					<Grid Margin="0,12">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="24" />
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
 
-          <Image Source="ic_menu_sobre" Grid.Row="2" Grid.Column="0"/>
-          <Label x:Name="SobreLabel" Text="Sobre" FontSize="25" Grid.Row="2" Grid.Column="1"/>
+						<Image Source="ic_menu_analises" Grid.Column="0"/>
+						<Label x:Name="AnalisesLabel" Text="Analises" Grid.Column="1" Margin="32,0,0,0" FontAttributes="Bold" TextColor="#212121"/>
+					</Grid>
+				
+					<Grid Margin="0,12">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="24" />
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						
+						<Image Source="ic_menu_fazendas" Grid.Column="0"/>
+						<Label x:Name="FazendasLabel" Text="Fazendas" Grid.Column="1" Margin="32,0,0,0" FontAttributes="Bold" TextColor="#212121"/>
+					</Grid>
 
-          <Image Source="ic_menu_sair" Grid.Row="3" Grid.Column="0"/>
-          <Label x:Name="SairLabel" Text="Sair" FontSize="25" Grid.Row="3" Grid.Column="1"/>
+					<Grid Margin="0,12">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="24" />
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+							
+						<Image Source="ic_menu_sobre" Grid.Column="0"/>
+						<Label x:Name="SobreLabel" Text="Sobre" Grid.Column="1" Margin="32,0,0,0" FontAttributes="Bold" TextColor="#212121"/>
+					</Grid>
 
-          <Label x:Name="CalagemLabel" Text="Calagem" Grid.Row="4" Grid.Column="1"/>
-          
-          <Label x:Name="RecomendacaoLabel" Text="Recomendacao" Grid.Row="5" Grid.Column="1"/>
-          
-        </Grid>
-      </StackLayout>
-    </ContentPage>
-  </MasterDetailPage.Master>
+					<Grid Margin="0,12">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="24" />
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+
+						<Image Source="ic_menu_sair" Grid.Column="0"/>
+						<Label x:Name="SairLabel" Text="Sair" Grid.Column="1" Margin="32,0,0,0" FontAttributes="Bold" TextColor="#212121"/>
+					</Grid>
+<!--				
+					<Label x:Name="CalagemLabel" Text="Calagem" Grid.Row="4" Grid.Column="1"/>
+
+					<Label x:Name="RecomendacaoLabel" Text="Recomendacao" Grid.Row="5" Grid.Column="1"/>-->
+
+				</StackLayout>
+			</StackLayout>
+		</ContentPage>
+		
+	</MasterDetailPage.Master>
+	
 </MasterDetailPage>
