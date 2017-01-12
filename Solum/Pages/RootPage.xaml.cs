@@ -1,4 +1,5 @@
 ﻿using System;
+using Solum.Effects;
 using Solum.Service;
 using Xamarin.Forms;
 
@@ -14,6 +15,9 @@ namespace Solum.Pages
         public RootPage()
         {
             InitializeComponent();
+            var color = Color.FromHex("#1FA549");
+            if (Device.OS == TargetPlatform.Android)
+                DependencyService.Get<IStatusBarColor>().SetColor(color);
             _currentPage = new AnalisesPage();
             _navigationPage = new NavigationPage(_currentPage)
             {

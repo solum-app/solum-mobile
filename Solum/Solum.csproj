@@ -35,6 +35,7 @@
     <Compile Include="Behaviors\Behaviors.cs" />
     <Compile Include="Converter\Converters.cs" />
     <Compile Include="Custom\ImageCircle.cs" />
+    <Compile Include="Effects\IStatusBarColor.cs" />
     <Compile Include="Models\Bindings.cs" />
     <Compile Include="Models\Cidade.cs" />
     <Compile Include="Models\Estado.cs" />
