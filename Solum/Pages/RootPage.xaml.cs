@@ -7,10 +7,9 @@ namespace Solum.Pages
 {
     public partial class RootPage : MasterDetailPage
     {
-        private readonly NavigationPage _navigationPage;
+        private NavigationPage _navigationPage;
         private Page _currentPage;
-        public string User { get; }
-        public string Username { get; }
+
 
         public RootPage()
         {
@@ -42,9 +41,13 @@ namespace Solum.Pages
             sairGesture.Tapped += OnSairTapped;
             SairLabel.GestureRecognizers.Add(sairGesture);
 
-            var user = new UserDataService().GetLoggedUser();
-            User = user.Nome;
-            Username = user.Username;
+            var calagemGesture = new TapGestureRecognizer();
+            calagemGesture.Tapped += OnCalagemTapped;
+            CalagemLabel.GestureRecognizers.Add(calagemGesture);
+
+            var recomendacaoGesture = new TapGestureRecognizer();
+            recomendacaoGesture.Tapped += OnRecomendacaoTapped;
+            RecomendacaoLabel.GestureRecognizers.Add(recomendacaoGesture);
         }
 
         public async void OnAnalisesTapped(object sender, EventArgs e)
@@ -134,12 +137,79 @@ namespace Solum.Pages
             }
         }
 
+        public async void OnCalagemTapped(object sender, EventArgs e)
+        {
+            if (Device.OS == TargetPlatform.iOS)
+            {
+                if (_currentPage.GetType() == typeof(CalagemPage))
+                {
+                    IsPresented = false;
+                }
+                else
+                {
+                    _currentPage = new CalagemPage();
+                    Detail = new NavigationPage(_currentPage)
+                    {
+                        BarBackgroundColor = Color.FromHex("#24BE55"),
+                        BarTextColor = Color.White
+                    };
+                    IsPresented = false;
+                }
+            }
+            else
+            {
+                var page = new CalagemPage();
+                await _navigationPage.Navigation.PushAsync(page);
+                _navigationPage.Navigation.RemovePage(_currentPage);
+                _currentPage = page;
+                IsPresented = false;
+            }
+        }
+
+        public async void OnRecomendacaoTapped(object sender, EventArgs e)
+        {
+            if (Device.OS == TargetPlatform.iOS)
+            {
+                if (_currentPage.GetType() == typeof(RecomendaCalagemPage))
+                {
+                    IsPresented = false;
+                }
+                else
+                {
+                    _currentPage = new RecomendaCalagemPage();
+                    Detail = new NavigationPage(_currentPage)
+                    {
+                        BarBackgroundColor = Color.FromHex("#24BE55"),
+                        BarTextColor = Color.White
+                    };
+                    IsPresented = false;
+                }
+            }
+            else
+            {
+                var page = new RecomendaCalagemPage();
+                await _navigationPage.Navigation.PushAsync(page);
+                _navigationPage.Navigation.RemovePage(_currentPage);
+                _currentPage = page;
+                IsPresented = false;
+            }
+        }
+
         public async void OnSairTapped(object sender, EventArgs e)
         {
             var command = await DisplayAlert("Sair", "Você realmente deseja sair do app?", "Sim", "Não");
             if (command)
             {
-                Application.Current.MainPage = new LoginPage();
+                var color = Color.Black;
+                if (Device.OS == TargetPlatform.Android)
+                    DependencyService.Get<IStatusBarColor>().SetColor(color);
+                _currentPage = new LoginPage();
+                _navigationPage = new NavigationPage(_currentPage)
+                {
+                    BarBackgroundColor = Color.FromHex("#24BE55"),
+                    BarTextColor = Color.White
+                };
+                Application.Current.MainPage = _navigationPage;
             }
         }
     }

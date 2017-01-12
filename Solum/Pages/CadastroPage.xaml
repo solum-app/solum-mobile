@@ -45,6 +45,7 @@
 
 		<ActivityIndicator IsRunning="{Binding IsCarregandoEstados}" />
 		<Button Text="Enviar" Command="{Binding RegisterCommand}" />
+    <Button Text="Voltar" Command="{Binding VoltarCommand}" />
 
 	</StackLayout>
 </ContentPage>

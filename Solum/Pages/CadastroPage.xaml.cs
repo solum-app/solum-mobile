@@ -9,6 +9,8 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new CadastroViewModel(Navigation);
+            NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasBackButton(this, false);
             MessagingCenter.Subscribe<CadastroViewModel, string>(this, "NullEntrys",
                 (view, arg) => { ShowErrorMessage(arg); });
             MessagingCenter.Subscribe<CadastroViewModel, string>(this, "RegisterSuccessful",

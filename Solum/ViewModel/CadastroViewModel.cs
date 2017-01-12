@@ -15,6 +15,7 @@ namespace Solum.ViewModel
     {
         private ICommand _registerCommand;
         private ICommand _updateCidadesCommand;
+        private ICommand _voltarCommand;
         private IList<Cidade> _cidades = new List<Cidade>();
         private IList<Estado> _estados = new List<Estado>();
         private Cidade _cidadeSelected;
@@ -98,6 +99,8 @@ namespace Solum.ViewModel
 
         public ICommand UpdateCidadesCommand => _updateCidadesCommand ?? (_updateCidadesCommand = new Command(AtualizarCidades));
 
+        public ICommand VoltarCommand => _voltarCommand ?? (_voltarCommand = new Command(Voltar));
+
         public async void Cadastrar()
         {
             var registerBinding = new RegisterBinding
@@ -150,6 +153,11 @@ namespace Solum.ViewModel
         {
             Cidades = EstadoSelected.Cidades.OrderBy(x => x.Nome).ToList();
             IsCidadesCarregadas = true;
+        }
+
+        public async void Voltar()
+        {
+            await Navigation.PopAsync();
         }
     }
 }
