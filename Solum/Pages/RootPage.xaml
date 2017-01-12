@@ -8,7 +8,7 @@
   <MasterDetailPage.Master>
     <ContentPage BackgroundColor="#F5F5F5" Title="Solum" Icon="ic_menu">
       <StackLayout>
-        <ContentView BackgroundColor="#30BC5A" HeightRequest="160" Margin="0,0,0,8">
+        <ContentView BackgroundColor="#2FBC5A" HeightRequest="160" Margin="0,0,0,8">
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="65" />
