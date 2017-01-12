@@ -3,6 +3,7 @@
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:local="clr-namespace:Solum.Custom;assembly=Solum"
+                  xmlns:viewModel="clr-namespace:Solum.ViewModel;assembly=Solum"
                   x:Class="Solum.Pages.RootPage">
   <MasterDetailPage.Master>
     <ContentPage BackgroundColor="#F5F5F5" Title="Solum" Icon="ic_menu">
@@ -10,15 +11,15 @@
         <ContentView BackgroundColor="#30BC5A" HeightRequest="160" Margin="0,0,0,8">
           <Grid>
             <Grid.ColumnDefinitions>
-              <ColumnDefinition />
-              <ColumnDefinition />
+              <ColumnDefinition Width="65" />
+              <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <local:ImageCircle Source="ic_menu_solum"
                                HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
-                               Margin="0,15,0,0" Grid.Column="0" HeightRequest="100" WidthRequest="100"/>
+                               Margin="0,15,0,0" Grid.Column="0" HeightRequest="64" WidthRequest="64"/>
             <StackLayout Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-              <Label Text="Nome"/>
-              <Label Text="E-Mail"/>
+              <Label Text="{Binding Nome}"/>
+              <Label Text="{Binding Email}"/>
             </StackLayout>
           </Grid>
         </ContentView>
@@ -37,11 +38,7 @@
           </Grid.ColumnDefinitions>
 
           <Image Source="ic_menu_analises" Grid.Row="1" Grid.Column="0"/>
-          <Label x:Name="AnalisesLabel" Text="Analises" FontSize="25" Grid.Row="1" Grid.Column="1">
-            <Label.GestureRecognizers>
-              
-            </Label.GestureRecognizers>
-          </Label>
+          <Label x:Name="AnalisesLabel" Text="Analises" FontSize="25" Grid.Row="1" Grid.Column="1"/>
           
           <Image Source="ic_menu_fazendas" Grid.Row="0" Grid.Column="0"/>
           <Label x:Name="FazendasLabel" Text="Fazendas" FontSize="25" Grid.Row="0" Grid.Column="1"/>
