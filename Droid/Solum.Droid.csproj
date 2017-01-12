@@ -131,6 +131,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\StatusBarColor.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\ImageCircleRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
