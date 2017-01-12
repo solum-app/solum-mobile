@@ -28,6 +28,8 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
           </Grid.RowDefinitions>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -35,7 +37,11 @@
           </Grid.ColumnDefinitions>
 
           <Image Source="ic_menu_analises" Grid.Row="1" Grid.Column="0"/>
-          <Label x:Name="AnalisesLabel" Text="Analises" FontSize="25" Grid.Row="1" Grid.Column="1"/>
+          <Label x:Name="AnalisesLabel" Text="Analises" FontSize="25" Grid.Row="1" Grid.Column="1">
+            <Label.GestureRecognizers>
+              
+            </Label.GestureRecognizers>
+          </Label>
           
           <Image Source="ic_menu_fazendas" Grid.Row="0" Grid.Column="0"/>
           <Label x:Name="FazendasLabel" Text="Fazendas" FontSize="25" Grid.Row="0" Grid.Column="1"/>
@@ -45,6 +51,10 @@
 
           <Image Source="ic_menu_sair" Grid.Row="3" Grid.Column="0"/>
           <Label x:Name="SairLabel" Text="Sair" FontSize="25" Grid.Row="3" Grid.Column="1"/>
+
+          <Label x:Name="CalagemLabel" Text="Calagem" Grid.Row="4" Grid.Column="1"/>
+          
+          <Label x:Name="RecomendacaoLabel" Text="Recomendacao" Grid.Row="5" Grid.Column="1"/>
           
         </Grid>
       </StackLayout>
