@@ -100,7 +100,11 @@
 		
 		<ActivityIndicator IsRunning="{Binding IsCarregandoEstados}" />
 		<Button Text="Enviar" Command="{Binding RegisterCommand}" Margin="0,16" BackgroundColor="#FFD54F" TextColor="Black" VerticalOptions="EndAndExpand"/>
-    	<Button Text="Voltar" Command="{Binding VoltarCommand}" />
+    	<Label Text="Voltar">
+        <Label.GestureRecognizers>
+          <TapGestureRecognizer Command="{Binding VoltarCommand}" />
+        </Label.GestureRecognizers>
+      </Label>
 
 	</StackLayout>
 </ContentPage>
