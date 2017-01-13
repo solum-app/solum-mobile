@@ -51,6 +51,10 @@ namespace Solum.Pages
             //var recomendacaoGesture = new TapGestureRecognizer();
             //recomendacaoGesture.Tapped += OnRecomendacaoTapped;
             //RecomendacaoLabel.GestureRecognizers.Add(recomendacaoGesture);
+
+			var testeGesture = new TapGestureRecognizer();
+            testeGesture.Tapped += OnTesteTapped;
+            TesteLabel.GestureRecognizers.Add(testeGesture);
         }
 
         public async void OnAnalisesTapped(object sender, EventArgs e)
@@ -197,6 +201,35 @@ namespace Solum.Pages
                 IsPresented = false;
             }
         }
+
+		public async void OnTesteTapped(object sender, EventArgs e)
+		{
+			if (Device.OS == TargetPlatform.iOS)
+			{
+				if (_currentPage.GetType() == typeof(CorretivaPage))
+				{
+					IsPresented = false;
+				}
+				else
+				{
+					_currentPage = new CorretivaPage();
+					Detail = new NavigationPage(_currentPage)
+					{
+						BarBackgroundColor = Color.FromHex("#2FBC5A"),
+						BarTextColor = Color.White
+					};
+					IsPresented = false;
+				}
+			}
+			else
+			{
+				var page = new CorretivaPage();
+				await _navigationPage.Navigation.PushAsync(page);
+				_navigationPage.Navigation.RemovePage(_currentPage);
+				_currentPage = page;
+				IsPresented = false;
+			}
+		}
 
         public async void OnSairTapped(object sender, EventArgs e)
         {
