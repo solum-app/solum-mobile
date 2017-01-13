@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="Solum.Pages.FazendaListPage"
+	xmlns:renderers="clr-namespace:Solum.Renderers"
+	xmlns:handlers="clr-namespace:Solum.Handlers"
+	Title="Fazendas">
+	<AbsoluteLayout x:Name="absoluteLayout">
+
+		<Label
+			AbsoluteLayout.LayoutFlags="All"
+			AbsoluteLayout.LayoutBounds="0,0,1,1"
+			IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
+			VerticalOptions="Center"
+			HorizontalOptions="Center"
+			FontSize="Medium"
+			Text="Nenhuma fazenda cadastrada"
+			TextColor="#757575" />
+
+		<renderers:BindableListView
+			IsVisible="{Binding HasItems}"
+			x:Name="FazendasList"
+			HasUnevenRows="true"
+			IsGroupingEnabled="false"
+			ItemClickedCommand="{Binding ItemTappedCommand}"
+			SeparatorColor="#C8C7CC"
+			ItemsSource="{Binding Fazendas}"
+			AbsoluteLayout.LayoutFlags="All"
+			AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+            
+						<Grid Padding="15" BackgroundColor="White">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Label Text="{Binding Nome}" Grid.Row="0" TextColor="Black" />
+							<Label Text="{Binding Cidade.Nome, Cidade.Estado.Uf, StringFormat='{0} - {1}'}" Grid.Row="1" FontSize="Small" TextColor="#757575" VerticalTextAlignment="Start" />
+						</Grid>
+            
+						<ViewCell.ContextActions>
+							<MenuItem BindingContext="{Binding .}" Clicked="OnEdit" Text="Editar" Icon="ic_editar" />
+							<MenuItem BindingContext="{Binding .}" Clicked="OnDelete" Text="Excluir" IsDestructive="True" Icon="ic_excluir" />
+						</ViewCell.ContextActions>
+            
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</renderers:BindableListView>
+	</AbsoluteLayout>
+
+</ContentPage>

@@ -86,13 +86,13 @@ namespace Solum.Pages
         {
             if (Device.OS == TargetPlatform.iOS)
             {
-                if (_currentPage.GetType() == typeof(FazendasPage))
+                if (_currentPage.GetType() == typeof(FazendaListPage))
                 {
                     IsPresented = false;
                 }
                 else
                 {
-                    _currentPage = new FazendasPage();
+                    _currentPage = new FazendaListPage();
                     Detail = new NavigationPage(_currentPage)
                     {
                         BarBackgroundColor = Color.FromHex("#2FBC5A"),
@@ -103,7 +103,7 @@ namespace Solum.Pages
             }
             else
             {
-                var page = new FazendasPage();
+                var page = new FazendaListPage();
                 await _navigationPage.Navigation.PushAsync(page);
                 _navigationPage.Navigation.RemovePage(_currentPage);
                 _currentPage = page;
