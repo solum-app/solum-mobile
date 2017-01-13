@@ -1,6 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Solum.Pages.FazendaCadastroPage">
-  <Label Text="Cadastro de fazenda" VerticalOptions="Center" HorizontalOptions="Center" />
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:Solum.Renderers;assembly=Solum"
+			 xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
+			 x:Class="Solum.Pages.FazendaCadastroPage">
+	<StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+
+		<Entry x:Name="FazendaNomeEntry" Placeholder="Nome da Fazenda" Text="{Binding FazendaName}" />
+
+		<local:BindablePicker x:Name="EstadoPicker" Title="Selecione um estado"
+							  ItemsSource="{Binding EstadoList}"
+							  SelectedItem="{Binding EstadoSelected}"
+							  ItemSelectedCommand="{Binding UpdateCidadesListCommand}"
+							  IsEnabled="{Binding IsCarregandoEstados, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
+
+		<local:BindablePicker x:Name="CidadePicker" Title="Selecione uma cidade"
+							  ItemsSource="{Binding CidadeList}"
+							  SelectedItem="{Binding CidadeSelected}"
+							  IsEnabled="{Binding IsEstadoSelected}" />
+
+		<ActivityIndicator IsRunning="{Binding IsCarregandoEstados}" Color="#30BC5A" />
+
+		<Button x:Name="SalvarButton" Text="Salvar" Command="{Binding CadastrarFazendaCommand}"
+				IsEnabled="{Binding IsCarregandoEstados, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
+	</StackLayout>
 </ContentPage>

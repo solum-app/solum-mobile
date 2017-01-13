@@ -1,4 +1,6 @@
-﻿using Solum.Effects;
+﻿using System.Linq;
+using Realms;
+using Solum.Effects;
 using Solum.Models;
 using Solum.Pages;
 using Solum.Service;
@@ -34,8 +36,7 @@ namespace Solum
 
         private bool VerificaLogin()
         {
-            var dataService = new UserDataService();
-            var loggedUser = dataService.GetLoggedUser();
+            var loggedUser = Realm.GetInstance().All<Usuario>().FirstOrDefault();
             return loggedUser != default(Usuario);
         }
     }

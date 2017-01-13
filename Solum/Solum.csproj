@@ -64,10 +64,7 @@
     <Compile Include="Remotes\Results\RegisterResult.cs" />
     <Compile Include="Renderers\BindablePicker.cs" />
     <Compile Include="Service\AuthService.cs" />
-    <Compile Include="Service\DataService.cs" />
-    <Compile Include="Service\FazendaDataService.cs" />
     <Compile Include="Service\SyncService.cs" />
-    <Compile Include="Service\UserDataService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Solum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,6 +87,7 @@
     </Compile>
     <Compile Include="Effects\NoBorderEffect.cs" />
     <Compile Include="ViewModel\CadastroViewModel.cs" />
+    <Compile Include="ViewModel\FazendaCadastroViewModel.cs" />
     <Compile Include="ViewModel\FazendaListViewModel.cs" />
     <Compile Include="ViewModel\InterpretacaoViewModel.cs" />
     <Compile Include="Handlers\InterpretaHandler.cs" />

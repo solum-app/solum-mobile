@@ -37,10 +37,8 @@
 						<Grid Padding="15" BackgroundColor="White">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
 							<Label Text="{Binding Nome}" Grid.Row="0" TextColor="Black" />
-							<Label Text="{Binding Cidade.Nome, Cidade.Estado.Uf, StringFormat='{0} - {1}'}" Grid.Row="1" FontSize="Small" TextColor="#757575" VerticalTextAlignment="Start" />
 						</Grid>
             
 						<ViewCell.ContextActions>

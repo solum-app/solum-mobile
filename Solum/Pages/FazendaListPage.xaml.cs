@@ -52,5 +52,12 @@ namespace Solum.Pages
                 (BindingContext as FazendaListViewModel).ExcluirCommand.Execute(fazenda);
             }
         }
+
+        protected override void OnAppearing()
+        {
+            var model = BindingContext as FazendaListViewModel;
+            model?.UpdateFazendaList();
+            base.OnAppearing();
+        }
     }
 }

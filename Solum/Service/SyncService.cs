@@ -14,7 +14,9 @@ namespace Solum.Service
             using (var trans = dataService.BeginWrite())
             {
                 foreach (var e in estados)
+                {
                     dataService.Add(e, true);
+                }
                 trans.Commit();
             }
         }

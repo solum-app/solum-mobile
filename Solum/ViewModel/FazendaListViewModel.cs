@@ -1,26 +1,28 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
+using Realms;
 using Solum.Models;
 using Solum.Pages;
-using Solum.Service;
 using Xamarin.Forms;
 
 namespace Solum.ViewModel
 {
     public class FazendaListViewModel : BaseViewModel
     {
+        private readonly Realm _realmInstance;
+        private ICommand _editarCommand;
+        private ICommand _excluirCommand;
         private IList<Fazenda> _fazendas;
         private bool _hasItems;
         private ICommand _itemTappedCommand;
-        private ICommand _editarCommand;
-        private ICommand _excluirCommand;
-        private FazendaDataService _service;
 
         public FazendaListViewModel(INavigation navigation) : base(navigation)
         {
-            _service = new FazendaDataService();
-            Fazendas = _service.Find();
-            HasItems = Fazendas.Count > 0;
+            _realmInstance = Realm.GetInstance();
+            HasItems = _realmInstance.All<Estado>().Any();
+            if (HasItems)
+                Fazendas = _realmInstance.All<Fazenda>().OrderBy(x => x.Nome).ToList();
         }
 
         public IList<Fazenda> Fazendas
@@ -35,21 +37,25 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _hasItems, value); }
         }
 
-        public ICommand EditarCommand => _editarCommand ?? (_editarCommand = new Command((obj) => Editar(obj)));
+        public ICommand EditarCommand => _editarCommand ?? (_editarCommand = new Command(obj => Editar(obj)));
 
-        public ICommand ExcluirCommand => _excluirCommand ?? (_excluirCommand = new Command((obj) => Excluir(obj)));
+        public ICommand ExcluirCommand => _excluirCommand ?? (_excluirCommand = new Command(obj => Excluir(obj)));
 
-        public ICommand ItemTappedCommand => _itemTappedCommand ?? (_itemTappedCommand = new Command(obj => FazendaDetail(obj)));
+        public ICommand ItemTappedCommand
+            => _itemTappedCommand ?? (_itemTappedCommand = new Command(obj => Detalhes(obj)));
 
         private void Excluir(object obj)
         {
             var fazenda = obj as Fazenda;
-            _service.Delete(fazenda);
-            _fazendas.Remove(fazenda);
-            Fazendas = _fazendas;
+            using (var tsc = _realmInstance.BeginWrite())
+            {
+                _realmInstance.Remove(fazenda);
+                tsc.Commit();
+            }
+            UpdateFazendaList();
         }
 
-        private async void FazendaDetail(object obj)
+        private async void Detalhes(object obj)
         {
             await Navigation.PushAsync(new FazendaDetalhesPage(obj as Fazenda));
         }
@@ -58,6 +64,11 @@ namespace Solum.ViewModel
         private async void Editar(object obj)
         {
             await Navigation.PushAsync(new FazendaCadastroPage(obj as Fazenda));
+        }
+
+        public void UpdateFazendaList()
+        {
+            Fazendas = _realmInstance.All<Fazenda>().OrderBy(x => x.Nome).ToList();
         }
     }
 }
