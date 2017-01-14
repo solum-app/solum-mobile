@@ -16,7 +16,7 @@ namespace Solum
 			InitializeComponent();
             
             var isUsuarioLogado = VerificaLogin();
-            if (!isUsuarioLogado)
+            if (true)
             {   
 			MainPage = new NavigationPage(new LoginPage())
                 {

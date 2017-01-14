@@ -14,13 +14,13 @@
 		<StackLayout
 			VerticalOptions="FillAndExpand"
 			HorizontalOptions="FillAndExpand"
-			BackgroundColor="#B7E2E4"
+			BackgroundColor="{StaticResource loginBackgroundPrimary}"
 			Spacing="0"
 			Padding="16">
 			
-			<Label Text="Informações Pessoais" HorizontalTextAlignment="Center" TextColor="#7B9092" FontSize="Large" FontAttributes="Bold" Margin="0,16,0,32"/>
-			<Label Text="Todos os campos são obrigatórios" HorizontalTextAlignment="Center" FontSize="Small" TextColor="#3E3F41" Margin="0,0,0,32"/>
-			<Entry x:Name="NameEntry" Placeholder="Nome Completo" Text="{Binding Name, Mode=TwoWay}" PlaceholderColor="#90B0B7">
+			<Label Text="Informações Pessoais" HorizontalTextAlignment="Center" TextColor="{StaticResource colorTextSecundary}" FontSize="Large" FontAttributes="Bold" Margin="0,16,0,32"/>
+			<Label Text="Todos os campos são obrigatórios" HorizontalTextAlignment="Center" FontSize="Small" TextColor="{StaticResource colorTextPrimary}" Margin="0,0,0,32"/>
+			<Entry x:Name="NameEntry" Placeholder="Nome Completo" Text="{Binding Name, Mode=TwoWay}" PlaceholderColor="{StaticResource colorTextHint}">
 				<Entry.Effects>
 		          <effects:NoBorderEffect />
 		        </Entry.Effects>
@@ -30,9 +30,9 @@
 								Android="17"/>
 		        </Entry.FontSize>
 			</Entry>
-	    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
+	    	<BoxView BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
 		
-			<Entry x:Name="EmailEntry" Placeholder="Email Válido" Text="{Binding Email, Mode=TwoWay}" PlaceholderColor="#90B0B7">
+			<Entry x:Name="EmailEntry" Placeholder="Email Válido" Text="{Binding Email, Mode=TwoWay}" PlaceholderColor="{StaticResource colorTextHint}">
 				<Entry.Behaviors>
 					<behaviors:EmailValidatorBehavior />
 				</Entry.Behaviors>
@@ -45,9 +45,9 @@
 								Android="17"/>
 		        </Entry.FontSize>
 			</Entry>
-	    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
+	    	<BoxView BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
 
-			<Entry x:Name="PasswordEntry" Placeholder="Senha" Text="{Binding Password, Mode=TwoWay}" IsPassword="True" PlaceholderColor="#90B0B7">
+			<Entry x:Name="PasswordEntry" Placeholder="Senha" Text="{Binding Password, Mode=TwoWay}" IsPassword="True" PlaceholderColor="{StaticResource colorTextHint}">
 				<Entry.Behaviors>
 					<behaviors:RequiredValidatorBehavior />
 				</Entry.Behaviors>
@@ -60,9 +60,9 @@
 								Android="17"/>
 		        </Entry.FontSize>
 			</Entry>
-	    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
+	    	<BoxView BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
 
-			<Entry x:Name="ConfirmPasswordEntry" Placeholder="Confirma Senha" Text="{Binding ConfirmPassword, Mode=TwoWay}" IsPassword="True" PlaceholderColor="#90B0B7">
+			<Entry x:Name="ConfirmPasswordEntry" Placeholder="Confirma Senha" Text="{Binding ConfirmPassword, Mode=TwoWay}" IsPassword="True" PlaceholderColor="{StaticResource colorTextHint}">
 				<Entry.Behaviors>
 					<behaviors:ConfirmPasswordBehavior CompareToEntry="{Binding Source={x:Reference PasswordEntry}}" />
 				</Entry.Behaviors>
@@ -75,7 +75,7 @@
 								Android="17"/>
 		        </Entry.FontSize>
 			</Entry>
-	    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
+	    	<BoxView BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
 
 			<renderers:CustomPicker 
 				x:Name="EstadosPicker" ItemsSource="{Binding Estados}"
@@ -83,9 +83,9 @@
 				ItemSelectedCommand="{Binding UpdateCidadesCommand}"
 				Title="Selecione o Estado"
 				HasBorder="false"
-				PlaceholderColor="#90B0B7">
+				PlaceholderColor="{StaticResource colorTextHint}">
 			</renderers:CustomPicker>
-	    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
+	    	<BoxView BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
 
 			<renderers:CustomPicker 
 				x:Name="CidadesPicker" ItemsSource="{Binding Cidades}"
@@ -93,18 +93,17 @@
 				SelectedIndex="0"
 				Title="Selecione a Cidade"
 				HasBorder="false"
-				PlaceholderColor="#90B0B7">
+				PlaceholderColor="{StaticResource colorTextHint}">
 			</renderers:CustomPicker>
-	    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
+	    	<BoxView BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
 			
 			<ActivityIndicator IsRunning="{Binding IsCarregandoEstados}" />
-			<Button Text="Cadastrar" Command="{Binding RegisterCommand}" Margin="0,16" BackgroundColor="#FFD54F" TextColor="Black" VerticalOptions="EndAndExpand"/>
-	    	<Label Text="Cancelar" Margin="0,0,0,16" HorizontalTextAlignment="Center" TextColor="#3E3F41" VerticalOptions="End" FontSize="Small">
-	        <Label.GestureRecognizers>
-	          <TapGestureRecognizer Command="{Binding VoltarCommand}" />
-	        </Label.GestureRecognizers>
-	      </Label>
-
+			<Button Text="Cadastrar" Command="{Binding RegisterCommand}" Margin="0,16" BackgroundColor="{StaticResource colorAccent}" TextColor="Black" VerticalOptions="EndAndExpand"/>
+	    	<Label Text="Cancelar" Margin="0,0,0,16" HorizontalTextAlignment="Center" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="End" FontSize="Small">
+		        <Label.GestureRecognizers>
+		          <TapGestureRecognizer Command="{Binding VoltarCommand}" />
+		        </Label.GestureRecognizers>
+	      	</Label>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>
