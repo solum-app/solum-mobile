@@ -37,7 +37,13 @@
 						</Grid.ColumnDefinitions>
 
 						<Image Source="ic_menu_analises" Grid.Column="0"/>
-						<Label x:Name="AnalisesLabel" Text="Analises" Grid.Column="1" Margin="32,0,0,0" FontAttributes="Bold" TextColor="#212121"/>
+						<Label x:Name="AnalisesLabel" Text="Analises" Grid.Column="1" TextColor="#212121">
+							<Label.Margin>
+								<OnPlatform x:TypeArguments="Thickness"
+									iOS="16,0,0,0"
+									Android="24,0,0,0"/>
+							</Label.Margin>
+						</Label>
 					</Grid>
 				
 					<Grid Margin="0,12">
@@ -47,7 +53,13 @@
 						</Grid.ColumnDefinitions>
 						
 						<Image Source="ic_menu_fazendas" Grid.Column="0"/>
-						<Label x:Name="FazendasLabel" Text="Fazendas" Grid.Column="1" Margin="32,0,0,0" FontAttributes="Bold" TextColor="#212121"/>
+						<Label x:Name="FazendasLabel" Text="Fazendas" Grid.Column="1" TextColor="#212121">
+							<Label.Margin>
+								<OnPlatform x:TypeArguments="Thickness"
+									iOS="16,0,0,0"
+									Android="24,0,0,0"/>
+							</Label.Margin>
+						</Label>
 					</Grid>
 
 					<Grid Margin="0,12">
@@ -57,7 +69,13 @@
 						</Grid.ColumnDefinitions>
 							
 						<Image Source="ic_menu_sobre" Grid.Column="0"/>
-						<Label x:Name="SobreLabel" Text="Sobre" Grid.Column="1" Margin="32,0,0,0" FontAttributes="Bold" TextColor="#212121"/>
+						<Label x:Name="SobreLabel" Text="Sobre" Grid.Column="1" TextColor="#212121">
+							<Label.Margin>
+								<OnPlatform x:TypeArguments="Thickness"
+									iOS="16,0,0,0"
+									Android="24,0,0,0"/>
+							</Label.Margin>
+						</Label>
 					</Grid>
 
 					<Grid Margin="0,12">
@@ -67,7 +85,13 @@
 						</Grid.ColumnDefinitions>
 
 						<Image Source="ic_menu_sair" Grid.Column="0"/>
-						<Label x:Name="SairLabel" Text="Sair" Grid.Column="1" Margin="32,0,0,0" FontAttributes="Bold" TextColor="#212121"/>
+						<Label x:Name="SairLabel" Text="Sair" Grid.Column="1" TextColor="#212121">
+							<Label.Margin>
+								<OnPlatform x:TypeArguments="Thickness"
+									iOS="16,0,0,0"
+									Android="24,0,0,0"/>
+							</Label.Margin>
+						</Label>
 					</Grid>
 <!--				
 					<Label x:Name="CalagemLabel" Text="Calagem" Grid.Row="4" Grid.Column="1"/>
