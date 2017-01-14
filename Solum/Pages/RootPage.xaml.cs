@@ -16,11 +16,11 @@ namespace Solum.Pages
         {
             InitializeComponent();
             if (Device.OS == TargetPlatform.Android)
-				DependencyService.Get<IStatusBarColor>().SetColor((Color)Application.Current.Resources["greenDark"]);
+				DependencyService.Get<IStatusBarColor>().SetColor((Color)Application.Current.Resources["colorPrimaryDark"]);
             _currentPage = new AnalisesPage();
             _navigationPage = new NavigationPage(_currentPage)
             {
-                BarBackgroundColor = (Color)Application.Current.Resources["greenPrimary"],
+                BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
                 BarTextColor = Color.White
             };
             Detail = _navigationPage;
@@ -68,10 +68,10 @@ namespace Solum.Pages
                 {
                     _currentPage = new AnalisesPage();
                     Detail = new NavigationPage(_currentPage)
-                    {
-                        BarBackgroundColor = Color.FromHex("#2FBC5A"),
-                        BarTextColor = Color.White
-                    };
+					{
+						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
+						BarTextColor = Color.White
+					};
                     IsPresented = false;
                 }
             }
@@ -97,10 +97,10 @@ namespace Solum.Pages
                 {
                     _currentPage = new FazendasPage();
                     Detail = new NavigationPage(_currentPage)
-                    {
-                        BarBackgroundColor = Color.FromHex("#2FBC5A"),
-                        BarTextColor = Color.White
-                    };
+					{
+						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
+						BarTextColor = Color.White
+					};
                     IsPresented = false;
                 }
             }
@@ -126,10 +126,10 @@ namespace Solum.Pages
                 {
                     _currentPage = new SobrePage();
                     Detail = new NavigationPage(_currentPage)
-                    {
-                        BarBackgroundColor = Color.FromHex("#2FBC5A"),
-                        BarTextColor = Color.White
-                    };
+					{
+						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
+						BarTextColor = Color.White
+					};
                     IsPresented = false;
                 }
             }
@@ -155,10 +155,10 @@ namespace Solum.Pages
                 {
                     _currentPage = new CalagemPage();
                     Detail = new NavigationPage(_currentPage)
-                    {
-                        BarBackgroundColor = Color.FromHex("#2FBC5A"),
-                        BarTextColor = Color.White
-                    };
+					{
+						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
+						BarTextColor = Color.White
+					};
                     IsPresented = false;
                 }
             }
@@ -184,10 +184,10 @@ namespace Solum.Pages
                 {
                     _currentPage = new RecomendaCalagemPage();
                     Detail = new NavigationPage(_currentPage)
-                    {
-                        BarBackgroundColor = Color.FromHex("#2FBC5A"),
-                        BarTextColor = Color.White
-                    };
+					{
+						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
+						BarTextColor = Color.White
+					};
                     IsPresented = false;
                 }
             }
@@ -214,7 +214,7 @@ namespace Solum.Pages
 					_currentPage = new CorretivaPage();
 					Detail = new NavigationPage(_currentPage)
 					{
-						BarBackgroundColor = Color.FromHex("#2FBC5A"),
+						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
 						BarTextColor = Color.White
 					};
 					IsPresented = false;
