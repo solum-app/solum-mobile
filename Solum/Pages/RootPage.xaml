@@ -8,10 +8,10 @@
 	x:Class="Solum.Pages.RootPage">
 	
 	<MasterDetailPage.Master>
-		<ContentPage BackgroundColor="#F5F5F5" Title="Solum" Icon="ic_menu">
+		<ContentPage BackgroundColor="White" Title="Solum" Icon="ic_menu">
 			<StackLayout>
-				<ContentView BackgroundColor="#30BC5A" HeightRequest="120" Margin="0,0,0,8">
-					<Grid Padding="16" ColumnSpacing="0">
+				<ContentView BackgroundColor="{StaticResource colorPrimary}" Margin="0,0,0,8">
+					<Grid ColumnSpacing="0" Padding="16,40,16,16">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="64" />
 							<ColumnDefinition Width="*" />
@@ -20,9 +20,9 @@
 						<local:ImageCircle 
 							Source="ic_menu_solum"
 							HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
-							Margin="0,15,0,0" Grid.Column="0" HeightRequest="64" WidthRequest="64"/>
+							Margin="0" Grid.Column="0" HeightRequest="64" WidthRequest="64"/>
 						
-						<StackLayout Spacing="0" Padding="16,16,16,0" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
+						<StackLayout Spacing="0" Padding="16,0" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
 							<Label Text="{Binding Nome}" TextColor="White" FontSize="Large" FontAttributes="Bold"/>
 							<Label Text="{Binding Email}" TextColor="White" FontSize="Small"/>
 						</StackLayout>
@@ -37,7 +37,7 @@
 						</Grid.ColumnDefinitions>
 
 						<Image Source="ic_menu_analises" Grid.Column="0"/>
-						<Label x:Name="AnalisesLabel" Text="Analises" Grid.Column="1" TextColor="#212121">
+						<Label x:Name="AnalisesLabel" Text="Analises" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}">
 							<Label.Margin>
 								<OnPlatform x:TypeArguments="Thickness"
 									iOS="16,0,0,0"
@@ -53,7 +53,7 @@
 						</Grid.ColumnDefinitions>
 						
 						<Image Source="ic_menu_fazendas" Grid.Column="0"/>
-						<Label x:Name="FazendasLabel" Text="Fazendas" Grid.Column="1" TextColor="#212121">
+						<Label x:Name="FazendasLabel" Text="Fazendas" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}">
 							<Label.Margin>
 								<OnPlatform x:TypeArguments="Thickness"
 									iOS="16,0,0,0"
@@ -69,7 +69,7 @@
 						</Grid.ColumnDefinitions>
 							
 						<Image Source="ic_menu_sobre" Grid.Column="0"/>
-						<Label x:Name="SobreLabel" Text="Sobre" Grid.Column="1" TextColor="#212121">
+						<Label x:Name="SobreLabel" Text="Sobre" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}">
 							<Label.Margin>
 								<OnPlatform x:TypeArguments="Thickness"
 									iOS="16,0,0,0"
@@ -85,7 +85,7 @@
 						</Grid.ColumnDefinitions>
 
 						<Image Source="ic_menu_sair" Grid.Column="0"/>
-						<Label x:Name="SairLabel" Text="Sair" Grid.Column="1" TextColor="#212121">
+						<Label x:Name="SairLabel" Text="Sair" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}">
 							<Label.Margin>
 								<OnPlatform x:TypeArguments="Thickness"
 									iOS="16,0,0,0"

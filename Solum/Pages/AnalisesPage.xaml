@@ -5,7 +5,8 @@
 	x:Class="Solum.Pages.AnalisesPage"
 	xmlns:renderers="clr-namespace:Solum.Renderers"
 	xmlns:handlers="clr-namespace:Solum.Handlers"
-	Title="Análises">
+	Title="Análises"
+	BackgroundColor="{StaticResource colorBackground}">
   <AbsoluteLayout x:Name="absolute">
 
     <Label
@@ -16,7 +17,7 @@
 			HorizontalOptions="Center"
 			FontSize="Medium"
 			Text="Nenhuma análise salva"
-			TextColor="#757575"/>
+			TextColor="{StaticResource colorTextSecundary}"/>
 
     <renderers:BindableListView
 			IsVisible="{Binding HasItems}"
@@ -24,7 +25,7 @@
 			HasUnevenRows="true"
 			IsGroupingEnabled="true"
 			ItemClickedCommand="{Binding ItemTappedCommand}"
-			SeparatorColor="#C8C7CC"
+			SeparatorColor="{StaticResource colorSeparator}"
 			ItemsSource="{Binding Analises}"
 			GroupDisplayBinding="{Binding Key}"
 			AbsoluteLayout.LayoutFlags="All"
@@ -32,8 +33,8 @@
       <ListView.GroupHeaderTemplate>
         <DataTemplate>
           <ViewCell>
-            <Grid BackgroundColor="#EEEEEE">
-              <Label TextColor="#717175" Text="{Binding Key}" LineBreakMode="TailTruncation">
+            <Grid>
+              <Label TextColor="{StaticResource colorTextSecundary}" Text="{Binding Key}" LineBreakMode="TailTruncation">
                 <Label.Margin>
                   <OnPlatform x:TypeArguments="Thickness"
 										iOS="16,24,16,4"
@@ -58,7 +59,7 @@
                 <RowDefinition Height="Auto"/>
               </Grid.RowDefinitions>
               <Label Text="{Binding Talhao, StringFormat='Talhão {0}'}" Grid.Row="0" TextColor="Black"/>
-              <Label Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="#757575" VerticalTextAlignment="Start"/>
+              <Label Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Start"/>
             </Grid>
             <ViewCell.ContextActions>
               <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit"

@@ -10,10 +10,12 @@
 			<Color x:Key="colorPrimary">#2FBC5A</Color>
 			<Color x:Key="colorPrimaryDark">#1FA549</Color>
 			<Color x:Key="colorAccent">#FFD54F</Color>
-			<Color x:Key="textPrimary">#212121</Color>
-			<Color x:Key="textSecundary">#C8C7CC</Color>
-			<Color x:Key="textHint">#90B0B7</Color>
+			<Color x:Key="colorTextPrimary">#000000</Color>
+			<Color x:Key="colorTextSecundary">#7B9092</Color>
+			<Color x:Key="colorSeparator">#C8C7CC</Color>
+			<Color x:Key="colorTextHint">#90B0B7</Color>
 			<Color x:Key="colorBackground">#EEEEEE</Color>
+			<Color x:Key="colorTextSection">#717175</Color>
 			
 		</ResourceDictionary>
 	</Application.Resources>
