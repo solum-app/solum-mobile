@@ -1,4 +1,5 @@
-﻿using Solum.ViewModel;
+﻿using Solum.Effects;
+using Solum.ViewModel;
 using Xamarin.Forms;
 
 namespace Solum.Pages
@@ -7,8 +8,10 @@ namespace Solum.Pages
     {
         public LoginPage()
         {
-            InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);    
+			NavigationPage.SetHasNavigationBar(this, false); 
+			if (Device.OS == TargetPlatform.Android)
+				DependencyService.Get<IStatusBarColor>().SetColor((Color)Application.Current.Resources["loginBackgroundDark"]);
+				InitializeComponent();
             BindingContext = new LoginViewModel(Navigation);
             MessagingCenter.Subscribe<LoginViewModel, string>(this, "NullEntrys", (sender, args) =>{ MostarMensagem(args); }); // Mostra mensagem quando os campos estão vazios
             MessagingCenter.Subscribe<LoginViewModel, string>(this, "LoginError", (sender, args) =>{ MostarMensagem(args); }); // Mostra mensagem quando as credenciais estão inválidas

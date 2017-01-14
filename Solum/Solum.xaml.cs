@@ -9,18 +9,16 @@ using Xamarin.Forms.Xaml;
 
 namespace Solum
 {
-    public class App : Application
+	public partial class App : Application
     {
         public App()
         {
+			InitializeComponent();
             
             var isUsuarioLogado = VerificaLogin();
             if (!isUsuarioLogado)
-            {
-                var color = Color.Black;
-                if (Device.OS == TargetPlatform.Android)
-                    DependencyService.Get<IStatusBarColor>().SetColor(color);
-                MainPage = new NavigationPage(new LoginPage())
+            {   
+			MainPage = new NavigationPage(new LoginPage())
                 {
                     BackgroundColor = Color.Transparent,
                     BarTextColor = Color.Black

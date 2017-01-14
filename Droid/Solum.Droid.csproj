@@ -140,6 +140,7 @@
     <Compile Include="Handlers\PdfViewer.cs" />
     <Compile Include="Effects\NoBordsEffect.cs" />
     <Compile Include="Effects\TextSizeEffect.cs" />
+    <Compile Include="Renderers\CustomPickerRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

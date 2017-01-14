@@ -248,6 +248,7 @@
     <Compile Include="Renderers\CustomFrameRenderer.cs" />
     <Compile Include="Handelers\PdfViewer.cs" />
     <Compile Include="Renderers\ImageCircleRenderer.cs" />
+    <Compile Include="Renderers\CustomPickerRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" />

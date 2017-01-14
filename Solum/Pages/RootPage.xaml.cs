@@ -15,13 +15,12 @@ namespace Solum.Pages
         public RootPage()
         {
             InitializeComponent();
-            var color = Color.FromHex("#2FBC5A");
             if (Device.OS == TargetPlatform.Android)
-                DependencyService.Get<IStatusBarColor>().SetColor(Color.FromHex("#1FA549"));
+				DependencyService.Get<IStatusBarColor>().SetColor((Color)Application.Current.Resources["greenDark"]);
             _currentPage = new AnalisesPage();
             _navigationPage = new NavigationPage(_currentPage)
             {
-                BarBackgroundColor = color,
+                BarBackgroundColor = (Color)Application.Current.Resources["greenPrimary"],
                 BarTextColor = Color.White
             };
             Detail = _navigationPage;
@@ -236,12 +235,9 @@ namespace Solum.Pages
             var command = await DisplayAlert("Sair", "Você realmente deseja sair do app?", "Sim", "Não");
             if (command)
             {
-                var authservice = new AuthService();
-                await authservice.Logoff();
+                //var authservice = new AuthService();
+                //await authservice.Logoff();
 
-                var color = Color.Black;
-                if (Device.OS == TargetPlatform.Android)
-                    DependencyService.Get<IStatusBarColor>().SetColor(color);
                 _currentPage = new LoginPage();
                 _navigationPage = new NavigationPage(_currentPage)
                 {

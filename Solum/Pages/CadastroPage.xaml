@@ -77,26 +77,24 @@
 			</Entry>
 	    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
 
-			<renderers:BindablePicker 
+			<renderers:CustomPicker 
 				x:Name="EstadosPicker" ItemsSource="{Binding Estados}"
 				SelectedItem="{Binding EstadoSelected}"
 				ItemSelectedCommand="{Binding UpdateCidadesCommand}"
-				Title="Selecione o Estado">
-				<renderers:BindablePicker.Effects>
-		          <effects:NoBorderEffect />
-		        </renderers:BindablePicker.Effects>
-			</renderers:BindablePicker>
+				Title="Selecione o Estado"
+				HasBorder="false"
+				PlaceholderColor="#90B0B7">
+			</renderers:CustomPicker>
 	    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
 
-			<renderers:BindablePicker 
+			<renderers:CustomPicker 
 				x:Name="CidadesPicker" ItemsSource="{Binding Cidades}"
 				SelectedItem="{Binding CidadeSelected}"
 				SelectedIndex="0"
-				Title="Selecione a Cidade">
-				<renderers:BindablePicker.Effects>
-		          <effects:NoBorderEffect />
-		        </renderers:BindablePicker.Effects>
-			</renderers:BindablePicker>
+				Title="Selecione a Cidade"
+				HasBorder="false"
+				PlaceholderColor="#90B0B7">
+			</renderers:CustomPicker>
 	    	<BoxView BackgroundColor="#7B9092" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
 			
 			<ActivityIndicator IsRunning="{Binding IsCarregandoEstados}" />
