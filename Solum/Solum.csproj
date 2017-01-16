@@ -37,15 +37,25 @@
     <Compile Include="Models\Bindings.cs" />
     <Compile Include="Models\Cidade.cs" />
     <Compile Include="Models\Estado.cs" />
+    <Compile Include="Models\Fazenda.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Pages\CadastroPage.xaml.cs">
       <DependentUpon>CadastroPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\FazendasPage.xaml.cs">
-      <DependentUpon>FazendasPage.xaml</DependentUpon>
+    <Compile Include="Pages\FazendaCadastroPage.xaml.cs">
+      <DependentUpon>FazendaCadastroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FazendaDetalhesPage.xaml.cs">
+      <DependentUpon>FazendaDetalhesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FazendaListPage.xaml.cs">
+      <DependentUpon>FazendaListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TalhaoCadastroPage.xaml.cs">
+      <DependentUpon>TalhaoCadastroPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Remotes\AccountRemote.cs" />
     <Compile Include="Remotes\Results\RefreshTokenResult.cs" />
@@ -55,9 +65,7 @@
     <Compile Include="Remotes\Results\RegisterResult.cs" />
     <Compile Include="Renderers\CustomPicker.cs" />
     <Compile Include="Service\AuthService.cs" />
-    <Compile Include="Service\DataService.cs" />
     <Compile Include="Service\SyncService.cs" />
-    <Compile Include="Service\UserDataService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pages\RootPage.xaml.cs">
@@ -79,6 +87,9 @@
     </Compile>
     <Compile Include="Effects\NoBorderEffect.cs" />
     <Compile Include="ViewModel\CadastroViewModel.cs" />
+    <Compile Include="ViewModel\FazendaCadastroViewModel.cs" />
+    <Compile Include="ViewModel\FazendaDetalhesViewModel.cs" />
+    <Compile Include="ViewModel\FazendaListViewModel.cs" />
     <Compile Include="ViewModel\InterpretacaoViewModel.cs" />
     <Compile Include="Handlers\InterpretaHandler.cs" />
     <Compile Include="Handlers\Converters.cs" />
@@ -147,6 +158,10 @@
     <EmbeddedResource Include="ic_solum.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.16.3.0\lib\portable40-net40+sl5+win8+wp8+wpa81\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DotNetCross.Memory.Unsafe, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetCross.Memory.Unsafe.0.2.3.4\lib\netstandard1.0\DotNetCross.Memory.Unsafe.dll</HintPath>
       <Private>True</Private>
@@ -203,6 +218,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Cidades.csv" />
+    <EmbeddedResource Include="Estados.csv" />
     <None Include="packages.config" />
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
@@ -213,7 +230,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\FazendasPage.xaml">
+    <EmbeddedResource Include="Pages\FazendaListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\FazendaCadastroPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\FazendaDetalhesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\TalhaoCadastroPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

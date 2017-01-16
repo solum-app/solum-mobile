@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace Solum.Pages
 {
-    public partial class FazendasPage : ContentPage
+    public partial class TalhaoCadastroPage : ContentPage
     {
-        public FazendasPage()
+        public TalhaoCadastroPage()
         {
             InitializeComponent();
         }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Realms;
 using Solum.Models;
 using Solum.Remotes;
 using Solum.Remotes.Results;
@@ -11,12 +13,12 @@ namespace Solum.Service
     public class AuthService
     {
         private readonly AccountRemote _accountRemote;
-        private readonly UserDataService _userDataService;
+        private readonly Realm _realmInstance;
 
         public AuthService()
         {
             _accountRemote = new AccountRemote();
-            _userDataService = new UserDataService();
+            _realmInstance = Realm.GetInstance();
         }
 
         public async Task<RegisterResult> Register(RegisterBinding register)
@@ -39,9 +41,13 @@ namespace Solum.Service
                 RefreshToken = json["RefreshToken"],
                 AccessToken = json["AccessToken"],
                 Id = json["Id"],
-                Nome = json["Name"]
+                Name = json["Name"]
             };
-            _userDataService.Add(usuario);
+            using (var transaction = _realmInstance.BeginWrite())
+            {
+                _realmInstance.Add(usuario, true);
+                transaction.Commit();
+            }
             return AuthResult.LoginSuccessFully;
         }
 
@@ -52,12 +58,16 @@ namespace Solum.Service
             var content = await result.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
             var username = json["username"];
-            var user = _userDataService.FindByUsername(username);
+            var user = _realmInstance.All<Usuario>().FirstOrDefault(x => x.Username.Equals(username));
             user.AccessToken = json["access_token"];
             user.RefreshToken = json["refresh_token"];
             user.TokenCreated = DateTimeOffset.Parse(json[".issued"]);
             user.TokenValidate = DateTimeOffset.Parse(json[".expires"]);
-            _userDataService.Update(user);
+            using (var tsc = _realmInstance.BeginWrite())
+            {
+                _realmInstance.Add(user, true);
+                tsc.Commit();
+            }
             return RefreshTokenResult.Success;
         }
 
@@ -65,8 +75,11 @@ namespace Solum.Service
         {
             //verificar dados não sincronizados primeiro;
             await _accountRemote.Logout();
-            var loggedUser = _userDataService.GetLoggedUser();
-            _userDataService.Delete(loggedUser);
+            using (var tsc = _realmInstance.BeginWrite())
+            {
+                _realmInstance.RemoveAll<Usuario>();
+                tsc.Commit();
+            }
         }
     }
 }

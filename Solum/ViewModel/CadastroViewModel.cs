@@ -111,20 +111,14 @@ namespace Solum.ViewModel
                 ConfirmPassword = ConfirmPassword
             };
 
-            if (CidadeSelected == default(Cidade))
-            {
-                MessagingCenter.Send(this, "CidadeNull", "Selecione uma cidade");
-                return;
-            }
-
-            registerBinding.CidadeId = CidadeSelected.Id;
-
-            if (!registerBinding.IsValid)
+            if (!registerBinding.IsValid || CidadeSelected == default(Cidade))
             {
                 MessagingCenter.Send(this, "NullEntrys", "Preencha todos os campos, selecione o Estado e a Cidade que reside.");
                 return;
             }
-            
+
+            registerBinding.CidadeId = CidadeSelected.Id;
+        
             var result = await _authService.Register(registerBinding);
 
             if (result == RegisterResult.RegisterSuccefully)
@@ -139,19 +133,17 @@ namespace Solum.ViewModel
             }
         }
 
-        public async Task CarregarEstados()
+        public void CarregarEstados()
         {
             var realm = Realm.GetInstance();
-            Estados = realm.All<Estado>().OrderBy(x => x.Nome).ToList();
-            if (Estados == default(IList<Estado>) || Estados.Count < 27)
-                await SyncService.CidadeEstadoSync();
             Estados = realm.All<Estado>().OrderBy(x => x.Nome).ToList();
             IsCarregandoEstados = false;
         }
 
         public void AtualizarCidades()
         {
-            Cidades = EstadoSelected.Cidades.OrderBy(x => x.Nome).ToList();
+            var realm = Realm.GetInstance();
+            Cidades = realm.All<Cidade>().Where(x => x.EstadoId.Equals(EstadoSelected.Id)).ToList();
             IsCidadesCarregadas = true;
         }
 
