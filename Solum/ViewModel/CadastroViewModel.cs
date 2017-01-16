@@ -111,20 +111,14 @@ namespace Solum.ViewModel
                 ConfirmPassword = ConfirmPassword
             };
 
-            if (CidadeSelected == default(Cidade))
-            {
-                MessagingCenter.Send(this, "CidadeNull", "Selecione uma cidade");
-                return;
-            }
-
-            registerBinding.CidadeId = CidadeSelected.Id;
-
-            if (!registerBinding.IsValid)
+            if (!registerBinding.IsValid || CidadeSelected == default(Cidade))
             {
                 MessagingCenter.Send(this, "NullEntrys", "Preencha todos os campos, selecione o Estado e a Cidade que reside.");
                 return;
             }
-            
+
+            registerBinding.CidadeId = CidadeSelected.Id;
+        
             var result = await _authService.Register(registerBinding);
 
             if (result == RegisterResult.RegisterSuccefully)

@@ -7,11 +7,13 @@
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public string CidadeId { get; set; }
+
         public bool IsValid => !string.IsNullOrEmpty(Nome)
                                && !string.IsNullOrEmpty(Email)
                                && !string.IsNullOrEmpty(Password)
-                               && !string.IsNullOrEmpty(ConfirmPassword)
-                               && !string.IsNullOrEmpty(CidadeId);
+                               && !string.IsNullOrEmpty(ConfirmPassword);
+
+        // && !string.IsNullOrEmpty(CidadeId);
     }
 
     public class LoginBinding

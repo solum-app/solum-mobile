@@ -78,6 +78,7 @@ namespace Solum.Service
             using (var tsc = _realmInstance.BeginWrite())
             {
                 _realmInstance.RemoveAll<Usuario>();
+                tsc.Commit();
             }
         }
     }

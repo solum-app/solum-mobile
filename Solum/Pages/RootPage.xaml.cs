@@ -204,8 +204,7 @@ namespace Solum.Pages
             if (command)
             {
                 var authservice = new AuthService();
-                await authservice.Logoff();
-
+                authservice.Logoff();
                 var color = Color.Black;
                 if (Device.OS == TargetPlatform.Android)
                     DependencyService.Get<IStatusBarColor>().SetColor(color);
