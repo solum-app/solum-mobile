@@ -20,15 +20,29 @@ namespace Solum.ViewModel
         private bool _isCarregandoEstados = true;
         private bool _isEstadoSelected;
         private ICommand _updateCidadesListCommand;
-
+        private int _estadoSelectedIndex;
+        private int _cidadeSelectedIndex;
+        private bool _isUpdate;
+        private Fazenda _fazenda;
         public FazendaCadastroViewModel(INavigation navigation) : base(navigation)
         {
             _realm = Realm.GetInstance();
-            CarregarEstados();
+            EstadoList = _realm.All<Estado>().OrderBy(e => e.Nome).ToList();
         }
 
         public FazendaCadastroViewModel(INavigation navigation, Fazenda fazenda) : base(navigation)
         {
+            _isUpdate = true;
+            _realm = Realm.GetInstance();
+            _fazenda = fazenda;
+            FazendaName = fazenda.Nome;
+            EstadoList = _realm.All<Estado>().OrderBy(e => e.Nome).ToList();
+            EstadoSelectedIndex = EstadoList.IndexOf(fazenda.Cidade.Estado);
+            EstadoSelected = fazenda.Cidade.Estado;
+            IsEstadoSelected = true;
+            CidadeList = _realm.All<Cidade>().Where(c => c.EstadoId.Equals(fazenda.Cidade.EstadoId)).OrderBy(c => c.Nome).ToList();
+            CidadeSelectedIndex = CidadeList.IndexOf(fazenda.Cidade);
+            CidadeSelected = fazenda.Cidade;
         }
 
         public string FazendaName
@@ -37,16 +51,22 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _fazendaName, value); }
         }
 
+        public int EstadoSelectedIndex
+        {
+            get { return _estadoSelectedIndex; }
+            set { SetPropertyChanged(ref _estadoSelectedIndex, value); }
+        }
+
+        public int CidadeSelectedIndex
+        {
+            get { return _cidadeSelectedIndex; }
+            set { SetPropertyChanged(ref _cidadeSelectedIndex, value); }
+        }
+
         public bool IsEstadoSelected
         {
             get { return _isEstadoSelected; }
             set { SetPropertyChanged(ref _isEstadoSelected, value); }
-        }
-
-        public bool IsCarregandoEstados
-        {
-            get { return _isCarregandoEstados; }
-            set { SetPropertyChanged(ref _isCarregandoEstados, value); }
         }
 
         public IList<Estado> EstadoList
@@ -85,44 +105,65 @@ namespace Solum.ViewModel
 
         public async void CadastrarFazenda()
         {
-            if (string.IsNullOrEmpty(FazendaName))
+            if (!_isUpdate)
             {
-                MessagingCenter.Send(this, "Erro", "Coloque o nome da Fazenda");
-                return;
+                if (string.IsNullOrEmpty(FazendaName))
+                {
+                    MessagingCenter.Send(this, "Erro", "Coloque o nome da Fazenda");
+                    return;
+                }
+
+                if (CidadeSelected == default(Cidade))
+                {
+                    MessagingCenter.Send(this, "Erro", "Selecione uma Cidade para esta Fazenda");
+                    return;
+                }
+
+                var usuario = _realm.All<Usuario>().FirstOrDefault();
+
+                var fazenda = new Fazenda
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Nome = FazendaName,
+                    CidadeId = CidadeSelected.Id,
+                    Cidade = CidadeSelected,
+                    UsuarioId = usuario.Id,
+                    Usuario = usuario
+                };
+
+                using (var transaction = _realm.BeginWrite())
+                {
+                    _realm.Add(fazenda);
+                    transaction.Commit();
+                }
+
+                MessagingCenter.Send(this, "Sucesso", "Fazenda cadastrada com sucesso");
+                await Navigation.PopAsync(true);
             }
-
-            if (CidadeSelected == default(Cidade))
+            else
             {
-                MessagingCenter.Send(this, "Erro", "Selecione uma Cidade para esta Fazenda");
-                return;
+                if (string.IsNullOrEmpty(FazendaName))
+                {
+                    MessagingCenter.Send(this, "Erro", "Coloque o nome da Fazenda");
+                    return;
+                }
+
+                using (var transaction = _realm.BeginWrite())
+                {
+                    _fazenda.Nome = FazendaName;
+                    _fazenda.CidadeId = CidadeSelected.Id;
+                    _fazenda.Cidade = CidadeSelected;
+                    transaction.Commit();
+                }
+
+                MessagingCenter.Send(this, "Sucesso", "Fazenda atualizada com sucesso");
+                await Navigation.PopAsync(true);
             }
-
-            var usuario = _realm.All<Usuario>().FirstOrDefault();
-
-            var fazenda = new Fazenda
-            {
-                Id = Guid.NewGuid().ToString(),
-                Nome = FazendaName,
-                CidadeId = CidadeSelected.Id,
-                Cidade = CidadeSelected,
-                UsuarioId = usuario.Id,
-                Usuario = usuario
-            };
-
-            using (var transaction = _realm.BeginWrite())
-            {
-                _realm.Add(fazenda);
-                transaction.Commit();
-            }
-
-            MessagingCenter.Send(this, "Sucesso", "Fazenda Cadastrada com Sucesso");
-            await Navigation.PopAsync(true);
         }
 
         public void CarregarEstados()
         {
             EstadoList = _realm.All<Estado>().OrderBy(x => x.Nome).ToList();
-            IsCarregandoEstados = false;
         }
 
         public void UpdateCidades()

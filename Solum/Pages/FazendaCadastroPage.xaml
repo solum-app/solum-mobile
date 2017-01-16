@@ -10,19 +10,20 @@
 		<Entry x:Name="FazendaNomeEntry" Placeholder="Nome da Fazenda" Text="{Binding FazendaName}" />
 
 		<local:BindablePicker x:Name="EstadoPicker" Title="Selecione um estado"
-							  ItemsSource="{Binding EstadoList}"
-							  SelectedItem="{Binding EstadoSelected}"
-							  ItemSelectedCommand="{Binding UpdateCidadesListCommand}"
-							  IsEnabled="{Binding IsCarregandoEstados, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
+                          ItemsSource="{Binding EstadoList}"
+                          SelectedItem="{Binding EstadoSelected}"
+                          SelectedIndex="{Binding EstadoSelectedIndex}"
+                          ItemSelectedCommand="{Binding UpdateCidadesListCommand}"/>
 
 		<local:BindablePicker x:Name="CidadePicker" Title="Selecione uma cidade"
-							  ItemsSource="{Binding CidadeList}"
-							  SelectedItem="{Binding CidadeSelected}"
-							  IsEnabled="{Binding IsEstadoSelected}" />
-
-		<ActivityIndicator IsRunning="{Binding IsCarregandoEstados}" Color="#30BC5A" />
-
-		<Button x:Name="SalvarButton" Text="Salvar" Command="{Binding CadastrarFazendaCommand}"
-				IsEnabled="{Binding IsCarregandoEstados, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
+                          ItemsSource="{Binding CidadeList}"
+                          SelectedItem="{Binding CidadeSelected}"
+                          SelectedIndex="{Binding CidadeSelectedIndex}"
+                          IsEnabled="{Binding IsEstadoSelected}" />
+		
+    <Button x:Name="SalvarButton" 
+            Text="Salvar" 
+            Command="{Binding CadastrarFazendaCommand}"
+            IsEnabled="{Binding IsCarregandoEstados, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
 	</StackLayout>
 </ContentPage>

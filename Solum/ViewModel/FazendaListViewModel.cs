@@ -20,7 +20,7 @@ namespace Solum.ViewModel
         public FazendaListViewModel(INavigation navigation) : base(navigation)
         {
             _realmInstance = Realm.GetInstance();
-            HasItems = _realmInstance.All<Estado>().Any();
+            HasItems = _realmInstance.All<Fazenda>().Any();
             if (HasItems)
                 Fazendas = _realmInstance.All<Fazenda>().OrderBy(x => x.Nome).ToList();
         }
@@ -69,6 +69,7 @@ namespace Solum.ViewModel
         public void UpdateFazendaList()
         {
             Fazendas = _realmInstance.All<Fazenda>().OrderBy(x => x.Nome).ToList();
+            HasItems = Fazendas.Any();
         }
     }
 }

@@ -10,19 +10,34 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new FazendaCadastroViewModel(Navigation);
-            MessagingCenter.Subscribe<FazendaCadastroViewModel, string>(this, "Erro", (sender, args) => ShowErrorMessage(args));
-            MessagingCenter.Subscribe<FazendaCadastroViewModel, string>(this, "Sucesso", (sender, args) => ShowSuccessMessage(args));
+            MessagingCenter.Subscribe<FazendaCadastroViewModel, string>(this, "Erro",
+                (sender, args) => ShowErrorMessage(args));
+            MessagingCenter.Subscribe<FazendaCadastroViewModel, string>(this, "Sucesso",
+                (sender, args) => ShowSuccessMessage(args));
         }
 
         public FazendaCadastroPage(Fazenda fazenda)
         {
             InitializeComponent();
             BindingContext = new FazendaCadastroViewModel(Navigation, fazenda);
-            MessagingCenter.Subscribe<FazendaCadastroViewModel, string>(this, "Erro", (sender, args) => ShowErrorMessage(args));
-            MessagingCenter.Subscribe<FazendaCadastroViewModel, string>(this, "Sucesso", (sender, args) => ShowSuccessMessage(args));
+            MessagingCenter.Subscribe<FazendaCadastroViewModel, string>(this, "Erro",
+                (sender, args) => ShowErrorMessage(args));
+            MessagingCenter.Subscribe<FazendaCadastroViewModel, string>(this, "Sucesso",
+                (sender, args) => ShowSuccessMessage(args));
         }
 
-        private async void ShowErrorMessage(string message) => await DisplayAlert("Erro", message, "Ok");
-        private async void ShowSuccessMessage(string message) => await DisplayAlert("Sucesso", message, "Ok");
+        private async void ShowErrorMessage(string message)
+        {
+            await DisplayAlert("Erro", message, "Ok");
+            MessagingCenter.Unsubscribe<FazendaCadastroViewModel, string>(this, "Erro");
+            MessagingCenter.Unsubscribe<FazendaCadastroViewModel, string>(this, "Sucesso");
+        }
+
+        private async void ShowSuccessMessage(string message)
+        {
+            await DisplayAlert("Sucesso", message, "Ok");
+            MessagingCenter.Unsubscribe<FazendaCadastroViewModel, string>(this, "Erro");
+            MessagingCenter.Unsubscribe<FazendaCadastroViewModel, string>(this, "Sucesso");
+        }
     }
 }

@@ -86,9 +86,9 @@ namespace Solum
     {
         public EstadoCsvMapper()
         {
-            Map(s => s.Id).Name("Id");
-            Map(s => s.Nome).Name("Nome");
-            Map(s => s.Uf).Name("Uf");
+            Map(s => s.Id).Index(0);
+            Map(s => s.Nome).Index(1);
+            Map(s => s.Uf).Index(2);
         }
     }
 
@@ -96,9 +96,9 @@ namespace Solum
     {
         public CidadeCsvMapper()
         {
-            Map(s => s.Id).Name("Id");
-            Map(s => s.Nome).Name("Nome");
-            Map(s => s.EstadoId).Name("EstadoId");
+            Map(s => s.Id).Index(0);
+            Map(s => s.EstadoId).Index(1);
+            Map(s => s.Nome).Index(2);
         }
     }
 }
