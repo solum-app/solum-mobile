@@ -16,13 +16,13 @@ namespace Solum
 			InitializeComponent();
             
             var isUsuarioLogado = VerificaLogin();
-            if (true)
+			if (!isUsuarioLogado)
             {   
-			MainPage = new NavigationPage(new LoginPage())
-                {
-                    BackgroundColor = Color.Transparent,
-                    BarTextColor = Color.Black
-                };
+				MainPage = new NavigationPage(new LoginPage())
+	                {
+	                    BackgroundColor = Color.Transparent,
+	                    BarTextColor = Color.Black
+	                };
             }
             else
             {
