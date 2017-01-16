@@ -205,13 +205,13 @@ namespace Solum.Pages
 		{
 			if (Device.OS == TargetPlatform.iOS)
 			{
-				if (_currentPage.GetType() == typeof(CorretivaPage))
+				if (_currentPage.GetType() == typeof(RecomendaCalagemPage))
 				{
 					IsPresented = false;
 				}
 				else
 				{
-					_currentPage = new CorretivaPage();
+					_currentPage = new RecomendaCalagemPage();
 					Detail = new NavigationPage(_currentPage)
 					{
 						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
@@ -222,7 +222,7 @@ namespace Solum.Pages
 			}
 			else
 			{
-				var page = new CorretivaPage();
+				var page = new RecomendaCalagemPage();
 				await _navigationPage.Navigation.PushAsync(page);
 				_navigationPage.Navigation.RemovePage(_currentPage);
 				_currentPage = page;

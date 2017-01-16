@@ -7,9 +7,9 @@
 	x:Class="Solum.CalagemPage"
 	Title="Nome da Fazenda - Talhão">
 
-	<ScrollView Grid.Row="0" BackgroundColor="#EEEEEE">
+	<ScrollView Grid.Row="0" BackgroundColor="{StaticResource colorBackground}">
 		<StackLayout Spacing="0">
-			<Label TextColor="#717175" Text="INFORMAÇÕES PARA CALAGEM">
+			<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES PARA CALAGEM">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness"
 						iOS="16,24,16,4"
@@ -28,15 +28,15 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<BoxView Grid.ColumnSpan="3" BackgroundColor="#C8C7CC" VerticalOptions="Start">
+				<BoxView Grid.ColumnSpan="3" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
 					<BoxView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double"
 							iOS="0.5"
 							Android="0.3"/>
 					</BoxView.HeightRequest>
 				</BoxView>
-				<Label Text="V2" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
-				<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="%" HorizontalTextAlignment="End">
+				<Label Text="V2" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
+				<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="%" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
 				    </Entry.Effects>
@@ -46,7 +46,7 @@
 							Android="14"/>
 					</Entry.FontSize>
 				</Entry>
-				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
 					<BoxView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double"
 							iOS="0.5"
@@ -61,8 +61,8 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="PRNT" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
-				<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="%" HorizontalTextAlignment="End">
+				<Label Text="PRNT" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
+				<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="%" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
 				    </Entry.Effects>
@@ -72,7 +72,7 @@
 							Android="14"/>
 					</Entry.FontSize>
 				</Entry>
-				<BoxView BackgroundColor="#C8C7CC" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
 					<BoxView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double"
 							iOS="0.5"
@@ -87,8 +87,8 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="Profundidade" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
-				<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="cm" HorizontalTextAlignment="End">
+				<Label Text="Profundidade" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
+				<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="cm" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
 				    </Entry.Effects>
@@ -100,7 +100,7 @@
 				</Entry>
 			</Grid>
 			
-			<BoxView BackgroundColor="#C8C7CC" VerticalOptions="End">
+			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
 						iOS="0.5"
@@ -108,7 +108,7 @@
 				</BoxView.HeightRequest>
 			</BoxView>
 
-			<Button Text="Recomendação" IsEnabled="true" Margin="16" BackgroundColor="#FFD54F" TextColor="Black" VerticalOptions="EndAndExpand"/>
+			<Button Text="Recomendação" IsEnabled="true" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

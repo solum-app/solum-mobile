@@ -34,7 +34,7 @@
 							Android="0.3"/>
 					</BoxView.HeightRequest>
 				</BoxView>
-				<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry 
 					x:Name="fazendaEntry"
 					Unfocused="OnEntryUnfocused"
@@ -69,7 +69,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry
 					x:Name="talhaoEntry"
 					Unfocused="OnEntryUnfocused"
@@ -105,7 +105,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="Data" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="Data" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<renderers:BindableDatePicker Unfocused="OnEntryUnfocused" Focused="OnEntryFocused" x:Name="datePicker" Date="{Binding DataEntry}" DateSelectedCommand="{Binding DateSelectedCommand}" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="16,0">
 					<DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
 					<DatePicker.Effects>
@@ -147,7 +147,7 @@
 							Android="0.3"/>
 					</BoxView.HeightRequest>
 				</BoxView>
-				<Label Text="pH" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="pH" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry 
 					x:Name="phEntry"
 					Unfocused="OnEntryUnfocused"
@@ -184,7 +184,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="P" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="P" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry
 					x:Name="pEntry"
 					Unfocused="OnEntryUnfocused"
@@ -221,7 +221,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="K" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="K" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry
 					x:Name="kEntry"
 					Unfocused="OnEntryUnfocused"
@@ -258,7 +258,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="Ca" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="Ca" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry
 					x:Name="caEntry"
 					Unfocused="OnEntryUnfocused"
@@ -295,7 +295,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="Mg" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="Mg" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry
 					x:Name="mgEntry"
 					Unfocused="OnEntryUnfocused"
@@ -332,7 +332,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="Al" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="Al" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry
 					x:Name="alEntry"
 					Unfocused="OnEntryUnfocused"
@@ -368,7 +368,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="H" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="H" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry
 					x:Name="hEntry"
 					Unfocused="OnEntryUnfocused"
@@ -405,7 +405,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="M.O." VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="M.O." VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry
 					x:Name="moEntry"
 					Unfocused="OnEntryUnfocused"
@@ -462,7 +462,7 @@
 							Android="0.3"/>
 					</BoxView.HeightRequest>
 				</BoxView>
-				<Label Text="Areia" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="Areia" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry
 					x:Name="areiaEntry"
 					Unfocused="OnEntryUnfocused"
@@ -499,7 +499,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="Silte" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="Silte" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry
 					x:Name="sliteEntry"
 					Unfocused="OnEntryUnfocused"
@@ -535,7 +535,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="Argila" VerticalOptions="Center" Grid.Column="1" TextColor="Black"/>
+				<Label Text="Argila" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
 				<Entry
 					x:Name="argilaEntry"
 					Unfocused="OnEntryUnfocused"
@@ -566,7 +566,7 @@
 						Android="0"/>
 				</BoxView.HeightRequest>
 			</BoxView>
-			<Button Text="Interpretar" IsEnabled="true" Command="{Binding ButtonClickedCommand}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="Black"/>
+			<Button Text="Interpretar" IsEnabled="true" Command="{Binding ButtonClickedCommand}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}"/>
 			<BoxView x:Name="boxSpacing" HeightRequest="205" IsVisible="false"/>
 		</StackLayout>
 	</ScrollView>

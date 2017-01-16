@@ -37,7 +37,7 @@
 							Android="0.3"/>
 					</BoxView.HeightRequest>
 				</BoxView>
-				<Label Text="Quantidade de P2O5" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="Black" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
+				<Label Text="Quantidade de P2O5" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
 				<Label Text="50 kg/ha" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="#757575" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
 				<BoxView BackgroundColor="#C8C7CC" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
 					<BoxView.HeightRequest>
@@ -57,7 +57,7 @@
 					<RowDefinition Height="*"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
-				<Label Text="Quantidade de K2O" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="Black" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
+				<Label Text="Quantidade de K2O" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
 				<Label Text="20 kg/ha" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="#757575" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
 			</Grid>
 

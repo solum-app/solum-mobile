@@ -54,7 +54,7 @@
     	<BoxView BackgroundColor="{StaticResource colorSeparatorEntry}" Margin="32,0,0,0" HeightRequest="1" HorizontalOptions="FillAndExpand" Grid.Column="1" VerticalOptions="End"/>
     </Grid>
     <Label Text="Esqueceu a senha?" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}" Margin="16,0" FontSize="Small"/>
-    <Button x:Name="EntrarButton" Text="Entrar" Command="{Binding LoginCommand}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="Black" VerticalOptions="EndAndExpand"/>
+    <Button x:Name="EntrarButton" Text="Entrar" Command="{Binding LoginCommand}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
     <Label x:Name="CadastrarButton" Text="Cadastre-se gratuitamente" Margin="16,0,16,16" HorizontalTextAlignment="Center" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="End" FontSize="Small">
       <Label.GestureRecognizers>
         <TapGestureRecognizer Command="{Binding CadastrarCommand}"/>

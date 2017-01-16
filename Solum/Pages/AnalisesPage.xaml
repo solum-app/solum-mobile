@@ -58,7 +58,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
               </Grid.RowDefinitions>
-              <Label Text="{Binding Talhao, StringFormat='Talhão {0}'}" Grid.Row="0" TextColor="Black"/>
+              <Label Text="{Binding Talhao, StringFormat='Talhão {0}'}" Grid.Row="0" TextColor="{StaticResource colorTextPrimary}"/>
               <Label Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Start"/>
             </Grid>
             <ViewCell.ContextActions>

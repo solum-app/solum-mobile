@@ -98,7 +98,7 @@
 	    	<BoxView BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18"/>
 			
 			<ActivityIndicator IsRunning="{Binding IsCarregandoEstados}" />
-			<Button Text="Cadastrar" Command="{Binding RegisterCommand}" Margin="0,16" BackgroundColor="{StaticResource colorAccent}" TextColor="Black" VerticalOptions="EndAndExpand"/>
+			<Button Text="Cadastrar" Command="{Binding RegisterCommand}" Margin="0,16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
 	    	<Label Text="Cancelar" Margin="0,0,0,16" HorizontalTextAlignment="Center" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="End" FontSize="Small">
 		        <Label.GestureRecognizers>
 		          <TapGestureRecognizer Command="{Binding VoltarCommand}" />

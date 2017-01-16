@@ -97,7 +97,7 @@
 					<Label x:Name="CalagemLabel" Text="Calagem" Grid.Row="4" Grid.Column="1"/>
 
 					<Label x:Name="RecomendacaoLabel" Text="Recomendacao" Grid.Row="5" Grid.Column="1"/>-->
-					<Label x:Name="TesteLabel" Text="Corretiva" Grid.Row="5" Grid.Column="1"/>
+					<Label x:Name="TesteLabel" Text="Teste" Grid.Row="5" Grid.Column="1"/>
 					
 
 				</StackLayout>
