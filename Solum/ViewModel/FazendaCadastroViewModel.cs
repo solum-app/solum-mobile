@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -94,19 +95,29 @@ namespace Solum.ViewModel
 
         public async void CadastrarFazenda()
         {
-            if (CidadeSelected == default(Cidade))
-            {
-                MessagingCenter.Send(this, "Erro", "Selecione uma Cidade para esta Fazenda");
-                return;
-            }
-
             if (string.IsNullOrEmpty(FazendaName))
             {
                 MessagingCenter.Send(this, "Erro", "Coloque o nome da Fazenda");
                 return;
             }
 
-            var fazenda = new Fazenda { Nome = FazendaName, CidadeId = CidadeSelected.Id, Cidade = CidadeSelected};
+            if (CidadeSelected == default(Cidade))
+            {
+                MessagingCenter.Send(this, "Erro", "Selecione uma Cidade para esta Fazenda");
+                return;
+            }
+
+            var usuario = _realm.All<Usuario>().FirstOrDefault();
+
+            var fazenda = new Fazenda
+            {
+                Id =  Guid.NewGuid().ToString(),
+                Nome = FazendaName,
+                CidadeId = CidadeSelected.Id,
+                Cidade = CidadeSelected,
+                UsuarioId = usuario.Id,
+                Usuario = usuario
+            };
 
             using (var transaction = _realm.BeginWrite())
             {
