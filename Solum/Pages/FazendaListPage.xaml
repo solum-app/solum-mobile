@@ -35,10 +35,17 @@
 					<ViewCell>
             
 						<Grid Padding="15" BackgroundColor="White">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
+								<RowDefinition />
 							</Grid.RowDefinitions>
 							<Label Text="{Binding Nome}" Grid.Row="0" TextColor="Black" />
+              <Label Text="{Binding Cidade.Nome}" Grid.Row="1" Grid.Column="0" />
+              <Label Text="{Binding Cidade.Estado.Uf}" Grid.Row="1" Grid.Column="1"/>
 						</Grid>
             
 						<ViewCell.ContextActions>

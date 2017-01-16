@@ -13,9 +13,9 @@ namespace Solum.ViewModel
         private readonly Realm _realmInstance;
         private ICommand _editarCommand;
         private ICommand _excluirCommand;
+        private ICommand _itemTappedCommand;
         private IList<Fazenda> _fazendas;
         private bool _hasItems;
-        private ICommand _itemTappedCommand;
 
         public FazendaListViewModel(INavigation navigation) : base(navigation)
         {

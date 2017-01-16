@@ -39,25 +39,24 @@ namespace Solum.Pages
         private void OnEdit(object sender, EventArgs e)
         {
             var fazenda = (sender as MenuItem).CommandParameter;
-            (BindingContext as FazendaListViewModel).EditarCommand.Execute(fazenda);
+            var context = BindingContext as FazendaListViewModel;
+            context?.EditarCommand.Execute(fazenda);
         }
 
         private async void OnDelete(object sender, EventArgs e)
         {
             var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
-
-            if (confirm)
-            {
-                var fazenda = (sender as MenuItem).CommandParameter;
-                (BindingContext as FazendaListViewModel).ExcluirCommand.Execute(fazenda);
-            }
+            if (!confirm) return;
+            var fazenda = (sender as MenuItem).CommandParameter;
+            var context = BindingContext as FazendaListViewModel;
+            context?.ExcluirCommand.Execute(fazenda);
         }
 
         protected override void OnAppearing()
         {
-            var model = BindingContext as FazendaListViewModel;
-            model?.UpdateFazendaList();
             base.OnAppearing();
+            var context = BindingContext as FazendaListViewModel;
+            context?.UpdateFazendaList();
         }
     }
 }

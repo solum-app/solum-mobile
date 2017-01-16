@@ -10,7 +10,10 @@ namespace Solum.Models
         public string Id { get; set; }
         public string Nome { get; set; }
         public string Uf { get; set; }
-        public IList<Cidade> Cidades { get; }
+
+        [Backlink(nameof(Cidade.Estado))]
+        public IQueryable<Cidade> Cidades { get; }
+
         public override string ToString()
         {
             return $"{Nome} - {Uf}";
