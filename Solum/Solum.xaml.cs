@@ -57,34 +57,25 @@ namespace Solum
                 IgnoreHeaderWhiteSpace = true,
                 TrimHeaders = true,
                 TrimFields = true,
-                Encoding = Encoding.UTF8
+                Encoding = Encoding.UTF8,
+                WillThrowOnMissingField = true
             };
+
             var estadoReader = new CsvReader(new StreamReader(estadoStream), config);
-            estadoReader.Configuration.RegisterClassMap<EstadoCsvMapper>();
-
-
             var cidadeReader = new CsvReader(new StreamReader(cidadeStream), config);
-            cidadeReader.Configuration.RegisterClassMap<CidadeCsvMapper>();
 
-            var estados = new Collection<Estado>();
-            var cidades = new Collection<Cidade>();
-
-            while (estadoReader.Read())
-                estados.Add(estadoReader.GetRecord<Estado>());
-            while(cidadeReader.Read())
-                cidades.Add(cidadeReader.GetRecord<Cidade>());
+            var estados = estadoReader.GetRecords(typeof(Estado));
+            var cidades = cidadeReader.GetRecords(typeof(Cidade));
 
             using (var trans = realm.BeginWrite())
             {
                 foreach (var e in estados)
                 {
-                    realm.Add(e, true);
-                    var result = cidades.Where(x => x.EstadoId.Equals(e.Id));
-                    foreach (var c in result)
-                    {
-                        c.Estado = e;
-                        realm.Add(c, true);
-                    }
+                    realm.Add(e as Estado, true);
+                }
+                foreach (var c in cidades)
+                {
+                    realm.Add(c as Cidade);
                 }
                 trans.Commit();
             }
