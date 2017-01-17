@@ -17,8 +17,6 @@ namespace Solum.Pages
                 (view, arg) => { ShowSuccessMessage(arg); });
             MessagingCenter.Subscribe<CadastroViewModel, string>(this, "RegisterUnsuccessful",
                 (view, arg) => { ShowErrorMessage(arg); });
-            MessagingCenter.Subscribe<CadastroViewModel, string>(this, "CidadeNull",
-             (view, arg) => { ShowErrorMessage(arg); });
         }
 
         private async void ShowErrorMessage(string message)

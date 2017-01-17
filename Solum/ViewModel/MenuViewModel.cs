@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Windows.Input;
-using Realms;
-using Solum.Models;
+﻿using System.Windows.Input;
 using Solum.Service;
 using Xamarin.Forms;
 
@@ -13,8 +10,9 @@ namespace Solum.ViewModel
 
         public MenuViewModel(INavigation navigation) : base(navigation)
         {
-            var user = Realm.GetInstance().All<Usuario>().FirstOrDefault();
-            Nome = user.Name;
+            var userService = new UserDataService();
+            var user = userService.GetLoggedUser();
+            Nome = user.Nome;
             Email = user.Username;
         }
         public string Nome

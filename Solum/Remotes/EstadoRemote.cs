@@ -22,7 +22,7 @@ namespace Solum.Remotes
                 var jsonData = JsonConvert.DeserializeObject<IList<Estado>>(await response.Content.ReadAsStringAsync());
                 return jsonData;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
