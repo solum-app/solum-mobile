@@ -2,7 +2,7 @@
 using Realms;
 using Solum.Models;
 using Solum.Pages;
-using Solum.Remotes;
+using Solum.Service;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,12 +15,7 @@ namespace Solum
         public App()
         {
             InitializeComponent();
-
-
-            var r = Realm.GetInstance();
-            if (!r.All<Estado>().Any())
-                CarregarEstadoCidades(r);
-
+            SyncService.CidadeEstadoSync();
             var isUsuarioLogado = VerificaLogin();
             if (!isUsuarioLogado)
                 MainPage = new NavigationPage(new LoginPage())
@@ -36,17 +31,6 @@ namespace Solum
         {
             var loggedUser = Realm.GetInstance().All<Usuario>().FirstOrDefault();
             return loggedUser != default(Usuario);
-        }
-
-        private void CarregarEstadoCidades(Realm realm)
-        {
-            var estados = new EstadoRemote().GetEstados().Result;
-            using (var trans = realm.BeginWrite())
-            {
-                foreach (var e in estados)
-                    realm.Add(e, true);
-                trans.Commit();
-            }
         }
     }
 }

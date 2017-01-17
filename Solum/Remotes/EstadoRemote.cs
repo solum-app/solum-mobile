@@ -11,15 +11,32 @@ namespace Solum.Remotes
     public class EstadoRemote : BaseRemote
     {
 
-        public async Task<ICollection<Estado>> GetEstados()
+        public ICollection<Estado> GetEstados()
         {
             if (!CrossConnectivity.Current.IsConnected)
                 throw new Exception("Sem conexão com Internet");
             try
             {
-                var url = $"{Settings.BaseUri}{Settings.EstadoUri}?pagesize=30";
-                var response = await Client.GetAsync(url);
-                var jsonData = JsonConvert.DeserializeObject<ICollection<Estado>>(await response.Content.ReadAsStringAsync());
+                var url = Client.BaseAddress+Settings.EstadoUri+"?all=true";
+                var response = Client.GetAsync(url).Result;
+                var jsonData = JsonConvert.DeserializeObject<ICollection<Estado>>(response.Content.ReadAsStringAsync().Result);
+                return jsonData;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public ICollection<Cidade> GetCidades(string estadoId)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                throw new Exception("Sem conexão com Internet");
+            try
+            {
+                var url = Client.BaseAddress + Settings.CidadeUri + "?estadoid=" + estadoId + "&all=true";
+                var response = Client.GetAsync(url).Result;
+                var jsonData = JsonConvert.DeserializeObject<ICollection<Cidade>>(response.Content.ReadAsStringAsync().Result);
                 return jsonData;
             }
             catch (Exception ex)
