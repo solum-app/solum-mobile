@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Realms;
 
 namespace Solum.Models
@@ -11,10 +7,11 @@ namespace Solum.Models
     {
         [PrimaryKey]
         public string Id { get; set; }
-
         public string Nome { get; set; }
         public string Uf { get; set; }
-        public IList<Cidade> Cidades { get; }
+
+        [Backlink(nameof(Cidade.Estado))]
+        public IQueryable<Cidade> Cidades { get; }
 
         public override string ToString()
         {

@@ -11,7 +11,7 @@ namespace Solum.Models
 
         public override string ToString()
         {
-            return $"{Nome}";
+            return Nome;
         }
     }
 }

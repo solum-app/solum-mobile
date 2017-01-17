@@ -38,6 +38,7 @@
     <Compile Include="Models\Bindings.cs" />
     <Compile Include="Models\Cidade.cs" />
     <Compile Include="Models\Estado.cs" />
+    <Compile Include="Models\Fazenda.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Pages\CadastroPage.xaml.cs">
       <DependentUpon>CadastroPage.xaml</DependentUpon>
