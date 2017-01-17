@@ -65,8 +65,8 @@ namespace Solum
             var cidadeReader = new CsvReader(new StreamReader(cidadeStream), config);
             cidadeReader.Configuration.RegisterClassMap<CidadeCsvMapper>();
 
-            var estados = estadoReader.GetRecords<Estado>().AsQueryable().OrderBy(x => x.Nome).ToList();
-            var cidades = cidadeReader.GetRecords<Cidade>().AsQueryable().OrderBy(x => x.EstadoId).ToList();
+            var estados = estadoReader.GetRecords<Estado>().OrderBy(x => x.Nome).ToList();
+            var cidades = cidadeReader.GetRecords<Cidade>().OrderBy(x => x.EstadoId).ToList();
 
             using (var trans = realm.BeginWrite())
             {
