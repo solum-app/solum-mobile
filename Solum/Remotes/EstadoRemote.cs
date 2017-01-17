@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
@@ -10,39 +9,28 @@ namespace Solum.Remotes
 {
     public class EstadoRemote : BaseRemote
     {
-
-        public ICollection<Estado> GetEstados()
+        public async Task<ICollection<Estado>> GetEstados()
         {
             if (!CrossConnectivity.Current.IsConnected)
                 throw new Exception("Sem conexão com Internet");
-            try
-            {
-                var url = Client.BaseAddress+Settings.EstadoUri+"?all=true";
-                var response = Client.GetAsync(url).Result;
-                var jsonData = JsonConvert.DeserializeObject<ICollection<Estado>>(response.Content.ReadAsStringAsync().Result);
-                return jsonData;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+
+            var url = Settings.BaseUri + Settings.EstadoUri + "?all=true";
+            var response = await Client.GetAsync(url);
+            var content = await response.Content.ReadAsStringAsync();
+            var collection = JsonConvert.DeserializeObject<ICollection<Estado>>(content);
+            return collection;
         }
 
-        public ICollection<Cidade> GetCidades(string estadoId)
+        public async Task<ICollection<Cidade>> GetCidades(string estadoId)
         {
             if (!CrossConnectivity.Current.IsConnected)
                 throw new Exception("Sem conexão com Internet");
-            try
-            {
-                var url = Client.BaseAddress + Settings.CidadeUri + "?estadoid=" + estadoId + "&all=true";
-                var response = Client.GetAsync(url).Result;
-                var jsonData = JsonConvert.DeserializeObject<ICollection<Cidade>>(response.Content.ReadAsStringAsync().Result);
-                return jsonData;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+
+            var url = Settings.BaseUri + Settings.CidadeUri+ "estadoid="+ estadoId + "&all=true";
+            var response = await Client.GetAsync(url);
+            var content = await response.Content.ReadAsStringAsync();
+            var collection = JsonConvert.DeserializeObject<ICollection<Cidade>>(content);
+            return collection;
         }
     }
 }

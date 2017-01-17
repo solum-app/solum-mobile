@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Realms;
 using Solum.Models;
@@ -8,33 +10,43 @@ namespace Solum.Service
 {
     public class SyncService
     {
-        public static bool InSync { get; set; } = false;
-        public static void CidadeEstadoSync()
+        public static bool InSync { get; set; }
+        public static async Task CidadeEstadoSync()
         {
             InSync = true;
-            var dataService = Realm.GetInstance();
-            if (!dataService.All<Estado>().Any())
+            var realm = Realm.GetInstance();
+            var estadosLocal = realm.All<Estado>().AsQueryable();
+            if (!estadosLocal.Any() || estadosLocal.Count() < 27)
             {
-                var estadoRemote = new EstadoRemote();
-                var estados = estadoRemote.GetEstados();
-                using (var trans = dataService.BeginWrite())
+                var remote = new EstadoRemote();
+
+                try
                 {
-                    foreach (var e in estados)
-                        dataService.Add(e, true);
-                    trans.Commit();
-                }
-                foreach (var e in estados)
-                {
-                    var cidades = estadoRemote.GetCidades(e.Id);
-                    using (var tsc = dataService.BeginWrite())
+                    var estados = await remote.GetEstados();
+                    using (var transaction = realm.BeginWrite())
                     {
-                        foreach (var c in cidades)
-                        {
-                            c.Estado = e;
-                            dataService.Add(c, true);
-                        }
-                        tsc.Commit();
+                        foreach (var estado in estados)
+                            realm.Add(estado, true);
+                        transaction.Commit();
                     }
+
+                    foreach (var estado in estados)
+                    {
+                        var cidades = await remote.GetCidades(estado.Id);
+                        using (var transaction = realm.BeginWrite())
+                        {
+                            foreach (var cidade in cidades)
+                            {
+                                cidade.Estado = estado;
+                                realm.Add(cidade, true);
+                            }
+                            transaction.Commit();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
                 }
             }
             InSync = false;
