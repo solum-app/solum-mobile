@@ -36,11 +36,11 @@ namespace Solum.ViewModel
             _fazenda = fazenda;
             FazendaName = fazenda.Nome;
             EstadoList = _realm.All<Estado>().OrderBy(e => e.Nome).ToList();
-            EstadoSelectedIndex = EstadoList.IndexOf(fazenda.Cidade.Estado);
+            EstadoSelectedIndex = 0; //EstadoList.IndexOf(fazenda.Cidade.Estado);
             EstadoSelected = fazenda.Cidade.Estado;
             IsEstadoSelected = true;
             CidadeList = _realm.All<Cidade>().Where(c => c.EstadoId.Equals(fazenda.Cidade.EstadoId)).OrderBy(c => c.Nome).ToList();
-            CidadeSelectedIndex = CidadeList.IndexOf(fazenda.Cidade);
+            CidadeSelectedIndex =0;//CidadeList.IndexOf(fazenda.Cidade);
             CidadeSelected = fazenda.Cidade;
         }
 
