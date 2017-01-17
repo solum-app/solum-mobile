@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="Solum.Pages.FazendaListPage"
+	xmlns:renderers="clr-namespace:Solum.Renderers"
+	xmlns:handlers="clr-namespace:Solum.Handlers"
+	Title="Fazendas">
+  <AbsoluteLayout x:Name="absoluteLayout">
+
+    <Label
+			AbsoluteLayout.LayoutFlags="All"
+			AbsoluteLayout.LayoutBounds="0,0,1,1"
+			IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
+			VerticalOptions="Center"
+			HorizontalOptions="Center"
+			FontSize="Medium"
+			Text="Nenhuma fazenda cadastrada"
+			TextColor="#757575" />
+
+    <renderers:BindableListView
+			IsVisible="{Binding HasItems}"
+			x:Name="FazendasList"
+			HasUnevenRows="true"
+			ItemClickedCommand="{Binding ItemTappedCommand}"
+			SeparatorColor="#C8C7CC"
+			ItemsSource="{Binding Fazendas}"
+			AbsoluteLayout.LayoutFlags="All"
+			AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+
+            <Grid Padding="15" BackgroundColor="White">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+              </Grid.RowDefinitions>
+              <Label Text="{Binding Nome}" Grid.Row="0" TextColor="Black" />
+              <Label Text="{Binding Cidade.Nome}" Grid.Row="1" Grid.Column="0" />
+              <Label Text="{Binding Cidade.Estado.Uf}" Grid.Row="1" Grid.Column="1" />
+            </Grid>
+
+            <ViewCell.ContextActions>
+              <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit" Text="Editar" Icon="ic_editar" />
+              <MenuItem CommandParameter="{Binding .}" Clicked="OnDelete" Text="Excluir" IsDestructive="True" Icon="ic_excluir" />
+            </ViewCell.ContextActions>
+
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </renderers:BindableListView>
+  </AbsoluteLayout>
+
+</ContentPage>
