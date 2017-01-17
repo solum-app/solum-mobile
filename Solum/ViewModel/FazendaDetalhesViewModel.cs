@@ -9,7 +9,7 @@ namespace Solum.ViewModel
     public class FazendaDetalhesViewModel : BaseViewModel
     {
         private Fazenda _fazenda;
-        private IList _talhoesList;
+        private IEnumerable _talhoesList;
         private bool _hasItems;
         private Realm _realm;
         public FazendaDetalhesViewModel(INavigation navigation, Fazenda item) : base(navigation)
@@ -31,7 +31,7 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _fazenda, value); }
         }
 
-        public IList TalhoesList
+        public IEnumerable TalhoesList
         {
             get { return _talhoesList; }
             set { SetPropertyChanged(ref _talhoesList, value); }

@@ -12,9 +12,9 @@ namespace Solum.ViewModel
     {
         private readonly Realm _realm;
         private ICommand _cadastrarFazendaCommand;
-        private IList<Cidade> _cidadeList;
+        private IEnumerable<Cidade> _cidadeList;
         private Cidade _cidadeSelected;
-        private IList<Estado> _estadoList;
+        private IEnumerable<Estado> _estadoList;
         private Estado _estadoSelected;
         private string _fazendaName;
         private bool _isEstadoSelected;
@@ -26,7 +26,7 @@ namespace Solum.ViewModel
         public FazendaCadastroViewModel(INavigation navigation) : base(navigation)
         {
             _realm = Realm.GetInstance();
-            EstadoList = _realm.All<Estado>().OrderBy(e => e.Nome).ToList();
+            EstadoList = _realm.All<Estado>().OrderBy(e => e.Nome);
         }
 
         public FazendaCadastroViewModel(INavigation navigation, Fazenda fazenda) : base(navigation)
@@ -68,13 +68,13 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _isEstadoSelected, value); }
         }
 
-        public IList<Estado> EstadoList
+        public IEnumerable<Estado> EstadoList
         {
             get { return _estadoList; }
             set { SetPropertyChanged(ref _estadoList, value); }
         }
 
-        public IList<Cidade> CidadeList
+        public IEnumerable<Cidade> CidadeList
         {
             get { return _cidadeList; }
             set { SetPropertyChanged(ref _cidadeList, value); }
@@ -162,14 +162,14 @@ namespace Solum.ViewModel
 
         public void CarregarEstados()
         {
-            EstadoList = _realm.All<Estado>().OrderBy(x => x.Nome).ToList();
+            EstadoList = _realm.All<Estado>().OrderBy(x => x.Nome);
         }
 
         public void UpdateCidades()
         {
             CidadeList = _realm.All<Cidade>()
                 .Where(x => x.EstadoId.Equals(EstadoSelected.Id))
-                .OrderBy(n => n.Nome).ToList();
+                .OrderBy(n => n.Nome);
         }
     }
 }
