@@ -16,8 +16,8 @@ namespace Solum.ViewModel
         private ICommand _registerCommand;
         private ICommand _updateCidadesCommand;
         private ICommand _voltarCommand;
-        private IEnumerable<Cidade> _cidades = new List<Cidade>();
-        private IEnumerable<Estado> _estados = new List<Estado>();
+        private IList<Cidade> _cidades = new List<Cidade>();
+        private IList<Estado> _estados = new List<Estado>();
         private Cidade _cidadeSelected;
         private Estado _estadoSelected;
         private string _name;
@@ -73,13 +73,13 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _cidadeSelected, value); }
         }
 
-        public IEnumerable<Estado> Estados
+        public IList<Estado> Estados
         {
             get { return _estados; }
             set { SetPropertyChanged(ref _estados, value); }
         }
 
-        public IEnumerable<Cidade> Cidades
+        public IList<Cidade> Cidades
         {
             get { return _cidades; }
             set { SetPropertyChanged(ref _cidades, value); }
@@ -144,7 +144,7 @@ namespace Solum.ViewModel
         public void CarregarEstados()
         {
             var realm = Realm.GetInstance();
-            Estados = realm.All<Estado>().OrderBy(x => x.Nome);
+            Estados = realm.All<Estado>().OrderBy(x => x.Nome).ToList();
             IsCarregandoEstados = false;
         }
 

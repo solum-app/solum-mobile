@@ -80,7 +80,7 @@ namespace Solum.Service
             var realm = Realm.GetInstance();
             using (var tsc = realm.BeginWrite())
             {
-                realm.RemoveAll();
+                realm.RemoveAll<Usuario>();
                 tsc.Commit();
             }
         }

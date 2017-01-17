@@ -14,7 +14,7 @@ namespace Solum.ViewModel
         private ICommand _editarCommand;
         private ICommand _excluirCommand;
         private ICommand _itemTappedCommand;
-        private IEnumerable<Fazenda> _fazendas;
+        private IList<Fazenda> _fazendas;
         private bool _hasItems;
 
         public FazendaListViewModel(INavigation navigation) : base(navigation)
@@ -25,7 +25,7 @@ namespace Solum.ViewModel
                 Fazendas = _realmInstance.All<Fazenda>().OrderBy(x => x.Nome).ToList();
         }
 
-        public IEnumerable<Fazenda> Fazendas
+        public IList<Fazenda> Fazendas
         {
             get { return _fazendas; }
             set { SetPropertyChanged(ref _fazendas, value); }
@@ -72,7 +72,7 @@ namespace Solum.ViewModel
 
         public void UpdateFazendaList()
         {
-            Fazendas = _realmInstance.All<Fazenda>().OrderBy(x => x.Nome);
+            Fazendas = _realmInstance.All<Fazenda>().OrderBy(x => x.Nome).ToList();
             HasItems = Fazendas.Any();
         }
     }
