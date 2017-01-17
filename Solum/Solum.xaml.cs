@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -65,8 +66,13 @@ namespace Solum
             var cidadeReader = new CsvReader(new StreamReader(cidadeStream), config);
             cidadeReader.Configuration.RegisterClassMap<CidadeCsvMapper>();
 
-            var estados = estadoReader.GetRecords<Estado>().OrderBy(x => x.Nome).ToList();
-            var cidades = cidadeReader.GetRecords<Cidade>().OrderBy(x => x.EstadoId).ToList();
+            var estados = new Collection<Estado>();
+            var cidades = new Collection<Cidade>();
+
+            while (estadoReader.Read())
+                estados.Add(estadoReader.GetRecord<Estado>());
+            while(cidadeReader.Read())
+                cidades.Add(cidadeReader.GetRecord<Cidade>());
 
             using (var trans = realm.BeginWrite())
             {
