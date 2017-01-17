@@ -38,10 +38,9 @@ namespace Solum
             return loggedUser != default(Usuario);
         }
 
-        private async void CarregarEstadoCidades(Realm realm)
+        private void CarregarEstadoCidades(Realm realm)
         {
-            var estados = await new EstadoRemote().GetEstados();
-
+            var estados = new EstadoRemote().GetEstados().Result;
             using (var trans = realm.BeginWrite())
             {
                 foreach (var e in estados)

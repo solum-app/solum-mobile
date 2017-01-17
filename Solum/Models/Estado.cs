@@ -10,7 +10,9 @@ namespace Solum.Models
         public string Id { get; set; }
         public string Nome { get; set; }
         public string Uf { get; set; }
-        public ICollection<Cidade> Cidades { get; set; }
+
+        [Backlink(nameof(Cidade.Estado))]
+        public IQueryable<Cidade> Cidades { get; }
         public override string ToString()
         {
             return $"{Nome} - {Uf}";
