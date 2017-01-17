@@ -46,15 +46,15 @@
     <Compile Include="Pages\FazendaCadastroPage.xaml.cs">
       <DependentUpon>FazendaCadastroPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\FazendaDetalhesPage.xaml.cs" />
-    <Compile Include="Pages\FazendaListPage.xaml.cs" />
+    <Compile Include="Pages\FazendaDetalhesPage.xaml.cs">
+      <DependentUpon>FazendaDetalhesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\FazendasPage.xaml.cs">
       <DependentUpon>FazendasPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TalhaoCadastroPage.xaml.cs" />
     <Compile Include="Remotes\AccountRemote.cs" />
     <Compile Include="Remotes\Results\RefreshTokenResult.cs" />
     <Compile Include="Remotes\Results\AuthResult.cs" />
@@ -89,7 +89,6 @@
     <Compile Include="ViewModel\CadastroViewModel.cs" />
     <Compile Include="ViewModel\FazendaCadastroViewModel.cs" />
     <Compile Include="ViewModel\FazendaDetalhesViewModel.cs" />
-    <Compile Include="ViewModel\FazendaListViewModel.cs" />
     <Compile Include="ViewModel\InterpretacaoViewModel.cs" />
     <Compile Include="Handlers\InterpretaHandler.cs" />
     <Compile Include="Handlers\Converters.cs" />
@@ -244,18 +243,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Pages\FazendaDetalhesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <EmbeddedResource Include="Pages\FazendaDetalhesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\FazendaListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\TalhaoCadastroPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="..\packages\Realm.0.81.0\build\Realm.targets" Condition="Exists('..\packages\Realm.0.81.0\build\Realm.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
