@@ -43,14 +43,6 @@ namespace Solum.Pages
             sairGesture.Tapped += OnSairTapped;
             SairLabel.GestureRecognizers.Add(sairGesture);
 
-            //var calagemGesture = new TapGestureRecognizer();
-            //calagemGesture.Tapped += OnCalagemTapped;
-            //CalagemLabel.GestureRecognizers.Add(calagemGesture);
-
-            //var recomendacaoGesture = new TapGestureRecognizer();
-            //recomendacaoGesture.Tapped += OnRecomendacaoTapped;
-            //RecomendacaoLabel.GestureRecognizers.Add(recomendacaoGesture);
-
 			var testeGesture = new TapGestureRecognizer();
             testeGesture.Tapped += OnTesteTapped;
             TesteLabel.GestureRecognizers.Add(testeGesture);
@@ -89,13 +81,13 @@ namespace Solum.Pages
         {
             if (Device.OS == TargetPlatform.iOS)
             {
-                if (_currentPage.GetType() == typeof(FazendasPage))
+                if (_currentPage.GetType() == typeof(FazendaListPage))
                 {
                     IsPresented = false;
                 }
                 else
                 {
-                    _currentPage = new FazendasPage();
+                    _currentPage = new FazendaListPage();
                     Detail = new NavigationPage(_currentPage)
 					{
 						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
@@ -106,7 +98,7 @@ namespace Solum.Pages
             }
             else
             {
-                var page = new FazendasPage();
+                var page = new FazendaListPage();
                 await _navigationPage.Navigation.PushAsync(page);
                 _navigationPage.Navigation.RemovePage(_currentPage);
                 _currentPage = page;
@@ -143,75 +135,18 @@ namespace Solum.Pages
             }
         }
 
-        public async void OnCalagemTapped(object sender, EventArgs e)
-        {
-            if (Device.OS == TargetPlatform.iOS)
-            {
-                if (_currentPage.GetType() == typeof(CalagemPage))
-                {
-                    IsPresented = false;
-                }
-                else
-                {
-                    _currentPage = new CalagemPage();
-                    Detail = new NavigationPage(_currentPage)
-					{
-						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
-						BarTextColor = Color.White
-					};
-                    IsPresented = false;
-                }
-            }
-            else
-            {
-                var page = new CalagemPage();
-                await _navigationPage.Navigation.PushAsync(page);
-                _navigationPage.Navigation.RemovePage(_currentPage);
-                _currentPage = page;
-                IsPresented = false;
-            }
-        }
-
-        public async void OnRecomendacaoTapped(object sender, EventArgs e)
-        {
-            if (Device.OS == TargetPlatform.iOS)
-            {
-                if (_currentPage.GetType() == typeof(RecomendaCalagemPage))
-                {
-                    IsPresented = false;
-                }
-                else
-                {
-                    _currentPage = new RecomendaCalagemPage();
-                    Detail = new NavigationPage(_currentPage)
-					{
-						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
-						BarTextColor = Color.White
-					};
-                    IsPresented = false;
-                }
-            }
-            else
-            {
-                var page = new RecomendaCalagemPage();
-                await _navigationPage.Navigation.PushAsync(page);
-                _navigationPage.Navigation.RemovePage(_currentPage);
-                _currentPage = page;
-                IsPresented = false;
-            }
-        }
 
 		public async void OnTesteTapped(object sender, EventArgs e)
 		{
 			if (Device.OS == TargetPlatform.iOS)
 			{
-				if (_currentPage.GetType() == typeof(RecomendaCalagemPage))
+				if (_currentPage.GetType() == typeof(SemeaduraPage))
 				{
 					IsPresented = false;
 				}
 				else
 				{
-					_currentPage = new RecomendaCalagemPage();
+					_currentPage = new SemeaduraPage();
 					Detail = new NavigationPage(_currentPage)
 					{
 						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
@@ -222,7 +157,7 @@ namespace Solum.Pages
 			}
 			else
 			{
-				var page = new RecomendaCalagemPage();
+				var page = new SemeaduraPage();
 				await _navigationPage.Navigation.PushAsync(page);
 				_navigationPage.Navigation.RemovePage(_currentPage);
 				_currentPage = page;

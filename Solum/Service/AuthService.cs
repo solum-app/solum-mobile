@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
+using Realms;
 using Solum.Models;
 using Solum.Remotes;
 using Solum.Remotes.Results;
@@ -11,12 +14,10 @@ namespace Solum.Service
     public class AuthService
     {
         private readonly AccountRemote _accountRemote;
-        private readonly UserDataService _userDataService;
 
         public AuthService()
         {
             _accountRemote = new AccountRemote();
-            _userDataService = new UserDataService();
         }
 
         public async Task<RegisterResult> Register(RegisterBinding register)
@@ -41,7 +42,13 @@ namespace Solum.Service
                 Id = json["Id"],
                 Nome = json["Name"]
             };
-            _userDataService.Add(usuario);
+            var realm = Realm.GetInstance();
+            using (var tsc = realm.BeginWrite())
+            {
+                realm.Add(usuario);
+                tsc.Commit();
+            }
+            
             return AuthResult.LoginSuccessFully;
         }
 
@@ -52,21 +59,30 @@ namespace Solum.Service
             var content = await result.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
             var username = json["username"];
-            var user = _userDataService.FindByUsername(username);
-            user.AccessToken = json["access_token"];
-            user.RefreshToken = json["refresh_token"];
-            user.TokenCreated = DateTimeOffset.Parse(json[".issued"]);
-            user.TokenValidate = DateTimeOffset.Parse(json[".expires"]);
-            _userDataService.Update(user);
+            var realm = Realm.GetInstance();
+            var user = realm.All<Usuario>().FirstOrDefault(x => x.Username.Equals(username));
+            using (var tsc = realm.BeginWrite())
+            {
+                user.AccessToken = json["access_token"];
+                user.RefreshToken = json["refresh_token"];
+                user.TokenCreated = DateTimeOffset.Parse(json[".issued"]);
+                user.TokenValidate = DateTimeOffset.Parse(json[".expires"]);
+            }
             return RefreshTokenResult.Success;
         }
 
         public async Task Logoff()
         {
             //verificar dados não sincronizados primeiro;
+            if(!CrossConnectivity.Current.IsConnected)
+                throw new Exception("Nâo foi possível fazer logoff pois não existe conexão com o servidor!");
             await _accountRemote.Logout();
-            var loggedUser = _userDataService.GetLoggedUser();
-            _userDataService.Delete(loggedUser);
+            var realm = Realm.GetInstance();
+            using (var tsc = realm.BeginWrite())
+            {
+                realm.RemoveAll<Usuario>();
+                tsc.Commit();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Solum.Effects;
+﻿using System.Linq;
+using Realms;
 using Solum.Models;
 using Solum.Pages;
 using Solum.Service;
@@ -9,31 +10,26 @@ using Xamarin.Forms.Xaml;
 
 namespace Solum
 {
-	public partial class App : Application
+    public partial class App : Application
     {
         public App()
         {
-			InitializeComponent();
-            
+            InitializeComponent();
+            SyncService.CidadeEstadoSync();
             var isUsuarioLogado = VerificaLogin();
-			if (!isUsuarioLogado)
-            {   
-				MainPage = new NavigationPage(new LoginPage())
-	                {
-	                    BackgroundColor = Color.Transparent,
-	                    BarTextColor = Color.Black
-	                };
-            }
+            if (!isUsuarioLogado)
+                MainPage = new NavigationPage(new LoginPage())
+                {
+                    BackgroundColor = Color.Transparent,
+                    BarTextColor = Color.Black
+                };
             else
-            {
                 MainPage = new RootPage();
-            }
         }
 
         private bool VerificaLogin()
         {
-            var dataService = new UserDataService();
-            var loggedUser = dataService.GetLoggedUser();
+            var loggedUser = Realm.GetInstance().All<Usuario>().FirstOrDefault();
             return loggedUser != default(Usuario);
         }
     }

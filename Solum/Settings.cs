@@ -14,6 +14,7 @@ namespace Solum
             AccountLogoutUri = "account/logout";
             TokenUri = "token/";
             EstadoUri = "estado/";
+            CidadeUri = "cidade/";
         }
 
         public static Uri BaseUri { get; set; }
@@ -21,6 +22,7 @@ namespace Solum
         #region Models Uri
 
         public static string EstadoUri { get; set; }
+        public static string CidadeUri { get; set; }
 
         #endregion
 

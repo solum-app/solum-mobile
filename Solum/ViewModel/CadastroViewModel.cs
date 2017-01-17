@@ -26,11 +26,13 @@ namespace Solum.ViewModel
         private string _email;
         private bool _isCarregandoEstados = true;
         private bool _isCidadesCarregadas;
+        private Realm _realm;
 
         private AuthService _authService;
 
         public CadastroViewModel(INavigation navigation) : base(navigation)
         {
+            _realm = Realm.GetInstance();
             _authService = new AuthService();
             CarregarEstados();
         }
@@ -139,19 +141,17 @@ namespace Solum.ViewModel
             }
         }
 
-        public async Task CarregarEstados()
+        public void CarregarEstados()
         {
             var realm = Realm.GetInstance();
-            Estados = realm.All<Estado>().OrderBy(x => x.Nome).ToList();
-            if (Estados == default(IList<Estado>) || Estados.Count < 27)
-                await SyncService.CidadeEstadoSync();
             Estados = realm.All<Estado>().OrderBy(x => x.Nome).ToList();
             IsCarregandoEstados = false;
         }
 
         public void AtualizarCidades()
         {
-            Cidades = EstadoSelected.Cidades.OrderBy(x => x.Nome).ToList();
+            var realm = Realm.GetInstance();
+            Cidades = realm.All<Cidade>().Where(x => x.EstadoId.Equals(EstadoSelected.Id)).OrderBy(x => x.Nome).ToList();
             IsCidadesCarregadas = true;
         }
 
