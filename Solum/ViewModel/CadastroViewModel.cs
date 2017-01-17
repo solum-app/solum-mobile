@@ -139,19 +139,17 @@ namespace Solum.ViewModel
             }
         }
 
-        public async Task CarregarEstados()
+        public void CarregarEstados()
         {
             var realm = Realm.GetInstance();
-            Estados = realm.All<Estado>().OrderBy(x => x.Nome).ToList();
-            if (Estados == default(IList<Estado>) || Estados.Count < 27)
-                await SyncService.CidadeEstadoSync();
             Estados = realm.All<Estado>().OrderBy(x => x.Nome).ToList();
             IsCarregandoEstados = false;
         }
 
         public void AtualizarCidades()
         {
-            Cidades = EstadoSelected.Cidades.OrderBy(x => x.Nome).ToList();
+            var realm = Realm.GetInstance();
+            Cidades = realm.All<Cidade>().Where(x => x.EstadoId.Equals(EstadoSelected.Id)).OrderBy(x => x.Nome).ToList();
             IsCidadesCarregadas = true;
         }
 
