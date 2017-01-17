@@ -11,7 +11,7 @@ namespace Solum.Remotes
     public class EstadoRemote : BaseRemote
     {
 
-        public async Task<IList<Estado>> GetEstados()
+        public async Task<ICollection<Estado>> GetEstados()
         {
             if (!CrossConnectivity.Current.IsConnected)
                 throw new Exception("Sem conexão com Internet");
@@ -19,7 +19,7 @@ namespace Solum.Remotes
             {
                 var url = $"{Settings.BaseUri}{Settings.EstadoUri}?pagesize=30";
                 var response = await Client.GetAsync(url);
-                var jsonData = JsonConvert.DeserializeObject<IList<Estado>>(await response.Content.ReadAsStringAsync());
+                var jsonData = JsonConvert.DeserializeObject<ICollection<Estado>>(await response.Content.ReadAsStringAsync());
                 return jsonData;
             }
             catch (Exception ex)
