@@ -33,7 +33,7 @@
       <ListView.GroupHeaderTemplate>
         <DataTemplate>
           <ViewCell>
-            <Grid>
+            <Grid BackgroundColor="{StaticResource colorBackground}">
               <Label TextColor="{StaticResource colorTextSecundary}" Text="{Binding Key}" LineBreakMode="TailTruncation">
                 <Label.Margin>
                   <OnPlatform x:TypeArguments="Thickness"

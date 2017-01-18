@@ -7,9 +7,9 @@
 	xmlns:renderers="clr-namespace:Solum.Renderers"
 	xmlns:handlers="clr-namespace:Solum.Handlers"
 	Title="Fazendas">
-  <AbsoluteLayout x:Name="absoluteLayout">
+	<AbsoluteLayout x:Name="absoluteLayout" BackgroundColor="{StaticResource colorBackground}">
 
-    <Label
+		<Label
 			AbsoluteLayout.LayoutFlags="All"
 			AbsoluteLayout.LayoutBounds="0,0,1,1"
 			IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
@@ -19,7 +19,7 @@
 			Text="Nenhuma fazenda cadastrada"
 			TextColor="#757575" />
 
-    <renderers:BindableListView
+		<renderers:BindableListView
 			IsVisible="{Binding HasItems}"
 			x:Name="FazendasList"
 			HasUnevenRows="true"
@@ -29,33 +29,32 @@
 			AbsoluteLayout.LayoutFlags="All"
 			AbsoluteLayout.LayoutBounds="0,0,1,1">
 
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
 
-            <Grid Padding="15" BackgroundColor="White">
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-              </Grid.ColumnDefinitions>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-              </Grid.RowDefinitions>
-              <Label Text="{Binding Nome}" Grid.Row="0" TextColor="Black" />
-              <Label Text="{Binding Cidade.Nome}" Grid.Row="1" Grid.Column="0" />
-              <Label Text="{Binding Cidade.Estado.Uf}" Grid.Row="1" Grid.Column="1" />
-            </Grid>
+						<Grid Padding="15" BackgroundColor="White">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+							</Grid.RowDefinitions>
+							<Label Text="{Binding Nome}" Grid.Row="0" TextColor="{StaticResource colorTextPrimary}"/>
+							<StackLayout Orientation="Horizontal" Spacing="0" Grid.Row="1">
+								<Label Text="{Binding Cidade.Nome}" TextColor="{StaticResource colorTextSecundary}" FontSize="Small"/>
+								<Label Text="{Binding Cidade.Estado.Uf, StringFormat=' - {0}'}" TextColor="{StaticResource colorTextSecundary}" FontSize="Small"/>
+							</StackLayout>
 
-            <ViewCell.ContextActions>
-              <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit" Text="Editar" Icon="ic_editar" />
-              <MenuItem CommandParameter="{Binding .}" Clicked="OnDelete" Text="Excluir" IsDestructive="True" Icon="ic_excluir" />
-            </ViewCell.ContextActions>
+						</Grid>
 
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </renderers:BindableListView>
-  </AbsoluteLayout>
+						<ViewCell.ContextActions>
+							<MenuItem CommandParameter="{Binding .}" Clicked="OnEdit" Text="Editar" Icon="ic_editar" />
+							<MenuItem CommandParameter="{Binding .}" Clicked="OnDelete" Text="Excluir" IsDestructive="True" Icon="ic_excluir" />
+						</ViewCell.ContextActions>
+
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</renderers:BindableListView>
+	</AbsoluteLayout>
 
 </ContentPage>

@@ -8,7 +8,7 @@
 	x:Class="Solum.Pages.RootPage">
 	
 	<MasterDetailPage.Master>
-		<ContentPage BackgroundColor="White" Title="Solum" Icon="ic_menu">
+		<ContentPage BackgroundColor="#fafafb" Title="Solum" Icon="ic_menu">
 			<StackLayout>
 				<ContentView BackgroundColor="{StaticResource colorPrimary}" Margin="0,0,0,8">
 					<Grid ColumnSpacing="0" Padding="16,40,16,16">
