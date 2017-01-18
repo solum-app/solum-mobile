@@ -1,15 +1,135 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:local="clr-namespace:Solum.Renderers;assembly=Solum"
-			 xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
-			 x:Class="Solum.Pages.FazendaCadastroPage">
-	<StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:local="clr-namespace:Solum.Renderers;assembly=Solum"
+	xmlns:effects="clr-namespace:Solum.Effects"
+	xmlns:renderers="clr-namespace:Solum.Renderers"
+	xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
+	x:Class="Solum.Pages.FazendaCadastroPage"
+	Title="Cadastrar Fazenda">
+	
+	<StackLayout
+		VerticalOptions="FillAndExpand"
+		HorizontalOptions="FillAndExpand"
+		BackgroundColor="{StaticResource colorBackground}"
+		Spacing="0">
+		
+		<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES">
+			<Label.Margin>
+				<OnPlatform x:TypeArguments="Thickness"
+					iOS="16,24,16,4"
+					Android="16, 13"/>
+			</Label.Margin>
+			<Label.FontSize>
+				<OnPlatform x:TypeArguments="x:Double"
+					iOS="13"
+					Android="14"/>
+			</Label.FontSize>
+		</Label>
+		<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="16"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<BoxView Grid.ColumnSpan="3" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
+				<BoxView.HeightRequest>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="0.5"
+						Android="0.3"/>
+				</BoxView.HeightRequest>
+			</BoxView>
+			<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
+			<Entry 
+				x:Name="FazendaNomeEntry"
+				Keyboard="Text"
+				Text="{Binding FazendaName}"
+				VerticalOptions="Center" Grid.Column="2"
+				Margin="16,0" Placeholder="Nome da Fazenda"
+				HorizontalTextAlignment="End"
+				PlaceholderColor="{StaticResource colorTextHint}">
+				
+				<Entry.Effects>
+			        <effects:NoBorderEffect />
+			    </Entry.Effects>
+				<Entry.FontSize>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="17"
+						Android="14"/>
+				</Entry.FontSize>
+			</Entry>
+			<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+				<BoxView.HeightRequest>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="0.5"
+						Android="0.3"/>
+				</BoxView.HeightRequest>
+			</BoxView>
+		</Grid>
+		
+		<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="16"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Label Text="Estado" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
+			<local:CustomPicker 
+				x:Name="EstadoPicker"
+				Title="Selecione um estado"
+				ItemsSource="{Binding EstadoList}"
+				SelectedItem="{Binding EstadoSelected}"
+				SelectedIndex="{Binding EstadoSelectedIndex}"
+				ItemSelectedCommand="{Binding UpdateCidadesListCommand}"
+				VerticalOptions="Center"
+				Grid.Column="2"
+				Margin="16,0"
+				HasBorder="false"
+				PlaceholderColor="{StaticResource colorTextHint}"
+				TextAlignment="Right"/>
 
-		<Entry x:Name="FazendaNomeEntry" Placeholder="Nome da Fazenda" Text="{Binding FazendaName}" />
+			<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+				<BoxView.HeightRequest>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="0.5"
+						Android="0.3"/>
+				</BoxView.HeightRequest>
+			</BoxView>
+		</Grid>
 
-		<local:CustomPicker x:Name="EstadoPicker" Title="Selecione um estado"
+		<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="16"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Label Text="Cidade" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
+			<local:CustomPicker 
+				x:Name="CidadePicker" Title="Selecione uma cidade"
+				ItemsSource="{Binding CidadeList}"
+				SelectedItem="{Binding CidadeSelected}"
+				SelectedIndex="{Binding CidadeSelectedIndex}"
+				IsEnabled="{Binding IsEstadoSelected}"
+				VerticalOptions="Center"
+				Grid.Column="2"
+				Margin="16,0"
+				HasBorder="false"
+				PlaceholderColor="{StaticResource colorTextHint}"
+				TextAlignment="Right"/>
+		</Grid>
+		
+		<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
+			<BoxView.HeightRequest>
+				<OnPlatform x:TypeArguments="x:Double"
+					iOS="0.5"
+					Android="0"/>
+			</BoxView.HeightRequest>
+		</BoxView>
+<!--		<Entry x:Name="FazendaNomeEntry" Placeholder="Nome da Fazenda" Text="{Binding FazendaName}" TextColor="{StaticResource colorTextPrimary}" PlaceholderColor="{StaticResource colorTextHint}"/>-->
+
+<!--		<local:CustomPicker x:Name="EstadoPicker" Title="Selecione um estado"
 							ItemsSource="{Binding EstadoList}"
 							SelectedItem="{Binding EstadoSelected}"
 							SelectedIndex="{Binding EstadoSelectedIndex}"
@@ -19,11 +139,17 @@
 							ItemsSource="{Binding CidadeList}"
 							SelectedItem="{Binding CidadeSelected}"
 							SelectedIndex="{Binding CidadeSelectedIndex}"
-							IsEnabled="{Binding IsEstadoSelected}" />
+							IsEnabled="{Binding IsEstadoSelected}" />-->
 
-		<Button x:Name="SalvarButton"
-				Text="Salvar"
-				Command="{Binding CadastrarFazendaCommand}"
-				IsEnabled="{Binding IsCarregandoEstados, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
+		<Button 
+			x:Name="CadastrarButton"
+			Text="Cadastrar"
+			Command="{Binding CadastrarFazendaCommand}"
+			IsEnabled="{Binding IsCarregandoEstados, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+			VerticalOptions="EndAndExpand"
+			BackgroundColor="{StaticResource colorAccent}"
+			TextColor="{StaticResource colorTextPrimary}"
+			Margin="16,0,16,16"/>
 	</StackLayout>
 </ContentPage>
+
