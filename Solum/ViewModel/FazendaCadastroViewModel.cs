@@ -24,7 +24,6 @@ namespace Solum.ViewModel
         private bool _isEstadosCarregados;
         private bool _isCidadesCarregadas;
         private readonly bool _isUpdate;
-        private bool _isProcessando;
 
         private Fazenda _fazenda;
         private readonly Realm _realm;
@@ -62,12 +61,6 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _isCidadesCarregadas, value); }
         }
 
-        public bool IsProcessando
-        {
-            get { return _isProcessando; }
-            set { SetPropertyChanged(ref _isProcessando, value); }
-        }
-
         public IList<Estado> EstadoList
         {
             get { return _estadoList; }
@@ -100,20 +93,17 @@ namespace Solum.ViewModel
 
         public async void CadastrarFazenda()
         {
-            IsProcessando = true;   
             if (!_isUpdate)
             {
                 if (string.IsNullOrEmpty(NomeFazenda))
                 {
                     MessagingCenter.Send(this, "Erro", "Coloque o nome da Fazenda");
-                    IsProcessando = false;
                     return;
                 }
 
                 if (CidadeSelecionada == default(Cidade))
                 {
                     MessagingCenter.Send(this, "Erro", "Selecione uma Cidade para esta Fazenda");
-                    IsProcessando = false;
                     return;
                 }
 
@@ -133,8 +123,6 @@ namespace Solum.ViewModel
                     _realm.Add(fazenda);
                     transaction.Commit();
                 }
-                await Task.Delay(TimeSpan.FromSeconds(2));
-                IsProcessando = false;
                 MessagingCenter.Send(this, "Sucesso", "Fazenda cadastrada com sucesso");
                 await Navigation.PopAsync(true);
             }
@@ -143,7 +131,6 @@ namespace Solum.ViewModel
                 if (string.IsNullOrEmpty(NomeFazenda))
                 {
                     MessagingCenter.Send(this, "Erro", "Coloque o nome da Fazenda");
-                    IsProcessando = false;
                     return;
                 }
 
@@ -157,7 +144,6 @@ namespace Solum.ViewModel
                     }
                     transaction.Commit();
                 }
-                IsProcessando = false;
                 MessagingCenter.Send(this, "Sucesso", "Fazenda atualizada com sucesso");
                 await Navigation.PopAsync(true);
             }

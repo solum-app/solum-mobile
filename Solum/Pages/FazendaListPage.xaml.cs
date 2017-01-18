@@ -21,7 +21,14 @@ namespace Solum.Pages
                     ColorPressed = Color.FromHex("E6C047"),
                     ColorRipple = Color.FromHex("FFD54F"),
                     Clicked = async (sender, args) =>
-                        await Navigation.PushAsync(new FazendaCadastroPage())
+                    {
+                        if (!IsBusy)
+                        {
+                            IsBusy = true;
+                            await Navigation.PushAsync(new FazendaCadastroPage());
+                            IsBusy = false;
+                        }
+                    }
                 };
                 AbsoluteLayout.SetLayoutFlags(fab, AbsoluteLayoutFlags.PositionProportional);
                 AbsoluteLayout.SetLayoutBounds(fab,
