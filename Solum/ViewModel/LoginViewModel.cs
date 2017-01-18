@@ -50,7 +50,7 @@ namespace Solum.ViewModel
                 return;
             }
             InLogin = true;
-            var authService = new AuthService();
+            var authService = AuthService.Instance;
             var login = await authService.Login(loginBinding);
             InLogin = false;
             if (login == AuthResult.LoginSuccessFully)

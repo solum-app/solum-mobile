@@ -224,8 +224,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Cidades.csv" />
-    <EmbeddedResource Include="Estados.csv" />
     <None Include="packages.config" />
     <None Include="FodyWeavers.xml" />
   </ItemGroup>

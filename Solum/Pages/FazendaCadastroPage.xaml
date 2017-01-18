@@ -45,7 +45,7 @@
 			<Entry 
 				x:Name="FazendaNomeEntry"
 				Keyboard="Text"
-				Text="{Binding FazendaName}"
+				Text="{Binding NomeFazenda}"
 				VerticalOptions="Center" Grid.Column="2"
 				Margin="16,0" Placeholder="Nome da Fazenda"
 				HorizontalTextAlignment="End"
@@ -80,9 +80,9 @@
 				x:Name="EstadoPicker"
 				Title="Selecione um estado"
 				ItemsSource="{Binding EstadoList}"
-				SelectedItem="{Binding EstadoSelected}"
-				SelectedIndex="{Binding EstadoSelectedIndex}"
-				ItemSelectedCommand="{Binding UpdateCidadesListCommand}"
+				SelectedItem="{Binding EstadoSelecionado}"
+				ItemSelectedCommand="{Binding AtualizarListaCidadesCommand}"
+        IsEnabled="{Binding IsEstadosCarregados}"
 				VerticalOptions="Center"
 				Grid.Column="2"
 				Margin="16,0"
@@ -109,9 +109,8 @@
 			<local:CustomPicker 
 				x:Name="CidadePicker" Title="Selecione uma cidade"
 				ItemsSource="{Binding CidadeList}"
-				SelectedItem="{Binding CidadeSelected}"
-				SelectedIndex="{Binding CidadeSelectedIndex}"
-				IsEnabled="{Binding IsEstadoSelected}"
+				SelectedItem="{Binding CidadeSelecionada}"
+				IsEnabled="{Binding IsCidadesCarregadas}"
 				VerticalOptions="Center"
 				Grid.Column="2"
 				Margin="16,0"
@@ -127,25 +126,11 @@
 					Android="0"/>
 			</BoxView.HeightRequest>
 		</BoxView>
-<!--		<Entry x:Name="FazendaNomeEntry" Placeholder="Nome da Fazenda" Text="{Binding FazendaName}" TextColor="{StaticResource colorTextPrimary}" PlaceholderColor="{StaticResource colorTextHint}"/>-->
-
-<!--		<local:CustomPicker x:Name="EstadoPicker" Title="Selecione um estado"
-							ItemsSource="{Binding EstadoList}"
-							SelectedItem="{Binding EstadoSelected}"
-							SelectedIndex="{Binding EstadoSelectedIndex}"
-							ItemSelectedCommand="{Binding UpdateCidadesListCommand}" />
-
-		<local:CustomPicker x:Name="CidadePicker" Title="Selecione uma cidade"
-							ItemsSource="{Binding CidadeList}"
-							SelectedItem="{Binding CidadeSelected}"
-							SelectedIndex="{Binding CidadeSelectedIndex}"
-							IsEnabled="{Binding IsEstadoSelected}" />-->
-
+    
 		<Button 
-			x:Name="CadastrarButton"
+      x:Name="CadastrarButton"
 			Text="Cadastrar"
 			Command="{Binding CadastrarFazendaCommand}"
-			IsEnabled="{Binding IsCarregandoEstados, Converter={x:Static converter:IverseBoolConverter.Instance}}"
 			VerticalOptions="EndAndExpand"
 			BackgroundColor="{StaticResource colorAccent}"
 			TextColor="{StaticResource colorTextPrimary}"

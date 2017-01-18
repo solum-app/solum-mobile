@@ -14,11 +14,12 @@ namespace Solum.Service
     public class AuthService
     {
         private readonly AccountRemote _accountRemote;
+        private static AuthService _instance;
+        private readonly Realm _realm;
 
-        public AuthService()
-        {
-            _accountRemote = new AccountRemote();
-        }
+        private AuthService() { _accountRemote = new AccountRemote();  _realm = Realm.GetInstance();}
+
+        public static AuthService Instance => _instance ?? (_instance = new AuthService());
 
         public async Task<RegisterResult> Register(RegisterBinding register)
         {
@@ -32,6 +33,7 @@ namespace Solum.Service
             if (!result.IsSuccessStatusCode) return AuthResult.LoginUnsuccessfully;
             var content = await result.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
+
             var usuario = new Usuario()
             {
                 Username = json["Username"],
@@ -42,11 +44,11 @@ namespace Solum.Service
                 Id = json["Id"],
                 Nome = json["Name"]
             };
-            var realm = Realm.GetInstance();
-            using (var tsc = realm.BeginWrite())
+
+            using (var transaction = _realm.BeginWrite())
             {
-                realm.Add(usuario);
-                tsc.Commit();
+                _realm.Add(usuario, true);
+                transaction.Commit();
             }
             
             return AuthResult.LoginSuccessFully;
@@ -59,14 +61,15 @@ namespace Solum.Service
             var content = await result.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
             var username = json["username"];
-            var realm = Realm.GetInstance();
-            var user = realm.All<Usuario>().FirstOrDefault(x => x.Username.Equals(username));
-            using (var tsc = realm.BeginWrite())
+            var user = _realm.All<Usuario>().FirstOrDefault(x => x.Username.Equals(username));
+
+            using (var transaction = _realm.BeginWrite())
             {
                 user.AccessToken = json["access_token"];
                 user.RefreshToken = json["refresh_token"];
                 user.TokenCreated = DateTimeOffset.Parse(json[".issued"]);
                 user.TokenValidate = DateTimeOffset.Parse(json[".expires"]);
+                transaction.Commit();
             }
             return RefreshTokenResult.Success;
         }
@@ -77,11 +80,10 @@ namespace Solum.Service
             if(!CrossConnectivity.Current.IsConnected)
                 throw new Exception("Nâo foi possível fazer logoff pois não existe conexão com o servidor!");
             await _accountRemote.Logout();
-            var realm = Realm.GetInstance();
-            using (var tsc = realm.BeginWrite())
+            using (var transaction = _realm.BeginWrite())
             {
-                realm.RemoveAll<Usuario>();
-                tsc.Commit();
+                _realm.RemoveAll<Usuario>();
+                transaction.Commit();
             }
         }
     }

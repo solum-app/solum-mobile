@@ -43,7 +43,7 @@ namespace Solum.Behaviors
         private static readonly BindablePropertyKey IsValidPropertyKey = BindableProperty.CreateReadOnly("IsValid",
             typeof(bool), typeof(RequiredValidatorBehavior), false);
 
-        private const string PasswordRegex = @"^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,15}$";
+        private const string PasswordRegex = @"^(?=.*\w+)(?=.*\W+)(?=.*\d+)(?=.*\s*).{6,}$";
 
         private static readonly BindableProperty IsValidProperty = IsValidPropertyKey.BindableProperty;
 

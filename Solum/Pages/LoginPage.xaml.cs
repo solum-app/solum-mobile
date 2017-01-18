@@ -20,6 +20,8 @@ namespace Solum.Pages
         private async void MostarMensagem(string message)
         {
             await DisplayAlert("Erro", message, "Ok");
+            MessagingCenter.Unsubscribe<LoginViewModel, string>(this, "NullEntrys");
+            MessagingCenter.Unsubscribe<LoginViewModel, string>(this, "LoginError");
         }
     }
 }

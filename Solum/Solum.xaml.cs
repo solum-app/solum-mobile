@@ -16,7 +16,7 @@ namespace Solum
         {
             InitializeComponent();
             SyncService.CidadeEstadoSync();
-            var isUsuarioLogado = VerificaLogin();
+            var isUsuarioLogado = Realm.GetInstance().All<Usuario>().Any();
             if (!isUsuarioLogado)
                 MainPage = new NavigationPage(new LoginPage())
                 {
@@ -25,12 +25,6 @@ namespace Solum
                 };
             else
                 MainPage = new RootPage();
-        }
-
-        private bool VerificaLogin()
-        {
-            var loggedUser = Realm.GetInstance().All<Usuario>().FirstOrDefault();
-            return loggedUser != default(Usuario);
         }
     }
 }
