@@ -170,7 +170,7 @@ namespace Solum.Pages
             var command = await DisplayAlert("Sair", "Você realmente deseja sair do app?", "Sim", "Não");
             if (command)
             {
-                var authservice = new AuthService();
+                var authservice = AuthService.Instance;
                 await authservice.Logoff();
 
                 _currentPage = new LoginPage();
