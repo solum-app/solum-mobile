@@ -11,8 +11,9 @@ namespace Solum.Pages
         public FazendaDetalhesPage(Fazenda fazenda)
         {
             InitializeComponent();
-            NavigationPage.SetBackButtonTitle(this, "Voltar");
             BindingContext = new FazendaDetalhesViewModel(Navigation, fazenda);
+			NavigationPage.SetBackButtonTitle(this, "Voltar");
+			
             if (Device.OS == TargetPlatform.Android)
             {
                 var fab = new FloatingActionButtonView
