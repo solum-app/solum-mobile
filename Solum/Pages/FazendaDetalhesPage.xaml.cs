@@ -21,7 +21,14 @@ namespace Solum.Pages
                     ColorPressed = Color.FromHex("E6C047"),
                     ColorRipple = Color.FromHex("FFD54F"),
                     Clicked = async (sender, args) =>
-                        await Navigation.PushAsync(new TalhaoCadastroPage())
+                    {
+                        if (!IsBusy)
+                        {
+                            IsBusy = true;
+                            await Navigation.PushAsync(new TalhaoCadastroPage(fazenda));
+                            IsBusy = false;
+                        }
+                    }
                 };
 
                 // Overlay the FAB in the bottom-right corner
@@ -32,7 +39,12 @@ namespace Solum.Pages
             }
             else
             {
-                var item = new ToolbarItem("Add", "ic_add", async () => await Navigation.PushAsync(new AnalisePage()));
+                var item = new ToolbarItem("Add", "ic_add",
+                    async () => {
+                        IsBusy = true;
+                        await Navigation.PushAsync(new TalhaoCadastroPage(fazenda));
+                        IsBusy = false;
+                    });
                 ToolbarItems.Add(item);
             }
         }
@@ -50,6 +62,13 @@ namespace Solum.Pages
             //    var analise = (sender as MenuItem).CommandParameter;
             //    (BindingContext as AnalisesViewModel).ExcluirCommand.Execute(analise);
             //}
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var context = BindingContext as FazendaDetalhesViewModel;
+            context?.UpdateTalhoesList();
         }
     }
 }

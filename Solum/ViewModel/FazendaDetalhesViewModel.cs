@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Realms;
 using Solum.Models;
 using Xamarin.Forms;
@@ -9,13 +10,13 @@ namespace Solum.ViewModel
     public class FazendaDetalhesViewModel : BaseViewModel
     {
         private Fazenda _fazenda;
-        private IList _talhoesList;
+        private IList<Talhao> _talhoesList;
         private bool _hasItems;
-        private Realm _realm;
+        private readonly Realm _realm;
         public FazendaDetalhesViewModel(INavigation navigation, Fazenda item) : base(navigation)
         {
-            //            _realm = Realm.GetInstance();
-            _fazenda = item;
+            _realm = Realm.GetInstance();
+            Fazenda = item;
             HasItems = false;
         }
 
@@ -31,10 +32,15 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _fazenda, value); }
         }
 
-        public IList TalhoesList
+        public IList<Talhao> TalhoesList
         {
             get { return _talhoesList; }
             set { SetPropertyChanged(ref _talhoesList, value); }
+        }
+
+        public void UpdateTalhoesList()
+        {
+            TalhoesList = _realm.All<Talhao>().Where(t => t.FazendaId.Equals(Fazenda.Id)).ToList();
         }
     }
 }
