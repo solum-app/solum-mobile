@@ -12,6 +12,8 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new FazendaDetalhesViewModel(Navigation, fazenda);
+			NavigationPage.SetBackButtonTitle(this, "Voltar");
+			
             if (Device.OS == TargetPlatform.Android)
             {
                 var fab = new FloatingActionButtonView
@@ -21,7 +23,14 @@ namespace Solum.Pages
                     ColorPressed = Color.FromHex("E6C047"),
                     ColorRipple = Color.FromHex("FFD54F"),
                     Clicked = async (sender, args) =>
-                        await Navigation.PushAsync(new TalhaoCadastroPage())
+                    {
+                        if (!IsBusy)
+                        {
+                            IsBusy = true;
+                            await Navigation.PushAsync(new TalhaoCadastroPage(fazenda));
+                            IsBusy = false;
+                        }
+                    }
                 };
 
                 // Overlay the FAB in the bottom-right corner
@@ -32,24 +41,38 @@ namespace Solum.Pages
             }
             else
             {
-                var item = new ToolbarItem("Add", "ic_add", async () => await Navigation.PushAsync(new AnalisePage()));
+                var item = new ToolbarItem("Add", "ic_add",
+                    async () => {
+                        IsBusy = true;
+                        await Navigation.PushAsync(new TalhaoCadastroPage(fazenda));
+                        IsBusy = false;
+                    });
                 ToolbarItems.Add(item);
             }
         }
 
+
         private void OnEdit(object sender, EventArgs e)
         {
+            var fazenda = (sender as MenuItem).CommandParameter;
+            var context = BindingContext as FazendaDetalhesViewModel;
+            context?.EditarTalhaoCommand.Execute(fazenda);
         }
 
-        private async void OnDelete(object sender, EventArgs e)
+        public async void OnDelete(object sender, EventArgs args)
         {
-            //var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
+            var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
+            if (!confirm) return;
+            var talhao = (sender as MenuItem).CommandParameter;
+            var context = BindingContext as FazendaDetalhesViewModel;
+            context?.RemoverTalhaoCommand.Execute(talhao);
+        }
 
-            //if (confirm)
-            //{
-            //    var analise = (sender as MenuItem).CommandParameter;
-            //    (BindingContext as AnalisesViewModel).ExcluirCommand.Execute(analise);
-            //}
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var context = BindingContext as FazendaDetalhesViewModel;
+            context?.UpdateTalhoesList();
         }
     }
 }

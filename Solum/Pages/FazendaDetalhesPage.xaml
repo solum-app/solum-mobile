@@ -4,6 +4,7 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:local="clr-namespace:Solum.Renderers;assembly=Solum"
 			 xmlns:handlers="clr-namespace:Solum.Handlers;assembly=Solum"
+             xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
 			 x:Class="Solum.Pages.FazendaDetalhesPage"
 			 Title="{Binding Fazenda.Nome}">
   <AbsoluteLayout x:Name="absoluteLayout">
@@ -19,8 +20,8 @@
 			TextColor="#757575" />
 
     <local:BindableListView
-			IsVisible="{Binding HasItems}"
 			x:Name="talhoesList"
+      IsVisible="{Binding HasItems}"
 			HasUnevenRows="true"
 			ItemClickedCommand="{Binding ItemTappedCommand}"
 			SeparatorColor="#C8C7CC"
@@ -36,14 +37,14 @@
                 <RowDefinition Height="Auto" />
               </Grid.RowDefinitions>
               <Label Text="{Binding Nome, StringFormat='Talhão {0}'}" Grid.Row="0" TextColor="Black" />
-              <Label Text="{Binding Area, StringFormat='Área {0}m²'}" Grid.Row="1" FontSize="Small" TextColor="#757575"
+              <Label Text="{Binding Area, StringFormat='Área {0}m²'}" Grid.Row="1" FontSize="Small" TextColor="#757575" IsVisible="{Binding HasArea}"
+								   VerticalTextAlignment="Start" />
+              <Label Text="Área -" Grid.Row="1" FontSize="Small" TextColor="#757575" IsVisible="{Binding HasArea, Converter={x:Static converter:IverseBoolConverter.Instance}}"
 								   VerticalTextAlignment="Start" />
             </Grid>
             <ViewCell.ContextActions>
-              <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit"
-									  Text="Editar" Icon="ic_editar" />
-              <MenuItem CommandParameter="{Binding .}" Clicked="OnDelete"
-									  Text="Excluir" IsDestructive="True" Icon="ic_excluir" />
+              <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit" Text="Editar" Icon="ic_editar" />
+              <MenuItem CommandParameter="{Binding .}" Clicked="OnDelete" Text="Excluir" IsDestructive="True" Icon="ic_excluir" />
             </ViewCell.ContextActions>
           </ViewCell>
         </DataTemplate>
