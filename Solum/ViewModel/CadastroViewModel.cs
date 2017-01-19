@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Realms;
 using Solum.Models;
 using Solum.Remotes.Results;
 using Solum.Service;
 using Xamarin.Forms;
+using static Solum.Messages.RegisterMessages;
 
 namespace Solum.ViewModel
 {
     public class CadastroViewModel : BaseViewModel
     {
-        private ICommand _registerCommand;
+        private ICommand _registrarCommand;
         private ICommand _atualizarCidadesCommand;
         private ICommand _voltarCommand;
 
@@ -41,7 +41,7 @@ namespace Solum.ViewModel
             CarregarEstados();
         }
 
-        public ICommand RegistrarCommand => _registerCommand ?? (_registerCommand = new Command(Cadastrar));
+        public ICommand RegistrarCommand => _registrarCommand ?? (_registrarCommand = new Command(Cadastrar));
 
         public ICommand AtualizarCidadesCommand => _atualizarCidadesCommand ?? (_atualizarCidadesCommand = new Command(AtualizarCidades));
 
@@ -125,14 +125,14 @@ namespace Solum.ViewModel
 
             if (!registerBinding.IsValid)
             {
-                MessagingCenter.Send(this, "NullEntrys", "Preencha todos os campos, selecione o Estado e a Cidade que reside.");
+                MessagingCenter.Send(this, EntryNullValuesTitle, EntryNullValuesMessage);
                 InRegistering = false;
                 return;
             }
 
             if (CidadeSelecionada == default(Cidade))
             {
-                MessagingCenter.Send(this, "NullEntrys", "Preencha todos os campos, selecione o Estado e a Cidade que reside.");
+                MessagingCenter.Send(this, EntryNullValuesTitle, EntryNullValuesMessage);
                 InRegistering = false;
                 return;
             }
@@ -143,14 +143,12 @@ namespace Solum.ViewModel
 
             if (result == RegisterResult.RegisterSuccefully)
             {
-                MessagingCenter.Send(this, "RegisterSuccessful", "Seu cadastro foi realizado com sucesso. Em instantes receberá um email para confirmar sua conta");
+                MessagingCenter.Send(this, RegisterSucessfullTitle, RegisterSuccessfullMessage);
                 InRegistering = false;
                 await Navigation.PopAsync(true);
             }
-
-            if (result == RegisterResult.RegisterUnsuccessfully)
-            {
-                MessagingCenter.Send(this, "RegisterUnsuccessful", "Seu cadastro não foi realizado. E-Mail já cadastrado!");
+            else { 
+                MessagingCenter.Send(this, RegisterUnsuccessTitle, RegisterUnsuccessMessage);
                 InRegistering = false;
             }
         }
