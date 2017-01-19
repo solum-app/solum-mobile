@@ -25,11 +25,11 @@ namespace Solum.ViewModel
             Fazenda = fazenda;
         }
 
-        public TalhaoCadastroViewModel(INavigation navigation, Fazenda fazenda, Talhao talhao) : base(navigation)
+        public TalhaoCadastroViewModel(INavigation navigation, Talhao talhao) : base(navigation)
         {
             _realm = Realm.GetInstance();
             _isUpdate = true;
-            Fazenda = fazenda;
+            Fazenda = _realm.Find<Fazenda>(talhao.FazendaId);
             Talhao = talhao;
             Titulo = "Atualizar Talhão " + _talhao.Nome;
             TalhaoNome = Talhao.Nome;

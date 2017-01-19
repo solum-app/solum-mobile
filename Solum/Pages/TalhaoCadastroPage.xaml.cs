@@ -12,10 +12,10 @@ namespace Solum.Pages
             BindingContext = new TalhaoCadastroViewModel(Navigation, fazenda);
         }
 
-        public TalhaoCadastroPage(Fazenda fazenda, Talhao talhao)
+        public TalhaoCadastroPage(Talhao talhao)
         {
             InitializeComponent();
-            BindingContext = new TalhaoCadastroViewModel(Navigation, fazenda, talhao);
+            BindingContext = new TalhaoCadastroViewModel(Navigation, talhao);
         }
 
         private async void ShowErrorMessage(string message)

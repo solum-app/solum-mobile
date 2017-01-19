@@ -49,19 +49,21 @@ namespace Solum.Pages
             }
         }
 
+
         private void OnEdit(object sender, EventArgs e)
         {
+            var fazenda = (sender as MenuItem).CommandParameter;
+            var context = BindingContext as FazendaDetalhesViewModel;
+            context?.EditarTalhaoCommand.Execute(fazenda);
         }
 
-        private async void OnDelete(object sender, EventArgs e)
+        public async void OnDelete(object sender, EventArgs args)
         {
-            //var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
-
-            //if (confirm)
-            //{
-            //    var analise = (sender as MenuItem).CommandParameter;
-            //    (BindingContext as AnalisesViewModel).ExcluirCommand.Execute(analise);
-            //}
+            var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
+            if (!confirm) return;
+            var talhao = (sender as MenuItem).CommandParameter;
+            var context = BindingContext as FazendaDetalhesViewModel;
+            context?.RemoverTalhaoCommand.Execute(talhao);
         }
 
         protected override void OnAppearing()
@@ -70,6 +72,5 @@ namespace Solum.Pages
             var context = BindingContext as FazendaDetalhesViewModel;
             context?.UpdateTalhoesList();
         }
-
     }
 }
