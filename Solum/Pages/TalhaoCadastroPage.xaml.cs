@@ -9,12 +9,14 @@ namespace Solum.Pages
         public TalhaoCadastroPage(Fazenda fazenda)
         {
             InitializeComponent();
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
             BindingContext = new TalhaoCadastroViewModel(Navigation, fazenda);
         }
 
         public TalhaoCadastroPage(Talhao talhao)
         {
             InitializeComponent();
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
             BindingContext = new TalhaoCadastroViewModel(Navigation, talhao);
         }
 
