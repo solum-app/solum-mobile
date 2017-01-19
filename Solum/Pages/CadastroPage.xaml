@@ -4,7 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum"
              xmlns:effects="clr-namespace:Solum.Effects"
-             xmlns:behaviors="clr-namespace:Solum.Behaviors;assembly=Solum"
              xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
              Title="Cadastro"
              x:Class="Solum.Pages.CadastroPage">
@@ -40,9 +39,6 @@
 
       <Entry x:Name="EmailEntry" Placeholder="Email Válido"
              Text="{Binding Email, Mode=TwoWay}" PlaceholderColor="{StaticResource colorTextHint}">
-        <Entry.Behaviors>
-          <behaviors:EmailValidatorBehavior />
-        </Entry.Behaviors>
         <Entry.Effects>
           <effects:NoBorderEffect />
         </Entry.Effects>
@@ -57,9 +53,6 @@
       <Entry x:Name="SenhaEntry" Placeholder="Senha"
              Text="{Binding Senha, Mode=TwoWay}" IsPassword="True"
              PlaceholderColor="{StaticResource colorTextHint}">
-        <Entry.Behaviors>
-          <behaviors:RequiredValidatorBehavior />
-        </Entry.Behaviors>
         <Entry.Effects>
           <effects:NoBorderEffect />
         </Entry.Effects>
@@ -74,9 +67,6 @@
       <Entry x:Name="ConfirmarSenhaEntry" Placeholder="Confirma Senha"
              Text="{Binding ConfirmaSenha, Mode=TwoWay}" IsPassword="True"
              PlaceholderColor="{StaticResource colorTextHint}">
-        <Entry.Behaviors>
-          <behaviors:ConfirmPasswordBehavior CompareToEntry="{Binding Source={x:Reference SenhaEntry}}" />
-        </Entry.Behaviors>
         <Entry.Effects>
           <effects:NoBorderEffect />
         </Entry.Effects>
