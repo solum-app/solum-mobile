@@ -4,6 +4,7 @@ using Solum.Pages;
 using Solum.Remotes.Results;
 using Solum.Service;
 using Xamarin.Forms;
+using static Solum.Messages.LoginMessages;
 
 namespace Solum.ViewModel
 {
@@ -46,7 +47,7 @@ namespace Solum.ViewModel
             var loginBinding = new LoginBinding {Username = Username?.Trim(), Password = Password?.Trim()};
             if (!loginBinding.IsValid)
             {
-                MessagingCenter.Send(this, "NullEntrys", "Preencha os campos Usuário e Senha!");
+                MessagingCenter.Send(this, EntryNullValuesTitle, EntryNullValuesMessage);
                 return;
             }
             InLogin = true;
@@ -59,7 +60,7 @@ namespace Solum.ViewModel
             }
             else
             {
-                MessagingCenter.Send(this, "LoginError", "Verifique as Credenciais. Usuário ou Senha incorretos!");
+                MessagingCenter.Send(this, LoginErrorTitle, LoginErrorMessage);
             }
         }
 

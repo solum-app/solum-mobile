@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Realms;
 using Solum.Models;
@@ -12,26 +13,26 @@ namespace Solum.ViewModel
 {
     public class CadastroViewModel : BaseViewModel
     {
-        private ICommand _registrarCommand;
         private ICommand _atualizarCidadesCommand;
+        private ICommand _registrarCommand;
         private ICommand _voltarCommand;
 
-        private IList<Cidade> _cidades;
         private IList<Estado> _estados;
-        private Cidade _cidadeSelecionada;
+        private IList<Cidade> _cidades;
         private Estado _estadoSelecionado;
-
-        private bool _isEstadosCarregados;
-        private bool _isCidadesCarregadas;
-        private bool _inRegistering;
+        private Cidade _cidadeSelecionada;
 
         private string _nome;
+        private string _email;
         private string _senha;
         private string _confirmaSenha;
-        private string _email;
 
-        private readonly Realm _realm;
+        private bool _inRegistering;
+        private bool _isCidadesCarregadas;
+        private bool _isEstadosCarregados;
+
         private readonly AuthService _authService;
+        private readonly Realm _realm;
 
         public CadastroViewModel(INavigation navigation) : base(navigation)
         {
@@ -43,7 +44,8 @@ namespace Solum.ViewModel
 
         public ICommand RegistrarCommand => _registrarCommand ?? (_registrarCommand = new Command(Cadastrar));
 
-        public ICommand AtualizarCidadesCommand => _atualizarCidadesCommand ?? (_atualizarCidadesCommand = new Command(AtualizarCidades));
+        public ICommand AtualizarCidadesCommand
+            => _atualizarCidadesCommand ?? (_atualizarCidadesCommand = new Command(AtualizarCidades));
 
         public ICommand VoltarCommand => _voltarCommand ?? (_voltarCommand = new Command(Voltar));
 
@@ -112,43 +114,69 @@ namespace Solum.ViewModel
             get { return _inRegistering; }
             set { SetPropertyChanged(ref _inRegistering, value); }
         }
+
         public async void Cadastrar()
         {
             InRegistering = true;
-            var registerBinding = new RegisterBinding
+            if (string.IsNullOrEmpty(Nome) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Senha) ||
+                string.IsNullOrEmpty(ConfirmaSenha))
             {
-                Nome = Nome,
-                Email = Email,
-                Password = Senha,
-                ConfirmPassword = ConfirmaSenha
-            };
+                MessagingCenter.Send(this, EntryNullValuesTitle);
+                InRegistering = false;
+                return;
+            }
+            var emailRegex =
+                new Regex(
+                    @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$");
+            var passwordRegex = new Regex(@"^(?=.*\w+)(?=.*\W+)(?=.*\d+)(?=.*\s*).{6,}$");
+            if (!emailRegex.IsMatch(Email))
+            {
+                MessagingCenter.Send(this, InvalidEmailTitle);
+                InRegistering = false;
+                return;
+            }
 
-            if (!registerBinding.IsValid)
+            if (!Senha.Equals(ConfirmaSenha))
             {
-                MessagingCenter.Send(this, EntryNullValuesTitle, EntryNullValuesMessage);
+                MessagingCenter.Send(this, PasswordIsntMatchTitle);
+                InRegistering = false;
+                return;
+            }
+
+            if (!passwordRegex.IsMatch(Senha))
+            {
+                MessagingCenter.Send(this, WeakPasswordTitle);
                 InRegistering = false;
                 return;
             }
 
             if (CidadeSelecionada == default(Cidade))
             {
-                MessagingCenter.Send(this, EntryNullValuesTitle, EntryNullValuesMessage);
+                MessagingCenter.Send(this, CityIsntSelectedTitle);
                 InRegistering = false;
                 return;
             }
 
-            registerBinding.CidadeId = CidadeSelecionada.Id;
+            var registerBinding = new RegisterBinding
+            {
+                Nome = Nome,
+                Email = Email,
+                Password = Senha,
+                ConfirmPassword = ConfirmaSenha,
+                CidadeId = CidadeSelecionada.Id
+            };
 
             var result = await _authService.Register(registerBinding);
 
             if (result == RegisterResult.RegisterSuccefully)
             {
-                MessagingCenter.Send(this, RegisterSucessfullTitle, RegisterSuccessfullMessage);
+                MessagingCenter.Send(this, RegisterSucessfullTitle);
                 InRegistering = false;
                 await Navigation.PopAsync(true);
             }
-            else { 
-                MessagingCenter.Send(this, RegisterUnsuccessTitle, RegisterUnsuccessMessage);
+            else
+            {
+                MessagingCenter.Send(this, RegisterUnsuccessTitle);
                 InRegistering = false;
             }
         }
@@ -161,7 +189,8 @@ namespace Solum.ViewModel
 
         public void AtualizarCidades()
         {
-            Cidades = _realm.All<Cidade>().Where(x => x.EstadoId.Equals(EstadoSelecionado.Id)).OrderBy(x => x.Nome).ToList();
+            Cidades =
+                _realm.All<Cidade>().Where(x => x.EstadoId.Equals(EstadoSelecionado.Id)).OrderBy(x => x.Nome).ToList();
             IsCidadesCarregadas = true;
         }
 

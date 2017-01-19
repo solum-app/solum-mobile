@@ -32,10 +32,9 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\Behaviors.cs" />
     <Compile Include="Custom\ImageCircle.cs" />
     <Compile Include="Effects\IStatusBarColor.cs" />
-    <Compile Include="Messages\RegisterMessages.cs" />
+    <Compile Include="Messages\DisplayMessages.cs" />
     <Compile Include="Models\Bindings.cs" />
     <Compile Include="Models\Cidade.cs" />
     <Compile Include="Models\Estado.cs" />
