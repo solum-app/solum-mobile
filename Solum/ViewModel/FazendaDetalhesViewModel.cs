@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Realms;
 using Solum.Models;
@@ -9,15 +8,16 @@ namespace Solum.ViewModel
 {
     public class FazendaDetalhesViewModel : BaseViewModel
     {
-        private Fazenda _fazenda;
-        private IList<Talhao> _talhoesList;
-        private bool _hasItems;
         private readonly Realm _realm;
-        public FazendaDetalhesViewModel(INavigation navigation, Fazenda item) : base(navigation)
+        private Fazenda _fazenda;
+        private bool _hasItems;
+        private IList<Talhao> _talhoesList;
+
+        public FazendaDetalhesViewModel(INavigation navigation, Fazenda fazenda) : base(navigation)
         {
             _realm = Realm.GetInstance();
-            Fazenda = item;
-            HasItems = false;
+            Fazenda = fazenda;
+            HasItems = _realm.All<Talhao>().Any(t => t.FazendaId.Equals(Fazenda.Id));
         }
 
         public bool HasItems
@@ -40,7 +40,10 @@ namespace Solum.ViewModel
 
         public void UpdateTalhoesList()
         {
-            TalhoesList = _realm.All<Talhao>().Where(t => t.FazendaId.Equals(Fazenda.Id)).ToList();
+            TalhoesList = _realm.All<Talhao>()
+                .Where(t => t.FazendaId.Equals(Fazenda.Id))
+                .OrderBy(t => t.Nome).ToList();
+            HasItems = TalhoesList.Any();
         }
     }
 }

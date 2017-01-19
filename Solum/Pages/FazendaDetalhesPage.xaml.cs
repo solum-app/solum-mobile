@@ -70,5 +70,6 @@ namespace Solum.Pages
             var context = BindingContext as FazendaDetalhesViewModel;
             context?.UpdateTalhoesList();
         }
+
     }
 }

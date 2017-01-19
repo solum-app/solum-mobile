@@ -6,16 +6,16 @@ namespace Solum.Models
     {
         [PrimaryKey]
         public string Id { get; set; }
-
         public string FazendaId { get; set; }
         public string Nome { get; set; }
-        public double? Area { get; set; }
+        public string Area { get; set; }
+        public bool HasArea { get; set; }
         public Fazenda Fazenda { get; set; }
-
         public bool IsValido => !string.IsNullOrEmpty(Nome);
+
         public override string ToString()
         {
-            return Area.HasValue ? Nome : $"{Nome} - {Area}m²";
+            return string.IsNullOrEmpty(Area)? Nome : $"{Nome} - {Area}m²";
         }
     }
 }
