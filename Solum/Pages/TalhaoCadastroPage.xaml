@@ -74,7 +74,7 @@
 				   Keyboard="Numeric"
 				   Text="{Binding TalhaoArea}"
 				   VerticalOptions="Center" Grid.Column="2"
-				   Margin="16,0" Placeholder="M²"
+				   Margin="16,0" Placeholder="ha"
 				   HorizontalTextAlignment="End"
 				   PlaceholderColor="{StaticResource colorTextHint}">
 				<Entry.Effects>
@@ -87,14 +87,15 @@
 				</Entry.FontSize>
 			</Entry>
 
-			<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
-				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double"
-								iOS="0.5"
-								Android="0.3" />
-				</BoxView.HeightRequest>
-			</BoxView>
 		</Grid>
+
+		<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
+			<BoxView.HeightRequest>
+				<OnPlatform x:TypeArguments="x:Double"
+					iOS="0.5"
+					Android="0"/>
+			</BoxView.HeightRequest>
+		</BoxView>
 
 		<Button x:Name="CadastrarButton"
 				Text="Cadastrar"
