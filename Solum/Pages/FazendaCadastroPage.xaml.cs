@@ -2,24 +2,24 @@
 using Solum.ViewModel;
 using Xamarin.Forms;
 using static Solum.Messages.FazendaMessages;
+using static Solum.Settings;
 
 namespace Solum.Pages
 {
     public partial class FazendaCadastroPage : ContentPage
     {
-        private static string _buttonTitle = "OK";
         public FazendaCadastroPage()
         {
             InitializeComponent();
             BindingContext = new FazendaCadastroViewModel(Navigation);
-            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
         }
 
         public FazendaCadastroPage(Fazenda fazenda)
         {
             InitializeComponent();
             BindingContext = new FazendaCadastroViewModel(Navigation, fazenda);
-            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
         }
 
         protected override void OnAppearing()
@@ -28,17 +28,17 @@ namespace Solum.Pages
 
             MessagingCenter.Subscribe<FazendaCadastroViewModel>(this, NullEntriesTitle, async view =>
             {
-                await DisplayAlert("Ops! :-/", NullEntriesMessage, _buttonTitle);
+                await DisplayAlert(ErrorMessageTitle, NullEntriesMessage, ButtonTitle);
             });
 
             MessagingCenter.Subscribe<FazendaCadastroViewModel>(this, RegisterSuccessfullTitle, async view =>
             {
-                await DisplayAlert("Tudo Certo! ;-)", RegisterSuccessfullMessage, _buttonTitle);
+                await DisplayAlert(SuccessMessageTitle, RegisterSuccessfullMessage, ButtonTitle);
             });
 
             MessagingCenter.Subscribe<FazendaCadastroViewModel>(this, UpdateSuccessfullTitle, async view =>
             {
-                await DisplayAlert("Tudo Certo! ;-)", UpdateSucessfullMessage, _buttonTitle);
+                await DisplayAlert(SuccessMessageTitle, UpdateSucessfullMessage, ButtonTitle);
             });
         }
 

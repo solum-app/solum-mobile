@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using EmailValidation;
 using Realms;
 using Solum.Models;
 using Solum.Remotes.Results;
@@ -52,25 +53,25 @@ namespace Solum.ViewModel
         public string Nome
         {
             get { return _nome; }
-            set { SetPropertyChanged(ref _nome, value); }
+            set { SetPropertyChanged(ref _nome, value.Trim()); }
         }
 
         public string Email
         {
             get { return _email; }
-            set { SetPropertyChanged(ref _email, value); }
+            set { SetPropertyChanged(ref _email, value.Trim()); }
         }
 
         public string Senha
         {
             get { return _senha; }
-            set { SetPropertyChanged(ref _senha, value); }
+            set { SetPropertyChanged(ref _senha, value.Trim()); }
         }
 
         public string ConfirmaSenha
         {
             get { return _confirmaSenha; }
-            set { SetPropertyChanged(ref _confirmaSenha, value); }
+            set { SetPropertyChanged(ref _confirmaSenha, value.Trim()); }
         }
 
         public IList<Estado> Estados
@@ -118,18 +119,15 @@ namespace Solum.ViewModel
         public async void Cadastrar()
         {
             InRegistering = true;
-            if (string.IsNullOrEmpty(Nome) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Senha) ||
-                string.IsNullOrEmpty(ConfirmaSenha))
+
+            if (string.IsNullOrEmpty(Nome) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Senha) || string.IsNullOrEmpty(ConfirmaSenha))
             {
                 MessagingCenter.Send(this, EntryNullValuesTitle);
                 InRegistering = false;
                 return;
             }
-            var emailRegex =
-                new Regex(
-                    @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$");
-            var passwordRegex = new Regex(@"^(?=.*\w+)(?=.*\W+)(?=.*\d+)(?=.*\s*).{6,}$");
-            if (!emailRegex.IsMatch(Email))
+
+            if (!EmailValidator.Validate(Email))
             {
                 MessagingCenter.Send(this, InvalidEmailTitle);
                 InRegistering = false;
@@ -143,6 +141,7 @@ namespace Solum.ViewModel
                 return;
             }
 
+            var passwordRegex = new Regex(@"^(?=.*\w+)(?=.*\W+)(?=.*\d+)(?=.*\s*).{6,}$");
             if (!passwordRegex.IsMatch(Senha))
             {
                 MessagingCenter.Send(this, WeakPasswordTitle);
@@ -150,7 +149,7 @@ namespace Solum.ViewModel
                 return;
             }
 
-            if (CidadeSelecionada == default(Cidade))
+            if (CidadeSelecionada.Equals(default(Cidade)))
             {
                 MessagingCenter.Send(this, CityIsntSelectedTitle);
                 InRegistering = false;
@@ -196,7 +195,12 @@ namespace Solum.ViewModel
 
         public async void Voltar()
         {
-            await Navigation.PopAsync();
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                await Navigation.PopAsync();
+                IsBusy = false;
+            }
         }
     }
 }

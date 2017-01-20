@@ -47,7 +47,7 @@ namespace Solum.ViewModel
             var loginBinding = new LoginBinding {Username = Username?.Trim(), Password = Password?.Trim()};
             if (!loginBinding.IsValid)
             {
-                MessagingCenter.Send(this, EntryNullValuesTitle, EntryNullValuesMessage);
+                MessagingCenter.Send(this, EntryNullValuesTitle);
                 return;
             }
             InLogin = true;
@@ -60,7 +60,7 @@ namespace Solum.ViewModel
             }
             else
             {
-                MessagingCenter.Send(this, LoginErrorTitle, LoginErrorMessage);
+                MessagingCenter.Send(this, LoginErrorTitle);
             }
         }
 
