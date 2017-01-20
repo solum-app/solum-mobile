@@ -105,7 +105,7 @@ namespace Solum.ViewModel
                     return;
                 }
 
-                if (CidadeSelecionada.Equals(default(Cidade)))
+                if (CidadeSelecionada == null)
                 {
                     MessagingCenter.Send(this, NullEntriesTitle);
                     return;
@@ -142,7 +142,7 @@ namespace Solum.ViewModel
                 {
                     _fazenda.Nome = NomeFazenda;
                     var cidadeAtual = _realm.Find<Cidade>(_fazenda.CidadeId);
-                    if (!CidadeSelecionada.Equals(default(Cidade)) || !cidadeAtual.Equals(CidadeSelecionada))
+                    if (!cidadeAtual.Equals(CidadeSelecionada))
                     {
                         _fazenda.CidadeId = CidadeSelecionada.Id;
                         _fazenda.Cidade = CidadeSelecionada;

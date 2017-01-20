@@ -149,7 +149,7 @@ namespace Solum.ViewModel
                 return;
             }
 
-            if (CidadeSelecionada.Equals(default(Cidade)))
+            if (CidadeSelecionada == null)
             {
                 MessagingCenter.Send(this, CityIsntSelectedTitle);
                 InRegistering = false;
