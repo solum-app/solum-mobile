@@ -18,7 +18,7 @@ namespace Solum.Messages
         public static string PasswordIsntMatchMessage = "Verifique as senhas, elas não estão iguais";
 
         public static string WeakPasswordTitle = "WeakPassword";
-        public static string WeakPasswordMessage = "Sua senha é fraca.Deve conter pelo menos: \n" +
+        public static string WeakPasswordMessage = "Sua senha é fraca. Deve conter pelo menos: \n" +
                                                   "- 6 caracteres\n" +
                                                   "- 1 maísculo\n" +
                                                   "- 1 minúsculo\n" +
@@ -38,5 +38,17 @@ namespace Solum.Messages
 
         public static string LoginErrorMessage =
             "Suas credenciais estão erradas ou sua conta não foi ativada. Por favor, verifique seu e-mail";
+    }
+
+    public class FazendaMessages
+    {
+        public static string NullEntriesTitle = "NullEntries";
+        public static string NullEntriesMessage = "Preencha o campo nome e selecione a cidade que a fazenda resite";
+
+        public static string RegisterSuccessfullTitle = "RegisterSuccesfull";
+        public static string RegisterSuccessfullMessage = "Fazenda cadastrada com sucesso!";
+
+        public static string UpdateSuccessfullTitle = "UpdateSuccessfull";
+        public static string UpdateSucessfullMessage = "Fazenda atualizada com sucesso!";
     }
 }

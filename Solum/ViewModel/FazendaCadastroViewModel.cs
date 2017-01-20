@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Realms;
 using Solum.Models;
 using Xamarin.Forms;
+using static Solum.Messages.FazendaMessages;
 
 namespace Solum.ViewModel
 {
@@ -41,6 +41,10 @@ namespace Solum.ViewModel
             _fazenda = fazenda;
             NomeFazenda = fazenda.Nome;
             CarregarEstados();
+            EstadoSelecionado = _realm.Find<Estado>(_fazenda.Cidade.EstadoId);
+            CarregarCidades();
+            CidadeSelecionada = _realm.Find<Cidade>(_fazenda.CidadeId);
+            
         }
 
         public string NomeFazenda
@@ -86,7 +90,7 @@ namespace Solum.ViewModel
         }
 
         public ICommand AtualizarListaCidadesCommand
-            => _atualizarListaCidadesCommand ?? (_atualizarListaCidadesCommand = new Command(UpdateCidades));
+            => _atualizarListaCidadesCommand ?? (_atualizarListaCidadesCommand = new Command(CarregarCidades));
 
         public ICommand CadastrarFazendaCommand
             => _cadastrarFazendaCommand ?? (_cadastrarFazendaCommand = new Command(CadastrarFazenda));
@@ -97,13 +101,13 @@ namespace Solum.ViewModel
             {
                 if (string.IsNullOrEmpty(NomeFazenda))
                 {
-                    MessagingCenter.Send(this, "Erro", "Coloque o nome da Fazenda");
+                    MessagingCenter.Send(this, NullEntriesTitle);
                     return;
                 }
 
-                if (CidadeSelecionada == default(Cidade))
+                if (CidadeSelecionada.Equals(default(Cidade)))
                 {
-                    MessagingCenter.Send(this, "Erro", "Selecione uma Cidade para esta Fazenda");
+                    MessagingCenter.Send(this, NullEntriesTitle);
                     return;
                 }
 
@@ -123,28 +127,29 @@ namespace Solum.ViewModel
                     _realm.Add(fazenda);
                     transaction.Commit();
                 }
-                MessagingCenter.Send(this, "Sucesso", "Fazenda cadastrada com sucesso");
+                MessagingCenter.Send(this, RegisterSuccessfullTitle);
                 await Navigation.PopAsync(true);
             }
             else
             {
                 if (string.IsNullOrEmpty(NomeFazenda))
                 {
-                    MessagingCenter.Send(this, "Erro", "Coloque o nome da Fazenda");
+                    MessagingCenter.Send(this, NullEntriesTitle);
                     return;
                 }
 
                 using (var transaction = _realm.BeginWrite())
                 {
                     _fazenda.Nome = NomeFazenda;
-                    if (CidadeSelecionada != default(Cidade))
+                    var cidadeAtual = _realm.Find<Cidade>(_fazenda.CidadeId);
+                    if (!CidadeSelecionada.Equals(default(Cidade)) || !cidadeAtual.Equals(CidadeSelecionada))
                     {
                         _fazenda.CidadeId = CidadeSelecionada.Id;
                         _fazenda.Cidade = CidadeSelecionada;
                     }
                     transaction.Commit();
                 }
-                MessagingCenter.Send(this, "Sucesso", "Fazenda atualizada com sucesso");
+                MessagingCenter.Send(this, UpdateSuccessfullTitle);
                 await Navigation.PopAsync(true);
             }
         }
@@ -155,7 +160,7 @@ namespace Solum.ViewModel
             IsEstadosCarregados = true;
         }
 
-        public void UpdateCidades()
+        public void CarregarCidades()
         {
             CidadeList = _realm.All<Cidade>()
                 .Where(x => x.EstadoId.Equals(EstadoSelecionado.Id))
