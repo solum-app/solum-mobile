@@ -1,6 +1,8 @@
 ﻿using Solum.Models;
 using Solum.ViewModel;
 using Xamarin.Forms;
+using static Solum.Messages.TalhaoMessages;
+using static Solum.Settings;
 
 namespace Solum.Pages
 {
@@ -10,40 +12,36 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new TalhaoCadastroViewModel(Navigation, fazenda);
-			NavigationPage.SetBackButtonTitle(this, "Voltar");
-			
+            NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
         }
 
         public TalhaoCadastroPage(Talhao talhao)
         {
             InitializeComponent();
             BindingContext = new TalhaoCadastroViewModel(Navigation, talhao);
-			NavigationPage.SetBackButtonTitle(this, "Voltar");
-			
-        }
-
-        private async void ShowErrorMessage(string message)
-        {
-            await DisplayAlert("Erro!", message, "OK");
-        }
-
-        private async void ShowSuccessMessage(string message)
-        {
-            await DisplayAlert("Sucesso!", message, "OK");
+            NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            MessagingCenter.Subscribe<TalhaoCadastroViewModel, string>(this, "NullEntrys", (sender, args) => ShowErrorMessage(args));
-            MessagingCenter.Subscribe<TalhaoCadastroViewModel, string>(this, "Success", (sender, args) => ShowSuccessMessage(args));
+
+            MessagingCenter.Subscribe<TalhaoCadastroViewModel>(this, NullEntriesTitle,
+                async model => { await DisplayAlert(ErrorMessageTitle, NullEntriesMessage, ButtonTitle); });
+
+            MessagingCenter.Subscribe<TalhaoCadastroViewModel>(this, RegisterSuccessfullTitle,
+                async model => { await DisplayAlert(SuccessMessageTitle, RegisterSuccessfullMessage, ButtonTitle); });
+
+            MessagingCenter.Subscribe<TalhaoCadastroViewModel>(this, UpdateSuccessfullTitle,
+                async model => { await DisplayAlert(SuccessMessageTitle, UpdateSucessfullMessage, ButtonTitle); });
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            MessagingCenter.Unsubscribe<TalhaoCadastroViewModel, string>(this, "NullEntrys");
-            MessagingCenter.Unsubscribe<TalhaoCadastroViewModel, string>(this, "Success");
+            MessagingCenter.Unsubscribe<TalhaoCadastroViewModel>(this, NullEntriesTitle);
+            MessagingCenter.Unsubscribe<TalhaoCadastroViewModel>(this, RegisterSuccessfullTitle);
+            MessagingCenter.Unsubscribe<TalhaoCadastroViewModel>(this, UpdateSuccessfullTitle);
         }
     }
 }

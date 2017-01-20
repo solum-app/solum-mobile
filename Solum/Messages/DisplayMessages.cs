@@ -51,4 +51,16 @@ namespace Solum.Messages
         public static string UpdateSuccessfullTitle = "UpdateSuccessfull";
         public static string UpdateSucessfullMessage = "Fazenda atualizada com sucesso!";
     }
+
+    public class TalhaoMessages
+    {
+        public static string NullEntriesTitle = "NullEntries";
+        public static string NullEntriesMessage = "Preencha o campo nome do talhao";
+
+        public static string RegisterSuccessfullTitle = "RegisterSuccesfull";
+        public static string RegisterSuccessfullMessage = "Talhão cadastrado com sucesso!";
+
+        public static string UpdateSuccessfullTitle = "UpdateSuccessfull";
+        public static string UpdateSucessfullMessage = "Talhão Atualizado com sucesso!";
+    }
 }
