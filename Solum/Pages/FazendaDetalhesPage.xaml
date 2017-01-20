@@ -39,7 +39,7 @@
               <Label Text="{Binding Nome, StringFormat='Talhão {0}'}" Grid.Row="0" TextColor="Black" />
               <Label Text="{Binding Area, StringFormat='Área {0} ha'}" Grid.Row="1" FontSize="Small" TextColor="#757575" IsVisible="{Binding HasArea}"
 								   VerticalTextAlignment="Start" />
-              <Label Text="Área -" Grid.Row="1" FontSize="Small" TextColor="#757575" IsVisible="{Binding HasArea, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+              <Label Text="Área não informada" Grid.Row="1" FontSize="Small" TextColor="#757575" IsVisible="{Binding HasArea, Converter={x:Static converter:IverseBoolConverter.Instance}}"
 								   VerticalTextAlignment="Start" />
             </Grid>
             <ViewCell.ContextActions>
