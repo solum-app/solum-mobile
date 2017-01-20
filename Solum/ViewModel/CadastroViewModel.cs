@@ -141,7 +141,7 @@ namespace Solum.ViewModel
                 return;
             }
 
-            var passwordRegex = new Regex(@"^(?=.*\w+)(?=.*\W+)(?=.*\d+)(?=.*\s*).{6,}$");
+            var passwordRegex = new Regex(@"^(?=.*\w+)(?=.*\W*)(?=.*\d*)(?=.*\s*).{6,}$");
             if (!passwordRegex.IsMatch(Senha))
             {
                 MessagingCenter.Send(this, WeakPasswordTitle);
