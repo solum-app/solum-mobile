@@ -4,9 +4,14 @@ namespace Solum
 {
     public static class Settings
     {
+        public static string BackButtonTitle = "Voltar";
+        public static string ButtonTitle = "Ok";
+        public static string ErrorMessageTitle = "Ops! :-/";
+        public static string SuccessMessageTitle = "Tudo Certo! ;-)";
+
         static Settings()
         {
-           // BaseUri = new Uri("http://192.168.0.23/solum/api/");
+            // BaseUri = new Uri("http://192.168.0.23/solum/api/");
             BaseUri = new Uri("http://192.168.0.4/solum/api/");
             AccountUri = "account/";
             AccountRegisterUri = "account/register";

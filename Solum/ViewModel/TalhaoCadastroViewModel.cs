@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Realms;
 using Solum.Models;
 using Xamarin.Forms;
+using static Solum.Messages.TalhaoMessages;
 
 namespace Solum.ViewModel
 {
@@ -31,7 +32,7 @@ namespace Solum.ViewModel
             _isUpdate = true;
             Fazenda = _realm.Find<Fazenda>(talhao.FazendaId);
             Talhao = talhao;
-            Titulo = "Atualizar Talhão " + _talhao.Nome;
+            Titulo = "Atualizar Talhão:" + _talhao.Nome;
             TalhaoNome = Talhao.Nome;
             TalhaoArea = Talhao.Area;
         }
@@ -76,7 +77,7 @@ namespace Solum.ViewModel
             {
                 if (string.IsNullOrEmpty(TalhaoNome))
                 {
-                    MessagingCenter.Send(this, "NullEntrys", "Preencha o campo de nome do talhão");
+                    MessagingCenter.Send(this, NullEntriesTitle);
                     return;
                 }
 
@@ -96,7 +97,7 @@ namespace Solum.ViewModel
                     transaction.Commit();
                 }
 
-                MessagingCenter.Send(this, "Success", "Talhão cadastrado com sucesso");
+                MessagingCenter.Send(this, RegisterSuccessfullTitle);
                 await Navigation.PopAsync();
             }
 
@@ -104,7 +105,7 @@ namespace Solum.ViewModel
             {
                 if (string.IsNullOrEmpty(TalhaoNome))
                 {
-                    MessagingCenter.Send(this, "NullEntrys", "Preencha o campo de nome do talhão");
+                    MessagingCenter.Send(this, NullEntriesTitle);
                     return;
                 }
 
@@ -112,10 +113,11 @@ namespace Solum.ViewModel
                 {
                     Talhao.Nome = TalhaoNome;
                     Talhao.Area = TalhaoArea;
+                    Talhao.HasArea = !string.IsNullOrEmpty(Talhao.Area);
                     transaction.Commit();
                 }
 
-                MessagingCenter.Send(this, "Success", "Talhão atualizado com sucesso");
+                MessagingCenter.Send(this, UpdateSuccessfullTitle);
                 await Navigation.PopAsync();
             }
         }

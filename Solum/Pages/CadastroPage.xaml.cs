@@ -1,13 +1,12 @@
 ﻿using Solum.ViewModel;
 using Xamarin.Forms;
 using static Solum.Messages.RegisterMessages;
+using static Solum.Settings;
 
 namespace Solum.Pages
 {
     public partial class CadastroPage : ContentPage
     {
-        private static readonly string _buttonTitle = "OK";
-
         public CadastroPage()
         {
             InitializeComponent();
@@ -21,24 +20,25 @@ namespace Solum.Pages
             base.OnAppearing();
 
             MessagingCenter.Subscribe<CadastroViewModel>(this, EntryNullValuesTitle,
-                async view => { await DisplayAlert("Ops! :-/", EntryNullValuesMessage, _buttonTitle); });
+                async view => { await DisplayAlert(ErrorMessageTitle, EntryNullValuesMessage, ButtonTitle); });
 
             MessagingCenter.Subscribe<CadastroViewModel>(this, InvalidEmailTitle,
-                async view => { await DisplayAlert("Ops! :-/", InvalidEmailMessage, _buttonTitle); });
+                async view => { await DisplayAlert(ErrorMessageTitle, InvalidEmailMessage, ButtonTitle); });
 
             MessagingCenter.Subscribe<CadastroViewModel>(this, PasswordIsntMatchTitle,
-                async view => { await DisplayAlert("Ops! :-/", PasswordIsntMatchMessage, _buttonTitle); });
+                async view => { await DisplayAlert(ErrorMessageTitle, PasswordIsntMatchMessage, ButtonTitle); });
 
             MessagingCenter.Subscribe<CadastroViewModel>(this, WeakPasswordTitle,
-                async view => { await DisplayAlert("Ops! :-/", WeakPasswordMessage, _buttonTitle); });
+                async view => { await DisplayAlert(ErrorMessageTitle, WeakPasswordMessage, ButtonTitle); });
 
             MessagingCenter.Subscribe<CadastroViewModel>(this, CityIsntSelectedTitle,
-                async view => { await DisplayAlert("Ops! :-/", CityIsntSelectedMessage, _buttonTitle); });
+                async view => { await DisplayAlert(ErrorMessageTitle, CityIsntSelectedMessage, ButtonTitle); });
 
             MessagingCenter.Subscribe<CadastroViewModel>(this, RegisterUnsuccessTitle,
-                async view => { await DisplayAlert("Ops! :-/", RegisterUnsuccessMessage, _buttonTitle); });
+                async view => { await DisplayAlert(ErrorMessageTitle, RegisterUnsuccessMessage, ButtonTitle); });
+
             MessagingCenter.Subscribe<CadastroViewModel>(this, RegisterSucessfullTitle,
-                async view => { await DisplayAlert("Tudo certo! ;-)", RegisterSuccessfullMessage, _buttonTitle); });
+                async view => { await DisplayAlert(SuccessMessageTitle, RegisterSuccessfullMessage, ButtonTitle); });
         }
 
         protected override void OnDisappearing()
