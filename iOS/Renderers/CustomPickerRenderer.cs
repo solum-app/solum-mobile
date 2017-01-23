@@ -25,6 +25,7 @@ namespace Solum.iOS
 					SetAlignment(view);
 					SetFontFamily(view);
 					SetPlaceholderColor(view);
+					SetTextSize(view);
 				}
 			}
 		}
@@ -39,6 +40,8 @@ namespace Solum.iOS
 				SetBorder(view);
 			if (e.PropertyName == CustomPicker.TextAlignmentProperty.PropertyName)
 				SetAlignment(view);
+			if (e.PropertyName == CustomPicker.TextSizeProperty.PropertyName)
+				SetTextSize(view);
 			if (e.PropertyName == CustomPicker.PlaceholderColorProperty.PropertyName)
 				SetPlaceholderColor(view);
 		}
@@ -47,6 +50,14 @@ namespace Solum.iOS
 		{
 			Control.BorderStyle = view.HasBorder ? UITextBorderStyle.RoundedRect : UITextBorderStyle.None;
 
+		}
+
+		void SetTextSize(CustomPicker view)
+		{
+			if (view.TextSize != default(Double)){
+				var newUiFont = UIFont.FromName(Control.Font.FamilyName, (nfloat)view.TextSize);
+				Control.Font = newUiFont;
+			}
 		}
 
 		void SetPlaceholderColor(CustomPicker view)
@@ -61,7 +72,12 @@ namespace Solum.iOS
 		{
 			if (!string.IsNullOrWhiteSpace(view.FontFamily))
 			{
-				var newUiFont = UIFont.FromName(view.FontFamily, Control.Font.PointSize);
+				var fontSize = Control.Font.PointSize;
+				if (view.TextSize != default(Double))
+				{
+					fontSize = (nfloat)view.TextSize;
+				}
+				var newUiFont = UIFont.FromName(view.FontFamily, fontSize);
 				Control.Font = newUiFont;
 			}
 		}
