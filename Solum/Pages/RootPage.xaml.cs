@@ -140,13 +140,13 @@ namespace Solum.Pages
 		{
 			if (Device.OS == TargetPlatform.iOS)
 			{
-				if (_currentPage.GetType() == typeof(SemeaduraPage))
+				if (_currentPage.GetType() == typeof(RecomendaSemeaduraPage))
 				{
 					IsPresented = false;
 				}
 				else
 				{
-					_currentPage = new SemeaduraPage();
+					_currentPage = new RecomendaSemeaduraPage();
 					Detail = new NavigationPage(_currentPage)
 					{
 						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
@@ -157,7 +157,7 @@ namespace Solum.Pages
 			}
 			else
 			{
-				var page = new SemeaduraPage();
+				var page = new RecomendaSemeaduraPage();
 				await _navigationPage.Navigation.PushAsync(page);
 				_navigationPage.Navigation.RemovePage(_currentPage);
 				_currentPage = page;
