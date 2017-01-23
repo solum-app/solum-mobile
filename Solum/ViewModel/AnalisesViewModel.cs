@@ -24,10 +24,10 @@ namespace Solum.ViewModel
 
 			var realm = Realm.GetInstance ();
 
-			analises = realm.All<Analise> ().OrderBy (e => e.Fazenda).ToList ();
+			analises = realm.All<Analise> ().OrderBy (e => e.Talhao.Fazenda.Nome).ToList ();
 
 			var groupList =
-				analises.GroupBy (a => a.Fazenda.ToUpper ())
+				analises.GroupBy (a => a.Talhao.Fazenda.Nome.ToUpper ())
 					.Select (a => new Grouping<string, Analise> (a.Key, a));
 
 			Analises = new ObservableCollection<Grouping<string, Analise>> (groupList);
@@ -39,10 +39,10 @@ namespace Solum.ViewModel
 		{
 			var realm = Realm.GetInstance ();
 
-			analises = realm.All<Analise> ().OrderBy (e => e.Fazenda).ToList ();
+			analises = realm.All<Analise> ().OrderBy (e => e.Talhao.Fazenda.Nome).ToList ();
 
 			var groupList =
-				analises.GroupBy (a => a.Fazenda.ToUpper ())
+				analises.GroupBy (a => a.Talhao.Fazenda.Nome.ToUpper ())
 					.Select (a => new Grouping<string, Analise> (a.Key, a));
 
 			Analises = new ObservableCollection<Grouping<string, Analise>> (groupList);
@@ -95,7 +95,7 @@ namespace Solum.ViewModel
 			analises.Remove (analise);
 
 			var groupList =
-				analises.GroupBy (a => a.Fazenda.ToUpper ())
+				analises.GroupBy (a => a.Talhao.Fazenda.Nome.ToUpper ())
 					.Select (a => new Grouping<string, Analise> (a.Key, a));
 
 			Analises = new ObservableCollection<Grouping<string, Analise>> (groupList);

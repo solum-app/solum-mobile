@@ -20,16 +20,16 @@ namespace Solum.ViewModel
 		{
 			Title = "Edição de Análise";
 
-			FazendaEntry = analise.Fazenda;
-			TalhaoEntry = analise.Talhao;
+			FazendaEntry = analise.Talhao.Fazenda.Nome;
+			TalhaoEntry = analise.Talhao.Nome;
 			DataEntry = analise.Data;
-			PhEntry = analise.Ph.ToString();
-			PEntry = analise.P.ToString();
-			KEntry = analise.K.ToString();
-			CaEntry = analise.Ca.ToString();
-			MgEntry = analise.Mg.ToString();
-			AlEntry = analise.Al.ToString();
-			HEntry = analise.H.ToString();
+			PhEntry = analise.PotencialHidrogenico.ToString();
+			PEntry = analise.Fosforo.ToString();
+			KEntry = analise.Potassio.ToString();
+			CaEntry = analise.Calcio.ToString();
+			MgEntry = analise.Magnesio.ToString();
+			AlEntry = analise.Aluminio.ToString();
+			HEntry = analise.Hidrogenio.ToString();
 			MateriaOrganicaEntry = analise.MateriaOrganica.ToString();
 			AreiaEntry = analise.Areia.ToString();
 			SilteEntry = analise.Silte.ToString();
@@ -317,16 +317,16 @@ namespace Solum.ViewModel
 
 		
 			var analise = new Analise () {
-				Fazenda = FazendaEntry.Trim (),
-				Talhao = TalhaoEntry,
+				//Fazenda = FazendaEntry.Trim (),
+				//Talhao = TalhaoEntry,
 				Data = DataEntry,
-				Ph = float.Parse("0" + PhEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				P = float.Parse("0" + PEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				K = float.Parse("0" + KEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Ca = float.Parse("0" + CaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Mg = float.Parse("0" + MgEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Al = float.Parse("0" + AlEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				H = float.Parse("0" + HEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				PotencialHidrogenico = float.Parse("0" + PhEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Fosforo = float.Parse("0" + PEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Potassio = float.Parse("0" + KEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Calcio = float.Parse("0" + CaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Magnesio = float.Parse("0" + MgEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Aluminio = float.Parse("0" + AlEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
+				Hidrogenio = float.Parse("0" + HEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
 				MateriaOrganica = float.Parse("0" + MateriaOrganicaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
 				Areia = float.Parse("0" + AreiaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
 				Silte = float.Parse("0" + SilteEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
