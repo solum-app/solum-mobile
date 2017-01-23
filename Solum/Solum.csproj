@@ -44,6 +44,9 @@
     <Compile Include="Pages\CadastroPage.xaml.cs">
       <DependentUpon>CadastroPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CoberturaPage.xaml.cs">
+      <DependentUpon>CoberturaPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\FazendaCadastroPage.xaml.cs">
       <DependentUpon>FazendaCadastroPage.xaml</DependentUpon>
     </Compile>
@@ -55,6 +58,9 @@
     </Compile>
     <Compile Include="Pages\GerenciamentoAnalise.xaml.cs">
       <DependentUpon>GerenciamentoAnalise.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\InterpretacaoTestePage.xaml.cs">
+      <DependentUpon>InterpretacaoTestePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -273,6 +279,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\GerenciamentoAnalise.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\CoberturaPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\InterpretacaoTestePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
