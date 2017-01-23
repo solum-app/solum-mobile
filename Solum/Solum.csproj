@@ -53,6 +53,9 @@
     <Compile Include="Pages\FazendaListPage.xaml.cs">
       <DependentUpon>FazendaListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\GerenciamentoAnalise.xaml.cs">
+      <DependentUpon>GerenciamentoAnalise.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -92,6 +95,7 @@
     <Compile Include="ViewModel\FazendaCadastroViewModel.cs" />
     <Compile Include="ViewModel\FazendaDetalhesViewModel.cs" />
     <Compile Include="ViewModel\FazendaListViewModel.cs" />
+    <Compile Include="ViewModel\GerenciamentoAnaliseViewModel.cs" />
     <Compile Include="ViewModel\InterpretacaoViewModel.cs" />
     <Compile Include="Handlers\InterpretaHandler.cs" />
     <Compile Include="Handlers\Converters.cs" />
@@ -263,6 +267,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\TalhaoCadastroPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\GerenciamentoAnalise.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
