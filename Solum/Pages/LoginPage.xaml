@@ -15,9 +15,14 @@
 		Spacing="0"
 		Padding="0,16">
 
-		<Image Source="solum_login" HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
+		<Image Source="solum_login" HorizontalOptions="Center" VerticalOptions="Start">
+			<Image.Margin>
+				<OnPlatform x:TypeArguments="Thickness" iOS="0,60,0,0" Android="0,20,0,0"/>
+			</Image.Margin>
+		</Image>
 		<Label Text="Use suas credenciais para acessar suas informações" HorizontalTextAlignment="Center"
 			   TextColor="{StaticResource colorTextPrimary}" Margin="16,32,16,32" />
+		
 		<Grid Margin="16, 8" ColumnSpacing="0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="24" />
@@ -25,7 +30,7 @@
 			</Grid.ColumnDefinitions>
 			<Image Source="ic_user" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" />
 			<Entry x:Name="UsernameEntry" Placeholder="Email" Text="{Binding Username}" Margin="32,0,0,0"
-				   PlaceholderColor="{StaticResource colorTextHint}" Grid.Column="1">
+				   PlaceholderColor="{StaticResource colorTextHint}" Grid.Column="1" VerticalOptions="CenterAndExpand">
 				<Entry.Effects>
 					<effects:NoBorderEffect />
 				</Entry.Effects>
@@ -46,7 +51,7 @@
 			</Grid.ColumnDefinitions>
 			<Image Source="ic_password" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" />
 			<Entry x:Name="PasswordEntry" Placeholder="Senha" IsPassword="True" Text="{Binding Password}" Margin="32,0,0,0"
-				   PlaceholderColor="{StaticResource colorTextHint}" Grid.Column="1">
+				   PlaceholderColor="{StaticResource colorTextHint}" Grid.Column="1" VerticalOptions="CenterAndExpand">
 				<Entry.Effects>
 					<effects:NoBorderEffect />
 				</Entry.Effects>
@@ -67,19 +72,24 @@
 				BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}"
 				VerticalOptions="EndAndExpand" IsVisible="{Binding InLogin, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
 		
-    <Label x:Name="CadastrarLabel" Text="Cadastre-se gratuitamente" Margin="16,0,16,16" HorizontalTextAlignment="Center"
-			   TextColor="{StaticResource colorTextPrimary}" VerticalOptions="End" FontSize="Small"
-           IsVisible="{Binding InLogin, Converter={x:Static converter:IverseBoolConverter.Instance}}">
-			<Label.GestureRecognizers>
-				<TapGestureRecognizer Command="{Binding CadastrarCommand}" />
-			</Label.GestureRecognizers>
-		</Label>
+    <Label 
+		x:Name="CadastrarLabel" 
+		Text="Cadastre-se gratuitamente"
+		Margin="16,0,16,16" HorizontalTextAlignment="Center"
+		TextColor="{StaticResource colorTextPrimary}" 
+		VerticalOptions="End" 
+		FontSize="Small"
+		IsVisible="{Binding InLogin, Converter={x:Static converter:IverseBoolConverter.Instance}}">
+		<Label.GestureRecognizers>
+			<TapGestureRecognizer Command="{Binding CadastrarCommand}" />
+		</Label.GestureRecognizers>
+	</Label>
 		
     <ActivityIndicator IsRunning="{Binding InLogin}" 
                        Color="{StaticResource colorPrimary}"
                        MinimumHeightRequest="40" HeightRequest="80"
                        MinimumWidthRequest="40" WidthRequest="80" 
-                       Margin="16" VerticalOptions="End" />
+                       Margin="16" VerticalOptions="End" IsVisible="false" />
 	</StackLayout>
 
 </ContentPage>
