@@ -15,14 +15,16 @@ namespace Solum.ViewModel
         private Fazenda _fazenda;
         private bool _hasItems;
         private ICommand _removerTalhaoCommand;
+        private ICommand _itemTappedCommand;
         private IList<Talhao> _talhoesList;
+        private readonly bool _fromAnalise;
 
-
-        public FazendaDetalhesViewModel(INavigation navigation, Fazenda fazenda) : base(navigation)
+        public FazendaDetalhesViewModel(INavigation navigation, Fazenda fazenda, bool fromAnalise) : base(navigation)
         {
             _realm = Realm.GetInstance();
             Fazenda = fazenda;
             HasItems = _realm.All<Talhao>().Any(t => t.FazendaId.Equals(Fazenda.Id));
+            _fromAnalise = fromAnalise;
         }
 
         public bool HasItems
@@ -48,6 +50,23 @@ namespace Solum.ViewModel
 
         public ICommand EditarTalhaoCommand
             => _editarTalhaoCommand ?? (_editarTalhaoCommand = new Command(obj => EditarTalhao(obj as Talhao)));
+
+        public ICommand ItemTappedCommand
+            => _itemTappedCommand ?? (_itemTappedCommand = new Command(obj => Selecionar(obj)));
+
+        private async void Selecionar(object obj)
+        {
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                if (_fromAnalise)
+                {
+                    MessagingCenter.Send(this, "TalhaoSelecionado", obj as Talhao);
+                    await Navigation.PopAsync();
+                }
+                IsBusy = false;
+            }
+        }
 
         private async void EditarTalhao(Talhao talhao)
         {

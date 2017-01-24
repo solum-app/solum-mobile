@@ -68,7 +68,7 @@ namespace Solum.ViewModel
                     await Navigation.PopAsync();
                 }
                 else
-                    await Navigation.PushAsync(new FazendaDetalhesPage(obj as Fazenda));
+                    await Navigation.PushAsync(new FazendaDetalhesPage(obj as Fazenda, false));
                 IsBusy = false;
             }
         }

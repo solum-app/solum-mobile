@@ -8,10 +8,10 @@ namespace Solum.Pages
 {
     public partial class FazendaDetalhesPage : ContentPage
     {
-        public FazendaDetalhesPage(Fazenda fazenda)
+        public FazendaDetalhesPage(Fazenda fazenda, bool fromAnalise)
         {
             InitializeComponent();
-            BindingContext = new FazendaDetalhesViewModel(Navigation, fazenda);
+            BindingContext = new FazendaDetalhesViewModel(Navigation, fazenda, fromAnalise);
 			NavigationPage.SetBackButtonTitle(this, "Voltar");
 			
             if (Device.OS == TargetPlatform.Android)
@@ -27,7 +27,9 @@ namespace Solum.Pages
                         if (!IsBusy)
                         {
                             IsBusy = true;
-                            await Navigation.PushAsync(new TalhaoCadastroPage(fazenda));
+                            await Navigation.PushAsync(new TalhaoCadastroPage(fazenda, fromAnalise));
+                            if(fromAnalise)
+                                Navigation.RemovePage(this);
                             IsBusy = false;
                         }
                     }
@@ -43,9 +45,14 @@ namespace Solum.Pages
             {
                 var item = new ToolbarItem("Add", "ic_add",
                     async () => {
-                        IsBusy = true;
-                        await Navigation.PushAsync(new TalhaoCadastroPage(fazenda));
-                        IsBusy = false;
+                        if (!IsBusy)
+                        {
+                            IsBusy = true;
+                            await Navigation.PushAsync(new TalhaoCadastroPage(fazenda, fromAnalise));
+                            if (fromAnalise)
+                                Navigation.RemovePage(this);
+                            IsBusy = false;
+                        }
                     });
                 ToolbarItems.Add(item);
             }

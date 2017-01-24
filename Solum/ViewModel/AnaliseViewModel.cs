@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Realms;
@@ -57,6 +58,16 @@ namespace Solum.ViewModel
             MessagingCenter.Subscribe<FazendaCadastroViewModel, Fazenda>(this, "FazendaSelecionada", (model, fazenda) =>
             {
                 SelecionarFazenda(fazenda);
+            });
+
+            MessagingCenter.Subscribe<FazendaDetalhesViewModel, Talhao>(this, "TalhaoSelecionado", (model, talhao) =>
+            {
+                SelecionarTalhao(talhao);
+            });
+
+            MessagingCenter.Subscribe<TalhaoCadastroViewModel, Talhao>(this, "TalhaoSelecionado", (model, talhao) =>
+            {
+                SelecionarTalhao(talhao);
             });
         }
 
@@ -224,30 +235,30 @@ namespace Solum.ViewModel
             Fazenda = _realm.Find<Fazenda>(fazenda.Id);
             FazendaNome = Fazenda.Nome;
         }
-        private void SelecionarTalhao() { }
+
+        private async void SelecionarTalhao()
+        {
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                await Navigation.PushAsync(new FazendaDetalhesPage(Fazenda, true));
+                IsBusy = false;
+            }
+        }
 
         private void SelecionarTalhao(Talhao talhao)
         {
-            
+            Talhao = _realm.Find<Talhao>(talhao.Id);
+            TalhaoNome = Talhao.Nome;
         }
-        private void Salvar() { }
 
-
-
-        protected async Task ExecuteButtonClickedCommand()
+        private async void Salvar()
         {
-            //if (string.IsNullOrEmpty(Fazenda))
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-            //        "Insira um nome para a Fazenda", "OK");
-            //    return;
-            //}
-            //if (string.IsNullOrEmpty(Talhao))
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-            //        "Insira uma identificação para o Talhão", "OK");
-            //    return;
-            //}
+            if (Talhao == null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido","Selecione um talhão", "OK");
+                return;
+            }
             if (DataSelecionada == default(DateTime))
             {
                 await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
@@ -324,8 +335,8 @@ namespace Solum.ViewModel
 
             var analise = new Analise
             {
-                //Fazenda = FazendaEntry.Trim (),
-                //Talhao = TalhaoEntry,
+                Talhao = Talhao,
+                TalhaoId =  Talhao.Id,
                 Data = DataSelecionada,
                 PotencialHidrogenico = float.Parse("0" + PotencialHidrogenico.Replace(',', '.'), CultureInfo.InvariantCulture),
                 Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture),
@@ -338,12 +349,20 @@ namespace Solum.ViewModel
                     float.Parse("0" + MateriaOrganica.Replace(',', '.'), CultureInfo.InvariantCulture),
                 Areia = float.Parse("0" + Areia.Replace(',', '.'), CultureInfo.InvariantCulture),
                 Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture),
-                Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture)
+                Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture),
+                Id = Guid.NewGuid().ToString()
+                
             };
 
-            //if (realmAnalise == default(Analise))
-            //    await Navigation.PushAsync(new InterpretacaoPage(analise, false));
-            //else await Navigation.PushAsync(new InterpretacaoPage(analise, realmAnalise, false));
+            using (var transaction = _realm.BeginWrite())
+            {
+                _realm.Add(analise);
+                transaction.Commit();
+            }
+
+            var current = Navigation.NavigationStack.LastOrDefault();
+            await Navigation.PushAsync(new GerenciamentoAnalise(analise));
+            Navigation.RemovePage(current);
         }
 
         public override void Dispose()

@@ -17,11 +17,13 @@ namespace Solum.ViewModel
         private string _talhaoArea;
         private string _titulo;
         private readonly bool _isUpdate;
+        private readonly bool _fromAnalise;
 
-        public TalhaoCadastroViewModel(INavigation navigation, Fazenda fazenda) : base(navigation)
+        public TalhaoCadastroViewModel(INavigation navigation, Fazenda fazenda, bool fromAnalise) : base(navigation)
         {
             _realm = Realm.GetInstance();
             _isUpdate = false;
+            _fromAnalise = fromAnalise;
             Titulo = "Novo Talhão";
             Fazenda = fazenda;
         }
@@ -96,8 +98,8 @@ namespace Solum.ViewModel
                     _realm.Add(novo);
                     transaction.Commit();
                 }
-
-                MessagingCenter.Send(this, RegisterSuccessfullTitle);
+                if(!_fromAnalise) MessagingCenter.Send(this, RegisterSuccessfullTitle);
+                else MessagingCenter.Send(this, "TalhaoSelecionado", novo);
                 await Navigation.PopAsync();
             }
 
