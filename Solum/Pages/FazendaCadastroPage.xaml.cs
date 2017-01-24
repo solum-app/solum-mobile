@@ -8,10 +8,10 @@ namespace Solum.Pages
 {
     public partial class FazendaCadastroPage : ContentPage
     {
-        public FazendaCadastroPage()
+        public FazendaCadastroPage(bool fromAnalise)
         {
             InitializeComponent();
-            BindingContext = new FazendaCadastroViewModel(Navigation);
+            BindingContext = new FazendaCadastroViewModel(Navigation, fromAnalise);
             NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
         }
 

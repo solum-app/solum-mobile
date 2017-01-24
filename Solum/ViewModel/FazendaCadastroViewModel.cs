@@ -28,10 +28,13 @@ namespace Solum.ViewModel
         private Fazenda _fazenda;
         private readonly Realm _realm;
 
-        public FazendaCadastroViewModel(INavigation navigation) : base(navigation)
+        private readonly bool _fromAnalise;
+
+        public FazendaCadastroViewModel(INavigation navigation, bool fromAnalise) : base(navigation)
         {
             _realm = Realm.GetInstance();
             CarregarEstados();
+            _fromAnalise = fromAnalise;
         }
 
         public FazendaCadastroViewModel(INavigation navigation, Fazenda fazenda) : base(navigation)
@@ -113,21 +116,23 @@ namespace Solum.ViewModel
 
                 var usuario = _realm.All<Usuario>().FirstOrDefault();
 
+                var fazenda = new Fazenda
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Nome = NomeFazenda,
+                    CidadeId = CidadeSelecionada.Id,
+                    Cidade = CidadeSelecionada,
+                    UsuarioId = usuario.Id,
+                    Usuario = usuario
+                };
+
                 using (var transaction = _realm.BeginWrite())
                 {
-                    var fazenda = new Fazenda
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Nome = NomeFazenda,
-                        CidadeId = CidadeSelecionada.Id,
-                        Cidade = CidadeSelecionada,
-                        UsuarioId = usuario.Id,
-                        Usuario = usuario
-                    };
                     _realm.Add(fazenda);
                     transaction.Commit();
                 }
-                MessagingCenter.Send(this, RegisterSuccessfullTitle);
+                if(!_fromAnalise) MessagingCenter.Send(this, RegisterSuccessfullTitle);
+                else MessagingCenter.Send(this, "FazendaSelecionada", fazenda);
                 await Navigation.PopAsync(true);
             }
             else

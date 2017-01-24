@@ -25,7 +25,7 @@ namespace Solum.Pages
                         if (!IsBusy)
                         {
                             IsBusy = true;
-                            await Navigation.PushAsync(new FazendaCadastroPage());
+                            await Navigation.PushAsync(new FazendaCadastroPage(fromAnalise));
                             if(fromAnalise)
                                 Navigation.RemovePage(this);
                             IsBusy = false;
@@ -39,7 +39,16 @@ namespace Solum.Pages
             }
             else
             {
-                var item = new ToolbarItem("Add", "ic_add", async () => await Navigation.PushAsync(new FazendaCadastroPage()));
+                var item = new ToolbarItem("Add", "ic_add", async () => {
+                    if (!IsBusy)
+                    {
+                        IsBusy = true;
+                        await Navigation.PushAsync(new FazendaCadastroPage(fromAnalise));
+                        if (fromAnalise)
+                            Navigation.RemovePage(this);
+                        IsBusy = false;
+                    }
+                });
                 ToolbarItems.Add(item);
             }
         }

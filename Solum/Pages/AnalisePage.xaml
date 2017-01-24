@@ -37,7 +37,7 @@
 				</BoxView>
 				<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
         
-				<Label x:Name="fazendaEntry"
+				<Label x:Name="fazendaLabel"
                Text="{Binding FazendaNome}"
                TextColor="{StaticResource colorTextHint}"
                VerticalOptions="Center" 
@@ -77,28 +77,28 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<Label x:Name="talhaoEntry"
-               Text="{Binding NomeTalhao}"
-               VerticalOptions="Center"
-               Grid.Column="2" Margin="16,0"
-               HorizontalTextAlignment="End"
-               TextColor="{StaticResource colorTextHint}">
+        <Label x:Name="talhaoLabel"
+             Text="{Binding TalhaoNome}"
+             TextColor="{StaticResource colorTextHint}"
+             VerticalOptions="Center"
+             Grid.Column="2"
+             Margin="16,0"
+             HorizontalTextAlignment="End">
 
-					<Label.Effects>
-						<effects:NoBorderEffect />
-					</Label.Effects>
-					
+          <Label.Effects>
+            <effects:NoBorderEffect />
+          </Label.Effects>
+
           <Label.FontSize>
-						<OnPlatform x:TypeArguments="x:Double" 
+            <OnPlatform x:TypeArguments="x:Double"
                         iOS="17"
                         Android="14" />
-					</Label.FontSize>
-          
+          </Label.FontSize>
+
           <Label.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding SelecionarTalhaoCommand}"/>
           </Label.GestureRecognizers>
-          
-				</Label>
+        </Label>
         
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
 					 VerticalOptions="End">

@@ -15,6 +15,7 @@ namespace Solum.ViewModel
 
         private string _title;
         private string _fazendaNome;
+        private string _talhaoNome;
         private DateTimeOffset _data = DateTimeOffset.Now;
 
         private string _potencialHidrogenico;
@@ -46,7 +47,14 @@ namespace Solum.ViewModel
             _realm = Realm.GetInstance();
             Title = "Nova Análise";
             FazendaNome = "Selecione uma fazenda";
+            TalhaoNome = "Selecione um talhão";
+
             MessagingCenter.Subscribe<FazendaListViewModel, Fazenda>(this, "FazendaSelecionada", (model, fazenda) =>
+            {
+                SelecionarFazenda(fazenda);
+            });
+
+            MessagingCenter.Subscribe<FazendaCadastroViewModel, Fazenda>(this, "FazendaSelecionada", (model, fazenda) =>
             {
                 SelecionarFazenda(fazenda);
             });
@@ -95,6 +103,12 @@ namespace Solum.ViewModel
         {
             get { return _fazendaNome; }
             set { SetPropertyChanged(ref _fazendaNome, value); }
+        }
+
+        public string TalhaoNome
+        {
+            get { return _talhaoNome;}
+            set { SetPropertyChanged(ref _talhaoNome, value); }
         }
 
         public Analise Analise
@@ -211,6 +225,11 @@ namespace Solum.ViewModel
             FazendaNome = Fazenda.Nome;
         }
         private void SelecionarTalhao() { }
+
+        private void SelecionarTalhao(Talhao talhao)
+        {
+            
+        }
         private void Salvar() { }
 
 
@@ -325,6 +344,13 @@ namespace Solum.ViewModel
             //if (realmAnalise == default(Analise))
             //    await Navigation.PushAsync(new InterpretacaoPage(analise, false));
             //else await Navigation.PushAsync(new InterpretacaoPage(analise, realmAnalise, false));
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            MessagingCenter.Unsubscribe<FazendaListViewModel, Fazenda>(this, "FazendaSelecionada");
+            MessagingCenter.Unsubscribe<FazendaCadastroViewModel, Fazenda>(this, "FazendaSelecionada");
         }
     }
 }
