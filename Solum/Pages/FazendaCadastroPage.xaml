@@ -88,11 +88,10 @@
 				Margin="16,0"
 				HasBorder="false"
 				PlaceholderColor="{StaticResource colorTextHint}"
-				TextAlignment="Right"
-				TextSize="23">
+				TextAlignment="Right">
 				<local:CustomPicker.TextSize>
 					<OnPlatform x:TypeArguments="x:Double"
-						Android="16"/>
+						Android="14"/>
 				</local:CustomPicker.TextSize>
 			</local:CustomPicker>
 			
@@ -125,7 +124,7 @@
 				TextAlignment="Right">
 				<local:CustomPicker.TextSize>
 					<OnPlatform x:TypeArguments="x:Double"
-						Android="16"/>
+						Android="14"/>
 				</local:CustomPicker.TextSize>
 			</local:CustomPicker>
 		</Grid>
