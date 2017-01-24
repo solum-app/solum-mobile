@@ -43,7 +43,6 @@
 								<Label Text="{Binding Cidade.Nome}" TextColor="{StaticResource colorTextSecundary}" FontSize="Small"/>
 								<Label Text="{Binding Cidade.Estado.Uf, StringFormat=' - {0}'}" TextColor="{StaticResource colorTextSecundary}" FontSize="Small"/>
 							</StackLayout>
-
 						</Grid>
 
 						<ViewCell.ContextActions>

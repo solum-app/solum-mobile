@@ -14,6 +14,7 @@ namespace Solum.ViewModel
         #region Private Properties
 
         private string _title;
+        private string _fazendaNome;
         private DateTimeOffset _data = DateTimeOffset.Now;
 
         private string _potencialHidrogenico;
@@ -44,6 +45,11 @@ namespace Solum.ViewModel
         {
             _realm = Realm.GetInstance();
             Title = "Nova Análise";
+            FazendaNome = "Selecione uma fazenda";
+            MessagingCenter.Subscribe<FazendaListViewModel, Fazenda>(this, "FazendaSelecionada", (model, fazenda) =>
+            {
+                SelecionarFazenda(fazenda);
+            });
         }
 
         public AnaliseViewModel(INavigation navigation, Analise analise) : base(navigation)
@@ -83,6 +89,12 @@ namespace Solum.ViewModel
         {
             get { return _title; }
             set { SetPropertyChanged(ref _title, value); }
+        }
+
+        public string FazendaNome
+        {
+            get { return _fazendaNome; }
+            set { SetPropertyChanged(ref _fazendaNome, value); }
         }
 
         public Analise Analise
@@ -187,10 +199,16 @@ namespace Solum.ViewModel
         {
             if (!IsBusy)
             {
+                IsBusy = true;
+                await Navigation.PushAsync(new FazendaListPage(true));
                 IsBusy = false;
-              //  await Navigation.PopModalAsync(new FazendaListPage());
-
             }
+        }
+
+        private void SelecionarFazenda(Fazenda fazenda)
+        {
+            Fazenda = _realm.Find<Fazenda>(fazenda.Id);
+            FazendaNome = Fazenda.Nome;
         }
         private void SelecionarTalhao() { }
         private void Salvar() { }

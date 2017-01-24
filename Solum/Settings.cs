@@ -12,7 +12,7 @@ namespace Solum
         static Settings()
         {
             // BaseUri = new Uri("http://192.168.0.23/solum/api/");
-            BaseUri = new Uri("http://192.168.0.4/solum/api/");
+            BaseUri = new Uri("http://192.168.0.7/solum/api/");
             AccountUri = "account/";
             AccountRegisterUri = "account/register";
             AccountLoginUri = "account/login";

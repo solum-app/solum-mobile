@@ -7,10 +7,10 @@ namespace Solum.Pages
 {
     public partial class FazendaListPage : ContentPage
     {
-        public FazendaListPage()
+        public FazendaListPage(bool fromAnalise)
         {
             InitializeComponent();
-            BindingContext = new FazendaListViewModel(Navigation);
+            BindingContext = new FazendaListViewModel(Navigation, fromAnalise);
             NavigationPage.SetBackButtonTitle(this, "Voltar");
             if (Device.OS == TargetPlatform.Android)
             {
@@ -26,6 +26,8 @@ namespace Solum.Pages
                         {
                             IsBusy = true;
                             await Navigation.PushAsync(new FazendaCadastroPage());
+                            if(fromAnalise)
+                                Navigation.RemovePage(this);
                             IsBusy = false;
                         }
                     }

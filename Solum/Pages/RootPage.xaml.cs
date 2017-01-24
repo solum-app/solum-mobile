@@ -87,7 +87,7 @@ namespace Solum.Pages
                 }
                 else
                 {
-                    _currentPage = new FazendaListPage();
+                    _currentPage = new FazendaListPage(false);
                     Detail = new NavigationPage(_currentPage)
 					{
 						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
@@ -98,7 +98,7 @@ namespace Solum.Pages
             }
             else
             {
-                var page = new FazendaListPage();
+                var page = new FazendaListPage(false);
                 await _navigationPage.Navigation.PushAsync(page);
                 _navigationPage.Navigation.RemovePage(_currentPage);
                 _currentPage = page;

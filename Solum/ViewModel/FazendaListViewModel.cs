@@ -16,11 +16,13 @@ namespace Solum.ViewModel
         private ICommand _itemTappedCommand;
         private IList<Fazenda> _fazendas;
         private bool _hasItems;
+        private readonly bool _fromAnalise;
 
-        public FazendaListViewModel(INavigation navigation) : base(navigation)
+        public FazendaListViewModel(INavigation navigation, bool fromAnalise) : base(navigation)
         {
             _realmInstance = Realm.GetInstance();
             HasItems = _realmInstance.All<Fazenda>().Any();
+            _fromAnalise = fromAnalise;
             if (HasItems)
                 Fazendas = _realmInstance.All<Fazenda>().OrderBy(x => x.Nome).ToList();
         }
@@ -43,7 +45,7 @@ namespace Solum.ViewModel
 
         public ICommand ItemTappedCommand
             => _itemTappedCommand ?? (_itemTappedCommand = new Command(obj => Detalhes(obj)));
-
+      
         private void Excluir(object obj)
         {
             var fazenda = obj as Fazenda;
@@ -60,7 +62,13 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new FazendaDetalhesPage(obj as Fazenda));
+                if (_fromAnalise)
+                {
+                    MessagingCenter.Send(this, "FazendaSelecionada", obj as Fazenda);
+                    await Navigation.PopAsync();
+                }
+                else
+                    await Navigation.PushAsync(new FazendaDetalhesPage(obj as Fazenda));
                 IsBusy = false;
             }
         }
