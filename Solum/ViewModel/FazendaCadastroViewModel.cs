@@ -131,9 +131,14 @@ namespace Solum.ViewModel
                     _realm.Add(fazenda);
                     transaction.Commit();
                 }
-                if(!_fromAnalise) MessagingCenter.Send(this, RegisterSuccessfullTitle);
-                else MessagingCenter.Send(this, "FazendaSelecionada", fazenda);
-                await Navigation.PopAsync(true);
+
+
+                if(!_fromAnalise) 
+					"Deu certo".ToToast();
+                else 
+					MessagingCenter.Send(this, "FazendaSelecionada", fazenda);
+				
+                await Navigation.PopAsync();
             }
             else
             {
@@ -155,7 +160,7 @@ namespace Solum.ViewModel
                     transaction.Commit();
                 }
                 MessagingCenter.Send(this, UpdateSuccessfullTitle);
-                await Navigation.PopAsync(true);
+                await Navigation.PopAsync();
             }
         }
 
