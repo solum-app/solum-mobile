@@ -1,7 +1,8 @@
 ﻿using System;
+using Solum.Interfaces;
 using Xamarin.Forms;
 
-namespace Solum
+namespace Solum.Handlers
 {
 	public static class Extensions
 	{
@@ -13,5 +14,7 @@ namespace Solum
 				toaster.Notify(type, title ?? type.ToString().ToUpper(), message, TimeSpan.FromSeconds(2.5f));
 			});
 		}
+
+        public static void ToAlert(this string message) { }
 	}
 }

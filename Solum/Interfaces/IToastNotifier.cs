@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Solum {
+namespace Solum.Interfaces {
 	
 	public interface IToastNotifier
 	{

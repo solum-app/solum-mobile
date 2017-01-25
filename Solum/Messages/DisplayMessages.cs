@@ -2,26 +2,7 @@ namespace Solum.Messages
 {
     public class RegisterMessages
     {
-        public static string RegisterSucessfullTitle = "RegisterSucessfull";
-        public static string RegisterSuccessfullMessage = "Seu cadastro foi realizado com sucesso!";
-
-        public static string RegisterUnsuccessTitle = "RegisterUnsuccess";
-        public static string RegisterUnsuccessMessage = "Seu cadastro não foi realizado com sucesso!";
-
-        public static string EntryNullValuesTitle = "EntryNullValues";
-        public static string EntryNullValuesMessage = "Preencha os campos, selecionando a cidade que reside";
-
-        public static string InvalidEmailTitle = "InvalidEmail";
-        public static string InvalidEmailMessage = "Seu e-mail não está na forma correta";
-
-        public static string PasswordIsntMatchTitle = "PasswordIsntMatch";
-        public static string PasswordIsntMatchMessage = "Verifique as senhas, elas não estão iguais";
-
-        public static string WeakPasswordTitle = "WeakPassword";
-        public static string WeakPasswordMessage = "Sua senha é fraca. Deve conter pelo menos 6 caracteres";
-
-        public static string CityIsntSelectedTitle = "CityIsntSelected";
-        public static string CityIsntSelectedMessage = "Selecione o Estado e a Cidade que reside";
+        
     }
 
     public class LoginMessages

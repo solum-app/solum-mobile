@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Realms;
+using Solum.Handlers;
 using Solum.Models;
 using Xamarin.Forms;
 using static Solum.Messages.FazendaMessages;

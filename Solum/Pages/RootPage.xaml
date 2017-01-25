@@ -3,8 +3,8 @@
 <MasterDetailPage 
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:local="clr-namespace:Solum.Custom;assembly=Solum"
 	xmlns:viewModel="clr-namespace:Solum.ViewModel;assembly=Solum"
+	xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum"
 	x:Class="Solum.Pages.RootPage">
 	
 	<MasterDetailPage.Master>
@@ -17,7 +17,7 @@
 							<ColumnDefinition Width="*" />
 						</Grid.ColumnDefinitions>
 						
-						<local:ImageCircle 
+						<renderers:ImageCircle 
 							Source="ic_menu_solum"
 							HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
 							Margin="0" Grid.Column="0" HeightRequest="64" WidthRequest="64"/>

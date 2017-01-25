@@ -1,8 +1,8 @@
 ﻿using Android.Graphics;
 using Android.Views;
 using Java.Lang;
-using Solum.Custom;
 using Solum.Droid.Renderers;
+using Solum.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Color = Android.Graphics.Color;

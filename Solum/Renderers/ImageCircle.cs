@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace Solum.Custom
+namespace Solum.Renderers
 {
     public class ImageCircle : Image
     {

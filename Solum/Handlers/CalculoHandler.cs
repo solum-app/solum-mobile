@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Solum.Handler
+﻿namespace Solum.Handlers
 {
 	static class CalculoHandler
 	{

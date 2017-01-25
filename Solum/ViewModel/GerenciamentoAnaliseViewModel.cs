@@ -60,7 +60,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new CalagemPage());
+                await Navigation.PushAsync(new Pages.CalagemPage());
                 IsBusy = false;
             }
         }
@@ -70,7 +70,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new CorretivaPage());
+                await Navigation.PushAsync(new Pages.CorretivaPage());
                 IsBusy = false;
             }
         }
@@ -80,7 +80,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new SemeaduraPage());
+                await Navigation.PushAsync(new Pages.SemeaduraPage());
                 IsBusy = false;
             }
         }
