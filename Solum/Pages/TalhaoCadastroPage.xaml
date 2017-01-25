@@ -4,23 +4,24 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:effects="clr-namespace:Solum.Effects"
 			 x:Class="Solum.Pages.TalhaoCadastroPage"
-			 Title="{Binding Titulo}">
+			 Title="{Binding PageTitle}">
 
 	<StackLayout VerticalOptions="FillAndExpand"
-				 HorizontalOptions="FillAndExpand"
-				 BackgroundColor="{StaticResource colorBackground}"
-				 Spacing="0">
+               HorizontalOptions="FillAndExpand"
+               BackgroundColor="{StaticResource colorBackground}"
+               Spacing="0">
 
 		<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES">
 			<Label.Margin>
 				<OnPlatform x:TypeArguments="Thickness"
-							iOS="16,24,16,4"
-							Android="16, 13" />
+                    iOS="16,24,16,4"
+                    Android="16, 13" />
 			</Label.Margin>
+      
 			<Label.FontSize>
 				<OnPlatform x:TypeArguments="x:Double"
-							iOS="13"
-							Android="14" />
+                    iOS="13"
+                    Android="14" />
 			</Label.FontSize>
 		</Label>
 		<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
@@ -37,9 +38,9 @@
 				</BoxView.HeightRequest>
 			</BoxView>
 			<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-			<Entry x:Name="TalhaoNomeEntry"
+			<Entry
 				   Keyboard="Text"
-				   Text="{Binding TalhaoNome}"
+				   Text="{Binding TalhaoName}"
 				   VerticalOptions="Center" Grid.Column="2"
 				   Margin="16,0" Placeholder="Nome do Talhão"
 				   HorizontalTextAlignment="End"
@@ -70,7 +71,7 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<Label Text="Área" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-			<Entry x:Name="TalhaoAreaEntry" 
+			<Entry 
 				   Keyboard="Numeric"
 				   Text="{Binding TalhaoArea}"
 				   VerticalOptions="Center" Grid.Column="2"
@@ -99,7 +100,7 @@
 
 		<Button x:Name="CadastrarButton"
 				Text="Cadastrar"
-				Command="{Binding CadastrarTalhaoCommand}"
+				Command="{Binding SaveCommand}"
 				VerticalOptions="EndAndExpand"
 				BackgroundColor="{StaticResource colorAccent}"
 				TextColor="{StaticResource colorTextPrimary}"

@@ -14,13 +14,6 @@ namespace Solum.Pages
             NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
         }
 
-        public FazendaCadastroPage(Fazenda fazenda)
-        {
-            InitializeComponent();
-            BindingContext = new FazendaCadastroViewModel(Navigation, fazenda);
-            NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
-        }
-
         public FazendaCadastroPage(Fazenda fazenda, bool fromAnalise)
         {
             InitializeComponent();

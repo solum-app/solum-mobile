@@ -21,18 +21,6 @@ namespace Solum.ViewModel
             _fromAnalise = fromAnalise;
         }
 
-        public FazendaCadastroViewModel(INavigation navigation, Fazenda fazenda) : base(navigation)
-        {
-            _isUpdate = true;
-            _realm = Realm.GetInstance();
-            _fazenda = fazenda;
-            FazendaName = fazenda.Nome;
-            LoadEstados();
-            EstadoSelected = _realm.Find<Estado>(_fazenda.Cidade.EstadoId);
-            LoadCidades();
-            CidadeSelected = _realm.Find<Cidade>(_fazenda.CidadeId);
-        }
-
         public FazendaCadastroViewModel(INavigation navigation, Fazenda fazenda, bool fromAnalise) : base(navigation)
         {
             _isUpdate = true;

@@ -63,7 +63,7 @@ namespace Solum.Pages
         {
             var fazenda = (sender as MenuItem).CommandParameter;
             var context = BindingContext as FazendaDetalhesViewModel;
-            context?.EditarTalhaoCommand.Execute(fazenda);
+            context?.ShowEditTalhaoPageCommand.Execute(fazenda);
         }
 
         public async void OnDelete(object sender, EventArgs args)
@@ -72,7 +72,7 @@ namespace Solum.Pages
             if (!confirm) return;
             var talhao = (sender as MenuItem).CommandParameter;
             var context = BindingContext as FazendaDetalhesViewModel;
-            context?.RemoverTalhaoCommand.Execute(talhao);
+            context?.DeleteTalhaoCommand.Execute(talhao);
         }
 
         protected override void OnAppearing()

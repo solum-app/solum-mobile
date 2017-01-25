@@ -30,14 +30,10 @@ namespace Solum.Messages
 
     public class TalhaoMessages
     {
-        public static string NullEntriesTitle = "NullEntries";
-        public static string NullEntriesMessage = "Preencha o campo nome do talhao";
-
-        public static string RegisterSuccessfullTitle = "RegisterSuccesfull";
-        public static string RegisterSuccessfullMessage = "Talhão cadastrado com sucesso!";
-
-        public static string UpdateSuccessfullTitle = "UpdateSuccessfull";
-        public static string UpdateSucessfullMessage = "Talhão Atualizado com sucesso!";
+        public static string TalhaoNameNull = "Preencha o campo de nome do talhão";
+        public static string Success = "Talhão cadastrado com sucesso!";
+        public static string UpdateSuccess = "Talhão atualizado com sucesso!";
+        public static string Deleted = "Talhao removido com sucesso!";
     }
 
     public class UpdateAnalisesMessage

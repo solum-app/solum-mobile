@@ -1,7 +1,6 @@
 ﻿using Solum.Models;
 using Solum.ViewModel;
 using Xamarin.Forms;
-using static Solum.Messages.TalhaoMessages;
 using static Solum.Settings;
 
 namespace Solum.Pages
