@@ -32,7 +32,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Custom\ImageCircle.cs" />
+    <Compile Include="Renderers\ImageCircle.cs" />
     <Compile Include="Effects\IStatusBarColor.cs" />
     <Compile Include="Messages\DisplayMessages.cs" />
     <Compile Include="Models\Bindings.cs" />
@@ -44,6 +44,9 @@
     <Compile Include="Pages\CadastroPage.xaml.cs">
       <DependentUpon>CadastroPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CoberturaPage.xaml.cs">
+      <DependentUpon>CoberturaPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\FazendaCadastroPage.xaml.cs">
       <DependentUpon>FazendaCadastroPage.xaml</DependentUpon>
     </Compile>
@@ -52,6 +55,12 @@
     </Compile>
     <Compile Include="Pages\FazendaListPage.xaml.cs">
       <DependentUpon>FazendaListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\GerenciamentoAnalise.xaml.cs">
+      <DependentUpon>GerenciamentoAnalise.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\InterpretacaoTestePage.xaml.cs">
+      <DependentUpon>InterpretacaoTestePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -92,6 +101,7 @@
     <Compile Include="ViewModel\FazendaCadastroViewModel.cs" />
     <Compile Include="ViewModel\FazendaDetalhesViewModel.cs" />
     <Compile Include="ViewModel\FazendaListViewModel.cs" />
+    <Compile Include="ViewModel\GerenciamentoAnaliseViewModel.cs" />
     <Compile Include="ViewModel\InterpretacaoViewModel.cs" />
     <Compile Include="Handlers\InterpretaHandler.cs" />
     <Compile Include="Handlers\Converters.cs" />
@@ -101,7 +111,6 @@
     <Compile Include="Effects\TextSizeEffect.cs" />
     <Compile Include="ViewModel\AnalisesViewModel.cs" />
     <Compile Include="Renderers\BindableListView.cs" />
-    <Compile Include="Messages\UpdateAnalisesMessage.cs" />
     <Compile Include="Renderers\BindableDatePicker.cs" />
     <Compile Include="Pages\SobrePage.xaml.cs">
       <DependentUpon>SobrePage.xaml</DependentUpon>
@@ -122,9 +131,8 @@
       <DependentUpon>SemeaduraPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\TalhaoCadastroViewModel.cs" />
-    <Compile Include="Pages\RecomendaSemeaduraPage.xaml.cs">
-      <DependentUpon>RecomendaSemeaduraPage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Interfaces\IToastNotifier.cs" />
+    <Compile Include="Handlers\Extensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
@@ -147,9 +155,6 @@
     <EmbeddedResource Include="Solum.xaml" />
     <Compile Include="Solum.xaml.cs" />
     <EmbeddedResource Include="Pages\SemeaduraPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pages\RecomendaSemeaduraPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -269,6 +274,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\TalhaoCadastroPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\GerenciamentoAnalise.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\CoberturaPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\InterpretacaoTestePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

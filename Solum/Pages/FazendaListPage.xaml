@@ -17,14 +17,14 @@
 			HorizontalOptions="Center"
 			FontSize="Medium"
 			Text="Nenhuma fazenda cadastrada"
-			TextColor="{StaticResource colorTextSecundary}" />
+			TextColor="#757575" />
 
 		<renderers:BindableListView
 			IsVisible="{Binding HasItems}"
 			x:Name="FazendasList"
 			HasUnevenRows="true"
 			ItemClickedCommand="{Binding ItemTappedCommand}"
-			SeparatorColor="{StaticResource colorSeparator}"
+			SeparatorColor="#C8C7CC"
 			ItemsSource="{Binding Fazendas}"
 			AbsoluteLayout.LayoutFlags="All"
 			AbsoluteLayout.LayoutBounds="0,0,1,1">
@@ -32,6 +32,7 @@
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<ViewCell>
+
 						<Grid Padding="15" BackgroundColor="White">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto"/>

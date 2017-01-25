@@ -82,19 +82,14 @@
 				ItemsSource="{Binding EstadoList}"
 				SelectedItem="{Binding EstadoSelecionado}"
 				ItemSelectedCommand="{Binding AtualizarListaCidadesCommand}"
-        		IsEnabled="{Binding IsEstadosCarregados}"
+        IsEnabled="{Binding IsEstadosCarregados}"
 				VerticalOptions="Center"
 				Grid.Column="2"
 				Margin="16,0"
 				HasBorder="false"
 				PlaceholderColor="{StaticResource colorTextHint}"
-				TextAlignment="Right">
-				<local:CustomPicker.TextSize>
-					<OnPlatform x:TypeArguments="x:Double"
-						Android="14"/>
-				</local:CustomPicker.TextSize>
-			</local:CustomPicker>
-			
+				TextAlignment="Right"/>
+
 			<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
@@ -121,12 +116,7 @@
 				Margin="16,0"
 				HasBorder="false"
 				PlaceholderColor="{StaticResource colorTextHint}"
-				TextAlignment="Right">
-				<local:CustomPicker.TextSize>
-					<OnPlatform x:TypeArguments="x:Double"
-						Android="14"/>
-				</local:CustomPicker.TextSize>
-			</local:CustomPicker>
+				TextAlignment="Right"/>
 		</Grid>
 		
 		<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">

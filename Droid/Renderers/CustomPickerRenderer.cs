@@ -24,7 +24,6 @@ namespace Solum.Droid
 				SetFontFamily(view);
 				SetAlignment(view);
 				SetPlaceholderColor(view);
-				SetTextSize(view);
 			}
 		}
 
@@ -36,8 +35,6 @@ namespace Solum.Droid
 
 			if (e.PropertyName == CustomPicker.HasBorderProperty.PropertyName)
 				SetHasBorder(view);
-			if (e.PropertyName == CustomPicker.TextSizeProperty.PropertyName)
-				SetTextSize(view);
 			if (e.PropertyName == CustomPicker.TextAlignmentProperty.PropertyName)
 				SetAlignment(view);
 			if (e.PropertyName == CustomPicker.PlaceholderColorProperty.PropertyName)
@@ -50,12 +47,6 @@ namespace Solum.Droid
 			{
 				Control.SetBackgroundColor(Android.Graphics.Color.Transparent);
 			}
-		}
-
-		void SetTextSize(CustomPicker view)
-		{
-			if (view.TextSize != default(Double))
-				Control.TextSize = (float)view.TextSize;
 		}
 
 		void SetPlaceholderColor(CustomPicker view)
