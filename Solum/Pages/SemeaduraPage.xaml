@@ -35,8 +35,8 @@
 							Android="0.3"/>
 					</BoxView.HeightRequest>
 				</BoxView>
-				<Label Text="V2" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-				<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="%" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
+				<Label Text="Expectativa de Rendimento" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
+				<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="t/ha" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
 				    </Entry.Effects>
@@ -61,34 +61,8 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Label Text="PRNT" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-				<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="%" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
-					<Entry.Effects>
-				        <effects:NoBorderEffect />
-				    </Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							iOS="17"
-							Android="14"/>
-					</Entry.FontSize>
-				</Entry>
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3"/>
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16"/>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Label Text="Profundidade" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-				<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="cm" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
+				<Label Text="Cultura" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
+				<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Selecione uma Cultura" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
 					<Entry.Effects>
 				        <effects:NoBorderEffect />
 				    </Entry.Effects>
@@ -107,6 +81,12 @@
 						Android="0"/>
 				</BoxView.HeightRequest>
 			</BoxView>
+
+			<Label 
+				Text="AVISO! O nível de Potássio de sua análise estava baixo, para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva."
+				TextColor="{StaticResource colorTextPrimary}"
+				Margin="16"
+				FontSize="Small"/>
 
 			<Button Text="Recomendação" IsEnabled="true" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
 		</StackLayout>

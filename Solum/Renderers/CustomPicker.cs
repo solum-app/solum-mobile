@@ -21,6 +21,13 @@ public class CustomPicker : Picker
 			Alignment.Left
 		);
 
+		public static readonly BindableProperty TextSizeProperty = BindableProperty.Create(
+			nameof(TextSize),
+			typeof(Double),
+			typeof(CustomPicker),
+			default(Double)
+		);
+
 		public static readonly BindableProperty PlaceholderColorProperty = BindableProperty.Create(
 			nameof(PlaceholderColor),
 			typeof(Color),
@@ -64,6 +71,12 @@ public class CustomPicker : Picker
 		{
 			get { return (string)GetValue(FontProperty); }
 			set { SetValue(FontProperty, value); }
+		}
+
+		public Double TextSize
+		{
+			get { return (Double)GetValue(TextSizeProperty); }
+			set { SetValue(TextSizeProperty, value); }
 		}
 
 		public bool HasBorder
