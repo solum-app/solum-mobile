@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Android.Widget;
 using Solum.Droid;
+using Solum.Interfaces;
 using Xamarin.Forms;
 
 [assembly: Dependency (typeof (ToastNotifier))]

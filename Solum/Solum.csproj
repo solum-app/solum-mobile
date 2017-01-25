@@ -32,7 +32,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Custom\ImageCircle.cs" />
+    <Compile Include="Renderers\ImageCircle.cs" />
     <Compile Include="Effects\IStatusBarColor.cs" />
     <Compile Include="Messages\DisplayMessages.cs" />
     <Compile Include="Models\Bindings.cs" />
@@ -111,7 +111,6 @@
     <Compile Include="Effects\TextSizeEffect.cs" />
     <Compile Include="ViewModel\AnalisesViewModel.cs" />
     <Compile Include="Renderers\BindableListView.cs" />
-    <Compile Include="Messages\UpdateAnalisesMessage.cs" />
     <Compile Include="Renderers\BindableDatePicker.cs" />
     <Compile Include="Pages\SobrePage.xaml.cs">
       <DependentUpon>SobrePage.xaml</DependentUpon>

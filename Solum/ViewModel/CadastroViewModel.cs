@@ -122,38 +122,38 @@ namespace Solum.ViewModel
 
             if (string.IsNullOrEmpty(Nome) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Senha) || string.IsNullOrEmpty(ConfirmaSenha))
             {
-                MessagingCenter.Send(this, EntryNullValuesTitle);
-                InRegistering = false;
-                return;
+                //MessagingCenter.Send(this, EntryNullValuesTitle);
+                //InRegistering = false;
+                //return;
             }
 
             if (!EmailValidator.Validate(Email))
             {
-                MessagingCenter.Send(this, InvalidEmailTitle);
-                InRegistering = false;
-                return;
+                //MessagingCenter.Send(this, InvalidEmailTitle);
+                //InRegistering = false;
+                //return;
             }
 
             if (!Senha.Equals(ConfirmaSenha))
             {
-                MessagingCenter.Send(this, PasswordIsntMatchTitle);
-                InRegistering = false;
-                return;
+                //MessagingCenter.Send(this, PasswordIsntMatchTitle);
+                //InRegistering = false;
+                //return;
             }
 
             var passwordRegex = new Regex(@"^(?=.*\w+)(?=.*\W*)(?=.*\d*)(?=.*\s*).{6,}$");
             if (!passwordRegex.IsMatch(Senha))
             {
-                MessagingCenter.Send(this, WeakPasswordTitle);
-                InRegistering = false;
-                return;
+                //MessagingCenter.Send(this, WeakPasswordTitle);
+                //InRegistering = false;
+                //return;
             }
 
             if (CidadeSelecionada == null)
             {
-                MessagingCenter.Send(this, CityIsntSelectedTitle);
-                InRegistering = false;
-                return;
+                //MessagingCenter.Send(this, CityIsntSelectedTitle);
+                //InRegistering = false;
+                //return;
             }
 
             var registerBinding = new RegisterBinding
@@ -169,14 +169,14 @@ namespace Solum.ViewModel
 
             if (result == RegisterResult.RegisterSuccefully)
             {
-                MessagingCenter.Send(this, RegisterSucessfullTitle);
-                InRegistering = false;
-                await Navigation.PopAsync(true);
+                //MessagingCenter.Send(this, RegisterSucessfullTitle);
+                //InRegistering = false;
+                //await Navigation.PopAsync(true);
             }
             else
             {
-                MessagingCenter.Send(this, RegisterUnsuccessTitle);
-                InRegistering = false;
+                //MessagingCenter.Send(this, RegisterUnsuccessTitle);
+                //InRegistering = false;
             }
         }
 

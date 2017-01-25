@@ -2,18 +2,19 @@ namespace Solum.Messages
 {
     public class RegisterMessages
     {
-        
+        public static string Success = "Seu cadastro foi realizado com sucesso!";
     }
 
     public class LoginMessages
     {
-        public static string EntryNullValuesTitle = "EntryNullValues";
-        public static string EntryNullValuesMessage = "Preencha os campos com email e senha";
+        public static string InvalidCredentialsTitle = "Credenciais invalidas";
+        public static string InvalidCredentialsMessage = "Suas credenciais estão inválidas";
 
-        public static string LoginErrorTitle = "CredentialsError";
+        public static string NullEntriesTitle = "Campos vazios";
+        public static string NullEntriesMessage = "Preencha os campos com E-Mail e Senha";
 
-        public static string LoginErrorMessage =
-            "Suas credenciais estão erradas ou sua conta não foi ativada. Por favor, verifique seu e-mail";
+        public static string LoginSuccessMessage = "Login com sucesso!";
+
     }
 
     public class FazendaMessages
@@ -38,5 +39,10 @@ namespace Solum.Messages
 
         public static string UpdateSuccessfullTitle = "UpdateSuccessfull";
         public static string UpdateSucessfullMessage = "Talhão Atualizado com sucesso!";
+    }
+
+    public class UpdateAnalisesMessage
+    {
+        public static string UpdateAnalises = "UpdateAnalises";
     }
 }

@@ -10,14 +10,12 @@ namespace Solum.Pages
 		public AnalisePage ()
 		{
 			BindingContext = new AnaliseViewModel (Navigation);
-
 			Init ();
 		}
 
 		public AnalisePage (Analise analise)
-		{;
+		{
 			BindingContext = new AnaliseViewModel (Navigation, analise);
-
 			Init ();
 		}
 
