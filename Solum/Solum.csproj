@@ -57,8 +57,8 @@
     <Compile Include="Pages\FazendaListPage.xaml.cs">
       <DependentUpon>FazendaListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\GerenciamentoAnalise.xaml.cs">
-      <DependentUpon>GerenciamentoAnalise.xaml</DependentUpon>
+    <Compile Include="Pages\GerenciamentoAnalisePage.xaml.cs">
+      <DependentUpon>GerenciamentoAnalisePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\InterpretacaoTestePage.xaml.cs">
       <DependentUpon>InterpretacaoTestePage.xaml</DependentUpon>
@@ -280,7 +280,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\GerenciamentoAnalise.xaml">
+    <EmbeddedResource Include="Pages\GerenciamentoAnalisePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

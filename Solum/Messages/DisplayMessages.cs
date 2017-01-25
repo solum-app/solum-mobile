@@ -60,6 +60,7 @@ namespace Solum.Messages
         public static string AreaiNull = "Preencha o campo Areia";
         public static string SilteNull = "Preencha o campo Silte";
         public static string ArgilaNull = "Preencha o campo Argila";
+        public static string Success = "Dados da análise salvos";
 
     }
 }

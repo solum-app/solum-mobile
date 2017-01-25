@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace Solum.Pages
 {
-    public partial class GerenciamentoAnalise : ContentPage
+    public partial class GerenciamentoAnalisePage : ContentPage
     {
-        public GerenciamentoAnalise(Analise analise)
+        public GerenciamentoAnalisePage(Analise analise)
         {
             InitializeComponent();
             BindingContext = new GerenciamentoAnaliseViewModel(Navigation, analise);
