@@ -1,7 +1,5 @@
 ﻿using Solum.ViewModel;
 using Xamarin.Forms;
-using static Solum.Messages.RegisterMessages;
-using static Solum.Settings;
 
 namespace Solum.Pages
 {

@@ -91,7 +91,7 @@
            TextColor="{StaticResource colorTextPrimary}"
            Margin="16,0" FontSize="Small" >
       <Label.GestureRecognizers>
-        <TapGestureRecognizer />
+        <TapGestureRecognizer Command="{Binding ShowForgotPasswordPageCommand}" />
       </Label.GestureRecognizers>
     </Label>
 		
@@ -110,6 +110,7 @@
            VerticalOptions="End" 
            FontSize="Small"
            IsVisible="{Binding InLogin, Converter={x:Static converter:IverseBoolConverter.Instance}}">
+      
 			<Label.GestureRecognizers>
 				<TapGestureRecognizer Command="{Binding ShowRegisterPageCommand}" />
 			</Label.GestureRecognizers>

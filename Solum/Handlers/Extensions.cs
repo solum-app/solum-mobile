@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Solum.Interfaces;
 using Xamarin.Forms;
 
@@ -6,7 +7,7 @@ namespace Solum.Handlers
 {
     public enum MessageType
     {
-        Info, Error, Warning, Success, Fail
+        Info, Erro, Aviso, Sucesso, Falha
     }
 
 	public static class Extensions
@@ -16,16 +17,16 @@ namespace Solum.Handlers
 			Device.BeginInvokeOnMainThread(() =>
 			{
 				var toaster = DependencyService.Get<IToastNotifier>();
-				toaster.Notify(type, title ?? type.ToString().ToUpper(), message, TimeSpan.FromSeconds(2.5f));
+				toaster.Notify(type, title ?? type.ToString(), message, TimeSpan.FromSeconds(2.5f));
 			});
 		}
 
-	    public static void ToDisplayAlert(this string message, string title = null, MessageType messageType = MessageType.Success)
+	    public static void ToDisplayAlert(this string message, MessageType messageType = MessageType.Sucesso)
 	    {
 	        Device.BeginInvokeOnMainThread(() =>
 	        {
-	            Application.Current.MainPage.DisplayAlert(title ?? messageType.ToString().ToUpper(), message, "OK");
+	            Application.Current.MainPage.DisplayAlert(messageType.ToString().ToUpper(), message, "OK");
 	        });
 	    }
-	}
+    }
 }

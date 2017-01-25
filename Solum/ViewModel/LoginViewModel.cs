@@ -16,6 +16,7 @@ namespace Solum.ViewModel
 
         private ICommand _showRegisterPageCommand;
         private ICommand _loginCommand;
+        private ICommand _showForgtPasswordPageCommand;
         private string _password;
         private string _username;
         private bool _inLogin;
@@ -51,6 +52,8 @@ namespace Solum.ViewModel
 
         #region Commandos
 
+        public ICommand ShowForgotPasswordPageCommand
+            => _showForgtPasswordPageCommand ?? (_showForgtPasswordPageCommand = new Command(ShowForgotPasswordPage));
         public ICommand ShowRegisterPageCommand => _showRegisterPageCommand ?? (_showRegisterPageCommand = new Command(ShowRegisterPage));
         public ICommand LoginCommand => _loginCommand ?? (_loginCommand = new Command(DoLogin));
 
@@ -59,7 +62,7 @@ namespace Solum.ViewModel
 
         #region Funções
 
-        public async void DoLogin()
+        private async void DoLogin()
         {
             var binding = new LoginBinding
             {
@@ -69,7 +72,7 @@ namespace Solum.ViewModel
 
             if (!binding.IsValid)
             {
-                NullEntriesMessage.ToDisplayAlert(NullEntriesTitle, MessageType.Error);
+                NullEntriesMessage.ToDisplayAlert(MessageType.Erro);
                 return;
             }
 
@@ -79,22 +82,32 @@ namespace Solum.ViewModel
             InLogin = false;
             if (login == AuthResult.LoginSuccessFully)
             {
-                LoginSuccessMessage.ToToast(ToastNotificationType.Success);
+                LoginSuccessMessage.ToToast(ToastNotificationType.Sucesso);
                 Application.Current.MainPage = new RootPage();
                 Dispose();
             }
             else
             {
-                InvalidCredentialsMessage.ToDisplayAlert(InvalidCredentialsTitle, MessageType.Error);
+                InvalidCredentialsMessage.ToDisplayAlert(MessageType.Erro);
             }
         }
 
-        public async void ShowRegisterPage()
+        private async void ShowForgotPasswordPage()
         {
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new CadastroPage(), true);
+                "Não implementado ainda".ToToast();
+                IsBusy = false;
+            }
+        }
+
+        private async void ShowRegisterPage()
+        {
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                await Navigation.PushAsync(new CadastroPage());
                 IsBusy = false;
             }
         }

@@ -21,33 +21,5 @@ namespace Solum.Pages
             BindingContext = new FazendaCadastroViewModel(Navigation, fazenda);
             NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            MessagingCenter.Subscribe<FazendaCadastroViewModel>(this, NullEntriesTitle, async view =>
-            {
-                await DisplayAlert(ErrorMessageTitle, NullEntriesMessage, ButtonTitle);
-            });
-
-            MessagingCenter.Subscribe<FazendaCadastroViewModel>(this, RegisterSuccessfullTitle, async view =>
-            {
-                await DisplayAlert(SuccessMessageTitle, RegisterSuccessfullMessage, ButtonTitle);
-            });
-
-            MessagingCenter.Subscribe<FazendaCadastroViewModel>(this, UpdateSuccessfullTitle, async view =>
-            {
-                await DisplayAlert(SuccessMessageTitle, UpdateSucessfullMessage, ButtonTitle);
-            });
-        }
-
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            MessagingCenter.Unsubscribe<FazendaCadastroViewModel>(this, NullEntriesTitle);
-            MessagingCenter.Unsubscribe<FazendaCadastroViewModel>(this, RegisterSuccessfullTitle);
-            MessagingCenter.Unsubscribe<FazendaCadastroViewModel>(this, UpdateSuccessfullTitle);
-        }
     }
 }

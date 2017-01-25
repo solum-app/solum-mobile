@@ -13,8 +13,8 @@ namespace Solum.Interfaces {
 	public enum ToastNotificationType
 	{
 		Info,
-		Success,
-		Error,
-		Warning,
+		Sucesso,
+		Erro,
+		Aviso,
 	}
 }

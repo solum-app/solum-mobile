@@ -1,59 +1,59 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Input;
 using EmailValidation;
 using Realms;
+using Solum.Handlers;
+using Solum.Interfaces;
+using Solum.Messages;
 using Solum.Models;
 using Solum.Remotes.Results;
 using Solum.Service;
 using Xamarin.Forms;
-using static Solum.Messages.RegisterMessages;
 
 namespace Solum.ViewModel
 {
     public class CadastroViewModel : BaseViewModel
     {
-        private ICommand _atualizarCidadesCommand;
-        private ICommand _registrarCommand;
-        private ICommand _voltarCommand;
-
-        private IList<Estado> _estados;
-        private IList<Cidade> _cidades;
-        private Estado _estadoSelecionado;
-        private Cidade _cidadeSelecionada;
-
-        private string _nome;
-        private string _email;
-        private string _senha;
-        private string _confirmaSenha;
-
-        private bool _inRegistering;
-        private bool _isCidadesCarregadas;
-        private bool _isEstadosCarregados;
-
-        private readonly AuthService _authService;
-        private readonly Realm _realm;
-
         public CadastroViewModel(INavigation navigation) : base(navigation)
         {
             _realm = Realm.GetInstance();
             _authService = AuthService.Instance;
-            IsEstadosCarregados = false;
-            CarregarEstados();
+            IsEstadosLoaded = false;
+            LoadEstados();
         }
 
-        public ICommand RegistrarCommand => _registrarCommand ?? (_registrarCommand = new Command(Cadastrar));
+        #region Propriedades privadas
 
-        public ICommand AtualizarCidadesCommand
-            => _atualizarCidadesCommand ?? (_atualizarCidadesCommand = new Command(AtualizarCidades));
+        private ICommand _updateCidadesCommand;
+        private ICommand _registerCommand;
+        private ICommand _backCommand;
 
-        public ICommand VoltarCommand => _voltarCommand ?? (_voltarCommand = new Command(Voltar));
+        private IList<Estado> _estados;
+        private IList<Cidade> _cidades;
+        private Estado _estadoSelected;
+        private Cidade _cidadeSelected;
 
-        public string Nome
+        private string _name;
+        private string _email;
+        private string _password;
+        private string _confirmPassword;
+
+        private bool _inRegistering;
+        private bool _isCidadesLoaded;
+        private bool _isEstadosLoaded;
+
+        private readonly AuthService _authService;
+        private readonly Realm _realm;
+
+        #endregion
+
+        #region Propriedades de Binding
+
+        public string Name
         {
-            get { return _nome; }
-            set { SetPropertyChanged(ref _nome, value.Trim()); }
+            get { return _name; }
+            set { SetPropertyChanged(ref _name, value.Trim()); }
         }
 
         public string Email
@@ -62,16 +62,16 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _email, value.Trim()); }
         }
 
-        public string Senha
+        public string Password
         {
-            get { return _senha; }
-            set { SetPropertyChanged(ref _senha, value.Trim()); }
+            get { return _password; }
+            set { SetPropertyChanged(ref _password, value.Trim()); }
         }
 
-        public string ConfirmaSenha
+        public string ConfirmPassword
         {
-            get { return _confirmaSenha; }
-            set { SetPropertyChanged(ref _confirmaSenha, value.Trim()); }
+            get { return _confirmPassword; }
+            set { SetPropertyChanged(ref _confirmPassword, value.Trim()); }
         }
 
         public IList<Estado> Estados
@@ -80,10 +80,16 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _estados, value); }
         }
 
-        public Estado EstadoSelecionado
+        public Estado EstadoSelected
         {
-            get { return _estadoSelecionado; }
-            set { SetPropertyChanged(ref _estadoSelecionado, value); }
+            get { return _estadoSelected; }
+            set { SetPropertyChanged(ref _estadoSelected, value); }
+        }
+
+        public bool IsEstadosLoaded
+        {
+            get { return _isEstadosLoaded; }
+            set { SetPropertyChanged(ref _isEstadosLoaded, value); }
         }
 
         public IList<Cidade> Cidades
@@ -92,22 +98,16 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _cidades, value); }
         }
 
-        public Cidade CidadeSelecionada
+        public Cidade CidadeSelected
         {
-            get { return _cidadeSelecionada; }
-            set { SetPropertyChanged(ref _cidadeSelecionada, value); }
+            get { return _cidadeSelected; }
+            set { SetPropertyChanged(ref _cidadeSelected, value); }
         }
 
-        public bool IsEstadosCarregados
+        public bool IsCidadesLoaded
         {
-            get { return _isEstadosCarregados; }
-            set { SetPropertyChanged(ref _isEstadosCarregados, value); }
-        }
-
-        public bool IsCidadesCarregadas
-        {
-            get { return _isCidadesCarregadas; }
-            set { SetPropertyChanged(ref _isCidadesCarregadas, value); }
+            get { return _isCidadesLoaded; }
+            set { SetPropertyChanged(ref _isCidadesLoaded, value); }
         }
 
         public bool InRegistering
@@ -116,84 +116,102 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _inRegistering, value); }
         }
 
-        public async void Cadastrar()
+        #endregion
+
+        #region Comandos
+
+        public ICommand RegisterCommand => _registerCommand ?? (_registerCommand = new Command(Register));
+
+        public ICommand UpdateCidadesCommand
+            => _updateCidadesCommand ?? (_updateCidadesCommand = new Command(UpdateCidades));
+
+        public ICommand BackCommand => _backCommand ?? (_backCommand = new Command(Back));
+
+        #endregion
+
+        #region Funções
+
+        public void LoadEstados()
+        {
+            Estados = _realm.All<Estado>().OrderBy(x => x.Nome).ToList();
+            IsEstadosLoaded = true;
+        }
+
+        public void UpdateCidades()
+        {
+            Cidades =
+                _realm.All<Cidade>().Where(x => x.EstadoId.Equals(EstadoSelected.Id)).OrderBy(x => x.Nome).ToList();
+            IsCidadesLoaded = true;
+        }
+
+        public async void Register()
         {
             InRegistering = true;
 
-            if (string.IsNullOrEmpty(Nome) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Senha) || string.IsNullOrEmpty(ConfirmaSenha))
+            if (string.IsNullOrEmpty(Name) ||
+                string.IsNullOrEmpty(Email) ||
+                string.IsNullOrEmpty(Password) ||
+                string.IsNullOrEmpty(ConfirmPassword))
             {
-                //MessagingCenter.Send(this, EntryNullValuesTitle);
-                //InRegistering = false;
-                //return;
+                RegisterMessages.NullEntriesMessage.ToDisplayAlert(MessageType.Erro);
+                InRegistering = false;
+                return;
             }
 
             if (!EmailValidator.Validate(Email))
             {
-                //MessagingCenter.Send(this, InvalidEmailTitle);
-                //InRegistering = false;
-                //return;
+                RegisterMessages.InvalidEmail.ToDisplayAlert(MessageType.Erro);
+                InRegistering = false;
+                return;
             }
 
-            if (!Senha.Equals(ConfirmaSenha))
+            if (Password.Length < 6)
             {
-                //MessagingCenter.Send(this, PasswordIsntMatchTitle);
-                //InRegistering = false;
-                //return;
+                RegisterMessages.PasswordToShort.ToDisplayAlert(MessageType.Erro);
+                InRegistering = false;
+                return;
             }
 
-            var passwordRegex = new Regex(@"^(?=.*\w+)(?=.*\W*)(?=.*\d*)(?=.*\s*).{6,}$");
-            if (!passwordRegex.IsMatch(Senha))
+            if (!Password.Equals(ConfirmPassword))
             {
-                //MessagingCenter.Send(this, WeakPasswordTitle);
-                //InRegistering = false;
-                //return;
+                RegisterMessages.PasswordIsntMatch.ToDisplayAlert(MessageType.Erro);
+                InRegistering = false;
+                return;
             }
 
-            if (CidadeSelecionada == null)
+            if (CidadeSelected == null)
             {
-                //MessagingCenter.Send(this, CityIsntSelectedTitle);
-                //InRegistering = false;
-                //return;
+                RegisterMessages.CidadeIsntSelected.ToDisplayAlert(MessageType.Erro);
+                InRegistering = false;
+                return;
             }
 
             var registerBinding = new RegisterBinding
             {
-                Nome = Nome,
+                Nome = Name,
                 Email = Email,
-                Password = Senha,
-                ConfirmPassword = ConfirmaSenha,
-                CidadeId = CidadeSelecionada.Id
+                Password = Password,
+                ConfirmPassword = ConfirmPassword,
+                CidadeId = CidadeSelected.Id
             };
 
             var result = await _authService.Register(registerBinding);
 
             if (result == RegisterResult.RegisterSuccefully)
             {
-                //MessagingCenter.Send(this, RegisterSucessfullTitle);
-                //InRegistering = false;
-                //await Navigation.PopAsync(true);
+                RegisterMessages.Success.ToToast(ToastNotificationType.Sucesso);
+                InRegistering = false;
+                await Navigation.PopAsync();
             }
             else
             {
-                //MessagingCenter.Send(this, RegisterUnsuccessTitle);
-                //InRegistering = false;
+                RegisterMessages.Unsucces.ToDisplayAlert(MessageType.Falha);
+                InRegistering = false;
             }
         }
 
-        public void CarregarEstados()
-        {
-            Estados = _realm.All<Estado>().OrderBy(x => x.Nome).ToList();
-            IsEstadosCarregados = true;
-        }
 
-        public void AtualizarCidades()
-        {
-            Cidades =
-                _realm.All<Cidade>().Where(x => x.EstadoId.Equals(EstadoSelecionado.Id)).OrderBy(x => x.Nome).ToList();
-            IsCidadesCarregadas = true;
-        }
-
-        public async void Voltar()
+        public async void Back()
         {
             if (!IsBusy)
             {
@@ -202,5 +220,7 @@ namespace Solum.ViewModel
                 IsBusy = false;
             }
         }
+
+        #endregion
     }
 }
