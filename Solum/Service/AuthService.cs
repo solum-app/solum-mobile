@@ -17,7 +17,11 @@ namespace Solum.Service
         private static AuthService _instance;
         private readonly Realm _realm;
 
-        private AuthService() { _accountRemote = new AccountRemote();  _realm = Realm.GetInstance();}
+        private AuthService()
+        {
+            _accountRemote = new AccountRemote();
+            _realm = Realm.GetInstance();
+        }
 
         public static AuthService Instance => _instance ?? (_instance = new AuthService());
 
@@ -76,9 +80,6 @@ namespace Solum.Service
 
         public async Task Logoff()
         {
-            //verificar dados não sincronizados primeiro;
-            if(!CrossConnectivity.Current.IsConnected)
-                throw new Exception("Nâo foi possível fazer logoff pois não existe conexão com o servidor!");
             await _accountRemote.Logout();
             using (var transaction = _realm.BeginWrite())
             {

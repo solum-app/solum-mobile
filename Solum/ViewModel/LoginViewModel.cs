@@ -1,4 +1,6 @@
 ﻿using System.Windows.Input;
+using Solum.Handlers;
+using Solum.Interfaces;
 using Solum.Models;
 using Solum.Pages;
 using Solum.Remotes.Results;
@@ -10,15 +12,23 @@ namespace Solum.ViewModel
 {
     public class LoginViewModel : BaseViewModel
     {
-        private ICommand _cadastrarCommand;
+        #region Propriedades Privadas
+
+        private ICommand _showRegisterPageCommand;
         private ICommand _loginCommand;
-        private bool _inLogin;
+        private ICommand _showForgtPasswordPageCommand;
         private string _password;
         private string _username;
+        private bool _inLogin;
+
+        #endregion
+
 
         public LoginViewModel(INavigation navigation) : base(navigation)
         {
         }
+
+        #region Propriedades de Binding
 
         public string Username
         {
@@ -38,35 +48,70 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _inLogin, value); }
         }
 
-        public ICommand LoginCommand => _loginCommand ?? (_loginCommand = new Command(Logar));
-        public ICommand CadastrarCommand => _cadastrarCommand ?? (_cadastrarCommand = new Command(AbrirTelaCadastro));
+        #endregion
+
+        #region Commandos
+
+        public ICommand ShowForgotPasswordPageCommand
+            => _showForgtPasswordPageCommand ?? (_showForgtPasswordPageCommand = new Command(ShowForgotPasswordPage));
+        public ICommand ShowRegisterPageCommand => _showRegisterPageCommand ?? (_showRegisterPageCommand = new Command(ShowRegisterPage));
+        public ICommand LoginCommand => _loginCommand ?? (_loginCommand = new Command(DoLogin));
 
 
-        public async void Logar()
+        #endregion
+
+        #region Funções
+
+        private async void DoLogin()
         {
-            var loginBinding = new LoginBinding {Username = Username?.Trim(), Password = Password?.Trim()};
-            if (!loginBinding.IsValid)
+            var binding = new LoginBinding
             {
-                MessagingCenter.Send(this, EntryNullValuesTitle);
+                Username = Username?.Trim(),
+                Password = Password?.Trim()
+            };
+
+            if (!binding.IsValid)
+            {
+                NullEntriesMessage.ToDisplayAlert(MessageType.Erro);
                 return;
             }
+
             InLogin = true;
             var authService = AuthService.Instance;
-            var login = await authService.Login(loginBinding);
+            var login = await authService.Login(binding);
             InLogin = false;
             if (login == AuthResult.LoginSuccessFully)
             {
+                LoginSuccessMessage.ToToast(ToastNotificationType.Sucesso);
                 Application.Current.MainPage = new RootPage();
+                Dispose();
             }
             else
             {
-                MessagingCenter.Send(this, LoginErrorTitle);
+                InvalidCredentialsMessage.ToDisplayAlert(MessageType.Erro);
             }
         }
 
-        public async void AbrirTelaCadastro()
+        private async void ShowForgotPasswordPage()
         {
-            await Navigation.PushAsync(new CadastroPage(), true);
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                "Não implementado ainda".ToToast();
+                IsBusy = false;
+            }
         }
+
+        private async void ShowRegisterPage()
+        {
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                await Navigation.PushAsync(new CadastroPage());
+                IsBusy = false;
+            }
+        }
+
+        #endregion
     }
 }

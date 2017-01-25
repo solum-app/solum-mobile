@@ -1,13 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using Solum.iOS;
+﻿using System.ComponentModel;
+using Solum.iOS.Renderers;
 using Solum.Renderers;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(CustomPicker), typeof(CustomPickerRenderer))]
-namespace Solum.iOS
+namespace Solum.iOS.Renderers
 {
 	public class CustomPickerRenderer : PickerRenderer
 	{
@@ -25,7 +24,6 @@ namespace Solum.iOS
 					SetAlignment(view);
 					SetFontFamily(view);
 					SetPlaceholderColor(view);
-					SetTextSize(view);
 				}
 			}
 		}
@@ -40,8 +38,6 @@ namespace Solum.iOS
 				SetBorder(view);
 			if (e.PropertyName == CustomPicker.TextAlignmentProperty.PropertyName)
 				SetAlignment(view);
-			if (e.PropertyName == CustomPicker.TextSizeProperty.PropertyName)
-				SetTextSize(view);
 			if (e.PropertyName == CustomPicker.PlaceholderColorProperty.PropertyName)
 				SetPlaceholderColor(view);
 		}
@@ -50,14 +46,6 @@ namespace Solum.iOS
 		{
 			Control.BorderStyle = view.HasBorder ? UITextBorderStyle.RoundedRect : UITextBorderStyle.None;
 
-		}
-
-		void SetTextSize(CustomPicker view)
-		{
-			if (view.TextSize != default(Double)){
-				var newUiFont = UIFont.FromName(Control.Font.FamilyName, (nfloat)view.TextSize);
-				Control.Font = newUiFont;
-			}
 		}
 
 		void SetPlaceholderColor(CustomPicker view)
@@ -72,12 +60,7 @@ namespace Solum.iOS
 		{
 			if (!string.IsNullOrWhiteSpace(view.FontFamily))
 			{
-				var fontSize = Control.Font.PointSize;
-				if (view.TextSize != default(Double))
-				{
-					fontSize = (nfloat)view.TextSize;
-				}
-				var newUiFont = UIFont.FromName(view.FontFamily, fontSize);
+				var newUiFont = UIFont.FromName(view.FontFamily, Control.Font.PointSize);
 				Control.Font = newUiFont;
 			}
 		}

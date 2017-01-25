@@ -4,7 +4,7 @@
 	xmlns:effects="clr-namespace:Solum.Effects"
 	xmlns:renderers="clr-namespace:Solum.Renderers"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-	x:Class="Solum.CalagemPage"
+	x:Class="Solum.Pages.CalagemPage"
 	Title="Nome da Fazenda - Talhão">
 
 	<ScrollView Grid.Row="0" BackgroundColor="{StaticResource colorBackground}">

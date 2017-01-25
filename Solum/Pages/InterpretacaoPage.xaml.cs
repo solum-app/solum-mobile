@@ -97,7 +97,7 @@ namespace Solum.Pages
 
 			//Header 
 			g.DrawString ("Relatório de Interpretação de Análise de Solo", headerFont, new PdfSolidBrush (black), new PointF (110, 20));
-			g.DrawString (analise.Fazenda, subHeadingFont, new PdfSolidBrush (black), new PointF (110, 52));
+			g.DrawString (analise.Talhao.Fazenda.Nome, subHeadingFont, new PdfSolidBrush (black), new PointF (110, 52));
 			g.DrawString ("Talhão " + analise.Talhao, textFont, new PdfSolidBrush (black), new PointF (110, 74));
 			g.DrawString (String.Format ("{0:dd/MM/yyyy}", analise.Data), textFont, new PdfSolidBrush (black), new PointF (page.Graphics.ClientSize.Width - 75, 25));
 			g.DrawRectangle (new PdfSolidBrush (green), new RectangleF (0, 105, page.Graphics.ClientSize.Width, 5));
@@ -112,35 +112,35 @@ namespace Solum.Pages
 
 
 			//pH
-			var valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Ph.ToString ("F", CultureInfo.InvariantCulture);
+			var valorAtual = (BindingContext as InterpretacaoViewModel).Analise.PotencialHidrogenico.ToString ("F", CultureInfo.InvariantCulture);
 			var valorAdequado = "4,81 a 5,50";
 			var classe = (BindingContext as InterpretacaoViewModel).InterpretacaoPh;
 
 			var y = BodyContent (g, "pH (CaCl2)", valorAtual, valorAdequado, classe, 180, grayLight);
 
 			//P
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.P.ToString ("F", CultureInfo.InvariantCulture);
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Fosforo.ToString ("F", CultureInfo.InvariantCulture);
 			valorAdequado = TexturaPConverter ((BindingContext as InterpretacaoViewModel).InterpretacaoTextura);
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoP;
 
 			y = BodyContent (g, "P", valorAtual, valorAdequado, classe, y, white);
 
 			//K
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.K.ToString("F", CultureInfo.InvariantCulture);
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Potassio.ToString("F", CultureInfo.InvariantCulture);
 			valorAdequado = CtcKConverter(analise.CTC);
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoK;
 
 			y = BodyContent(g, "K", valorAtual, valorAdequado, classe, y, grayLight);
 
 			//Ca
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Ca.ToString ("F", CultureInfo.InvariantCulture);
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Calcio.ToString ("F", CultureInfo.InvariantCulture);
 			valorAdequado = "1,50 a 7,00";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoCa;
 
 			y = BodyContent (g, "Ca", valorAtual, valorAdequado, classe, y, white);
 
 			//Mg
-			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Mg.ToString ("F", CultureInfo.InvariantCulture);
+			valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Magnesio.ToString ("F", CultureInfo.InvariantCulture);
 			valorAdequado = "0,50 a 2,00";
 			classe = (BindingContext as InterpretacaoViewModel).InterpretacaoMg;
 

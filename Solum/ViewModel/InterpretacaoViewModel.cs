@@ -28,11 +28,11 @@ namespace Solum.ViewModel
 		void Init(Analise analise) {
 			Analise = analise;
 			InterpretacaoTextura = InterpretaHandler.InterpretaTextura (analise.Argila, analise.Silte);
-			InterpretacaoPh = InterpretaHandler.InterpretaPh (analise.Ph);
-			InterpretacaoP = InterpretaHandler.InterpretaP (analise.P, InterpretacaoTextura);
-			InterpretacaoK = InterpretaHandler.InterpretaK (analise.K, analise.CTC);
-			InterpretacaoCa = InterpretaHandler.InterpretaCa (analise.Ca);
-			InterpretacaoMg = InterpretaHandler.InterpretaMg (analise.Mg);
+			InterpretacaoPh = InterpretaHandler.InterpretaPh (analise.PotencialHidrogenico);
+			InterpretacaoP = InterpretaHandler.InterpretaP (analise.Fosforo, InterpretacaoTextura);
+			InterpretacaoK = InterpretaHandler.InterpretaK (analise.Potassio, analise.CTC);
+			InterpretacaoCa = InterpretaHandler.InterpretaCa (analise.Calcio);
+			InterpretacaoMg = InterpretaHandler.InterpretaMg (analise.Magnesio);
 			InterpretacaoCaK = InterpretaHandler.InterpretaCaK (analise.CaK);
 			InterpretacaoMgK = InterpretaHandler.InterpretaMgK (analise.MgK);
 			InterpretacaoM = InterpretaHandler.InterpretaM (analise.M);
@@ -217,18 +217,18 @@ namespace Solum.ViewModel
 			if (realmAnalise == default(Analise)){
 				using (var transaction = realm.BeginWrite ()) {
 					realmAnalise = realm.CreateObject<Analise> ();
-					realmAnalise.Al = Analise.Al;
+					realmAnalise.Aluminio = Analise.Aluminio;
 					realmAnalise.Areia = Analise.Areia;
 					realmAnalise.Argila = Analise.Argila;
-					realmAnalise.Ca = Analise.Ca;
+					realmAnalise.Calcio = Analise.Calcio;
 					realmAnalise.Data = Analise.Data;
-					realmAnalise.Fazenda = Analise.Fazenda;
-					realmAnalise.H = Analise.H;
-					realmAnalise.K = Analise.K;
+					//realmAnalise.Fazenda = Analise.Fazenda;
+					realmAnalise.Hidrogenio = Analise.Hidrogenio;
+					realmAnalise.Potassio = Analise.Potassio;
 					realmAnalise.MateriaOrganica = Analise.MateriaOrganica;
-					realmAnalise.Mg = Analise.Mg;
-					realmAnalise.P = Analise.P;
-					realmAnalise.Ph = Analise.Ph;
+					realmAnalise.Magnesio = Analise.Magnesio;
+					realmAnalise.Fosforo = Analise.Fosforo;
+					realmAnalise.PotencialHidrogenico = Analise.PotencialHidrogenico;
 					realmAnalise.Silte = Analise.Silte;
 					realmAnalise.Talhao = Analise.Talhao;
 
@@ -236,18 +236,18 @@ namespace Solum.ViewModel
 				}
 			} else {
 				using (var transaction = realm.BeginWrite ()) {
-					realmAnalise.Al = Analise.Al;
+					realmAnalise.Aluminio = Analise.Aluminio;
 					realmAnalise.Areia = Analise.Areia;
 					realmAnalise.Argila = Analise.Argila;
-					realmAnalise.Ca = Analise.Ca;
+					realmAnalise.Calcio = Analise.Calcio;
 					realmAnalise.Data = Analise.Data;
-					realmAnalise.Fazenda = Analise.Fazenda;
-					realmAnalise.H = Analise.H;
-					realmAnalise.K = Analise.K;
+				//	realmAnalise.Fazenda = Analise.Fazenda;
+					realmAnalise.Hidrogenio = Analise.Hidrogenio;
+					realmAnalise.Potassio = Analise.Potassio;
 					realmAnalise.MateriaOrganica = Analise.MateriaOrganica;
-					realmAnalise.Mg = Analise.Mg;
-					realmAnalise.P = Analise.P;
-					realmAnalise.Ph = Analise.Ph;
+					realmAnalise.Magnesio = Analise.Magnesio;
+					realmAnalise.Fosforo = Analise.Fosforo;
+					realmAnalise.PotencialHidrogenico = Analise.PotencialHidrogenico;
 					realmAnalise.Silte = Analise.Silte;
 					realmAnalise.Talhao = Analise.Talhao;
 

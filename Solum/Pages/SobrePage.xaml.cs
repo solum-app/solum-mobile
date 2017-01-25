@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Solum
+namespace Solum.Pages
 {
 	public partial class SobrePage : ContentPage
 	{

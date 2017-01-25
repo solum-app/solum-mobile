@@ -1,345 +1,401 @@
 ﻿using System;
-using Xamarin.Forms;
-using Solum.Models;
-using System.Threading.Tasks;
-using Solum.Pages;
 using System.Globalization;
+using System.Linq;
+using System.Windows.Input;
+using Realms;
+using Solum.Handlers;
+using Solum.Interfaces;
+using Solum.Messages;
+using Solum.Models;
+using Solum.Pages;
+using Xamarin.Forms;
+using static Solum.Messages.AnaliseMessages;
 
 namespace Solum.ViewModel
 {
-	public class AnaliseViewModel : BaseViewModel
-	{
-		Analise realmAnalise;
+    public class AnaliseViewModel : BaseViewModel
+    {
+        public AnaliseViewModel(INavigation navigation) : base(navigation)
+        {
+            _realm = Realm.GetInstance();
+            PageTitle = "Nova Análise";
+            FazendaName = "Selecione uma fazenda";
+            TalhaoName = "Selecione um talhão";
+            Subscribe();
+        }
 
-		public AnaliseViewModel (INavigation navigation):base(navigation)
-		{
-			Title = "Nova Análise";
-		}
+        public AnaliseViewModel(INavigation navigation, Analise analise) : base(navigation)
+        {
+            _realm = Realm.GetInstance();
+            PageTitle = $"Atualizar Análise: {analise.Nome}";
+            Fazenda = _realm.Find<Fazenda>(analise.Talhao.FazendaId);
+            Talhao = _realm.Find<Talhao>(analise.Id);
+            FazendaName = Fazenda.Nome;
+            TalhaoName = Talhao.Nome;
+            DateSelected = analise.Data;
+            PotencialHidrogenico = analise.PotencialHidrogenico.ToString();
+            Fosforo = analise.Fosforo.ToString();
+            Potassio = analise.Potassio.ToString();
+            Calcio = analise.Calcio.ToString();
+            Magnesio = analise.Magnesio.ToString();
+            Aluminio = analise.Aluminio.ToString();
+            Hidrogenio = analise.Hidrogenio.ToString();
+            MateriaOrganica = analise.MateriaOrganica.ToString();
+            Areia = analise.Areia.ToString();
+            Silte = analise.Silte.ToString();
+            Argila = analise.Argila.ToString();
+            Subscribe();
+        }
 
-		public AnaliseViewModel (INavigation navigation, Analise analise) : base (navigation)
-		{
-			Title = "Edição de Análise";
+        #region Private Properties
 
-			FazendaEntry = analise.Fazenda;
-			TalhaoEntry = analise.Talhao;
-			DataEntry = analise.Data;
-			PhEntry = analise.Ph.ToString();
-			PEntry = analise.P.ToString();
-			KEntry = analise.K.ToString();
-			CaEntry = analise.Ca.ToString();
-			MgEntry = analise.Mg.ToString();
-			AlEntry = analise.Al.ToString();
-			HEntry = analise.H.ToString();
-			MateriaOrganicaEntry = analise.MateriaOrganica.ToString();
-			AreiaEntry = analise.Areia.ToString();
-			SilteEntry = analise.Silte.ToString();
-			ArgilaEntry = analise.Argila.ToString();
+        private string _pageTitle;
+        private string _fazendaName;
+        private string _talhaoName;
+        private string _analiseName;
+        private DateTimeOffset _data = DateTimeOffset.Now;
 
-			realmAnalise = analise;
-		}
+        private string _potencialHidrogenico;
+        private string _fosforo;
+        private string _potassio;
+        private string _calcio;
+        private string _magnesio;
+        private string _aluminio;
+        private string _hidrogenio;
+        private string _materiaOrganica;
+        private string _areia;
+        private string _silte;
+        private string _argila;
 
-		string _title;
-		public string Title {
-			get {
-				return _title;
-			}
-			set {
-				SetPropertyChanged (ref _title, value);
-			}
-		}
+        private ICommand _selectDateCommand;
+        private ICommand _showFazendasCommand;
+        private ICommand _showTalhoesCommand;
+        private ICommand _saveCommand;
 
-		string _fazenda;
-		public string FazendaEntry {
-			get{
-				return _fazenda;
-			}
-			set{
-				SetPropertyChanged(ref _fazenda, value);
-			}
-		}
+        private Fazenda _fazenda;
+        private Talhao _talhao;
+        private Analise _analise;
+        private readonly Realm _realm;
 
-		string _talhao;
-		public string TalhaoEntry {
-			get{
-				return _talhao;
-			}
-			set{
-				SetPropertyChanged(ref _talhao, value);
-			}
-		}
+        #endregion
 
-		DateTimeOffset _data = DateTimeOffset.Now;
-		public DateTimeOffset DataEntry {
-			get{
-				return _data;
-			}
-			set{
-				SetPropertyChanged(ref _data, value);
-			}
-		}
+        #region Binding Properties
 
-		string _phEntry;
-		public string PhEntry
-		{
-			get
-			{
-				return _phEntry;
-			}
-			set
-			{
-				SetPropertyChanged(ref _phEntry, string.Format("{0:0.00}", value));
-			}
-		}
+        public string PageTitle
+        {
+            get { return _pageTitle; }
+            set { SetPropertyChanged(ref _pageTitle, value); }
+        }
 
-		string _pEntry;
-		public string PEntry
-		{
-			get
-			{
-				return _pEntry;
-			}
-			set
-			{
-				SetPropertyChanged(ref _pEntry, value);
-			}
-		}
+        public string FazendaName
+        {
+            get { return _fazendaName; }
+            set { SetPropertyChanged(ref _fazendaName, value); }
+        }
 
-		string _kEntry;
-		public string KEntry
-		{
-			get
-			{
-				return _kEntry;
-			}
-			set
-			{
-				SetPropertyChanged(ref _kEntry, value);
-			}
-		}
+        public string TalhaoName
+        {
+            get { return _talhaoName; }
+            set { SetPropertyChanged(ref _talhaoName, value); }
+        }
 
-		string _caEntry;
-		public string CaEntry
-		{
-			get
-			{
-				return _caEntry;
-			}
-			set
-			{
-				SetPropertyChanged(ref _caEntry, value);
-			}
-		}
+        public string AnaliseName
+        {
+            get { return _analiseName; }
+            set { SetPropertyChanged(ref _analiseName, value); }
+        }
+        public Analise Analise
+        {
+            get { return _analise; }
+            set { SetPropertyChanged(ref _analise, value); }
+        }
 
-		string _mgEntry;
-		public string MgEntry
-		{
-			get
-			{
-				return _mgEntry;
-			}
-			set
-			{
-				SetPropertyChanged(ref _mgEntry, value);
-			}
-		}
+        public Fazenda Fazenda
+        {
+            get { return _fazenda; }
+            set { SetPropertyChanged(ref _fazenda, value); }
+        }
 
-		string _alEntry;
-		public string AlEntry
-		{
-			get
-			{
-				return _alEntry;
-			}
-			set
-			{
-				SetPropertyChanged(ref _alEntry, value);
-			}
-		}
+        public Talhao Talhao
+        {
+            get { return _talhao; }
+            set { SetPropertyChanged(ref _talhao, value); }
+        }
 
-		string _hEntry;
-		public string HEntry
-		{
-			get
-			{
-				return _hEntry;
-			}
-			set
-			{
-				SetPropertyChanged(ref _hEntry, value);
-			}
-		}
+        public DateTimeOffset DateSelected
+        {
+            get { return _data; }
+            set { SetPropertyChanged(ref _data, value); }
+        }
 
-		string _materiaOrganicaEntry;
-		public string MateriaOrganicaEntry
-		{
-			get
-			{
-				return _materiaOrganicaEntry;
-			}
-			set
-			{
-				SetPropertyChanged(ref _materiaOrganicaEntry, value);
-			}
-		}
+        public string PotencialHidrogenico
+        {
+            get { return _potencialHidrogenico; }
+            set { SetPropertyChanged(ref _potencialHidrogenico, string.Format("{0:0.00}", value)); }
+        }
 
-		string _areiaEntry;
-		public string AreiaEntry
-		{
-			get
-			{
-				return _areiaEntry;
-			}
-			set
-			{
-				SetPropertyChanged(ref _areiaEntry, value);
-			}
-		}
+        public string Fosforo
+        {
+            get { return _fosforo; }
+            set { SetPropertyChanged(ref _fosforo, value); }
+        }
 
-		string _silteEntry;
-		public string SilteEntry
-		{
-			get
-			{
-				return _silteEntry;
-			}
-			set
-			{
-				SetPropertyChanged(ref _silteEntry, value);
-			}
-		}
+        public string Potassio
+        {
+            get { return _potassio; }
+            set { SetPropertyChanged(ref _potassio, value); }
+        }
 
-		string _argilaEntry;
-		public string ArgilaEntry
-		{
-			get
-			{
-				return _argilaEntry;
-			}
-			set
-			{
-				SetPropertyChanged(ref _argilaEntry, value);
-			}
-		}
+        public string Calcio
+        {
+            get { return _calcio; }
+            set { SetPropertyChanged(ref _calcio, value); }
+        }
 
-		Command _dateSelectedCommand;
-		public Command DateSelectedCommand {
-			get {
-				return _dateSelectedCommand ?? (_dateSelectedCommand = new Command ((obj) => ExecuteDateSelectedCommand (obj)));
-			}
-		}
+        public string Magnesio
+        {
+            get { return _magnesio; }
+            set { SetPropertyChanged(ref _magnesio, value); }
+        }
 
-		protected void ExecuteDateSelectedCommand (object parameter)
-		{
-			_data = (DateTime)parameter;
-		}
+        public string Aluminio
+        {
+            get { return _aluminio; }
+            set { SetPropertyChanged(ref _aluminio, value); }
+        }
 
-		Command _buttonClickedCommand;
-		public Command ButtonClickedCommand
-		{
-			get
-			{
-				return _buttonClickedCommand ?? (_buttonClickedCommand = new Command(async () => await ExecuteButtonClickedCommand()));
-			}
-		}
+        public string Hidrogenio
+        {
+            get { return _hidrogenio; }
+            set { SetPropertyChanged(ref _hidrogenio, value); }
+        }
 
-		protected async Task ExecuteButtonClickedCommand()
-		{
-			if (string.IsNullOrEmpty(FazendaEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um nome para a Fazenda", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(TalhaoEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira uma identificação para o Talhão", "OK");
-				return;
-			}
-			if (DataEntry == default(DateTime))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Data", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(PhEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o pH", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(PEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o P", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(KEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o K", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(CaEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Ca", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(MgEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Mg", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(AlEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Al", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(HEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para H", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(MateriaOrganicaEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Materia Orgânica", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(AreiaEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Areia", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(SilteEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para o Silte", "OK");
-				return;
-			}
-			if (string.IsNullOrEmpty(ArgilaEntry))
-			{
-				await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido", "Insira um valor válido para a Argila", "OK");
-				return;
-			}
+        public string MateriaOrganica
+        {
+            get { return _materiaOrganica; }
+            set { SetPropertyChanged(ref _materiaOrganica, value); }
+        }
 
-		
-			var analise = new Analise () {
-				Fazenda = FazendaEntry.Trim (),
-				Talhao = TalhaoEntry,
-				Data = DataEntry,
-				Ph = float.Parse("0" + PhEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				P = float.Parse("0" + PEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				K = float.Parse("0" + KEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Ca = float.Parse("0" + CaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Mg = float.Parse("0" + MgEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Al = float.Parse("0" + AlEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				H = float.Parse("0" + HEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				MateriaOrganica = float.Parse("0" + MateriaOrganicaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Areia = float.Parse("0" + AreiaEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Silte = float.Parse("0" + SilteEntry.Replace(',', '.'), CultureInfo.InvariantCulture),
-				Argila = float.Parse("0" + ArgilaEntry.Replace(',', '.'), CultureInfo.InvariantCulture)
-			};
+        public string Areia
+        {
+            get { return _areia; }
+            set { SetPropertyChanged(ref _areia, value); }
+        }
 
-			if (realmAnalise == default(Analise))
-			{
-				await Navigation.PushAsync (new InterpretacaoPage (analise, false));
-			} else {
-				await Navigation.PushAsync (new InterpretacaoPage (analise, realmAnalise, false));
-			}
-		}
-	}
+        public string Silte
+        {
+            get { return _silte; }
+            set { SetPropertyChanged(ref _silte, value); }
+        }
+
+        public string Argila
+        {
+            get { return _argila; }
+            set { SetPropertyChanged(ref _argila, value); }
+        }
+
+        #endregion
+
+        #region Commands
+
+        public ICommand SelectDateCommand
+            => _selectDateCommand ?? (_selectDateCommand = new Command(SelectDate));
+
+        public ICommand ShowFazendasCommand
+            => _showFazendasCommand ?? (_showFazendasCommand = new Command(ShowFazendas));
+
+        public ICommand ShowTalhoesCommand
+            => _showTalhoesCommand ?? (_showTalhoesCommand = new Command(ShowTalhoes));
+
+        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(Save));
+
+        #endregion
+
+        #region Funções
+
+      
+        private void SelectDate(object date)
+        {
+            DateSelected = (DateTimeOffset)date;
+        }
+
+        private async void ShowFazendas()
+        {
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                await Navigation.PushAsync(new FazendaListPage(true));
+                IsBusy = false;
+            }
+        }
+
+        private void SelectFazenda(string id)
+        {
+            Fazenda = _realm.Find<Fazenda>(id);
+            FazendaName = Fazenda.Nome;
+        }
+
+        private async void ShowTalhoes()
+        {
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                await Navigation.PushAsync(new FazendaDetalhesPage(Fazenda, true));
+                IsBusy = false;
+            }
+        }
+
+        private void SelectTalhao(string id)
+        {
+            Talhao = _realm.Find<Talhao>(id);
+            TalhaoName = Talhao.Nome;
+        }
+
+        private async void Save()
+        {
+            if (Talhao == null)
+            {
+                TalhaoIsntSelected.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(AnaliseName)) { }
+
+            if (DateSelected == default(DateTime))
+            {
+                InvalidDate.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(PotencialHidrogenico))
+            {
+                PhNull.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Fosforo))
+            {
+                PNull.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Potassio))
+            {
+                KNull.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Calcio))
+            {
+                CaNull.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Magnesio))
+            {
+                MgNull.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Aluminio))
+            {
+                AlNull.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Hidrogenio))
+            {
+                HNull.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(MateriaOrganica))
+            {
+                MoNull.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Areia))
+            {
+                AreaiNull.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Silte))
+            {
+                SilteNull.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Argila))
+            {
+                ArgilaNull.ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+
+            var analise = new Analise
+            {
+                Id = Guid.NewGuid().ToString(),
+                TalhaoId = Talhao.Id,
+                Talhao = Talhao,
+                Data = DateSelected,
+                PotencialHidrogenico =
+                    float.Parse("0" + PotencialHidrogenico.Replace(',', '.'), CultureInfo.InvariantCulture),
+                Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture),
+                Potassio = float.Parse("0" + Potassio.Replace(',', '.'), CultureInfo.InvariantCulture),
+                Calcio = float.Parse("0" + Calcio.Replace(',', '.'), CultureInfo.InvariantCulture),
+                Magnesio = float.Parse("0" + Magnesio.Replace(',', '.'), CultureInfo.InvariantCulture),
+                Aluminio = float.Parse("0" + Aluminio.Replace(',', '.'), CultureInfo.InvariantCulture),
+                Hidrogenio = float.Parse("0" + Hidrogenio.Replace(',', '.'), CultureInfo.InvariantCulture),
+                MateriaOrganica = float.Parse("0" + MateriaOrganica.Replace(',', '.'), CultureInfo.InvariantCulture),
+                Areia = float.Parse("0" + Areia.Replace(',', '.'), CultureInfo.InvariantCulture),
+                Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture),
+                Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture)
+            };
+
+            using (var transaction = _realm.BeginWrite())
+            {
+                _realm.Add(analise);
+                transaction.Commit();
+            }
+
+            Success.ToToast(ToastNotificationType.Sucesso);
+            var last = Navigation.NavigationStack.LastOrDefault();
+            await Navigation.PushAsync(new GerenciamentoAnalisePage(analise));
+            Navigation.RemovePage(last);
+            Dispose();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            Unsubscribe();
+        }
+
+        private void Subscribe()
+        {
+            MessagingCenter.Subscribe<FazendaListViewModel, string>(this, MessagingCenterMessages.FazendaSelected,
+                (model, id) => { SelectFazenda(id); });
+
+            MessagingCenter.Subscribe<FazendaCadastroViewModel, string>(this, MessagingCenterMessages.FazendaSelected,
+                (model, id) => { SelectFazenda(id); });
+
+            MessagingCenter.Subscribe<FazendaDetalhesViewModel, string>(this, MessagingCenterMessages.TalhaoSelected,
+                (model, id) => { SelectTalhao(id); });
+
+            MessagingCenter.Subscribe<TalhaoCadastroViewModel, string>(this, MessagingCenterMessages.TalhaoSelected,
+                (model, id) => { SelectTalhao(id); });
+        }
+
+        private void Unsubscribe()
+        {
+            MessagingCenter.Unsubscribe<FazendaListViewModel, string>(this, MessagingCenterMessages.FazendaSelected);
+            MessagingCenter.Unsubscribe<FazendaCadastroViewModel, string>(this, MessagingCenterMessages.FazendaSelected);
+            MessagingCenter.Unsubscribe<FazendaDetalhesViewModel, string>(this, MessagingCenterMessages.TalhaoSelected);
+            MessagingCenter.Unsubscribe<TalhaoCadastroViewModel, string>(this, MessagingCenterMessages.TalhaoSelected);
+        }
+
+        #endregion
+    }
 }
-

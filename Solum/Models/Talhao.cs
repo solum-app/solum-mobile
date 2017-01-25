@@ -11,6 +11,8 @@ namespace Solum.Models
         public string Area { get; set; }
         public bool HasArea { get; set; }
         public Fazenda Fazenda { get; set; }
+
+        [Ignored]
         public bool IsValido => !string.IsNullOrEmpty(Nome);
 
         public override string ToString()

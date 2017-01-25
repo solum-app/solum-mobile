@@ -1,136 +1,57 @@
 ﻿using System;
-using Solum.Handler;
 using Realms;
+using Solum.Handlers;
 
 
 namespace Solum.Models
 {
-	public class Analise : RealmObject
-	{
-		public string Fazenda {
-			get;
-			set;
-		}
+    public class Analise : RealmObject
+    {
+        [PrimaryKey]
+        public string Id { get; set; }
+        public string TalhaoId { get; set; }
+        public string Nome { get; set; }
+        public DateTimeOffset Data { get; set; }
 
-		public string Talhao {
-			get;
-			set;
-		}
+        public float PotencialHidrogenico { get; set; }
+        public float Fosforo { get; set; } 
+        public float Potassio { get; set; }
+        public float Calcio { get; set; }
+        public float Magnesio { get; set; }
+        public float Aluminio { get; set; }
+        public float Hidrogenio { get; set; }
+        public float MateriaOrganica { get; set; }
+        public float Areia { get; set; }
+        public float Silte { get; set; }
+        public float Argila { get; set; }
 
-		public DateTimeOffset Data {
-			get;
-			set;
-		}
+        public DateTimeOffset? DataCalculoCalagem { get; set; }
+        public DateTimeOffset? DataCalculoCorretiva { get; set; }
+        public DateTimeOffset? DataCalculoSemeadura { get; set; }
+        public DateTimeOffset? DataCalculoCobertura { get; set; }
 
-		public float Ph {
-			get;
-			set;
-		}
+        public Talhao Talhao { get; set; }
 
-		public float P {
-			get; 
-			set; 
-		}
+        [Ignored]
+        public float SB => CalculoHandler.CalcularSB(Potassio, Calcio, Magnesio);
 
-		public float K { 
-			get; 
-			set; 
-		}
+        [Ignored]
+        public float CTC => CalculoHandler.CalcularCTC(SB, Hidrogenio, Aluminio);
 
-		public float Ca { 
-			get; 
-			set; 
-		}
+        [Ignored]
+        public float V => CalculoHandler.CalcularV(SB, CTC);
 
-		public float Mg { 
-			get; 
-			set; 
-		}
+        [Ignored]
+        public float M => CalculoHandler.CalcularM(Aluminio, SB);
 
-		public float Al { 
-			get; 
-			set; 
-		}
+        [Ignored]
+        public float CaMg => CalculoHandler.CalcularCaMg(Calcio, Magnesio);
 
-		public float H { 
-			get; set; 
-		}
+        [Ignored]
+        public float CaK => CalculoHandler.CalcularCaK(Calcio, Potassio);
 
-		public float MateriaOrganica { 
-			get; 
-			set; 
-		}
-
-		public float Areia { 
-			get; 
-			set; 
-		}
-
-		public float Silte { 
-			get; 
-			set; 
-		}
-
-		public float Argila { 
-			get; 
-			set; 
-		}
-
-		[Ignored]
-		public float SB { 
-			get
-			{
-				return CalculoHandler.CalcularSB(K, Ca, Mg);
-			}
-		}
-
-		[Ignored]
-		public float CTC { 
-			get
-			{
-				return CalculoHandler.CalcularCTC(SB, H, Al);
-			}
-		}
-
-		[Ignored]
-		public float V { 
-			get
-			{
-				return CalculoHandler.CalcularV(SB, CTC);
-			}
-		}
-
-		[Ignored]
-		public float M { 
-			get
-			{
-				return CalculoHandler.CalcularM(Al, SB);
-			}
-		}
-
-		[Ignored]
-		public float CaMg {
-			get
-			{
-				return CalculoHandler.CalcularCaMg(Ca, Mg);
-			}
-		}
-
-		[Ignored]
-		public float CaK {
-			get
-			{
-				return CalculoHandler.CalcularCaK(Ca, K);
-			} 
-		}
-
-		[Ignored]
-		public float MgK {
-			get
-			{
-				return CalculoHandler.CalcularMgK(Mg, K);
-			} 
-		}
-	}
+        [Ignored]
+        public float MgK => CalculoHandler.CalcularMgK(Magnesio, Potassio);
+    }
 }
 
