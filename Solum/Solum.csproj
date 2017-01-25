@@ -32,6 +32,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Messages\MessagingCenterMessages.cs" />
     <Compile Include="Renderers\ImageCircle.cs" />
     <Compile Include="Effects\IStatusBarColor.cs" />
     <Compile Include="Messages\DisplayMessages.cs" />

@@ -33,13 +33,13 @@ namespace Solum.Pages
                     }
                 };
                 AbsoluteLayout.SetLayoutFlags(fab, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(fab,
-                    new Rectangle(1f, 1f, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+                AbsoluteLayout.SetLayoutBounds(fab, new Rectangle(1f, 1f, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
                 absoluteLayout.Children.Add(fab);
             }
             else
             {
-                var item = new ToolbarItem("Add", "ic_add", async () => {
+                var item = new ToolbarItem("Add", "ic_add", async () => 
+                {
                     if (!IsBusy)
                     {
                         IsBusy = true;
@@ -58,7 +58,7 @@ namespace Solum.Pages
         {
             var fazenda = (sender as MenuItem).CommandParameter;
             var context = BindingContext as FazendaListViewModel;
-            context?.EditarCommand.Execute(fazenda);
+            context?.EditCommand.Execute(fazenda);
         }
 
         private async void OnDelete(object sender, EventArgs e)
@@ -67,7 +67,7 @@ namespace Solum.Pages
             if (!confirm) return;
             var fazenda = (sender as MenuItem).CommandParameter;
             var context = BindingContext as FazendaListViewModel;
-            context?.ExcluirCommand.Execute(fazenda);
+            context?.DeleteCommand.Execute(fazenda);
         }
 
         protected override void OnAppearing()

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using Realms;
+using Solum.Messages;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -10,21 +11,34 @@ namespace Solum.ViewModel
 {
     public class FazendaListViewModel : BaseViewModel
     {
-        private readonly Realm _realmInstance;
-        private ICommand _editarCommand;
-        private ICommand _excluirCommand;
+        public FazendaListViewModel(INavigation navigation, bool fromAnalise) : base(navigation)
+        {
+            _realm = Realm.GetInstance();
+            Fazendas = _realm.All<Fazenda>().OrderBy(x => x.Nome).ToList();
+            HasItems = Fazendas.Any();
+            _fromAnalise = fromAnalise;
+        }
+
+        #region Propriedades privadas
+
+        private ICommand _editCommand;
+        private ICommand _deleteCommand;
         private ICommand _itemTappedCommand;
+
         private IList<Fazenda> _fazendas;
         private bool _hasItems;
         private readonly bool _fromAnalise;
 
-        public FazendaListViewModel(INavigation navigation, bool fromAnalise) : base(navigation)
+        private readonly Realm _realm;
+
+        #endregion
+
+        #region Propriedades de Binding
+
+        public bool HasItems
         {
-            _realmInstance = Realm.GetInstance();
-            HasItems = _realmInstance.All<Fazenda>().Any();
-            _fromAnalise = fromAnalise;
-            if (HasItems)
-                Fazendas = _realmInstance.All<Fazenda>().OrderBy(x => x.Nome).ToList();
+            get { return _hasItems; }
+            set { SetPropertyChanged(ref _hasItems, value); }
         }
 
         public IList<Fazenda> Fazendas
@@ -33,55 +47,63 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _fazendas, value); }
         }
 
-        public bool HasItems
-        {
-            get { return _hasItems; }
-            set { SetPropertyChanged(ref _hasItems, value); }
-        }
+        #endregion
 
-        public ICommand EditarCommand => _editarCommand ?? (_editarCommand = new Command(obj => Editar(obj)));
+        #region Comandos
 
-        public ICommand ExcluirCommand => _excluirCommand ?? (_excluirCommand = new Command(obj => Excluir(obj)));
+        public ICommand EditCommand => _editCommand ?? (_editCommand = new Command(fazenda => Edit(fazenda as Fazenda)))
+        ;
+
+        public ICommand DeleteCommand
+            => _deleteCommand ?? (_deleteCommand = new Command(fazenda => Delete(fazenda as Fazenda)));
 
         public ICommand ItemTappedCommand
-            => _itemTappedCommand ?? (_itemTappedCommand = new Command(obj => Detalhes(obj)));
-      
-        private void Excluir(object obj)
-        {
-            var fazenda = obj as Fazenda;
-            using (var tsc = _realmInstance.BeginWrite())
-            {
-                _realmInstance.Remove(fazenda);
-                tsc.Commit();
-            }
-            UpdateFazendaList();
-        }
+            => _itemTappedCommand ?? (_itemTappedCommand = new Command(fazenda => Details(fazenda as Fazenda)));
 
-        private async void Detalhes(object obj)
+        #endregion
+
+        #region Funções
+
+        private async void Details(Fazenda obj)
         {
             if (!IsBusy)
             {
                 IsBusy = true;
                 if (_fromAnalise)
                 {
-                    MessagingCenter.Send(this, "FazendaSelecionada", obj as Fazenda);
+                    MessagingCenter.Send(this, MessagingCenterMessages.FazendaSelected, obj.Id);
                     await Navigation.PopAsync();
                 }
                 else
-                    await Navigation.PushAsync(new FazendaDetalhesPage(obj as Fazenda, false));
+                {
+                    await Navigation.PushAsync(new FazendaDetalhesPage(obj, _fromAnalise));
+                }
                 IsBusy = false;
             }
         }
 
-        private async void Editar(object obj)
+        private void Delete(Fazenda fazenda)
         {
-            await Navigation.PushAsync(new FazendaCadastroPage(obj as Fazenda));
+            using (var transaction = _realm.BeginWrite())
+            {
+                _realm.Remove(fazenda);
+                transaction.Commit();
+            }
+            UpdateFazendaList();
+        }
+
+
+        private async void Edit(Fazenda fazenda)
+        {
+            await Navigation.PushAsync(new FazendaCadastroPage(fazenda));
         }
 
         public void UpdateFazendaList()
         {
-            Fazendas = _realmInstance.All<Fazenda>().OrderBy(x => x.Nome).ToList();
+            Fazendas = _realm.All<Fazenda>().OrderBy(x => x.Nome).ToList();
             HasItems = Fazendas.Any();
         }
+
+        #endregion
     }
 }
