@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using Realms;
+using Solum.Handlers;
 using Solum.Messages;
 using Solum.Models;
 using Solum.Pages;
@@ -64,19 +65,19 @@ namespace Solum.ViewModel
 
         #region Funções
 
-        private async void Details(Fazenda obj)
+        private async void Details(Fazenda fazenda)
         {
             if (!IsBusy)
             {
                 IsBusy = true;
                 if (_fromAnalise)
                 {
-                    MessagingCenter.Send(this, MessagingCenterMessages.FazendaSelected, obj.Id);
+                    MessagingCenter.Send(this, MessagingCenterMessages.FazendaSelected, fazenda.Id);
                     await Navigation.PopAsync();
                 }
                 else
                 {
-                    await Navigation.PushAsync(new FazendaDetalhesPage(obj, _fromAnalise));
+                    await Navigation.PushAsync(new FazendaDetalhesPage(fazenda, _fromAnalise));
                 }
                 IsBusy = false;
             }
@@ -90,12 +91,16 @@ namespace Solum.ViewModel
                 transaction.Commit();
             }
             UpdateFazendaList();
+            FazendaMessages.Deleted.ToToast();
         }
 
 
         private async void Edit(Fazenda fazenda)
         {
-            await Navigation.PushAsync(new FazendaCadastroPage(fazenda));
+            var current = Navigation.NavigationStack.LastOrDefault();
+            await Navigation.PushAsync(new FazendaCadastroPage(fazenda, _fromAnalise));
+            if(_fromAnalise)
+                Navigation.RemovePage(current);
         }
 
         public void UpdateFazendaList()

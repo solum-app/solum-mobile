@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows.Input;
 using Realms;
 using Solum.Handlers;
+using Solum.Interfaces;
+using Solum.Messages;
 using Solum.Models;
 using Xamarin.Forms;
 using static Solum.Messages.FazendaMessages;
@@ -12,29 +14,10 @@ namespace Solum.ViewModel
 {
     public class FazendaCadastroViewModel : BaseViewModel
     {
-
-        private ICommand _cadastrarFazendaCommand;
-        private ICommand _atualizarListaCidadesCommand;
-
-        private IList<Cidade> _cidadeList;
-        private IList<Estado> _estadoList;
-        private Cidade _cidadeSelecionada;
-        private Estado _estadoSelecionado;
-
-        private string _nomeFazenda;
-        private bool _isEstadosCarregados;
-        private bool _isCidadesCarregadas;
-        private readonly bool _isUpdate;
-
-        private Fazenda _fazenda;
-        private readonly Realm _realm;
-
-        private readonly bool _fromAnalise;
-
         public FazendaCadastroViewModel(INavigation navigation, bool fromAnalise) : base(navigation)
         {
             _realm = Realm.GetInstance();
-            CarregarEstados();
+            LoadEstados();
             _fromAnalise = fromAnalise;
         }
 
@@ -43,75 +26,134 @@ namespace Solum.ViewModel
             _isUpdate = true;
             _realm = Realm.GetInstance();
             _fazenda = fazenda;
-            NomeFazenda = fazenda.Nome;
-            CarregarEstados();
-            EstadoSelecionado = _realm.Find<Estado>(_fazenda.Cidade.EstadoId);
-            CarregarCidades();
-            CidadeSelecionada = _realm.Find<Cidade>(_fazenda.CidadeId);
-            
+            FazendaName = fazenda.Nome;
+            LoadEstados();
+            EstadoSelected = _realm.Find<Estado>(_fazenda.Cidade.EstadoId);
+            LoadCidades();
+            CidadeSelected = _realm.Find<Cidade>(_fazenda.CidadeId);
         }
 
-        public string NomeFazenda
+        public FazendaCadastroViewModel(INavigation navigation, Fazenda fazenda, bool fromAnalise) : base(navigation)
         {
-            get { return _nomeFazenda; }
-            set { SetPropertyChanged(ref _nomeFazenda, value); }
+            _isUpdate = true;
+            _fromAnalise = fromAnalise;
+            _realm = Realm.GetInstance();
+            _fazenda = fazenda;
+            FazendaName = fazenda.Nome;
+            LoadEstados();
+            EstadoSelected = _realm.Find<Estado>(_fazenda.Cidade.EstadoId);
+            LoadCidades();
+            CidadeSelected = _realm.Find<Cidade>(_fazenda.CidadeId);
         }
-    
-        public bool IsEstadosCarregados
+
+        #region Propriedades Privadas
+
+        private ICommand _registerFazendaCommand;
+        private ICommand _updateCidadesCommand;
+
+        private IList<Cidade> _cidades;
+        private IList<Estado> _estados;
+        private Cidade _cidadeSelected;
+        private Estado _estadoSelected;
+
+        private string _fazendaName;
+        private bool _isEstadosLoaded;
+        private bool _isCidadesLoaded;
+        private readonly bool _isUpdate;
+
+        private readonly Fazenda _fazenda;
+        private readonly Realm _realm;
+
+        private readonly bool _fromAnalise;
+
+        #endregion
+
+        #region Propriedade de Binding
+
+        public string FazendaName
         {
-            get { return _isEstadosCarregados; }
-            set { SetPropertyChanged(ref _isEstadosCarregados, value); }
+            get { return _fazendaName; }
+            set { SetPropertyChanged(ref _fazendaName, value); }
         }
 
-        public bool IsCidadesCarregadas
+        public IList<Estado> Estados
         {
-            get { return _isCidadesCarregadas; }
-            set { SetPropertyChanged(ref _isCidadesCarregadas, value); }
+            get { return _estados; }
+            set { SetPropertyChanged(ref _estados, value); }
         }
 
-        public IList<Estado> EstadoList
+        public Estado EstadoSelected
         {
-            get { return _estadoList; }
-            set { SetPropertyChanged(ref _estadoList, value); }
+            get { return _estadoSelected; }
+            set { SetPropertyChanged(ref _estadoSelected, value); }
         }
 
-        public IList<Cidade> CidadeList
+        public bool IsEstadosLoaded
         {
-            get { return _cidadeList; }
-            set { SetPropertyChanged(ref _cidadeList, value); }
+            get { return _isEstadosLoaded; }
+            set { SetPropertyChanged(ref _isEstadosLoaded, value); }
         }
 
-        public Estado EstadoSelecionado
+        public IList<Cidade> Cidades
         {
-            get { return _estadoSelecionado; }
-            set { SetPropertyChanged(ref _estadoSelecionado, value); }
+            get { return _cidades; }
+            set { SetPropertyChanged(ref _cidades, value); }
         }
 
-        public Cidade CidadeSelecionada
+        public Cidade CidadeSelected
         {
-            get { return _cidadeSelecionada; }
-            set { SetPropertyChanged(ref _cidadeSelecionada, value); }
+            get { return _cidadeSelected; }
+            set { SetPropertyChanged(ref _cidadeSelected, value); }
         }
 
-        public ICommand AtualizarListaCidadesCommand
-            => _atualizarListaCidadesCommand ?? (_atualizarListaCidadesCommand = new Command(CarregarCidades));
+        public bool IsCidadesLoaded
+        {
+            get { return _isCidadesLoaded; }
+            set { SetPropertyChanged(ref _isCidadesLoaded, value); }
+        }
 
-        public ICommand CadastrarFazendaCommand
-            => _cadastrarFazendaCommand ?? (_cadastrarFazendaCommand = new Command(CadastrarFazenda));
+        #endregion
 
-        public async void CadastrarFazenda()
+        #region Comandos
+
+        public ICommand UpdateCidadesCommand
+            => _updateCidadesCommand ?? (_updateCidadesCommand = new Command(LoadCidades));
+
+        public ICommand RegisterFazendaCommand
+            => _registerFazendaCommand ?? (_registerFazendaCommand = new Command(RegisterFazenda));
+
+        #endregion
+
+        #region Funções
+
+        public void LoadEstados()
+        {
+            Estados = _realm.All<Estado>().OrderBy(x => x.Nome).ToList();
+            IsEstadosLoaded = true;
+        }
+
+        public void LoadCidades()
+        {
+            Cidades = _realm.All<Cidade>()
+                .Where(x => x.EstadoId.Equals(EstadoSelected.Id))
+                .OrderBy(n => n.Nome)
+                .ToList();
+            IsCidadesLoaded = true;
+        }
+
+        public async void RegisterFazenda()
         {
             if (!_isUpdate)
             {
-                if (string.IsNullOrEmpty(NomeFazenda))
+                if (string.IsNullOrEmpty(FazendaName))
                 {
-                    MessagingCenter.Send(this, NullEntriesTitle);
+                    FazendaNameNull.ToDisplayAlert(MessageType.Erro);
                     return;
                 }
 
-                if (CidadeSelecionada == null)
+                if (CidadeSelected == null)
                 {
-                    MessagingCenter.Send(this, NullEntriesTitle);
+                    CidadeIsntSelected.ToDisplayAlert(MessageType.Erro);
                     return;
                 }
 
@@ -120,9 +162,9 @@ namespace Solum.ViewModel
                 var fazenda = new Fazenda
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Nome = NomeFazenda,
-                    CidadeId = CidadeSelecionada.Id,
-                    Cidade = CidadeSelecionada,
+                    Nome = FazendaName,
+                    CidadeId = CidadeSelected.Id,
+                    Cidade = CidadeSelected,
                     UsuarioId = usuario.Id,
                     Usuario = usuario
                 };
@@ -133,51 +175,31 @@ namespace Solum.ViewModel
                     transaction.Commit();
                 }
 
-
-                if(!_fromAnalise) 
-					"Deu certo".ToToast();
-                else 
-					MessagingCenter.Send(this, "FazendaSelecionada", fazenda);
-				
-                await Navigation.PopAsync();
+                if (!_fromAnalise)
+                    Success.ToToast(ToastNotificationType.Sucesso);
+                else
+                    MessagingCenter.Send(this, MessagingCenterMessages.FazendaSelected, fazenda.Id);
             }
             else
             {
-                if (string.IsNullOrEmpty(NomeFazenda))
+                if (string.IsNullOrEmpty(FazendaName))
                 {
-                    MessagingCenter.Send(this, NullEntriesTitle);
+                    FazendaNameNull.ToDisplayAlert(MessageType.Erro);
                     return;
                 }
 
                 using (var transaction = _realm.BeginWrite())
                 {
-                    _fazenda.Nome = NomeFazenda;
-                    var cidadeAtual = _realm.Find<Cidade>(_fazenda.CidadeId);
-                    if (!cidadeAtual.Equals(CidadeSelecionada))
-                    {
-                        _fazenda.CidadeId = CidadeSelecionada.Id;
-                        _fazenda.Cidade = CidadeSelecionada;
-                    }
+                    _fazenda.Nome = FazendaName;
+                    _fazenda.Cidade = CidadeSelected;
+                    _fazenda.CidadeId = CidadeSelected.Id;
                     transaction.Commit();
                 }
-                MessagingCenter.Send(this, UpdateSuccessfullTitle);
-                await Navigation.PopAsync();
+                MessagingCenter.Send(this, MessagingCenterMessages.FazendaSelected, _fazenda.Id);
+                Updated.ToToast();
             }
+            await Navigation.PopAsync();
         }
-
-        public void CarregarEstados()
-        {
-            EstadoList = _realm.All<Estado>().OrderBy(x => x.Nome).ToList();
-            IsEstadosCarregados = true;
-        }
-
-        public void CarregarCidades()
-        {
-            CidadeList = _realm.All<Cidade>()
-                .Where(x => x.EstadoId.Equals(EstadoSelecionado.Id))
-                .OrderBy(n => n.Nome)
-                .ToList();
-            IsCidadesCarregadas = true;
-        }
+        #endregion
     }
 }

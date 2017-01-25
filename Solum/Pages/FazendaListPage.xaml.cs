@@ -72,9 +72,9 @@ namespace Solum.Pages
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
             var context = BindingContext as FazendaListViewModel;
             context?.UpdateFazendaList();
+            base.OnAppearing();
         }
     }
 }

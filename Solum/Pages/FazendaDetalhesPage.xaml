@@ -16,7 +16,7 @@
 			VerticalOptions="Center"
 			HorizontalOptions="Center"
 			FontSize="Medium"
-			Text="Nenhum Talhão Cadastrado Nessa Fazenda"
+      Text="Nenhum Talhão Cadastrado Nessa Fazenda"
 			TextColor="#757575" />
 
     <local:BindableListView

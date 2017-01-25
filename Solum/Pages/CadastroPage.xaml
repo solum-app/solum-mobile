@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:effects="clr-namespace:Solum.Effects;assembly=Solum"
              xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
-             xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum"
+             xmlns:local="clr-namespace:Solum.Renderers;assembly=Solum"
              x:Class="Solum.Pages.CadastroPage"
              Title="Cadastro">
   
@@ -114,7 +114,7 @@
                VerticalOptions="End" 
                Margin="0,2,0,18" />
 
-      <renderers:CustomPicker ItemsSource="{Binding Estados}"
+      <local:CustomPicker ItemsSource="{Binding Estados}"
                               SelectedItem="{Binding EstadoSelected}"
                               ItemSelectedCommand="{Binding UpdateCidadesCommand}"
                               Title="Selecione o Estado"
@@ -128,7 +128,7 @@
                VerticalOptions="End" 
                Margin="0,2,0,18" />
 
-      <renderers:CustomPicker ItemsSource="{Binding Cidades}"
+      <local:CustomPicker ItemsSource="{Binding Cidades}"
                               SelectedItem="{Binding CidadeSelected}"
                               Title="Selecione a Cidade"
                               HasBorder="false"

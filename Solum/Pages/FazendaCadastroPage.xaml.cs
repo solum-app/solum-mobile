@@ -1,7 +1,6 @@
 ﻿using Solum.Models;
 using Solum.ViewModel;
 using Xamarin.Forms;
-using static Solum.Messages.FazendaMessages;
 using static Solum.Settings;
 
 namespace Solum.Pages
@@ -19,6 +18,13 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new FazendaCadastroViewModel(Navigation, fazenda);
+            NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
+        }
+
+        public FazendaCadastroPage(Fazenda fazenda, bool fromAnalise)
+        {
+            InitializeComponent();
+            BindingContext = new FazendaCadastroViewModel(Navigation, fazenda, fromAnalise);
             NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
         }
     }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Realms;
+using Solum.Handlers;
+using Solum.Messages;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -39,7 +41,7 @@ namespace Solum.ViewModel
         private Fazenda _fazenda;
         private Talhao _talhao;
         private Analise _analise;
-        private Realm _realm;
+        private readonly Realm _realm;
 
         #endregion
 
@@ -50,22 +52,22 @@ namespace Solum.ViewModel
             FazendaNome = "Selecione uma fazenda";
             TalhaoNome = "Selecione um talhão";
 
-            MessagingCenter.Subscribe<FazendaListViewModel, Fazenda>(this, "FazendaSelecionada", (model, fazenda) =>
+            MessagingCenter.Subscribe<FazendaListViewModel, string>(this, MessagingCenterMessages.FazendaSelected, (model, fazenda) =>
             {
                 SelecionarFazenda(fazenda);
             });
 
-            MessagingCenter.Subscribe<FazendaCadastroViewModel, Fazenda>(this, "FazendaSelecionada", (model, fazenda) =>
+            MessagingCenter.Subscribe<FazendaCadastroViewModel, string>(this, MessagingCenterMessages.FazendaSelected, (model, fazenda) =>
             {
                 SelecionarFazenda(fazenda);
             });
 
-            MessagingCenter.Subscribe<FazendaDetalhesViewModel, Talhao>(this, "TalhaoSelecionado", (model, talhao) =>
-            {
-                SelecionarTalhao(talhao);
-            });
+            MessagingCenter.Subscribe<FazendaDetalhesViewModel, string>(this, MessagingCenterMessages.TalhaoSelected, (model, talhao) =>
+             {
+                 SelecionarTalhao(talhao);
+             });
 
-            MessagingCenter.Subscribe<TalhaoCadastroViewModel, Talhao>(this, "TalhaoSelecionado", (model, talhao) =>
+            MessagingCenter.Subscribe<TalhaoCadastroViewModel, string>(this, MessagingCenterMessages.TalhaoSelected, (model, talhao) =>
             {
                 SelecionarTalhao(talhao);
             });
@@ -102,8 +104,7 @@ namespace Solum.ViewModel
         #endregion
 
         #region Binding Properties
-
-
+        
         public string Title
         {
             get { return _title; }
@@ -118,7 +119,7 @@ namespace Solum.ViewModel
 
         public string TalhaoNome
         {
-            get { return _talhaoNome;}
+            get { return _talhaoNome; }
             set { SetPropertyChanged(ref _talhaoNome, value); }
         }
 
@@ -214,7 +215,6 @@ namespace Solum.ViewModel
 
         #endregion
 
-
         private void SelecionarData(object parameter)
         {
             DataSelecionada = (DateTimeOffset) parameter;
@@ -230,9 +230,9 @@ namespace Solum.ViewModel
             }
         }
 
-        private void SelecionarFazenda(Fazenda fazenda)
+        private void SelecionarFazenda(string id)
         {
-            Fazenda = _realm.Find<Fazenda>(fazenda.Id);
+            Fazenda = _realm.Find<Fazenda>(id);
             FazendaNome = Fazenda.Nome;
         }
 
@@ -246,9 +246,9 @@ namespace Solum.ViewModel
             }
         }
 
-        private void SelecionarTalhao(Talhao talhao)
+        private void SelecionarTalhao(string id)
         {
-            Talhao = _realm.Find<Talhao>(talhao.Id);
+            Talhao = _realm.Find<Talhao>(id);
             TalhaoNome = Talhao.Nome;
         }
 
@@ -256,79 +256,79 @@ namespace Solum.ViewModel
         {
             if (Talhao == null)
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido","Selecione um talhão", "OK");
+                AnaliseMessages.TalhaoIsntSelected.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (DataSelecionada == default(DateTime))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para a Data", "OK");
+                AnaliseMessages.InvalidDate.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (string.IsNullOrEmpty(PotencialHidrogenico))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para o pH", "OK");
+                AnaliseMessages.PhNull.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (string.IsNullOrEmpty(Fosforo))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para o P", "OK");
+                AnaliseMessages.PNull.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (string.IsNullOrEmpty(Potassio))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para o K", "OK");
+                AnaliseMessages.KNull.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (string.IsNullOrEmpty(Calcio))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para o Ca", "OK");
+                AnaliseMessages.CaNull.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (string.IsNullOrEmpty(Magnesio))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para o Mg", "OK");
+                AnaliseMessages.MgNull.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (string.IsNullOrEmpty(Aluminio))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para o Al", "OK");
+                AnaliseMessages.AlNull.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (string.IsNullOrEmpty(Hidrogenio))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para H", "OK");
+                AnaliseMessages.HNull.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (string.IsNullOrEmpty(MateriaOrganica))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para a Materia Orgânica", "OK");
+                AnaliseMessages.MoNull.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (string.IsNullOrEmpty(Areia))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para a Areia", "OK");
+                AnaliseMessages.AreaiNull.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (string.IsNullOrEmpty(Silte))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para o Silte", "OK");
+                AnaliseMessages.SilteNull.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
+
             if (string.IsNullOrEmpty(Argila))
             {
-                await Application.Current.MainPage.DisplayAlert("Campo obrigatório não preenchido",
-                    "Insira um valor válido para a Argila", "OK");
+                AnaliseMessages.ArgilaNull.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
 
@@ -336,7 +336,7 @@ namespace Solum.ViewModel
             var analise = new Analise
             {
                 Talhao = Talhao,
-                TalhaoId =  Talhao.Id,
+                TalhaoId = Talhao.Id,
                 Data = DataSelecionada,
                 PotencialHidrogenico = float.Parse("0" + PotencialHidrogenico.Replace(',', '.'), CultureInfo.InvariantCulture),
                 Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture),
@@ -351,7 +351,6 @@ namespace Solum.ViewModel
                 Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture),
                 Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture),
                 Id = Guid.NewGuid().ToString()
-                
             };
 
             using (var transaction = _realm.BeginWrite())
@@ -363,13 +362,16 @@ namespace Solum.ViewModel
             var current = Navigation.NavigationStack.LastOrDefault();
             await Navigation.PushAsync(new GerenciamentoAnalise(analise));
             Navigation.RemovePage(current);
+            Dispose();
         }
 
         public override void Dispose()
         {
             base.Dispose();
-            MessagingCenter.Unsubscribe<FazendaListViewModel, Fazenda>(this, "FazendaSelecionada");
-            MessagingCenter.Unsubscribe<FazendaCadastroViewModel, Fazenda>(this, "FazendaSelecionada");
+            MessagingCenter.Unsubscribe<FazendaListViewModel, string>(this, MessagingCenterMessages.FazendaSelected);
+            MessagingCenter.Unsubscribe<FazendaCadastroViewModel, string>(this, MessagingCenterMessages.FazendaSelected);
+            MessagingCenter.Unsubscribe<FazendaDetalhesViewModel, string>(this, MessagingCenterMessages.TalhaoSelected);
+            MessagingCenter.Unsubscribe<TalhaoCadastroViewModel, string>(this, MessagingCenterMessages.TalhaoSelected);
         }
     }
 }

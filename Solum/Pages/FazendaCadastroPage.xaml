@@ -1,33 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage 
-	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:local="clr-namespace:Solum.Renderers;assembly=Solum"
-	xmlns:effects="clr-namespace:Solum.Effects"
-	xmlns:renderers="clr-namespace:Solum.Renderers"
-	xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
-	x:Class="Solum.Pages.FazendaCadastroPage"
-	Title="Cadastrar Fazenda">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Solum.Renderers;assembly=Solum"
+             xmlns:effects="clr-namespace:Solum.Effects"
+             xmlns:renderers="clr-namespace:Solum.Renderers"
+             xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
+             x:Class="Solum.Pages.FazendaCadastroPage"
+             Title="Cadastrar Fazenda">
 	
-	<StackLayout
-		VerticalOptions="FillAndExpand"
-		HorizontalOptions="FillAndExpand"
-		BackgroundColor="{StaticResource colorBackground}"
-		Spacing="0">
+	<StackLayout VerticalOptions="FillAndExpand"
+               HorizontalOptions="FillAndExpand"
+               BackgroundColor="{StaticResource colorBackground}"
+               Spacing="0">
 		
 		<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES">
 			<Label.Margin>
 				<OnPlatform x:TypeArguments="Thickness"
-					iOS="16,24,16,4"
-					Android="16, 13"/>
+                    iOS="16,24,16,4"
+                    Android="16, 13"/>
 			</Label.Margin>
+      
 			<Label.FontSize>
 				<OnPlatform x:TypeArguments="x:Double"
-					iOS="13"
-					Android="14"/>
+                    iOS="13"
+                    Android="14"/>
 			</Label.FontSize>
 		</Label>
+    
 		<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="16"/>
@@ -41,30 +41,40 @@
 						Android="0.3"/>
 				</BoxView.HeightRequest>
 			</BoxView>
-			<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-			<Entry 
-				x:Name="FazendaNomeEntry"
-				Keyboard="Text"
-				Text="{Binding NomeFazenda}"
-				VerticalOptions="Center" Grid.Column="2"
-				Margin="16,0" Placeholder="Nome da Fazenda"
-				HorizontalTextAlignment="End"
-				PlaceholderColor="{StaticResource colorTextHint}">
+			
+      <Label Text="Fazenda" 
+             VerticalOptions="Center"
+             Grid.Column="1" 
+             TextColor="{StaticResource colorTextPrimary}"/>
+			
+      <Entry Keyboard="Text"
+             Text="{Binding FazendaName}"
+             VerticalOptions="Center"
+             Grid.Column="2"
+             Margin="16,0"
+             Placeholder="Nome da Fazenda"
+             HorizontalTextAlignment="End"
+             PlaceholderColor="{StaticResource colorTextHint}">
 				
 				<Entry.Effects>
 			        <effects:NoBorderEffect />
 			    </Entry.Effects>
+        
 				<Entry.FontSize>
 					<OnPlatform x:TypeArguments="x:Double"
-						iOS="17"
-						Android="14"/>
+                      iOS="17"
+                      Android="14"/>
 				</Entry.FontSize>
 			</Entry>
-			<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+      
+			<BoxView BackgroundColor="{StaticResource colorSeparator}" 
+               Grid.Column="1" 
+               Grid.ColumnSpan="2" 
+               VerticalOptions="End">
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
-						iOS="0.5"
-						Android="0.3"/>
+                      iOS="0.5"
+                      Android="0.3"/>
 				</BoxView.HeightRequest>
 			</BoxView>
 		</Grid>
@@ -75,26 +85,29 @@
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
-			<Label Text="Estado" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-			<local:CustomPicker 
-				x:Name="EstadoPicker"
-				Title="Selecione um estado"
-				ItemsSource="{Binding EstadoList}"
-				SelectedItem="{Binding EstadoSelecionado}"
-				ItemSelectedCommand="{Binding AtualizarListaCidadesCommand}"
-        IsEnabled="{Binding IsEstadosCarregados}"
-				VerticalOptions="Center"
-				Grid.Column="2"
-				Margin="16,0"
-				HasBorder="false"
-				PlaceholderColor="{StaticResource colorTextHint}"
-				TextAlignment="Right"/>
+			
+      <Label Text="Estado" 
+             VerticalOptions="Center" 
+             Grid.Column="1" 
+             TextColor="{StaticResource colorTextPrimary}"/>
+      
+			<local:CustomPicker Title="Selecione um estado"
+                          ItemsSource="{Binding Estados}"
+                          SelectedItem="{Binding EstadoSelected}"
+                          ItemSelectedCommand="{Binding UpdateCidadesCommand}"
+                          IsEnabled="{Binding IsEstadosLoaded}"
+                          VerticalOptions="Center"
+                          Grid.Column="2"
+                          Margin="16,0"
+                          HasBorder="false"
+                          PlaceholderColor="{StaticResource colorTextHint}"
+                          TextAlignment="Right"/>
 
 			<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
-						iOS="0.5"
-						Android="0.3"/>
+                      iOS="0.5"
+                      Android="0.3"/>
 				</BoxView.HeightRequest>
 			</BoxView>
 		</Grid>
@@ -105,36 +118,38 @@
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
-			<Label Text="Cidade" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-			<local:CustomPicker 
-				x:Name="CidadePicker" Title="Selecione uma cidade"
-				ItemsSource="{Binding CidadeList}"
-				SelectedItem="{Binding CidadeSelecionada}"
-				IsEnabled="{Binding IsCidadesCarregadas}"
-				VerticalOptions="Center"
-				Grid.Column="2"
-				Margin="16,0"
-				HasBorder="false"
-				PlaceholderColor="{StaticResource colorTextHint}"
-				TextAlignment="Right"/>
+			
+      <Label Text="Cidade" 
+             VerticalOptions="Center" 
+             Grid.Column="1" 
+             TextColor="{StaticResource colorTextPrimary}"/>
+      
+			<local:CustomPicker Title="Selecione uma cidade"
+                          ItemsSource="{Binding Cidades}"
+                          SelectedItem="{Binding CidadeSelected}"
+                          IsEnabled="{Binding IsCidadesLoaded}"
+                          VerticalOptions="Center"
+                          Grid.Column="2"
+                          Margin="16,0"
+                          HasBorder="false"
+                          PlaceholderColor="{StaticResource colorTextHint}"
+                          TextAlignment="Right"/>
 		</Grid>
 		
 		<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
 			<BoxView.HeightRequest>
 				<OnPlatform x:TypeArguments="x:Double"
-					iOS="0.5"
-					Android="0"/>
+                    iOS="0.5"
+                    Android="0"/>
 			</BoxView.HeightRequest>
 		</BoxView>
     
-		<Button 
-      x:Name="CadastrarButton"
-			Text="Cadastrar"
-			Command="{Binding CadastrarFazendaCommand}"
-			VerticalOptions="EndAndExpand"
-			BackgroundColor="{StaticResource colorAccent}"
-			TextColor="{StaticResource colorTextPrimary}"
-			Margin="16,0,16,16"/>
-	</StackLayout>
+		<Button Text="Cadastrar"
+            Command="{Binding RegisterFazendaCommand}"
+            VerticalOptions="EndAndExpand"
+            BackgroundColor="{StaticResource colorAccent}"
+            TextColor="{StaticResource colorTextPrimary}"
+            Margin="16,0,16,16"/>
+  </StackLayout>
 </ContentPage>
 

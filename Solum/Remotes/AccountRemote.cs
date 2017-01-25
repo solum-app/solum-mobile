@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Plugin.Connectivity;
+using Solum.Handlers;
+using Solum.Interfaces;
 using Solum.Models;
+using Xamarin.Forms;
 
 namespace Solum.Remotes
 {
@@ -12,15 +15,15 @@ namespace Solum.Remotes
         public async Task<HttpResponseMessage> Register(RegisterBinding binding)
         {
             if (!CrossConnectivity.Current.IsConnected)
-                throw new Exception(
-                    "Sem Conexão com Internet. Não foi possível enviar dos dados de cadastro para o servidor.");
+                    "Não foi possível realizar o cadastro pois não existe conexão com a internet".ToToast(ToastNotificationType.Erro);
+               
             var dict = new Dictionary<string, string>
             {
-                {"Nome", binding.Nome},
-                {"Email", binding.Email},
-                {"Password", binding.Password},
-                {"ConfirmPassword", binding.ConfirmPassword},
-                {"CidadeId", binding.CidadeId}
+                {"Nome", binding.Nome.Trim()},
+                {"Email", binding.Email.Trim()},
+                {"Password", binding.Password.Trim()},
+                {"ConfirmPassword", binding.ConfirmPassword.Trim()},
+                {"CidadeId", binding.CidadeId.Trim()}
             };
 
             var content = new FormUrlEncodedContent(dict);
@@ -32,12 +35,12 @@ namespace Solum.Remotes
         public async Task<HttpResponseMessage> Login(LoginBinding binding)
         {
             if (!CrossConnectivity.Current.IsConnected)
-                throw new Exception(
-                    "Sem Conexão com Internet. Não foi possível enviar os dados de login para o servidor.");
+                "Não foi possível realizar login pois não existe conexão com a internet".ToToast(ToastNotificationType.Erro);
+              
             var dict = new Dictionary<string, string>
             {
-                {"username", binding.Username},
-                {"password", binding.Password}
+                {"username", binding.Username.Trim()},
+                {"password", binding.Password.Trim()}
             };
             var content = new FormUrlEncodedContent(dict);
             var url = $"{Settings.BaseUri}{Settings.AccountLoginUri}";
@@ -46,11 +49,13 @@ namespace Solum.Remotes
 
         public async Task<HttpResponseMessage> RefreshToken(RefreshTokenBinding refreshToken)
         {
-            if (!CrossConnectivity.Current.IsConnected) throw new Exception("Sem conexão com a Internet");
+            if (!CrossConnectivity.Current.IsConnected)
+                "Não foi possível atualizar dados".ToToast(ToastNotificationType.Erro);
+
             var dict = new Dictionary<string, string>()
             {
-                {"refresh_token", refreshToken.RefreshToken },
-                {"grant_type", RefreshTokenBinding.GrantType }
+                {"refresh_token", refreshToken.RefreshToken.Trim() },
+                {"grant_type", RefreshTokenBinding.GrantType.Trim() }
             };
             var content = new FormUrlEncodedContent(dict);
             var url = $"{Settings.BaseUri}{Settings.TokenUri}";
@@ -59,6 +64,9 @@ namespace Solum.Remotes
 
         public async Task<HttpResponseMessage> Logout()
         {
+            if (!CrossConnectivity.Current.IsConnected)
+                "Não foi possível sair pois não existe conexão com a internet".ToToast(ToastNotificationType.Erro);
+
             var url = $"{Settings.BaseUri}{Settings.AccountLogoutUri}";
             return await Client.PostAsync(url, null);
         }
