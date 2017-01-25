@@ -1,13 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using Solum.iOS;
+﻿using System.ComponentModel;
+using Solum.iOS.Renderers;
 using Solum.Renderers;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(CustomPicker), typeof(CustomPickerRenderer))]
-namespace Solum.iOS
+namespace Solum.iOS.Renderers
 {
 	public class CustomPickerRenderer : PickerRenderer
 	{

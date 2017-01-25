@@ -35,7 +35,6 @@ namespace Solum.Pages
                     }
                 };
 
-                // Overlay the FAB in the bottom-right corner
                 AbsoluteLayout.SetLayoutFlags(fab, AbsoluteLayoutFlags.PositionProportional);
                 AbsoluteLayout.SetLayoutBounds(fab,
                     new Rectangle(1f, 1f, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
@@ -61,25 +60,34 @@ namespace Solum.Pages
 
         private void OnEdit(object sender, EventArgs e)
         {
-            var fazenda = (sender as MenuItem).CommandParameter;
-            var context = BindingContext as FazendaDetalhesViewModel;
-            context?.ShowEditTalhaoPageCommand.Execute(fazenda);
+            var menuItem = sender as MenuItem;
+            if (menuItem != null)
+            {
+                var fazenda = menuItem.CommandParameter;
+                var context = BindingContext as FazendaDetalhesViewModel;
+                context?.ShowEditTalhaoPageCommand.Execute(fazenda);
+            }
         }
 
         public async void OnDelete(object sender, EventArgs args)
         {
             var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
             if (!confirm) return;
-            var talhao = (sender as MenuItem).CommandParameter;
-            var context = BindingContext as FazendaDetalhesViewModel;
-            context?.DeleteTalhaoCommand.Execute(talhao);
+            var menuItem = sender as MenuItem;
+            if (menuItem != null)
+            {
+                var talhao = menuItem.CommandParameter;
+                var context = BindingContext as FazendaDetalhesViewModel;
+                context?.DeleteTalhaoCommand.Execute(talhao);
+            }
         }
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
             var context = BindingContext as FazendaDetalhesViewModel;
             context?.UpdateTalhoesList();
+            base.OnAppearing();
+            
         }
     }
 }

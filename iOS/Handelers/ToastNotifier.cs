@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MessageBar;
-using Solum.iOS;
+using Solum.iOS.Handelers;
+using Solum.Interfaces;
 using Xamarin.Forms;
 
 [assembly: Dependency (typeof (ToastNotifier))]
-namespace Solum.iOS
+namespace Solum.iOS.Handelers
 {
 	public class ToastNotifier : IToastNotifier
 	{
@@ -22,12 +23,13 @@ namespace Solum.iOS
 
 			switch (type)
 			{
-				case ToastNotificationType.Error:
-				case ToastNotificationType.Warning:
+				case ToastNotificationType.Erro:
+
+				case ToastNotificationType.Aviso:
 					msgType = MessageType.Error;
 					break;
 
-				case ToastNotificationType.Success:
+				case ToastNotificationType.Sucesso:
 					msgType = MessageType.Success;
 					break;
 			}

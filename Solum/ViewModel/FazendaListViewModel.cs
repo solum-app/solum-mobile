@@ -83,6 +83,14 @@ namespace Solum.ViewModel
             }
         }
 
+        private async void Edit(Fazenda fazenda)
+        {
+            var current = Navigation.NavigationStack.LastOrDefault();
+            await Navigation.PushAsync(new FazendaCadastroPage(fazenda, _fromAnalise));
+            if (_fromAnalise)
+                Navigation.RemovePage(current);
+        }
+
         private void Delete(Fazenda fazenda)
         {
             using (var transaction = _realm.BeginWrite())
@@ -90,17 +98,8 @@ namespace Solum.ViewModel
                 _realm.Remove(fazenda);
                 transaction.Commit();
             }
-            UpdateFazendaList();
             FazendaMessages.Deleted.ToToast();
-        }
-
-
-        private async void Edit(Fazenda fazenda)
-        {
-            var current = Navigation.NavigationStack.LastOrDefault();
-            await Navigation.PushAsync(new FazendaCadastroPage(fazenda, _fromAnalise));
-            if(_fromAnalise)
-                Navigation.RemovePage(current);
+            UpdateFazendaList();
         }
 
         public void UpdateFazendaList()

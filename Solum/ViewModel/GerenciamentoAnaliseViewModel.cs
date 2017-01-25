@@ -50,7 +50,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new InterpretacaoTestePage());
+                await Navigation.PushAsync(new InterpretacaoPage(Analise, true));
                 IsBusy = false;
             }
         }

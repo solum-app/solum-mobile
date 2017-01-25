@@ -6,7 +6,7 @@
 	xmlns:renderers="clr-namespace:Solum.Renderers"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="Solum.Pages.AnalisePage"
-	Title="{Binding Title}">
+	Title="{Binding PageTitle}">
 
 	<ScrollView BackgroundColor="{StaticResource colorBackground}">
 		<StackLayout Spacing="0">
@@ -56,7 +56,7 @@
 					</Label.FontSize>
           
           <Label.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding SelectFazendaCommand}"/>
+            <TapGestureRecognizer Command="{Binding ShowFazendasCommand}"/>
           </Label.GestureRecognizers>
 				</Label>
         
@@ -77,6 +77,7 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+      
         <Label x:Name="talhaoLabel"
              Text="{Binding TalhaoName}"
              TextColor="{StaticResource colorTextHint}"
@@ -96,7 +97,7 @@
           </Label.FontSize>
 
           <Label.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding SelectTalhaoCommand}"/>
+            <TapGestureRecognizer Command="{Binding ShowTalhoesCommand}"/>
           </Label.GestureRecognizers>
         </Label>
         
@@ -109,6 +110,54 @@
 					</BoxView.HeightRequest>
 				</BoxView>
 			</Grid>
+
+      <Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="16" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <BoxView Grid.ColumnSpan="3" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
+          <BoxView.HeightRequest>
+            <OnPlatform x:TypeArguments="x:Double"
+							    iOS="0.5"
+							    Android="0.3" />
+          </BoxView.HeightRequest>
+        </BoxView>
+        <Label Text="Nome" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+
+        <Entry Unfocused="OnEntryUnfocused"
+                Focused="OnEntryFocused"
+                Text="{Binding AnaliseName}"
+                Keyboard="Text"
+                VerticalOptions="Center"
+                Grid.Column="2"
+                Margin="16,0"
+                Placeholder="Identificação"
+                HorizontalTextAlignment="End"
+                PlaceholderColor="{StaticResource colorTextHint}">
+
+          <Entry.Effects>
+            <effects:NoBorderEffect />
+          </Entry.Effects>
+
+          <Entry.FontSize>
+            <OnPlatform x:TypeArguments="x:Double"
+							    iOS="17"
+							    Android="14" />
+          </Entry.FontSize>
+        </Entry>
+
+        <BoxView BackgroundColor="{StaticResource colorSeparator}"
+                 Grid.Column="1" Grid.ColumnSpan="2"
+                 VerticalOptions="End">
+          <BoxView.HeightRequest>
+            <OnPlatform x:TypeArguments="x:Double"
+                        iOS="0.5"
+                        Android="0.3" />
+          </BoxView.HeightRequest>
+        </BoxView>
+      </Grid>
 			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="16" />
@@ -116,16 +165,26 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Label Text="Data" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<renderers:BindableDatePicker Unfocused="OnEntryUnfocused" Focused="OnEntryFocused" x:Name="datePicker"
-							      Date="{Binding DateSelected}" DateSelectedCommand="{Binding DateSelectedCommand}" Grid.Column="2"
-							      VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="16,0">
+				
+        <renderers:BindableDatePicker Unfocused="OnEntryUnfocused" 
+                                      Focused="OnEntryFocused" 
+                                      Date="{Binding DateSelected}" 
+                                      DateSelectedCommand="{Binding SelectDateCommand}" 
+                                      Grid.Column="2"
+                                      VerticalOptions="Center" 
+                                      HorizontalOptions="EndAndExpand" 
+                                      Margin="16,0">
+          
 					<DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
-					<DatePicker.Effects>
+					
+          <DatePicker.Effects>
 						<effects:NoBorderEffect />
 						<effects:TextSizeEffect TextSize="14" />
 					</DatePicker.Effects>
+          
 				</renderers:BindableDatePicker>
-			</Grid>
+			
+      </Grid>
 			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
@@ -160,28 +219,28 @@
 					</BoxView.HeightRequest>
 				</BoxView>
 				<Label Text="pH" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<Entry
-					x:Name="phEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding PotencialHidrogenico}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Potencial Hidrogeniônico (CaCl₂)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+				<Entry Unfocused="OnEntryUnfocused"
+               Focused="OnEntryFocused"
+               Text="{Binding PotencialHidrogenico}"
+               Keyboard="Numeric"
+               VerticalOptions="Center"
+               Grid.Column="2"
+               Margin="16,0"
+               Placeholder="Potencial Hidrogeniônico (CaCl₂)"
+               HorizontalTextAlignment="End"
+               PlaceholderColor="{StaticResource colorTextHint}">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
+          
 					<Entry.FontSize>
 						<OnPlatform x:TypeArguments="x:Double"
 							    iOS="17"
 							    Android="14" />
 					</Entry.FontSize>
 				</Entry>
+        
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
 					 VerticalOptions="End">
 					<BoxView.HeightRequest>
@@ -198,28 +257,28 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Label Text="P" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<Entry
-					x:Name="pEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Fosforo}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Fósforo (mg dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+				<Entry Unfocused="OnEntryUnfocused"
+               Focused="OnEntryFocused"
+               Text="{Binding Fosforo}"
+               Keyboard="Numeric"
+               VerticalOptions="Center"
+               Grid.Column="2"
+               Margin="16,0"
+               Placeholder="Fósforo (mg dm⁻³)"
+               HorizontalTextAlignment="End"
+               PlaceholderColor="{StaticResource colorTextHint}">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
+          
 					<Entry.FontSize>
 						<OnPlatform x:TypeArguments="x:Double"
 							    iOS="17"
 							    Android="14" />
 					</Entry.FontSize>
 				</Entry>
+        
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
 					 VerticalOptions="End">
 					<BoxView.HeightRequest>
@@ -236,22 +295,21 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Label Text="K" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<Entry
-					x:Name="kEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Potassio}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Potássio (mg dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+				<Entry Unfocused="OnEntryUnfocused"
+               Focused="OnEntryFocused"
+               Text="{Binding Potassio}"
+               Keyboard="Numeric"
+               VerticalOptions="Center"
+               Grid.Column="2"
+               Margin="16,0"
+               Placeholder="Potássio (mg dm⁻³)"
+               HorizontalTextAlignment="End"
+               PlaceholderColor="{StaticResource colorTextHint}">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
+          
 					<Entry.FontSize>
 						<OnPlatform x:TypeArguments="x:Double"
 							    iOS="17"
@@ -274,18 +332,16 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Label Text="Ca" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<Entry
-					x:Name="caEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Calcio}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Cálcio (cmolc dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+				<Entry Unfocused="OnEntryUnfocused"
+               Focused="OnEntryFocused"
+               Text="{Binding Calcio}"
+               Keyboard="Numeric"
+               VerticalOptions="Center"
+               Grid.Column="2"
+               Margin="16,0"
+               Placeholder="Cálcio (cmolc dm⁻³)"
+               HorizontalTextAlignment="End"
+               PlaceholderColor="{StaticResource colorTextHint}">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -312,18 +368,16 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Label Text="Mg" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<Entry
-					x:Name="mgEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Magnesio}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Magnésio (cmolc dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+				<Entry Unfocused="OnEntryUnfocused"
+               Focused="OnEntryFocused"
+               Text="{Binding Magnesio}"
+               Keyboard="Numeric"
+               VerticalOptions="Center"
+               Grid.Column="2"
+               Margin="16,0"
+               Placeholder="Magnésio (cmolc dm⁻³)"
+               HorizontalTextAlignment="End"
+               PlaceholderColor="{StaticResource colorTextHint}">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -350,17 +404,15 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Label Text="Al" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<Entry
-					x:Name="alEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Aluminio}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2" Margin="16,0"
-					Placeholder="Alumínio (cmolc dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+				<Entry Unfocused="OnEntryUnfocused"
+               Focused="OnEntryFocused"
+               Text="{Binding Aluminio}"
+               Keyboard="Numeric"
+               VerticalOptions="Center"
+               Grid.Column="2" Margin="16,0"
+               Placeholder="Alumínio (cmolc dm⁻³)"
+               HorizontalTextAlignment="End"
+               PlaceholderColor="{StaticResource colorTextHint}">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />

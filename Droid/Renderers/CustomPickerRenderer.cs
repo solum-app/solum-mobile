@@ -1,13 +1,13 @@
 ﻿using System;
 using Android.Graphics;
 using Android.Views;
-using Solum.Droid;
+using Solum.Droid.Renderers;
 using Solum.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer (typeof (CustomPicker), typeof (CustomPickerRenderer))]
-namespace Solum.Droid
+namespace Solum.Droid.Renderers
 {
 	public class CustomPickerRenderer : PickerRenderer
 	{

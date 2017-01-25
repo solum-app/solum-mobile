@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Android.Widget;
-using Solum.Droid;
+using Solum.Droid.Handlers;
 using Solum.Interfaces;
 using Xamarin.Forms;
 
 [assembly: Dependency (typeof (ToastNotifier))]
-namespace Solum.Droid
+namespace Solum.Droid.Handlers
 {
 	public class ToastNotifier : IToastNotifier
 	{

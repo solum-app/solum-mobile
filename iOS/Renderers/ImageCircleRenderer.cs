@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using Solum.Custom;
 using Solum.iOS.Renderers;
+using Solum.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
