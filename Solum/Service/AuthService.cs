@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
 using Realms;
+using Solum.Handlers;
 using Solum.Models;
 using Solum.Remotes;
 using Solum.Remotes.Results;
@@ -28,12 +29,15 @@ namespace Solum.Service
         public async Task<RegisterResult> Register(RegisterBinding register)
         {
             var result = await _accountRemote.Register(register);
-            return result.IsSuccessStatusCode ? RegisterResult.RegisterSuccefully : RegisterResult.RegisterUnsuccessfully;
+            if (result != null)
+                return result.IsSuccessStatusCode ? RegisterResult.RegisterSuccefully : RegisterResult.RegisterUnsuccessfully;
+            return RegisterResult.ServerUnrecheable;
         }
 
         public async Task<AuthResult> Login(LoginBinding login)
         {
             var result = await _accountRemote.Login(login);
+            if (result == null) return AuthResult.ServerUnrecheable;
             if (!result.IsSuccessStatusCode) return AuthResult.LoginUnsuccessfully;
             var content = await result.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
@@ -54,13 +58,14 @@ namespace Solum.Service
                 _realm.Add(usuario, true);
                 transaction.Commit();
             }
-            
+
             return AuthResult.LoginSuccessFully;
         }
 
         public async Task<RefreshTokenResult> RefreshToken(RefreshTokenBinding refreshToken)
         {
             var result = await _accountRemote.RefreshToken(refreshToken);
+            if (result == null) return RefreshTokenResult.ServerUnrecheable;
             if (!result.IsSuccessStatusCode) return RefreshTokenResult.Fail;
             var content = await result.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
@@ -80,7 +85,12 @@ namespace Solum.Service
 
         public async Task Logoff()
         {
-            await _accountRemote.Logout();
+            var result = await _accountRemote.Logout();
+            if (result == null)
+            {
+                "Nâo foi possível realizar logoff, servidor indisponível".ToDisplayAlert(MessageType.Falha);
+                return;
+            }
             using (var transaction = _realm.BeginWrite())
             {
                 _realm.RemoveAll<Usuario>();

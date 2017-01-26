@@ -4,5 +4,6 @@ namespace Solum.Remotes.Results
     {
         RegisterSuccefully,
         RegisterUnsuccessfully,
+        ServerUnrecheable
     }
 }

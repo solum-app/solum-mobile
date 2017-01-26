@@ -86,7 +86,11 @@ namespace Solum.ViewModel
                 Application.Current.MainPage = new RootPage();
                 Dispose();
             }
-            else
+            else if (login == AuthResult.ServerUnrecheable)
+            {
+                ServerUnrecheable.ToDisplayAlert(MessageType.Falha);
+            }
+            else 
             {
                 InvalidCredentialsMessage.ToDisplayAlert(MessageType.Erro);
             }

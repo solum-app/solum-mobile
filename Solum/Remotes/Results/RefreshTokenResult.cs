@@ -2,6 +2,6 @@
 {
     public enum RefreshTokenResult
     {
-        Success, Fail
+        Success, Fail, ServerUnrecheable
     }
 }

@@ -7,5 +7,7 @@ namespace Solum.Remotes.Results
 
         LogoffSuccessfully,
         LogoffUnsuccessfully,
+
+        ServerUnrecheable
     }
 }

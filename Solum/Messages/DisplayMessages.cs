@@ -16,6 +16,7 @@ namespace Solum.Messages
         public static string InvalidCredentialsMessage = "Suas credenciais estão inválidas";
         public static string NullEntriesMessage = "Preencha os campos com E-Mail e Senha";
         public static string LoginSuccessMessage = "Login com sucesso!";
+        public static string ServerUnrecheable = "Servidor indisponível no momento";
 
     }
 
