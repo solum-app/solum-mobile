@@ -72,7 +72,7 @@ namespace Solum.ViewModel
 
             if (!binding.IsValid)
             {
-                NullEntriesMessage.ToDisplayAlert(MessageType.Erro);
+                NullEntriesMessage.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
 
