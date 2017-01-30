@@ -259,7 +259,11 @@ namespace Solum.ViewModel
                 return;
             }
 
-            if (string.IsNullOrEmpty(AnaliseName)) { }
+            if (string.IsNullOrEmpty(AnaliseName))
+            {
+                "Identifique a análise com um nome".ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
 
             if (DateSelected == default(DateTime))
             {
@@ -338,6 +342,7 @@ namespace Solum.ViewModel
             {
                 Id = Guid.NewGuid().ToString(),
                 TalhaoId = Talhao.Id,
+                Nome = AnaliseName,
                 Talhao = Talhao,
                 Data = DateSelected,
                 PotencialHidrogenico =

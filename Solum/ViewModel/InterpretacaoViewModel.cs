@@ -1,265 +1,147 @@
 ﻿using System;
-using Xamarin.Forms;
-using Solum.Models;
 using Solum.Handlers;
-using System.Threading.Tasks;
-using Realms;
-using System.Linq;
-using Solum.Messages;
+using Solum.Models;
+using Xamarin.Forms;
 
 namespace Solum.ViewModel
 {
-	public class InterpretacaoViewModel : BaseViewModel
-	{
+    public class InterpretacaoViewModel : BaseViewModel
+    {
+        public InterpretacaoViewModel(INavigation navigation, Analise analise) : base(navigation)
+        {
+            Analise = analise;
+            FazendaName = Analise.Talhao.Fazenda.Nome;
+            Date = Analise.Data;
+            TalhaoName = Analise.Talhao.Nome;
+            InterpretacaoTextura = InterpretaHandler.InterpretaTextura(analise.Argila, analise.Silte);
+            InterpretacaoPh = InterpretaHandler.InterpretaPh(analise.PotencialHidrogenico);
+            InterpretacaoP = InterpretaHandler.InterpretaP(analise.Fosforo, InterpretacaoTextura);
+            InterpretacaoK = InterpretaHandler.InterpretaK(analise.Potassio, analise.CTC);
+            InterpretacaoCa = InterpretaHandler.InterpretaCa(analise.Calcio);
+            InterpretacaoMg = InterpretaHandler.InterpretaMg(analise.Magnesio);
+            InterpretacaoCaK = InterpretaHandler.InterpretaCaK(analise.CaK);
+            InterpretacaoMgK = InterpretaHandler.InterpretaMgK(analise.MgK);
+            InterpretacaoM = InterpretaHandler.InterpretaM(analise.M);
+            InterpretacaoV = InterpretaHandler.InterpretaV(analise.V);
+            InterpretacaoCtc = InterpretaHandler.InterpretaCtc(analise.CTC, InterpretacaoTextura);
+            InterpretacaoMo = InterpretaHandler.InterpretaMo(analise.MateriaOrganica, InterpretacaoTextura);
+        }
 
-		Analise realmAnalise;
+        #region Private Properties
 
-		public InterpretacaoViewModel (INavigation navigation, Analise analise) : base(navigation)
-		{
-			Init (analise);
-		}
+        private Analise _analise;
+        private string _fazendaName;
+        private string _talhaoName;
+        private DateTimeOffset _date;
+        private string _interpretacaoCa;
+        private string _interpretacaoCaK;
+        private string _interpretacaoCtc;
+        private string _interpretacaoK;
+        private string _interpretacaoM;
+        private string _interpretacaoMg;
+        private string _interpretacaoMgK;
+        private string _interpretacaoMo;
+        private string _interpretacaoP;
+        private string _interpretacaoPh;
+        private string _interpretacaoTextura;
+        private string _interpretacaoV;
 
-		public InterpretacaoViewModel (INavigation navigation, Analise analise, Analise realmAnalise) : base (navigation)
-		{
-			this.realmAnalise = realmAnalise;
-			Init (analise);
-		}
+        #endregion
 
-		void Init(Analise analise) {
-			Analise = analise;
-			InterpretacaoTextura = InterpretaHandler.InterpretaTextura (analise.Argila, analise.Silte);
-			InterpretacaoPh = InterpretaHandler.InterpretaPh (analise.PotencialHidrogenico);
-			InterpretacaoP = InterpretaHandler.InterpretaP (analise.Fosforo, InterpretacaoTextura);
-			InterpretacaoK = InterpretaHandler.InterpretaK (analise.Potassio, analise.CTC);
-			InterpretacaoCa = InterpretaHandler.InterpretaCa (analise.Calcio);
-			InterpretacaoMg = InterpretaHandler.InterpretaMg (analise.Magnesio);
-			InterpretacaoCaK = InterpretaHandler.InterpretaCaK (analise.CaK);
-			InterpretacaoMgK = InterpretaHandler.InterpretaMgK (analise.MgK);
-			InterpretacaoM = InterpretaHandler.InterpretaM (analise.M);
-			InterpretacaoV = InterpretaHandler.InterpretaV (analise.V);
-			InterpretacaoCtc = InterpretaHandler.InterpretaCtc (analise.CTC, InterpretacaoTextura);
-			InterpretacaoMo = InterpretaHandler.InterpretaMo (analise.MateriaOrganica, InterpretacaoTextura);
-		}
+        #region Binding Properties
 
-		Analise _analise;
-		public Analise Analise
-		{
-			get
-			{
-				return _analise;
-			}
-			set
-			{
-				SetPropertyChanged(ref _analise, value);
-			}
-		}
+        public Analise Analise
+        {
+            get { return _analise; }
+            set { SetPropertyChanged(ref _analise, value); }
+        }
 
-		string _interpretacaoTextura;
-		public string InterpretacaoTextura
-		{
-			get
-			{
-				return _interpretacaoTextura;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoTextura, value);
-			}
-		}
+        public string FazendaName
+        {
+            get { return _fazendaName;}
+            set { SetPropertyChanged(ref _fazendaName, value); }
+        }
 
-		string _interpretacaoPh;
-		public string InterpretacaoPh
-		{
-			get
-			{
-				return _interpretacaoPh;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoPh, value);
-			}
-		}
+        public string TalhaoName
+        {
+            get { return _talhaoName; }
+            set { SetPropertyChanged(ref _talhaoName, value); }
+        }
 
-		string _interpretacaoP;
-		public string InterpretacaoP
-		{
-			get
-			{
-				return _interpretacaoP;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoP, value);
-			}
-		}
+        public DateTimeOffset Date { get { return _date; } set { SetPropertyChanged(ref _date, value); } }
 
-		string _interpretacaoK;
-		public string InterpretacaoK
-		{
-			get
-			{
-				return _interpretacaoK;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoK, value);
-			}
-		}
+        public string InterpretacaoTextura
+        {
+            get { return _interpretacaoTextura; }
+            set { SetPropertyChanged(ref _interpretacaoTextura, value); }
+        }
 
-		string _interpretacaoCa;
-		public string InterpretacaoCa
-		{
-			get
-			{
-				return _interpretacaoCa;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoCa, value);
-			}
-		}
+        public string InterpretacaoPh
+        {
+            get { return _interpretacaoPh; }
+            set { SetPropertyChanged(ref _interpretacaoPh, value); }
+        }
 
-		string _interpretacaoMg;
-		public string InterpretacaoMg
-		{
-			get
-			{
-				return _interpretacaoMg;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoMg, value);
-			}
-		}
+        public string InterpretacaoP
+        {
+            get { return _interpretacaoP; }
+            set { SetPropertyChanged(ref _interpretacaoP, value); }
+        }
 
-		string _interpretacaoCaK;
-		public string InterpretacaoCaK
-		{
-			get
-			{
-				return _interpretacaoCaK;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoCaK, value);
-			}
-		}
+        public string InterpretacaoK
+        {
+            get { return _interpretacaoK; }
+            set { SetPropertyChanged(ref _interpretacaoK, value); }
+        }
 
-		string _interpretacaoMgK;
-		public string InterpretacaoMgK
-		{
-			get
-			{
-				return _interpretacaoMgK;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoMgK, value);
-			}
-		}
-			
-		string _interpretacaoM;
-		public string InterpretacaoM
-		{
-			get
-			{
-				return _interpretacaoM;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoM, value);
-			}
-		}
+        public string InterpretacaoCa
+        {
+            get { return _interpretacaoCa; }
+            set { SetPropertyChanged(ref _interpretacaoCa, value); }
+        }
 
-		string _interpretacaoV;
-		public string InterpretacaoV
-		{
-			get
-			{
-				return _interpretacaoV;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoV, value);
-			}
-		}
-			
-		string _interpretacaoCtc;
-		public string InterpretacaoCtc
-		{
-			get
-			{
-				return _interpretacaoCtc;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoCtc, value);
-			}
-		}
+        public string InterpretacaoMg
+        {
+            get { return _interpretacaoMg; }
+            set { SetPropertyChanged(ref _interpretacaoMg, value); }
+        }
 
-		string _interpretacaoMo;
-		public string InterpretacaoMo
-		{
-			get
-			{
-				return _interpretacaoMo;
-			}
-			set
-			{
-				SetPropertyChanged(ref _interpretacaoMo, value);
-			}
-		}
+        public string InterpretacaoCaK
+        {
+            get { return _interpretacaoCaK; }
+            set { SetPropertyChanged(ref _interpretacaoCaK, value); }
+        }
 
-		public void SalvarAnalise ()
-		{
-			var realm = Realm.GetInstance ();
+        public string InterpretacaoMgK
+        {
+            get { return _interpretacaoMgK; }
+            set { SetPropertyChanged(ref _interpretacaoMgK, value); }
+        }
 
-			if (realmAnalise == default(Analise)){
-				using (var transaction = realm.BeginWrite ()) {
-					realmAnalise = realm.CreateObject<Analise> ();
-					realmAnalise.Aluminio = Analise.Aluminio;
-					realmAnalise.Areia = Analise.Areia;
-					realmAnalise.Argila = Analise.Argila;
-					realmAnalise.Calcio = Analise.Calcio;
-					realmAnalise.Data = Analise.Data;
-					//realmAnalise.Fazenda = Analise.Fazenda;
-					realmAnalise.Hidrogenio = Analise.Hidrogenio;
-					realmAnalise.Potassio = Analise.Potassio;
-					realmAnalise.MateriaOrganica = Analise.MateriaOrganica;
-					realmAnalise.Magnesio = Analise.Magnesio;
-					realmAnalise.Fosforo = Analise.Fosforo;
-					realmAnalise.PotencialHidrogenico = Analise.PotencialHidrogenico;
-					realmAnalise.Silte = Analise.Silte;
-					realmAnalise.Talhao = Analise.Talhao;
+        public string InterpretacaoM
+        {
+            get { return _interpretacaoM; }
+            set { SetPropertyChanged(ref _interpretacaoM, value); }
+        }
 
-					transaction.Commit ();
-				}
-			} else {
-				using (var transaction = realm.BeginWrite ()) {
-					realmAnalise.Aluminio = Analise.Aluminio;
-					realmAnalise.Areia = Analise.Areia;
-					realmAnalise.Argila = Analise.Argila;
-					realmAnalise.Calcio = Analise.Calcio;
-					realmAnalise.Data = Analise.Data;
-				//	realmAnalise.Fazenda = Analise.Fazenda;
-					realmAnalise.Hidrogenio = Analise.Hidrogenio;
-					realmAnalise.Potassio = Analise.Potassio;
-					realmAnalise.MateriaOrganica = Analise.MateriaOrganica;
-					realmAnalise.Magnesio = Analise.Magnesio;
-					realmAnalise.Fosforo = Analise.Fosforo;
-					realmAnalise.PotencialHidrogenico = Analise.PotencialHidrogenico;
-					realmAnalise.Silte = Analise.Silte;
-					realmAnalise.Talhao = Analise.Talhao;
+        public string InterpretacaoV
+        {
+            get { return _interpretacaoV; }
+            set { SetPropertyChanged(ref _interpretacaoV, value); }
+        }
 
-					transaction.Commit ();
-				}
-			}
+        public string InterpretacaoCtc
+        {
+            get { return _interpretacaoCtc; }
+            set { SetPropertyChanged(ref _interpretacaoCtc, value); }
+        }
 
-			MessagingCenter.Send<UpdateAnalisesMessage> (
-				new UpdateAnalisesMessage (), 
-				UpdateAnalisesMessage.UpdateAnalises
-			);
-		}
-	}
+        public string InterpretacaoMo
+        {
+            get { return _interpretacaoMo; }
+            set { SetPropertyChanged(ref _interpretacaoMo, value); }
+        }
+
+        #endregion
+    }
 }
-

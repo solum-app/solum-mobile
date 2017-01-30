@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage 
-	xmlns="http://xamarin.com/schemas/2014/forms" 
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-	x:Class="Solum.Pages.InterpretacaoPage"
-	xmlns:handlers="clr-namespace:Solum.Handlers"
-	Title="Interpretação">
-	<ScrollView BackgroundColor="{StaticResource colorBackground}">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:handlers="clr-namespace:Solum.Handlers;assembly=Solum"
+             x:Class="Solum.Pages.InterpretacaoPage"
+             Title="Interpretação">
+  
+  <ScrollView BackgroundColor="{StaticResource colorBackground}">
 		<StackLayout Padding="0,4,0,0" Spacing="0">
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
@@ -19,9 +19,10 @@
  						<ColumnDefinition Width="*"/>
  						<ColumnDefinition Width="Auto"/>
  					</Grid.ColumnDefinitions>
- 					<Label Grid.Row="0" Grid.Column="0" Text="{Binding Analise.Fazenda, Converter={x:Static handlers:ToUpperConverter.Instance} }" LineBreakMode="TailTruncation" TextColor="{StaticResource colorTextPrimary}"/>
- 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding Analise.Data, StringFormat='{0:dd/MM/yyyy}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextPrimary}"/>
- 					<Label Grid.Row="1" Grid.Column="0" Text="{Binding Analise.Talhao, StringFormat='Talhão {0}'}" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
+            
+ 					<Label Grid.Row="0" Grid.Column="0" Text="{Binding FazendaName, Converter={x:Static handlers:ToUpperConverter.Instance} }" LineBreakMode="TailTruncation" TextColor="{StaticResource colorTextPrimary}"/>
+ 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextPrimary}"/>
+ 					<Label Grid.Row="1" Grid.Column="0" Text="{Binding TalhaoName, StringFormat='Talhão {0}'}" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
  					<Label Grid.Row="1" Grid.Column="1" Text="{Binding InterpretacaoTextura, StringFormat='Textura {0}'}" FontSize="Small" TextColor="{StaticResource colorTextSecundary}" HorizontalTextAlignment="End"/>
  				</Grid>
 				</StackLayout>

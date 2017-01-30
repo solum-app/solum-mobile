@@ -1,137 +1,111 @@
-﻿using System.Threading.Tasks;
-using Xamarin.Forms;
-using System.Collections.Generic;
-using Solum.Models;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 using Realms;
-using Solum.Pages;
-using Solum.Messages;
 using Solum.Handlers;
+using Solum.Models;
+using Solum.Pages;
+using Xamarin.Forms;
 
 namespace Solum.ViewModel
 {
-	public class AnalisesViewModel : BaseViewModel
-	{
+    public class AnalisesViewModel : BaseViewModel
+    {
+        public AnalisesViewModel(INavigation navigation) : base(navigation)
+        {
+            _realm = Realm.GetInstance();
+            analises = _realm.All<Analise>().OrderBy(e => e.Talhao.Fazenda.Nome).ToList();
 
-		IList<Analise> analises;
+            var groupList = analises.GroupBy(a => a.Talhao.Fazenda.Nome.ToUpper())
+                .Select(a => new Grouping<string, Analise>(a.Key, a));
 
-		public AnalisesViewModel (INavigation navigation) : base(navigation)
-		{
-			MessagingCenter.Subscribe<UpdateAnalisesMessage> (
-				this, UpdateAnalisesMessage.UpdateAnalises, UpdateAnalises
-			);
+            Analises = new ObservableCollection<Grouping<string, Analise>>(groupList);
+            HasItems = Analises.Any();
+        }
 
-			var realm = Realm.GetInstance ();
+        #region Private Properties
 
-			analises = realm.All<Analise> ().OrderBy (e => e.Talhao.Fazenda.Nome).ToList ();
+        private ICommand _editCommand;
+        private ICommand _deleteCommand;
+        private ICommand _itemTappedCommand;
 
-			var groupList =
-				analises.GroupBy (a => a.Talhao.Fazenda.Nome.ToUpper ())
-					.Select (a => new Grouping<string, Analise> (a.Key, a));
+        private IList<Analise> analises;
+        private IList<Grouping<string, Analise>> _analises;
 
-			Analises = new ObservableCollection<Grouping<string, Analise>> (groupList);
+        private bool _hasItems;
 
-			HasItems = Analises.Count > 0;
-		}
+        private readonly Realm _realm;
 
-		void UpdateAnalises (object sender)
-		{
-			var realm = Realm.GetInstance ();
+        #endregion
 
-			analises = realm.All<Analise> ().OrderBy (e => e.Talhao.Fazenda.Nome).ToList ();
+        #region Binding Properties
 
-			var groupList =
-				analises.GroupBy (a => a.Talhao.Fazenda.Nome.ToUpper ())
-					.Select (a => new Grouping<string, Analise> (a.Key, a));
+        public IList<Grouping<string, Analise>> Analises
+        {
+            get { return _analises; }
+            set { SetPropertyChanged(ref _analises, value); }
+        }
 
-			Analises = new ObservableCollection<Grouping<string, Analise>> (groupList);
+        public bool HasItems
+        {
+            get { return _hasItems; }
+            set { SetPropertyChanged(ref _hasItems, value); }
+        }
 
-			HasItems = Analises.Count > 0;
-		}
+        #endregion
 
-		IList<Grouping<string, Analise>> _analises;
-		public IList<Grouping<string, Analise>> Analises {
-			get {
-				return _analises;
-			}
-			set {
-				SetPropertyChanged (ref _analises, value);
-			}
-		}
+        #region Commands
 
-		bool _hasItems;
-		public bool HasItems
-		{
-			get
-			{
-				return _hasItems;
-			}
-			set
-			{
-				SetPropertyChanged(ref _hasItems, value);
-			}
-		}
+        public ICommand EditCommand => _editCommand ?? (_editCommand = new Command(ShowEditAnalisePage));
 
-		private Command _excluirCommand;
+        public ICommand DeleteCommand => _deleteCommand ?? (_deleteCommand = new Command(DeleteAnalise));
 
-		public Command ExcluirCommand {
-			get {
-				return _excluirCommand ?? (_excluirCommand = new Command ((obj) => ExecuteExcluirCommand (obj)));
-			}
-		}
+        public ICommand ItemTappedCommand => _itemTappedCommand ?? (_itemTappedCommand = new Command(ShowGerenciamentoAnalisePage));
 
-		protected void ExecuteExcluirCommand (object obj)
-		{
-			var analise = (obj as Analise);
+        #endregion
 
-			var realm = Realm.GetInstance ();
+        #region Functions
 
-			using (var trans = realm.BeginWrite ()) {
-				realm.Remove (analise);
-				trans.Commit ();
-			}
+        private void UpdateAnalises()
+        {
+            analises = _realm.All<Analise>().OrderBy(e => e.Talhao.Fazenda.Nome).ToList();
 
-			analises.Remove (analise);
+            var groupList = analises.GroupBy(a => a.Talhao.Fazenda.Nome.ToUpper())
+                .Select(a => new Grouping<string, Analise>(a.Key, a));
 
-			var groupList =
-				analises.GroupBy (a => a.Talhao.Fazenda.Nome.ToUpper ())
-					.Select (a => new Grouping<string, Analise> (a.Key, a));
+            Analises = new ObservableCollection<Grouping<string, Analise>>(groupList);
+            HasItems = Analises.Any();
+        }
 
-			Analises = new ObservableCollection<Grouping<string, Analise>> (groupList);
+        private void DeleteAnalise(object obj)
+        {
+            var analise = obj as Analise;
+            using (var transaction = _realm.BeginWrite())
+            {
+                _realm.Remove(analise);
+                transaction.Commit();
+            }
 
-			HasItems = Analises.Count > 0;
-		}
+            analises.Remove(analise);
+            UpdateAnalises();
+        }
 
-		private Command _editarCommand;
+        private async void ShowEditAnalisePage(object obj)
+        {
+            await Navigation.PushAsync(new AnalisePage(obj as Analise));
+        }
 
-		public Command EditarCommand {
-			get {
-				return _editarCommand ?? (_editarCommand = new Command (async (obj) => await ExecuteEditarCommand (obj)));
-			}
-		}
+        private async void ShowGerenciamentoAnalisePage(object obj)
+        {
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                await Navigation.PushAsync(new GerenciamentoAnalisePage(obj as Analise));
+                IsBusy = false;
+            }
+        }
 
-		protected async Task ExecuteEditarCommand (object obj)
-		{
-			var analise = (obj as Analise);
-
-			await Navigation.PushAsync (new AnalisePage (analise));
-		}
-
-		private Command _itemTappedCommand;
-
-		public Command ItemTappedCommand {
-			get {
-				return _itemTappedCommand ?? (_itemTappedCommand = new Command (async (obj) => await ExecuteItemTappedCommand (obj)));
-			}
-		}
-
-		protected async Task ExecuteItemTappedCommand (object obj)
-		{
-			var analise = (obj as Analise);
-
-			await Navigation.PushAsync (new InterpretacaoPage (analise, true));
-		}
-	}
+        #endregion
+    }
 }
-

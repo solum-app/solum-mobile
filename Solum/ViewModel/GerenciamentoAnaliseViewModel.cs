@@ -1,5 +1,5 @@
-﻿using System.Windows.Input;
-using Realms;
+﻿using System;
+using System.Windows.Input;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -8,91 +8,209 @@ namespace Solum.ViewModel
 {
     public class GerenciamentoAnaliseViewModel : BaseViewModel
     {
-        private ICommand _abrirTelaCalagemCommand;
-        private ICommand _abrirTelaCoberturaCommand;
-        private ICommand _abrirTelaCorretivaCommand;
-        private ICommand _abrirTelaInterpretacaoCommand;
-        private ICommand _abrirTelaSemeaduraCommand;
+        public GerenciamentoAnaliseViewModel(INavigation navigation, Analise analise) : base(navigation)
+        {
+            Analise = analise;
+            PageTitle = Analise.Nome;
+            InterpretacaoDate = Analise.DataInterpretacao;
+            CalagemDate = Analise.DataCalculoCalagem;
+            CorretivaDate = Analise.DataCalculoCorretiva;
+            SemeaduraDate = Analise.DataCalculoSemeadura;
+            CoberturaDate = Analise.DataCalculoCobertura;
+        }
+
+        #region Private Properties
+
+        private ICommand _showCalagemPageCommand;
+        private ICommand _showCoberturaPageCommand;
+        private ICommand _showCorretivaPageCommand;
+        private ICommand _showInterpretacaoPageCommand;
+        private ICommand _showSemeaduraPageCommand;
+
+        private bool _hasInterpretacaoAccomplished;
+        private bool _hasCalagemCalculation;
+        private bool _hasCorretivaCalculation;
+        private bool _hasSemeaduraCalculation;
+        private bool _hasCoberturaCalculation;
+
+        private string _pageTitle;
+
+        private DateTimeOffset? _interpretacaoDate;
+        private DateTimeOffset? _calagemDate;
+        private DateTimeOffset? _corretivaDate;
+        private DateTimeOffset? _semeaduraDate;
+        private DateTimeOffset? _coberturaDate;
 
         private Analise _analise;
 
-        private Realm _realm;
+        #endregion
 
-        public GerenciamentoAnaliseViewModel(INavigation navigation, Analise analise) : base(navigation)
+        #region Binding Properties
+
+        public string PageTitle
         {
-            _realm = Realm.GetInstance();
-            Analise = analise;
+            get { return _pageTitle; }
+            set { SetPropertyChanged(ref _pageTitle, value); }
         }
-
         public Analise Analise
         {
             get { return _analise; }
             set { SetPropertyChanged(ref _analise, value); }
         }
 
-        public ICommand AbriTelaInterpretacaoCommand
-            => _abrirTelaInterpretacaoCommand ?? (_abrirTelaInterpretacaoCommand = new Command(AbrirTelaInterpretacao));
+        public bool HasInterpretacaoAccomplished
+        {
+            get { return _hasInterpretacaoAccomplished; }
+            set { SetPropertyChanged(ref _hasInterpretacaoAccomplished, value); }
+        }
 
-        public ICommand AbrirTelaCalagemCommand
-            => _abrirTelaCalagemCommand ?? (_abrirTelaCalagemCommand = new Command(AbrirTelaCalagem));
+        public bool HasCalagemCalculation
+        {
+            get { return _hasCalagemCalculation; }
+            set { SetPropertyChanged(ref _hasCalagemCalculation, value); }
+        }
 
-        public ICommand AbrirTelaCorretivaCommand
-            => _abrirTelaCorretivaCommand ?? (_abrirTelaCorretivaCommand = new Command(AbrirTelaCorretiva));
+        public bool HasCorretivaCalculation
+        {
+            get { return _hasCorretivaCalculation; }
+            set { SetPropertyChanged(ref _hasCorretivaCalculation, value); }
+        }
 
-        public ICommand AbrirTelaSemeaduraCommand
-            => _abrirTelaSemeaduraCommand ?? (_abrirTelaSemeaduraCommand = new Command(AbrirTelaSemeadura));
+        public bool HasSemeaduraCalculation
+        {
+            get { return _hasSemeaduraCalculation; }
+            set { SetPropertyChanged(ref _hasSemeaduraCalculation, value); }
+        }
 
-        public ICommand AbrirTelaCoberturaCommand
-            => _abrirTelaCoberturaCommand ?? (_abrirTelaCoberturaCommand = new Command(AbrirTelaCobertura));
+        public bool HasCoberturaCalculation
+        {
+            get { return _hasCoberturaCalculation; }
+            set { SetPropertyChanged(ref _hasCoberturaCalculation, value); }
+        }
 
-        private async void AbrirTelaInterpretacao()
+        public DateTimeOffset? InterpretacaoDate
+        {
+            get { return _interpretacaoDate; }
+            set
+            {
+                SetPropertyChanged(ref _interpretacaoDate, value);
+                HasInterpretacaoAccomplished = InterpretacaoDate.HasValue;
+            }
+        }
+
+        public DateTimeOffset? CalagemDate
+        {
+            get { return _calagemDate; }
+            set
+            {
+                SetPropertyChanged(ref _calagemDate, value);
+                HasCalagemCalculation = CalagemDate.HasValue;
+            }
+        }
+
+        public DateTimeOffset? CorretivaDate
+        {
+            get { return _corretivaDate; }
+            set
+            {
+                SetPropertyChanged(ref _corretivaDate, value);
+                HasCorretivaCalculation = CorretivaDate.HasValue;
+            }
+        }
+
+        public DateTimeOffset? SemeaduraDate
+        {
+            get { return _semeaduraDate; }
+            set
+            {
+                SetPropertyChanged(ref _semeaduraDate, value);
+                HasSemeaduraCalculation = SemeaduraDate.HasValue;
+            }
+        }
+
+        public DateTimeOffset? CoberturaDate
+        {
+            get { return _coberturaDate; }
+            set
+            {
+                SetPropertyChanged(ref _coberturaDate, value);
+                HasCoberturaCalculation = CoberturaDate.HasValue;
+            }
+        }
+
+        #endregion
+
+        #region Commands
+
+        public ICommand ShowInterpretacaoPageCommand
+            => _showInterpretacaoPageCommand ?? (_showInterpretacaoPageCommand = new Command(ShowInterpretacaoPage));
+
+        public ICommand ShowCalagemPageCommand
+            => _showCalagemPageCommand ?? (_showCalagemPageCommand = new Command(ShowCalagemPage));
+
+        public ICommand ShowCorretivaPageCommand
+            => _showCorretivaPageCommand ?? (_showCorretivaPageCommand = new Command(ShowCorretivaPage));
+
+        public ICommand ShowSemeaduraPageCommand
+            => _showSemeaduraPageCommand ?? (_showSemeaduraPageCommand = new Command(ShowSemeaduraPage));
+
+        public ICommand ShowCoberturaPageCommand
+            => _showCoberturaPageCommand ?? (_showCoberturaPageCommand = new Command(ShowCoberturaPage));
+
+        #endregion
+
+        #region Functions
+
+        private async void ShowInterpretacaoPage()
         {
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new InterpretacaoPage(Analise, true));
+                await Navigation.PushAsync(new InterpretacaoPage(Navigation, Analise));
                 IsBusy = false;
             }
         }
 
-        private async void AbrirTelaCalagem()
+        private async void ShowCalagemPage()
         {
-            if (!IsBusy)
+            if (!IsBusy && HasInterpretacaoAccomplished)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new Pages.CalagemPage());
+                await Navigation.PushAsync(new CalagemPage(Analise));
                 IsBusy = false;
             }
         }
 
-        private async void AbrirTelaCorretiva()
+        private async void ShowCorretivaPage()
         {
-            if (!IsBusy)
+            if (!IsBusy && HasCalagemCalculation)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new Pages.CorretivaPage());
+                await Navigation.PushAsync(new CorretivaPage(Analise));
                 IsBusy = false;
             }
         }
 
-        private async void AbrirTelaSemeadura()
+        private async void ShowSemeaduraPage()
         {
-            if (!IsBusy)
+            if (!IsBusy && HasCorretivaCalculation)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new Pages.SemeaduraPage());
+                await Navigation.PushAsync(new SemeaduraPage(Analise));
                 IsBusy = false;
             }
         }
 
-        private async void AbrirTelaCobertura()
+        private async void ShowCoberturaPage()
         {
-            if (!IsBusy)
+            if (!IsBusy && HasSemeaduraCalculation)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new CoberturaPage());
+                await Navigation.PushAsync(new CoberturaPage(Analise));
                 IsBusy = false;
             }
         }
+
+        #endregion
     }
 }

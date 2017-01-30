@@ -38,7 +38,7 @@ namespace Solum.Pages
 
 		void OnEdit(object sender, EventArgs e){
 			var analise = (sender as MenuItem).CommandParameter;
-			(BindingContext as AnalisesViewModel).EditarCommand.Execute (analise);
+			(BindingContext as AnalisesViewModel).EditCommand.Execute (analise);
 		}
 
 		async void OnDelete (object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace Solum.Pages
 
 			if (confirm) {
 				var analise = (sender as MenuItem).CommandParameter;
-				(BindingContext as AnalisesViewModel).ExcluirCommand.Execute (analise);
+				(BindingContext as AnalisesViewModel).DeleteCommand.Execute (analise);
 			}
 		}
 	}

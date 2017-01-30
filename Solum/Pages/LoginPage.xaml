@@ -15,7 +15,7 @@
 		Spacing="0"
 		Padding="0,16">
 
-    <Image Source="solum_login" HorizontalOptions="Center" VerticalOptions="Start">
+    <Image Source="solum_login" HorizontalOptions="Center" VerticalOptions="Start" WidthRequest="30">
       <Image.Margin>
         <OnPlatform x:TypeArguments="Thickness" iOS="0,60,0,0" Android="0,20,0,0"/>
       </Image.Margin>

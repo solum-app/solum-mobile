@@ -25,6 +25,7 @@ namespace Solum.Models
         public float Silte { get; set; }
         public float Argila { get; set; }
 
+        public DateTimeOffset? DataInterpretacao { get; set; }
         public DateTimeOffset? DataCalculoCalagem { get; set; }
         public DateTimeOffset? DataCalculoCorretiva { get; set; }
         public DateTimeOffset? DataCalculoSemeadura { get; set; }
