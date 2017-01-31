@@ -19,9 +19,9 @@ namespace Solum.Pages
         public InterpretacaoPage(INavigation navigation, Analise analise)
         {
             InitializeComponent();
-            this.analise = analise;
-            BindingContext = new InterpretacaoViewModel(navigation, analise);
-            NavigationPage.SetBackButtonTitle(this, "Voltar");
+          //  this.analise = analise;
+          BindingContext = new InterpretacaoViewModel(navigation, analise);
+          NavigationPage.SetBackButtonTitle(this, "Voltar");
         }
 
         //private async void OnSalvarTapped(object sender, EventArgs e)

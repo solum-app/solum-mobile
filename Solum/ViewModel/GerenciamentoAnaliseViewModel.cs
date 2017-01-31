@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
+using Realms;
+using Solum.Handlers;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -10,13 +12,10 @@ namespace Solum.ViewModel
     {
         public GerenciamentoAnaliseViewModel(INavigation navigation, Analise analise) : base(navigation)
         {
-            Analise = analise;
+            _realm = Realm.GetInstance(); 
+            Analise = _realm.Find<Analise>(analise.Id);
             PageTitle = Analise.Nome;
-            InterpretacaoDate = Analise.DataInterpretacao;
-            CalagemDate = Analise.DataCalculoCalagem;
-            CorretivaDate = Analise.DataCalculoCorretiva;
-            SemeaduraDate = Analise.DataCalculoSemeadura;
-            CoberturaDate = Analise.DataCalculoCobertura;
+           UpdateValues();
         }
 
         #region Private Properties
@@ -42,6 +41,7 @@ namespace Solum.ViewModel
         private DateTimeOffset? _coberturaDate;
 
         private Analise _analise;
+        private Realm _realm;
 
         #endregion
 
@@ -173,30 +173,33 @@ namespace Solum.ViewModel
 
         private async void ShowCalagemPage()
         {
-            if (!IsBusy && HasInterpretacaoAccomplished)
+            if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new CalagemPage(Analise));
+                if (!HasInterpretacaoAccomplished)
+                    await Navigation.PushAsync(new CalagemPage(Analise));
                 IsBusy = false;
-            }
+            } 
         }
 
         private async void ShowCorretivaPage()
         {
-            if (!IsBusy && HasCalagemCalculation)
+            if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new CorretivaPage(Analise));
+                if(HasCalagemCalculation)
+                    await Navigation.PushAsync(new CorretivaPage(Analise));
                 IsBusy = false;
             }
         }
 
         private async void ShowSemeaduraPage()
         {
-            if (!IsBusy && HasCorretivaCalculation)
+            if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new SemeaduraPage(Analise));
+                if (HasCorretivaCalculation)
+                    await Navigation.PushAsync(new SemeaduraPage(Analise));
                 IsBusy = false;
             }
         }
@@ -211,6 +214,15 @@ namespace Solum.ViewModel
             }
         }
 
+        public void UpdateValues()
+        {
+            Analise = _realm.Find<Analise>(Analise.Id);
+            InterpretacaoDate = Analise.DataInterpretacao;
+            CalagemDate = Analise.DataCalculoCalagem;
+            CorretivaDate = Analise.DataCalculoCorretiva;
+            SemeaduraDate = Analise.DataCalculoSemeadura;
+            CoberturaDate = Analise.DataCalculoCobertura;
+        }
         #endregion
     }
 }

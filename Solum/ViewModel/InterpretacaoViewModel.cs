@@ -1,4 +1,5 @@
 ﻿using System;
+using Realms;
 using Solum.Handlers;
 using Solum.Models;
 using Xamarin.Forms;
@@ -9,7 +10,8 @@ namespace Solum.ViewModel
     {
         public InterpretacaoViewModel(INavigation navigation, Analise analise) : base(navigation)
         {
-            Analise = analise;
+            var realm = Realm.GetInstance();
+            Analise = realm.Find<Analise>(analise.Id);
             FazendaName = Analise.Talhao.Fazenda.Nome;
             Date = Analise.Data;
             TalhaoName = Analise.Talhao.Nome;
@@ -25,6 +27,11 @@ namespace Solum.ViewModel
             InterpretacaoV = InterpretaHandler.InterpretaV(analise.V);
             InterpretacaoCtc = InterpretaHandler.InterpretaCtc(analise.CTC, InterpretacaoTextura);
             InterpretacaoMo = InterpretaHandler.InterpretaMo(analise.MateriaOrganica, InterpretacaoTextura);
+            using (var transaction = realm.BeginWrite())
+            {
+                Analise.DataInterpretacao = DateTimeOffset.Now;
+                transaction.Commit();
+            }
         }
 
         #region Private Properties
@@ -68,7 +75,11 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _talhaoName, value); }
         }
 
-        public DateTimeOffset Date { get { return _date; } set { SetPropertyChanged(ref _date, value); } }
+        public DateTimeOffset Date
+        {
+            get { return _date; }
+            set { SetPropertyChanged(ref _date, value); }
+        }
 
         public string InterpretacaoTextura
         {
