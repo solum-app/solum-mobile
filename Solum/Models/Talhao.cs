@@ -17,7 +17,7 @@ namespace Solum.Models
 
         public override string ToString()
         {
-            return string.IsNullOrEmpty(Area)? Nome : $"{Nome} - {Area}m²";
+            return HasArea ? Nome : $"{Nome} - {Area}ha";
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Solum.Remotes
         {
             if (!CrossConnectivity.Current.IsConnected)
                     "Não foi possível realizar o cadastro pois não existe conexão com a internet".ToToast(ToastNotificationType.Erro);
-            var isReacheable = await CrossConnectivity.Current.IsReachable(Settings.BaseUri.Host);
+            var isReacheable = await CrossConnectivity.Current.IsRemoteReachable(Settings.BaseUri.Host);
             if (!isReacheable)
             {
                 return null;
@@ -44,7 +44,7 @@ namespace Solum.Remotes
         {
             if (!CrossConnectivity.Current.IsConnected)
                 "Não foi possível realizar login pois não existe conexão com a internet".ToToast(ToastNotificationType.Erro);
-            var isReacheable = await CrossConnectivity.Current.IsReachable(Settings.BaseUri.Host);
+            var isReacheable = await CrossConnectivity.Current.IsRemoteReachable(Settings.BaseUri.Host);
             if (!isReacheable)
             {
                 return null;
@@ -63,7 +63,7 @@ namespace Solum.Remotes
         {
             if (!CrossConnectivity.Current.IsConnected)
                 "Não foi possível atualizar dados".ToToast(ToastNotificationType.Erro);
-            var isReacheable = await CrossConnectivity.Current.IsReachable(Settings.BaseUri.Host);
+            var isReacheable = await CrossConnectivity.Current.IsRemoteReachable(Settings.BaseUri.Host);
             if (!isReacheable)
             {
                 return null;
@@ -83,7 +83,7 @@ namespace Solum.Remotes
         {
             if (!CrossConnectivity.Current.IsConnected)
                 "Não foi possível sair pois não existe conexão com a internet".ToToast(ToastNotificationType.Erro);
-            var isReacheable = await CrossConnectivity.Current.IsReachable(Settings.BaseUri.Host);
+            var isReacheable = await CrossConnectivity.Current.IsRemoteReachable(Settings.BaseUri.Host);
             if (!isReacheable)
             {
                 return null;

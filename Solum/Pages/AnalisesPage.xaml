@@ -1,35 +1,33 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage
-	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	x:Class="Solum.Pages.AnalisesPage"
-	xmlns:renderers="clr-namespace:Solum.Renderers"
-	xmlns:handlers="clr-namespace:Solum.Handlers"
-	Title="Análises"
-	BackgroundColor="{StaticResource colorBackground}">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:renderers="clr-namespace:Solum.Renderers"
+             xmlns:handlers="clr-namespace:Solum.Handlers"
+             x:Class="Solum.Pages.AnalisesPage"
+             Title="Análises"
+             BackgroundColor="{StaticResource colorBackground}">
+  
   <AbsoluteLayout x:Name="absolute">
 
-    <Label
-			AbsoluteLayout.LayoutFlags="All"
-           	AbsoluteLayout.LayoutBounds="0,0,1,1"
-           	IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
-			VerticalOptions="Center"
-			HorizontalOptions="Center"
-			FontSize="Medium"
-			Text="Nenhuma análise salva"
-			TextColor="{StaticResource colorTextSecundary}"/>
+    <Label AbsoluteLayout.LayoutFlags="All"
+           AbsoluteLayout.LayoutBounds="0,0,1,1"
+           IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
+           VerticalOptions="Center"
+           HorizontalOptions="Center"
+           FontSize="Medium"
+           Text="Nenhuma análise salva"
+           TextColor="{StaticResource colorTextSecundary}"/>
 
-    <renderers:BindableListView
-			IsVisible="{Binding HasItems}"
-			x:Name="analisesList"
-			HasUnevenRows="true"
-			IsGroupingEnabled="true"
-			ItemClickedCommand="{Binding ItemTappedCommand}"
-			SeparatorColor="{StaticResource colorSeparator}"
-			ItemsSource="{Binding Analises}"
-			GroupDisplayBinding="{Binding Key}"
-			AbsoluteLayout.LayoutFlags="All"
-           	AbsoluteLayout.LayoutBounds="0,0,1,1">
+    <renderers:BindableListView IsVisible="{Binding HasItems}"
+                                x:Name="analisesList"
+                                HasUnevenRows="true"
+                                IsGroupingEnabled="true"
+                                ItemClickedCommand="{Binding ItemTappedCommand}"
+                                SeparatorColor="{StaticResource colorSeparator}"
+                                ItemsSource="{Binding Analises}"
+                                GroupDisplayBinding="{Binding Key}"
+                                AbsoluteLayout.LayoutFlags="All"
+                                AbsoluteLayout.LayoutBounds="0,0,1,1">
       <ListView.GroupHeaderTemplate>
         <DataTemplate>
           <ViewCell>
@@ -62,10 +60,17 @@
               <Label Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Start"/>
             </Grid>
             <ViewCell.ContextActions>
-              <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit"
-                  Text="Editar" Icon="ic_editar"/>
-              <MenuItem CommandParameter="{Binding .}" Clicked="OnDelete"
-                  Text="Excluir" IsDestructive="True" Icon="ic_excluir"/>
+              <MenuItem CommandParameter="{Binding .}"
+                        Clicked="OnEdit"
+                        Text="Editar" 
+                        Icon="ic_editar"/>
+              
+              <MenuItem CommandParameter="{Binding .}" 
+                        Clicked="OnDelete"
+                        Text="Excluir"
+                        IsDestructive="True"
+                        Icon="ic_excluir"/>
+              
             </ViewCell.ContextActions>
           </ViewCell>
         </DataTemplate>

@@ -1,95 +1,99 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Solum.Pages.GerenciamentoAnalisePage"
-             Title="{Binding PageTitle}">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:converter="clr-namespace:Solum.Handlers;"
+			 x:Class="Solum.Pages.GerenciamentoAnalisePage"
+			 Title="{Binding PageTitle, StringFormat='Análise {0}'}">
 
-  <StackLayout>
-    <Grid Padding="10">
-      <Grid.RowDefinitions>
-        <RowDefinition />
-        <RowDefinition />
-      </Grid.RowDefinitions>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="64" />
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
-      <Grid.GestureRecognizers>
-        <TapGestureRecognizer/>
-      </Grid.GestureRecognizers>
-      <Image Grid.RowSpan="2" Grid.Column="0" />
-      <Label Text="Interpretação" Grid.Column="1" Grid.Row="0"/>
-      <Label Text="Realizada em 20/01/2017" Grid.Column="1" Grid.Row="1"/>
-    </Grid>
+	<StackLayout>
+    
+		<Grid Padding="5">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="64" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding ShowInterpretacaoPageCommand}" NumberOfTapsRequired="1" />
+			</Grid.GestureRecognizers>
+			<Image Grid.RowSpan="2" Grid.Column="0" />
+			<Label Text="Interpretação" Grid.Column="1" Grid.Row="0">
+			</Label>
+			<Label Text="{Binding InterpretacaoDate}" Grid.Column="1" Grid.Row="1"/>
+		</Grid>
 
-    <Grid Padding="10">
-      <Grid.RowDefinitions>
-        <RowDefinition />
-        <RowDefinition />
-      </Grid.RowDefinitions>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="64" />
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
-      <Grid.GestureRecognizers>
-        <TapGestureRecognizer/>
-      </Grid.GestureRecognizers>
-      <Image Grid.RowSpan="2" Grid.Column="0"/>
-      <Label Text="Calagem" Grid.Column="1" Grid.Row="0"/>
-      <Label Text="Realizada em 20/01/2017" Grid.Column="1" Grid.Row="1"/>
-    </Grid>
+		<Grid Padding="5">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="64" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid.GestureRecognizers>
+				<TapGestureRecognizer Command="{Binding ShowCalagemPageCommand}" NumberOfTapsRequired="1" />
+			</Grid.GestureRecognizers>
+			<Image Grid.RowSpan="2" Grid.Column="0" />
+			<Label Text="Calagem" Grid.Column="1" Grid.Row="0" />
+      <Label Text="{Binding CalagemDate}" Grid.Column="1" Grid.Row="1"/>
+		</Grid>
 
-    <Grid Padding="10">
-	    <Grid.RowDefinitions>
-		    <RowDefinition />
-		    <RowDefinition />
-	    </Grid.RowDefinitions>
-	    <Grid.ColumnDefinitions>
-		    <ColumnDefinition Width="64" />
-		    <ColumnDefinition Width="*"/>
-	    </Grid.ColumnDefinitions>
-      <Grid.GestureRecognizers>
-        <TapGestureRecognizer/>
-      </Grid.GestureRecognizers>
-	    <Image Grid.RowSpan="2" Grid.Column="0"/>
-      <Label Text="Adubação Corretiva" Grid.Column="1" Grid.Row="0"/>
-      <Label Text="Realizada em 20/01/2017" Grid.Column="1" Grid.Row="1"/>
-    </Grid>
+		<Grid Padding="5">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20" />
+				<RowDefinition Height="20"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="64" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid.GestureRecognizers>
+				<TapGestureRecognizer Command="{Binding ShowCorretivaPageCommand}" NumberOfTapsRequired="1" />
+			</Grid.GestureRecognizers>
+			<Image Grid.RowSpan="2" Grid.Column="0" />
+			<Label Text="Adubação Corretiva" Grid.Column="1" Grid.Row="0" />
+      <Label Text="{Binding CorretivaDate}" Grid.Column="1" Grid.Row="1"/>
+		</Grid>
 
-    <Grid Padding="10">
-	    <Grid.RowDefinitions>
-		    <RowDefinition />
-		    <RowDefinition />
-	    </Grid.RowDefinitions>
-	    <Grid.ColumnDefinitions>
-		    <ColumnDefinition Width="64" />
-		    <ColumnDefinition Width="*"/>
-	    </Grid.ColumnDefinitions>
-      <Grid.GestureRecognizers>
-        <TapGestureRecognizer/>
-      </Grid.GestureRecognizers>
-	    <Image Grid.RowSpan="2" Grid.Column="0"/>
-      <Label Text="Adubação de Semeadura" Grid.Column="1" Grid.Row="0"/>
-      <Label Text="Realizada em 20/01/2017" Grid.Column="1" Grid.Row="1"/>
-    </Grid>
+		<Grid Padding="5">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="64" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid.GestureRecognizers>
+				<TapGestureRecognizer Command="{Binding ShowSemeaduraPageCommand}" />
+			</Grid.GestureRecognizers>
+			<Image Grid.RowSpan="2" Grid.Column="0" />
+			<Label Text="Adubação de Semeadura" Grid.Column="1" Grid.Row="0" />
+      <Label Text="{Binding SemeaduraDate}" Grid.Column="1" Grid.Row="1"/>
+		</Grid>
 
-    <Grid Padding="10">
-	    <Grid.RowDefinitions>
-		    <RowDefinition />
-		    <RowDefinition />
-	    </Grid.RowDefinitions>
-	    <Grid.ColumnDefinitions>
-		    <ColumnDefinition Width="64" />
-		    <ColumnDefinition Width="*"/>
-	    </Grid.ColumnDefinitions>
-      <Grid.GestureRecognizers>
-        <TapGestureRecognizer/>
-      </Grid.GestureRecognizers>
-	    <Image Grid.RowSpan="2" Grid.Column="0"/>
-      <Label Text="Adubação de Cobertura" Grid.Column="1" Grid.Row="0"/>
-      <Label Text="Realizada em 20/01/2017" Grid.Column="1" Grid.Row="1"/>
-    </Grid>
-  
-    <Button Text="Salvar"/>
-  </StackLayout>
+		<Grid Padding="5">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="64" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid.GestureRecognizers>
+				<TapGestureRecognizer Command="{Binding ShowCoberturaPageCommand}" NumberOfTapsRequired="1"/>
+			</Grid.GestureRecognizers>
+			<Image Grid.RowSpan="2" Grid.Column="0" />
+			<Label Text="Adubação de Cobertura" Grid.Column="1" Grid.Row="0" />
+      <Label Text="{Binding CoberturaDate}" Grid.Column="1" Grid.Row="1"/>
+		</Grid>
+
+		<Button Text="Salvar" />
+	</StackLayout>
 </ContentPage>

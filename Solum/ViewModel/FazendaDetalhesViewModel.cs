@@ -90,7 +90,7 @@ namespace Solum.ViewModel
                 IsBusy = true;
                 if (_fromAnalise)
                 {
-                    MessagingCenter.Send(this, MessagingCenterMessages.TalhaoSelected, talhao);
+                    MessagingCenter.Send(this, MessagingCenterMessages.TalhaoSelected, talhao.Id);
                     await Navigation.PopAsync();
                 }
                 IsBusy = false;

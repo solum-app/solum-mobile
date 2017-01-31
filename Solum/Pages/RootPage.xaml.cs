@@ -146,7 +146,7 @@ namespace Solum.Pages
 				}
 				else
 				{
-					_currentPage = new SemeaduraPage();
+					_currentPage = new SemeaduraPage(null);
 					Detail = new NavigationPage(_currentPage)
 					{
 						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
@@ -157,7 +157,7 @@ namespace Solum.Pages
 			}
 			else
 			{
-				var page = new SemeaduraPage();
+				var page = new SemeaduraPage(null);
 				await _navigationPage.Navigation.PushAsync(page);
 				_navigationPage.Navigation.RemovePage(_currentPage);
 				_currentPage = page;

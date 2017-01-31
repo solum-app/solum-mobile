@@ -1,10 +1,11 @@
-﻿using Xamarin.Forms;
+﻿using Solum.Models;
+using Xamarin.Forms;
 
 namespace Solum.Pages
 {
 	public partial class SemeaduraPage : ContentPage
 	{
-		public SemeaduraPage()
+		public SemeaduraPage(Analise analise)
 		{
 			InitializeComponent();
 		}
