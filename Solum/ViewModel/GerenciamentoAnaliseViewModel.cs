@@ -176,8 +176,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                if (!HasInterpretacaoAccomplished)
-                    await Navigation.PushAsync(new CalagemPage(Analise));
+                await Navigation.PushAsync(new CalagemPage(Navigation, Analise.Id));
                 IsBusy = false;
             } 
         }

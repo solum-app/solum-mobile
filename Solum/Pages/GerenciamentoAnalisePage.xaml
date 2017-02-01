@@ -21,8 +21,7 @@
         <TapGestureRecognizer Command="{Binding ShowInterpretacaoPageCommand}" NumberOfTapsRequired="1" />
 			</Grid.GestureRecognizers>
 			<Image Grid.RowSpan="2" Grid.Column="0" />
-			<Label Text="Interpretação" Grid.Column="1" Grid.Row="0">
-			</Label>
+			<Label Text="Interpretação" Grid.Column="1" Grid.Row="0"/>
 			<Label Text="{Binding InterpretacaoDate}" Grid.Column="1" Grid.Row="1"/>
 		</Grid>
 
