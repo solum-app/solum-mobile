@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Realms;
+using Solum.Handlers;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -30,8 +31,8 @@ namespace Solum.ViewModel
             ProfundidadeList.Add(10);
             ProfundidadeList.Add(20);
             ProfundidadeList.Add(40);
-            ProfundidadeSelected = ProfundidadeList[1];
-            V2Selected = V2List[0];
+            ProfundidadeSelected = ProfundidadeList[2];
+            V2Selected = V2List.FirstOrDefault(x => x == 70);
         }
 
         #region Private properties
@@ -106,6 +107,11 @@ namespace Solum.ViewModel
         {
             if (_calagem == null || _calagem == default(Calagem))
             {
+                if (Prnt <= 0 || Prnt > 100)
+                {
+                    "O valor de PRNT deve estar entre 0 e 100".ToDisplayAlert(MessageType.Aviso);
+                    return;
+                }
                 _calagem = new Calagem()
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -125,6 +131,11 @@ namespace Solum.ViewModel
             }
             else
             {
+                if (Prnt <= 0 || Prnt > 100)
+                {
+                    "O valor de PRNT deve estar entre 0 e 100".ToDisplayAlert(MessageType.Aviso);
+                    return;
+                }
                 using (var transaction = _realm.BeginWrite())
                 {
                     _calagem.Prnt = Prnt;

@@ -78,7 +78,7 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Text="PRNT" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-        <Entry Text="{Binding Prnt}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="%" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
+        <Entry Text="{Binding Prnt}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="%" HorizontalTextAlignment="Start" PlaceholderColor="{StaticResource colorTextHint}">
           <Entry.Effects>
             <effects:NoBorderEffect />
           </Entry.Effects>
