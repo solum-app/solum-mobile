@@ -12,5 +12,11 @@ namespace Solum.Pages
             BindingContext = new GerenciamentoAnaliseViewModel(Navigation, analise);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            (BindingContext as GerenciamentoAnaliseViewModel)?.UpdateValues();
+        }
     }
 }

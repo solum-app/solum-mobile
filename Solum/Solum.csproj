@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Messages\MessagingCenterMessages.cs" />
+    <Compile Include="Models\Calagem.cs" />
     <Compile Include="Pages\RecomendaSemeaduraPage.xaml.cs">
       <DependentUpon>RecomendaSemeaduraPage.xaml</DependentUpon>
     </Compile>
@@ -99,6 +100,7 @@
     </Compile>
     <Compile Include="Effects\NoBorderEffect.cs" />
     <Compile Include="ViewModel\CadastroViewModel.cs" />
+    <Compile Include="ViewModel\CalagemViewModel.cs" />
     <Compile Include="ViewModel\FazendaCadastroViewModel.cs" />
     <Compile Include="ViewModel\FazendaDetalhesViewModel.cs" />
     <Compile Include="ViewModel\FazendaListViewModel.cs" />
@@ -131,6 +133,7 @@
     <Compile Include="Pages\SemeaduraPage.xaml.cs">
       <DependentUpon>SemeaduraPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\RecomendacaoCalagemViewModel.cs" />
     <Compile Include="ViewModel\TalhaoCadastroViewModel.cs" />
     <Compile Include="Interfaces\IToastNotifier.cs" />
     <Compile Include="Handlers\Extensions.cs" />

@@ -4,7 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="Solum.Pages.RecomendaCalagemPage"
 	xmlns:effects="clr-namespace:Solum.Effects"
-	Title="Nome da Fazenda - Talhão">
+	Title="{Binding PageTitle}">
 
 	<ScrollView Grid.Row="0" BackgroundColor="{StaticResource colorBackground}">
 		<StackLayout Spacing="0">
@@ -38,7 +38,7 @@
 					</BoxView.HeightRequest>
 				</BoxView>
 				<Label Text="Quantidade de Calagem" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-				<Label Text="1,76 t/ha" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+				<Label Text="{Binding QuantidadeCal, StringFormat='{0} t/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
 			</Grid>
 			
 			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
@@ -79,7 +79,7 @@
 					</BoxView.HeightRequest>
 				</BoxView>
 				<Label Text="V2" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-				<Label Text="60%" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+				<Label Text="{Binding Calagem.V2, StringFormat='{0}%'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
 				<BoxView BackgroundColor="#C8C7CC" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
 					<BoxView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double"
@@ -99,7 +99,7 @@
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
 				<Label Text="PRNT" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-				<Label Text="100%" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+				<Label Text="{Binding Calagem.Prnt, StringFormat='{0}%'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
 					<BoxView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double"
@@ -119,7 +119,7 @@
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
 				<Label Text="Profundidade" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-				<Label Text="20 cm" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+				<Label Text="{Binding Calagem.Profundidade, StringFormat='{0}cm'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
 			</Grid>
 
 			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
@@ -129,6 +129,8 @@
 						Android="0"/>
 				</BoxView.HeightRequest>
 			</BoxView>
+
+      <Button Text="Editar" Command="{Binding ShowCalagemPageCommand}" IsEnabled="true" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

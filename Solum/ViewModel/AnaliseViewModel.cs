@@ -29,7 +29,7 @@ namespace Solum.ViewModel
             _realm = Realm.GetInstance();
             PageTitle = $"Atualizar Análise: {analise.Nome}";
             Fazenda = _realm.Find<Fazenda>(analise.Talhao.FazendaId);
-            Talhao = _realm.Find<Talhao>(analise.Id);
+            Talhao = _realm.Find<Talhao>(analise.TalhaoId);
             FazendaName = Fazenda.Nome;
             TalhaoName = Talhao.Nome;
             DateSelected = analise.Data;
