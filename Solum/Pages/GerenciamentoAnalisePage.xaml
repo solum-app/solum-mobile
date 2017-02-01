@@ -35,11 +35,12 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<Grid.GestureRecognizers>
-				<TapGestureRecognizer Command="{Binding ShowCalagemPageCommand}" NumberOfTapsRequired="1" />
+        <TapGestureRecognizer Command="{Binding ShowRecomendacaoCalagemPageCommand}" NumberOfTapsRequired="1" />
 			</Grid.GestureRecognizers>
 			<Image Grid.RowSpan="2" Grid.Column="0" />
 			<Label Text="Calagem" Grid.Column="1" Grid.Row="0" />
-      <Label Text="{Binding CalagemDate}" Grid.Column="1" Grid.Row="1"/>
+      <Label Text="{Binding CalagemDate}" Grid.Column="1" Grid.Row="1">
+      </Label>
 		</Grid>
 
 		<Grid Padding="5">
@@ -93,6 +94,6 @@
       <Label Text="{Binding CoberturaDate}" Grid.Column="1" Grid.Row="1"/>
 		</Grid>
 
-		<Button Text="Salvar" />
+		<!--<Button Text="Salvar" />-->
 	</StackLayout>
 </ContentPage>

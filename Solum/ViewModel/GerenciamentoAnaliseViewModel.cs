@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Input;
 using Realms;
-using Solum.Handlers;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -12,15 +12,15 @@ namespace Solum.ViewModel
     {
         public GerenciamentoAnaliseViewModel(INavigation navigation, Analise analise) : base(navigation)
         {
-            _realm = Realm.GetInstance(); 
+            _realm = Realm.GetInstance();
             Analise = _realm.Find<Analise>(analise.Id);
             PageTitle = Analise.Nome;
-           UpdateValues();
+            UpdateValues();
         }
 
         #region Private Properties
 
-        private ICommand _showCalagemPageCommand;
+        private ICommand _showRecomendacaoCalagemPageCommand;
         private ICommand _showCoberturaPageCommand;
         private ICommand _showCorretivaPageCommand;
         private ICommand _showInterpretacaoPageCommand;
@@ -41,7 +41,7 @@ namespace Solum.ViewModel
         private DateTimeOffset? _coberturaDate;
 
         private Analise _analise;
-        private Realm _realm;
+        private readonly Realm _realm;
 
         #endregion
 
@@ -52,6 +52,7 @@ namespace Solum.ViewModel
             get { return _pageTitle; }
             set { SetPropertyChanged(ref _pageTitle, value); }
         }
+
         public Analise Analise
         {
             get { return _analise; }
@@ -88,54 +89,51 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _hasCoberturaCalculation, value); }
         }
 
-        public DateTimeOffset? InterpretacaoDate
+        public string InterpretacaoDate
         {
-            get { return _interpretacaoDate; }
-            set
+            get
             {
-                SetPropertyChanged(ref _interpretacaoDate, value);
-                HasInterpretacaoAccomplished = InterpretacaoDate.HasValue;
+                return _interpretacaoDate.HasValue
+                    ? $"Realizada em  {_interpretacaoDate.Value:dd/MM/yy}"
+                    : "Não realizada ainda";
             }
+            set { SetPropertyChanged(ref _interpretacaoDate, DateTimeOffset.Parse(value)); }
         }
 
-        public DateTimeOffset? CalagemDate
+        public string CalagemDate
         {
-            get { return _calagemDate; }
-            set
+            get
             {
-                SetPropertyChanged(ref _calagemDate, value);
-                HasCalagemCalculation = CalagemDate.HasValue;
+                return _calagemDate.HasValue ? $"Realizada em {_calagemDate.Value:dd/MM/yy}" : "Não realizada ainda";
             }
+            set { SetPropertyChanged(ref _calagemDate, DateTimeOffset.Parse(value)); }
         }
 
-        public DateTimeOffset? CorretivaDate
+        public string CorretivaDate
         {
-            get { return _corretivaDate; }
-            set
+            get
             {
-                SetPropertyChanged(ref _corretivaDate, value);
-                HasCorretivaCalculation = CorretivaDate.HasValue;
+                return _corretivaDate.HasValue ? $"Realizada em {_corretivaDate.Value:dd/MM/yy}" : "Não realizada ainda";
             }
+            set { SetPropertyChanged(ref _corretivaDate, DateTimeOffset.Parse(value)); }
         }
 
-        public DateTimeOffset? SemeaduraDate
+        public string SemeaduraDate
         {
-            get { return _semeaduraDate; }
-            set
+            get
             {
-                SetPropertyChanged(ref _semeaduraDate, value);
-                HasSemeaduraCalculation = SemeaduraDate.HasValue;
+                return _semeaduraDate.HasValue ? $"Realizada em {_semeaduraDate.Value:dd/MM/yy}" : "Não realizada ainda";
             }
+            set { SetPropertyChanged(ref _semeaduraDate, DateTimeOffset.Parse(value)); }
         }
 
-        public DateTimeOffset? CoberturaDate
+        public string CoberturaDate
         {
-            get { return _coberturaDate; }
-            set
+            get
             {
-                SetPropertyChanged(ref _coberturaDate, value);
-                HasCoberturaCalculation = CoberturaDate.HasValue;
+                return _coberturaDate.HasValue ? $"Realizada em {_coberturaDate.Value:dd/MM/yy}" : "Não realizada ainda";
             }
+            set { SetPropertyChanged(ref _coberturaDate, DateTimeOffset.Parse(value)); }
         }
 
         #endregion
@@ -145,8 +143,9 @@ namespace Solum.ViewModel
         public ICommand ShowInterpretacaoPageCommand
             => _showInterpretacaoPageCommand ?? (_showInterpretacaoPageCommand = new Command(ShowInterpretacaoPage));
 
-        public ICommand ShowCalagemPageCommand
-            => _showCalagemPageCommand ?? (_showCalagemPageCommand = new Command(ShowCalagemPage));
+        public ICommand ShowRecomendacaoCalagemPageCommand
+            => _showRecomendacaoCalagemPageCommand ??
+               (_showRecomendacaoCalagemPageCommand = new Command(ShowRecomendacaoCalagemPage));
 
         public ICommand ShowCorretivaPageCommand
             => _showCorretivaPageCommand ?? (_showCorretivaPageCommand = new Command(ShowCorretivaPage));
@@ -178,7 +177,21 @@ namespace Solum.ViewModel
                 IsBusy = true;
                 await Navigation.PushAsync(new CalagemPage(Navigation, Analise.Id));
                 IsBusy = false;
-            } 
+            }
+        }
+
+        private async void ShowRecomendacaoCalagemPage()
+        {
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                if (_realm.All<Calagem>().Any(c => c.AnaliseId.Equals(Analise.Id)))
+                    await Navigation.PushAsync(new RecomendaCalagemPage(Navigation,
+                        _realm.All<Calagem>().FirstOrDefault(c => c.AnaliseId.Equals(Analise.Id)).Id));
+                else
+                    ShowCalagemPage();
+                IsBusy = false;
+            }
         }
 
         private async void ShowCorretivaPage()
@@ -186,7 +199,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                if(HasCalagemCalculation)
+                if (HasCalagemCalculation)
                     await Navigation.PushAsync(new CorretivaPage(Analise));
                 IsBusy = false;
             }
@@ -216,12 +229,13 @@ namespace Solum.ViewModel
         public void UpdateValues()
         {
             Analise = _realm.Find<Analise>(Analise.Id);
-            InterpretacaoDate = Analise.DataInterpretacao;
-            CalagemDate = Analise.DataCalculoCalagem;
-            CorretivaDate = Analise.DataCalculoCorretiva;
-            SemeaduraDate = Analise.DataCalculoSemeadura;
-            CoberturaDate = Analise.DataCalculoCobertura;
+            if (Analise.DataInterpretacao != null) InterpretacaoDate = Analise.DataInterpretacao.ToString();
+            if (Analise.DataCalculoCalagem != null) CalagemDate = Analise.DataCalculoCalagem.ToString();
+            if (Analise.DataCalculoCorretiva != null) CorretivaDate = Analise.DataCalculoCorretiva.ToString();
+            if (Analise.DataCalculoSemeadura != null) SemeaduraDate = Analise.DataCalculoSemeadura.ToString();
+            if (Analise.DataCalculoCobertura != null) CoberturaDate = Analise.DataCalculoCobertura.ToString();
         }
+
         #endregion
     }
 }

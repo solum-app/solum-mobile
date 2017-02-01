@@ -129,6 +129,8 @@
 						Android="0"/>
 				</BoxView.HeightRequest>
 			</BoxView>
+
+      <Button Text="Editar" Command="{Binding ShowCalagemPageCommand}" IsEnabled="true" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

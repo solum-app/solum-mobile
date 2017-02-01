@@ -16,15 +16,18 @@ namespace Solum.ViewModel
         {
             _realm = Realm.GetInstance();
             _analise = _realm.Find<Analise>(analiseId);
-            if(_realm.All<Calagem>().Any(c => c.AnaliseId.Equals(_analise.Id)))
+            if (_realm.All<Calagem>().Any(c => c.AnaliseId.Equals(_analise.Id)))
+            {
                 _calagem = _realm.All<Calagem>().FirstOrDefault(c => c.AnaliseId.Equals(_analise.Id));
+                V2Selected = (int) _calagem.V2;
+                Prnt = _calagem.Prnt;
+                ProfundidadeSelected = _calagem.Profundidade;
+            }
             PageTitle = $"{_analise.Talhao.Fazenda.Nome} - {_analise.Talhao.Nome}";
 
             V2List = new List<int>();
-            for (int i = 30; i <= 100; i += 5)
-            {
+            for (var i = 30; i <= 100; i += 5)
                 V2List.Add(i);
-            }
 
             ProfundidadeList = new List<int>();
             ProfundidadeList.Add(5);
@@ -34,66 +37,6 @@ namespace Solum.ViewModel
             ProfundidadeSelected = ProfundidadeList[2];
             V2Selected = V2List.FirstOrDefault(x => x == 70);
         }
-
-        #region Private properties
-
-        private ICommand _saveCommand;
-
-        private string _pageTitle;
-
-        private IList<int> _v2List;
-        private int _v2Selected;
-
-        private IList<int> _profundidadeList;
-        private int _profundidadeSelected;
-
-        private float _prnt;
-
-        private readonly Analise _analise;
-        private Calagem _calagem;
-        private readonly Realm _realm;
-
-        #endregion
-
-        #region Binding Properties
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
-        
-        public IList<int> V2List
-        {
-            get { return _v2List; }
-            set { SetPropertyChanged(ref _v2List, value); }
-        }
-
-        public int V2Selected
-        {
-            get { return _v2Selected; }
-            set { SetPropertyChanged(ref _v2Selected, value); }
-        }
-
-        public IList<int> ProfundidadeList
-        {
-            get { return _profundidadeList; }
-            set { SetPropertyChanged(ref _profundidadeList, value); }
-        }
-
-        public int ProfundidadeSelected
-        {
-            get { return _profundidadeSelected; }
-            set { SetPropertyChanged(ref _profundidadeSelected, value); }
-        }
-
-        public float Prnt
-        {
-            get { return _prnt; }
-            set { SetPropertyChanged(ref _prnt, value); }
-        }
-
-        #endregion
 
         #region Commands
 
@@ -112,7 +55,7 @@ namespace Solum.ViewModel
                     "O valor de PRNT deve estar entre 0 e 100".ToDisplayAlert(MessageType.Aviso);
                     return;
                 }
-                _calagem = new Calagem()
+                _calagem = new Calagem
                 {
                     Id = Guid.NewGuid().ToString(),
                     AnaliseId = _analise.Id,
@@ -154,6 +97,66 @@ namespace Solum.ViewModel
                 Navigation.RemovePage(current);
                 IsBusy = false;
             }
+        }
+
+        #endregion
+
+        #region Private properties
+
+        private ICommand _saveCommand;
+
+        private string _pageTitle;
+
+        private IList<int> _v2List;
+        private int _v2Selected;
+
+        private IList<int> _profundidadeList;
+        private int _profundidadeSelected;
+
+        private float _prnt;
+
+        private readonly Analise _analise;
+        private Calagem _calagem;
+        private readonly Realm _realm;
+
+        #endregion
+
+        #region Binding Properties
+
+        public string PageTitle
+        {
+            get { return _pageTitle; }
+            set { SetPropertyChanged(ref _pageTitle, value); }
+        }
+
+        public IList<int> V2List
+        {
+            get { return _v2List; }
+            set { SetPropertyChanged(ref _v2List, value); }
+        }
+
+        public int V2Selected
+        {
+            get { return _v2Selected; }
+            set { SetPropertyChanged(ref _v2Selected, value); }
+        }
+
+        public IList<int> ProfundidadeList
+        {
+            get { return _profundidadeList; }
+            set { SetPropertyChanged(ref _profundidadeList, value); }
+        }
+
+        public int ProfundidadeSelected
+        {
+            get { return _profundidadeSelected; }
+            set { SetPropertyChanged(ref _profundidadeSelected, value); }
+        }
+
+        public float Prnt
+        {
+            get { return _prnt; }
+            set { SetPropertyChanged(ref _prnt, value); }
         }
 
         #endregion

@@ -11,5 +11,11 @@ namespace Solum.Pages
             BindingContext = new RecomendacaoCalagemViewModel(navigation, calagemid);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
 		}
+
+	    protected override void OnAppearing()
+	    {
+	        base.OnAppearing();
+            (BindingContext as RecomendacaoCalagemViewModel)?.Calculate();
+	    }
 	}
 }
