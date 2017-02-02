@@ -1,71 +1,76 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage 
-	xmlns="http://xamarin.com/schemas/2014/forms" 
+
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:effects="clr-namespace:Solum.Effects"
 	x:Class="Solum.Pages.CorretivaPage"
-	Title="Nome da Fazenda - Talhão">
+	Title="{Binding PageTitle}">
 
 	<ScrollView Grid.Row="0" BackgroundColor="#EEEEEE">
 		<StackLayout Spacing="0">
 			<Label TextColor="#717175" Text="RECOMENDAÇÃO DE ADUBAÇÃO CORRETIVA">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness"
-						iOS="16,24,16,4"
-						Android="16, 13"/>
+								iOS="16,24,16,4"
+								Android="16, 13" />
 				</Label.Margin>
 				<Label.FontSize>
 					<OnPlatform x:TypeArguments="x:Double"
-						iOS="13"
-						Android="14"/>
+								iOS="13"
+								Android="14" />
 				</Label.FontSize>
 			</Label>
 
 			<Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16"/>
-					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="16" />
+					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="*" />
 				</Grid.RowDefinitions>
 				<BoxView Grid.ColumnSpan="2" BackgroundColor="#C8C7CC" VerticalOptions="Start">
 					<BoxView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3"/>
+									iOS="0.5"
+									Android="0.3" />
 					</BoxView.HeightRequest>
 				</BoxView>
-				<Label Text="Quantidade de P2O5" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-				<Label Text="50 kg/ha" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="#757575" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+				<Label Text="Quantidade de P2O5" VerticalOptions="Center" Grid.Row="0" Grid.Column="1"
+					   TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0" />
+				<Label Text="{Binding P205, StringFormat='{0} Kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"
+					   TextColor="#757575" VerticalTextAlignment="Center" Margin="0,0,0,8" />
 				<BoxView BackgroundColor="#C8C7CC" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
 					<BoxView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3"/>
+									iOS="0.5"
+									Android="0.3" />
 					</BoxView.HeightRequest>
 				</BoxView>
 			</Grid>
 
 			<Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16"/>
-					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="16" />
+					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="*" />
 				</Grid.RowDefinitions>
-				<Label Text="Quantidade de K2O" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-				<Label Text="20 kg/ha" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="#757575" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+				<Label Text="Quantidade de K2O" VerticalOptions="Center" Grid.Row="0" Grid.Column="1"
+					   TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0" />
+				<Label Text="{Binding K20, StringFormat='{0} Kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"
+					   TextColor="#757575" VerticalTextAlignment="Center" Margin="0,0,0,8" />
 			</Grid>
 
 			<BoxView BackgroundColor="#C8C7CC" VerticalOptions="End">
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
-						iOS="0.5"
-						Android="0"/>
+								iOS="0.5"
+								Android="0" />
 				</BoxView.HeightRequest>
 			</BoxView>
 		</StackLayout>

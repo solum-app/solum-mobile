@@ -199,8 +199,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                if (HasCalagemCalculation)
-                    await Navigation.PushAsync(new CorretivaPage(Analise));
+                await Navigation.PushAsync(new CorretivaPage(Navigation, Analise.Id));
                 IsBusy = false;
             }
         }

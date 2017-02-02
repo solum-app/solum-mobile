@@ -101,6 +101,7 @@
     <Compile Include="Effects\NoBorderEffect.cs" />
     <Compile Include="ViewModel\CadastroViewModel.cs" />
     <Compile Include="ViewModel\CalagemViewModel.cs" />
+    <Compile Include="ViewModel\CorretivaViewModel.cs" />
     <Compile Include="ViewModel\FazendaCadastroViewModel.cs" />
     <Compile Include="ViewModel\FazendaDetalhesViewModel.cs" />
     <Compile Include="ViewModel\FazendaListViewModel.cs" />
