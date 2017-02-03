@@ -185,11 +185,16 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                if (_realm.All<Calagem>().Any(c => c.AnaliseId.Equals(Analise.Id)))
-                    await Navigation.PushAsync(new RecomendaCalagemPage(Navigation,
-                        _realm.All<Calagem>().FirstOrDefault(c => c.AnaliseId.Equals(Analise.Id)).Id));
-                else
-                    ShowCalagemPage();
+				var bo = _realm.All<Calagem>().Any(c => c.AnaliseId.Equals(Analise.Id));
+				if (bo){
+					var s = _realm.All<Calagem>().FirstOrDefault(c => c.AnaliseId.Equals(Analise.Id)).Id;
+					await Navigation.PushAsync(new RecomendaCalagemPage(Navigation, s));
+				}
+                    
+				else {
+					IsBusy = false;
+					ShowCalagemPage();
+				}
                 IsBusy = false;
             }
         }

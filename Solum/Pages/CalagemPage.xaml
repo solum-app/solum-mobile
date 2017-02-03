@@ -35,7 +35,7 @@
           </BoxView.HeightRequest>
         </BoxView>
         <Label Text="V2" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-        <renderers:CustomPicker Title="Selecione o valor para V2"
+        <renderers:CustomPicker Title="%"
                                 ItemsSource="{Binding V2List}"
                                 SelectedItem="{Binding V2Selected}"
                                 ItemSelectedCommand="{Binding UpdateValuesCommand}"
@@ -43,7 +43,7 @@
                                 Margin="16,0"
                                 HasBorder="false"
                                 PlaceholderColor="{StaticResource colorTextHint}"
-                                TextAlignment="Left"
+                                TextAlignment="Right"
                                 Grid.Column="2">
           <renderers:CustomPicker.TextSize>
             <OnPlatform x:TypeArguments="x:Double" Android="14" iOS="17"/>
@@ -52,16 +52,7 @@
             <effects:NoBorderEffect />
           </renderers:CustomPicker.Effects>
         </renderers:CustomPicker>
-        <!--<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="%" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
-          <Entry.Effects>
-            <effects:NoBorderEffect />
-          </Entry.Effects>
-          <Entry.FontSize>
-            <OnPlatform x:TypeArguments="x:Double"
-							iOS="17"
-							Android="14"/>
-          </Entry.FontSize>
-        </Entry>-->
+
         <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
           <BoxView.HeightRequest>
             <OnPlatform x:TypeArguments="x:Double"
@@ -78,7 +69,7 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Text="PRNT" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-        <Entry Text="{Binding Prnt}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="%" HorizontalTextAlignment="Start" PlaceholderColor="{StaticResource colorTextHint}">
+        <Entry Text="{Binding Prnt}" Keyboard="Numeric" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="%" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
           <Entry.Effects>
             <effects:NoBorderEffect />
           </Entry.Effects>
@@ -104,7 +95,7 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Text="Profundidade" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-        <renderers:CustomPicker Title="Selecione uma profundidade"
+        <renderers:CustomPicker Title="cm"
                   ItemsSource="{Binding ProfundidadeList}"
                   SelectedItem="{Binding ProfundidadeSelected}"
                   ItemSelectedCommand="{Binding UpdateValuesCommand}"
@@ -112,7 +103,7 @@
                   Margin="16,0"
                   HasBorder="false"
                   PlaceholderColor="{StaticResource colorTextHint}"
-                  TextAlignment="Left"
+                  TextAlignment="Right"
                   Grid.Column="2">
           <renderers:CustomPicker.TextSize>
             <OnPlatform x:TypeArguments="x:Double"
@@ -122,16 +113,6 @@
             <effects:NoBorderEffect />
           </renderers:CustomPicker.Effects>
         </renderers:CustomPicker>
-        <!--<Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="cm" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
-          <Entry.Effects>
-            <effects:NoBorderEffect />
-          </Entry.Effects>
-          <Entry.FontSize>
-            <OnPlatform x:TypeArguments="x:Double"
-							iOS="17"
-							Android="14"/>
-          </Entry.FontSize>
-        </Entry>-->
       </Grid>
 
       <BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
