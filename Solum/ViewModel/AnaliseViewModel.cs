@@ -237,6 +237,12 @@ namespace Solum.ViewModel
 
         private async void ShowTalhoes()
         {
+            if (Fazenda == null || Fazenda == default(Fazenda))
+            {
+                "Selecione uma fazenda".ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+                
             if (!IsBusy)
             {
                 IsBusy = true;
