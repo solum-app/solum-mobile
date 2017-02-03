@@ -26,7 +26,7 @@ namespace Solum.ViewModel
             PageTitle = $"{_analise.Talhao.Fazenda.Nome} - {_analise.Talhao.Nome}";
 
             V2List = new List<int>();
-            for (var i = 30; i <= 100; i += 5)
+            for (var i = 30; i <= 80; i += 5)
                 V2List.Add(i);
 
             ProfundidadeList = new List<int>();
@@ -34,8 +34,8 @@ namespace Solum.ViewModel
             ProfundidadeList.Add(10);
             ProfundidadeList.Add(20);
             ProfundidadeList.Add(40);
-            ProfundidadeSelected = ProfundidadeList[2];
-            V2Selected = V2List.FirstOrDefault(x => x == 70);
+            //ProfundidadeSelected = ProfundidadeList[2];
+            //V2Selected = V2List.FirstOrDefault(x => x == 70);
         }
 
         #region Commands
