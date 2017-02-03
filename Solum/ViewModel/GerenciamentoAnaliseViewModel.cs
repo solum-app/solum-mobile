@@ -209,18 +209,21 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                if (HasCorretivaCalculation)
-                    await Navigation.PushAsync(new SemeaduraPage(Analise));
+                var current = Navigation.NavigationStack.LastOrDefault();
+                await Navigation.PushAsync(new SemeaduraPage(Analise.Id));
+                Navigation.RemovePage(current);
                 IsBusy = false;
             }
         }
 
         private async void ShowCoberturaPage()
         {
-            if (!IsBusy && HasSemeaduraCalculation)
+            if (!IsBusy)
             {
                 IsBusy = true;
+                var current = Navigation.NavigationStack.LastOrDefault();
                 await Navigation.PushAsync(new CoberturaPage(Analise));
+                Navigation.RemovePage(current);
                 IsBusy = false;
             }
         }

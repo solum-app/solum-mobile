@@ -32,6 +32,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Handlers\MilhoSemeaturaInterpreter.cs" />
+    <Compile Include="Handlers\ISemeaduraInterpreter.cs" />
     <Compile Include="Messages\MessagingCenterMessages.cs" />
     <Compile Include="Models\Calagem.cs" />
     <Compile Include="Pages\RecomendaSemeaduraPage.xaml.cs">
@@ -135,6 +137,8 @@
       <DependentUpon>SemeaduraPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\RecomendacaoCalagemViewModel.cs" />
+    <Compile Include="ViewModel\RecomendacaoSemeaduraViewModel.cs" />
+    <Compile Include="ViewModel\SemeaduraViewModel.cs" />
     <Compile Include="ViewModel\TalhaoCadastroViewModel.cs" />
     <Compile Include="Interfaces\IToastNotifier.cs" />
     <Compile Include="Handlers\Extensions.cs" />

@@ -5,7 +5,7 @@
 	xmlns:renderers="clr-namespace:Solum.Renderers"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="Solum.Pages.SemeaduraPage"
-	Title="Nome da Fazenda - Talhão">
+	Title="{Binding PageTitle}">
 
   <ScrollView Grid.Row="0" BackgroundColor="{StaticResource colorBackground}">
     <StackLayout Spacing="0">
@@ -27,6 +27,7 @@
           <ColumnDefinition Width="16"/>
           <ColumnDefinition Width="Auto"/>
           <ColumnDefinition Width="*"/>
+	        <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <BoxView Grid.ColumnSpan="3" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
           <BoxView.HeightRequest>
@@ -36,16 +37,21 @@
           </BoxView.HeightRequest>
         </BoxView>
         <Label Text="Expectativa de Rendimento" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-        <Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="t/ha" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
-          <Entry.Effects>
-            <effects:NoBorderEffect />
-          </Entry.Effects>
-          <Entry.FontSize>
+        <renderers:CustomPicker
+          ItemsSource="{Binding Expectativas}"
+          SelectedItem="{Binding ExpectativaSelected}"
+          VerticalOptions="Center"
+          Grid.Column="2"
+          Margin="16,0"
+          HasBorder="false"
+          PlaceholderColor="{StaticResource colorTextHint}"
+          TextAlignment="Right">
+          <renderers:CustomPicker.TextSize>
             <OnPlatform x:TypeArguments="x:Double"
-							iOS="17"
-							Android="14"/>
-          </Entry.FontSize>
-        </Entry>
+              Android="14" iOS="17"/>
+          </renderers:CustomPicker.TextSize>
+        </renderers:CustomPicker>
+        <Label Text="T/ha" Grid.Column="3"/>
         <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
           <BoxView.HeightRequest>
             <OnPlatform x:TypeArguments="x:Double"
@@ -62,16 +68,20 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Text="Cultura" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
-        <Entry Keyboard="Text" VerticalOptions="Center" Grid.Column="2" Margin="16,0" Placeholder="Selecione uma Cultura" HorizontalTextAlignment="End" PlaceholderColor="{StaticResource colorTextHint}">
-          <Entry.Effects>
-            <effects:NoBorderEffect />
-          </Entry.Effects>
-          <Entry.FontSize>
+        <renderers:CustomPicker
+         ItemsSource="{Binding Culturas}"
+         SelectedItem="{Binding CulturaSelected}"
+         VerticalOptions="Center"
+         Grid.Column="2"
+         Margin="16,0"
+         HasBorder="false"
+         PlaceholderColor="{StaticResource colorTextHint}"
+         TextAlignment="Right">
+          <renderers:CustomPicker.TextSize>
             <OnPlatform x:TypeArguments="x:Double"
-							iOS="17"
-							Android="14"/>
-          </Entry.FontSize>
-        </Entry>
+              Android="14" iOS="17"/>
+          </renderers:CustomPicker.TextSize>
+        </renderers:CustomPicker>
       </Grid>
 
       <BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
@@ -86,9 +96,9 @@
 				Text="AVISO! O nível de Potássio de sua análise estava baixo, para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva."
 				TextColor="{StaticResource colorTextPrimary}"
 				Margin="16"
-				FontSize="Small"/>
+				FontSize="Small" IsVisible="{Binding IsPotassioBaixo}"/>
 
-      <Button Text="Recomendação" IsEnabled="true" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
+      <Button Text="Recomendação" Command="{Binding RecomendarCommand}" IsEnabled="true" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
     </StackLayout>
   </ScrollView>
 </ContentPage>
