@@ -304,6 +304,12 @@
     <BundleResource Include="Resources\ic_password.png" />
     <BundleResource Include="Resources\ic_password%403x.png" />
     <BundleResource Include="Resources\ic_password%402x.png" />
+    <BundleResource Include="Resources\ic_status%402x.png" />
+    <BundleResource Include="Resources\ic_status%403x.png" />
+    <BundleResource Include="Resources\ic_status.png" />
+    <BundleResource Include="Resources\ic_status_check%403x.png" />
+    <BundleResource Include="Resources\ic_status_check%402x.png" />
+    <BundleResource Include="Resources\ic_status_check.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_menu_solum%403x.png" />

@@ -6,94 +6,156 @@
 			 x:Class="Solum.Pages.GerenciamentoAnalisePage"
 			 Title="{Binding PageTitle, StringFormat='Análise {0}'}">
 
-	<StackLayout>
-    
-		<Grid Padding="5">
-			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="64" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Grid.GestureRecognizers>
-        <TapGestureRecognizer Command="{Binding ShowInterpretacaoPageCommand}" NumberOfTapsRequired="1" />
-			</Grid.GestureRecognizers>
-			<Image Grid.RowSpan="2" Grid.Column="0" />
-			<Label Text="Interpretação" Grid.Column="1" Grid.Row="0"/>
-			<Label Text="{Binding InterpretacaoDate}" Grid.Column="1" Grid.Row="1"/>
-		</Grid>
 
-		<Grid Padding="5">
-			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="64" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Grid.GestureRecognizers>
-        <TapGestureRecognizer Command="{Binding ShowRecomendacaoCalagemPageCommand}" NumberOfTapsRequired="1" />
-			</Grid.GestureRecognizers>
-			<Image Grid.RowSpan="2" Grid.Column="0" />
-			<Label Text="Calagem" Grid.Column="1" Grid.Row="0" />
-      <Label Text="{Binding CalagemDate}" Grid.Column="1" Grid.Row="1">
-      </Label>
-		</Grid>
+	<ScrollView BackgroundColor="{StaticResource colorBackground}">
+		<StackLayout Spacing="0">
+			<Label TextColor="{StaticResource colorTextSecundary}" Text="GERENCIAMENTO">
+				<Label.Margin>
+					<OnPlatform x:TypeArguments="Thickness"
+						iOS="16,24,16,4"
+						Android="16, 13"/>
+				</Label.Margin>
+				<Label.FontSize>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="13"
+						Android="14"/>
+				</Label.FontSize>
+			</Label>
 
-		<Grid Padding="5">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="20" />
-				<RowDefinition Height="20"/>
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="64" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Grid.GestureRecognizers>
-				<TapGestureRecognizer Command="{Binding ShowCorretivaPageCommand}" NumberOfTapsRequired="1" />
-			</Grid.GestureRecognizers>
-			<Image Grid.RowSpan="2" Grid.Column="0" />
-			<Label Text="Adubação Corretiva" Grid.Column="1" Grid.Row="0" />
-      <Label Text="{Binding CorretivaDate}" Grid.Column="1" Grid.Row="1"/>
-		</Grid>
+			<!--Interpretação-->
+			<Grid BackgroundColor="White" HeightRequest="72">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="72" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Grid.GestureRecognizers>
+	        		<TapGestureRecognizer Command="{Binding ShowInterpretacaoPageCommand}" NumberOfTapsRequired="1" />
+				</Grid.GestureRecognizers>
+				<BoxView Grid.ColumnSpan="2" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
+			        <BoxView.HeightRequest>
+			          <OnPlatform x:TypeArguments="x:Double"
+									iOS="0.5"
+									Android="0.3"/>
+			        </BoxView.HeightRequest>
+				</BoxView>
+				<Image Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status_check"/>
+				<Label Text="Interpretação" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}"/>
+				<Label Text="{Binding InterpretacaoDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
+				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
+			        <BoxView.HeightRequest>
+			          <OnPlatform x:TypeArguments="x:Double"
+									iOS="0.5"
+									Android="0.3"/>
+			        </BoxView.HeightRequest>
+			     </BoxView>
+			</Grid>
+			
+			<!--Calagem-->
+			<Grid BackgroundColor="White" HeightRequest="72">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="72" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Grid.GestureRecognizers>
+	        		<TapGestureRecognizer Command="{Binding ShowRecomendacaoCalagemPageCommand}" NumberOfTapsRequired="1" />
+				</Grid.GestureRecognizers>
+				<Image Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status"/>
+				<Label Text="Calagem" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}"/>
+	      		<Label Text="{Binding CalagemDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
+				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
+			        <BoxView.HeightRequest>
+			          <OnPlatform x:TypeArguments="x:Double"
+									iOS="0.5"
+									Android="0.3"/>
+			        </BoxView.HeightRequest>
+			    </BoxView>
+			</Grid>
+			
+			<!--Adubação Corretiva-->
+			<Grid BackgroundColor="White" HeightRequest="72">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="72" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Grid.GestureRecognizers>
+					<TapGestureRecognizer Command="{Binding ShowCorretivaPageCommand}" NumberOfTapsRequired="1" />
+				</Grid.GestureRecognizers>
+				<Image Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status"/>
+				<Label Text="Adubação Corretiva" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}"/>
+	      		<Label Text="{Binding CorretivaDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
+				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
+			        <BoxView.HeightRequest>
+			          <OnPlatform x:TypeArguments="x:Double"
+									iOS="0.5"
+									Android="0.3"/>
+			        </BoxView.HeightRequest>
+			    </BoxView>
+			</Grid>
 
-		<Grid Padding="5">
-			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="64" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Grid.GestureRecognizers>
-				<TapGestureRecognizer Command="{Binding ShowSemeaduraPageCommand}" />
-			</Grid.GestureRecognizers>
-			<Image Grid.RowSpan="2" Grid.Column="0" />
-			<Label Text="Adubação de Semeadura" Grid.Column="1" Grid.Row="0" />
-      <Label Text="{Binding SemeaduraDate}" Grid.Column="1" Grid.Row="1"/>
-		</Grid>
+			<!--Adubação Semeadura-->
+			<Grid BackgroundColor="White" HeightRequest="72">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="72" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Grid.GestureRecognizers>
+					<TapGestureRecognizer Command="{Binding ShowSemeaduraPageCommand}" />
+				</Grid.GestureRecognizers>
+				<Image Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status"/>
+				<Label Text="Adubação de Semeadura" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}"/>
+	      		<Label Text="{Binding SemeaduraDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
+				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
+			        <BoxView.HeightRequest>
+			          <OnPlatform x:TypeArguments="x:Double"
+									iOS="0.5"
+									Android="0.3"/>
+			        </BoxView.HeightRequest>
+			    </BoxView>
+			</Grid>
 
-		<Grid Padding="5">
-			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="64" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Grid.GestureRecognizers>
-				<TapGestureRecognizer Command="{Binding ShowCoberturaPageCommand}" NumberOfTapsRequired="1"/>
-			</Grid.GestureRecognizers>
-			<Image Grid.RowSpan="2" Grid.Column="0" />
-			<Label Text="Adubação de Cobertura" Grid.Column="1" Grid.Row="0" />
-      <Label Text="{Binding CoberturaDate}" Grid.Column="1" Grid.Row="1"/>
-		</Grid>
+			<!--Adubação Cobertura-->
+			<Grid BackgroundColor="White" HeightRequest="72">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="72" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Grid.GestureRecognizers>
+					<TapGestureRecognizer Command="{Binding ShowCoberturaPageCommand}" NumberOfTapsRequired="1"/>
+				</Grid.GestureRecognizers>
+				<Image Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status"/>
+				<Label Text="Adubação de Cobertura" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}"/>
+	      		<Label Text="{Binding CoberturaDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
+			</Grid>
+			
+			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
+				<BoxView.HeightRequest>
+					<OnPlatform x:TypeArguments="x:Double"
+						iOS="0.5"
+						Android="0"/>
+				</BoxView.HeightRequest>
+			</BoxView>
 
-		<!--<Button Text="Salvar" />-->
-	</StackLayout>
+			<!--<Button Text="Salvar" />-->
+		</StackLayout>
+	</ScrollView>
 </ContentPage>

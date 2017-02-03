@@ -164,6 +164,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_menu_analises.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_status_check.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_status.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_status.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_status_check.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_status.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_status_check.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_status_check.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_status.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_status_check.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_status.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
