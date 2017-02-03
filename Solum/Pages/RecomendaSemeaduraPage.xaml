@@ -4,7 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="Solum.Pages.RecomendaSemeaduraPage"
 	xmlns:effects="clr-namespace:Solum.Effects"
-	Title="Nome da Fazenda - Talhão">
+	Title="{Binding PageTitle}">
 
   <ScrollView Grid.Row="0" BackgroundColor="{StaticResource colorBackground}">
     <StackLayout Spacing="0">
@@ -38,7 +38,7 @@
           </BoxView.HeightRequest>
         </BoxView>
         <Label Text="Quantidade de N" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-        <Label Text="20 t/ha" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        <Label Text="{Binding N}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
         <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
           <BoxView.HeightRequest>
             <OnPlatform x:TypeArguments="x:Double"
@@ -58,7 +58,7 @@
           <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Text="Quantidade de P2O5" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-        <Label Text="60 t/ha" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        <Label Text="{Binding P205}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
         <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
           <BoxView.HeightRequest>
             <OnPlatform x:TypeArguments="x:Double"
@@ -78,7 +78,7 @@
           <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Text="Quantidade de K2O" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-        <Label Text="30 t/ha" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        <Label Text="{Binding K20}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
       </Grid>
 
       <BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
@@ -119,7 +119,7 @@
           </BoxView.HeightRequest>
         </BoxView>
         <Label Text="Expectativa de rendimento" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-        <Label Text="6 t/ha" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        <Label Text="{Binding Expectativa}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
         <BoxView BackgroundColor="#C8C7CC" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
           <BoxView.HeightRequest>
             <OnPlatform x:TypeArguments="x:Double"
@@ -139,7 +139,7 @@
           <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Text="Cultura" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-        <Label Text="Milho" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        <Label Text="{Binding Cultura}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
       </Grid>
 
       <BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
