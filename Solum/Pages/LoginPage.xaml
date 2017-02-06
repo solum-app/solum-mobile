@@ -30,7 +30,7 @@
       </Grid.ColumnDefinitions>
       <Image Source="ic_user" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" />
       <Entry x:Name="UsernameEntry" Placeholder="Email" Text="{Binding Username}" Margin="32,0,0,0"
-				   PlaceholderColor="{StaticResource colorTextHint}" Grid.Column="1" VerticalOptions="CenterAndExpand">
+				   PlaceholderColor="{StaticResource colorTextHint}" Grid.Column="1" VerticalOptions="CenterAndExpand" Completed="OnUsernameCompleted">
         <Entry.Effects>
           <effects:NoBorderEffect />
         </Entry.Effects>
@@ -51,7 +51,7 @@
       </Grid.ColumnDefinitions>
       <Image Source="ic_password" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" />
       <Entry x:Name="PasswordEntry" Placeholder="Senha" IsPassword="True" Text="{Binding Password}" Margin="32,0,0,0"
-				   PlaceholderColor="{StaticResource colorTextHint}" Grid.Column="1" VerticalOptions="CenterAndExpand">
+				   PlaceholderColor="{StaticResource colorTextHint}" Grid.Column="1" VerticalOptions="CenterAndExpand" Completed="OnPasswordCompleted">
         <Entry.Effects>
           <effects:NoBorderEffect />
         </Entry.Effects>
