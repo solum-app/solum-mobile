@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Solum.Models;
+﻿using Solum.ViewModel;
 using Xamarin.Forms;
 
 namespace Solum.Pages
 {
     public partial class CoberturaPage : ContentPage
     {
-        public CoberturaPage(Analise analise)
+        public CoberturaPage(string analiseid)
         {
             InitializeComponent();
+            BindingContext = new CoberturaViewModel(Navigation, analiseid);
+            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
         }
     }
 }
