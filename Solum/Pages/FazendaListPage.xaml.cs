@@ -11,7 +11,8 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new FazendaListViewModel(Navigation, fromAnalise);
-            NavigationPage.SetBackButtonTitle(this, "Voltar");
+            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+
             if (Device.OS == TargetPlatform.Android)
             {
                 var fab = new FloatingActionButtonView
@@ -56,7 +57,7 @@ namespace Solum.Pages
 
         private void OnEdit(object sender, EventArgs e)
         {
-            var fazenda = (sender as MenuItem).CommandParameter;
+            var fazenda = (sender as MenuItem)?.CommandParameter;
             var context = BindingContext as FazendaListViewModel;
             context?.EditCommand.Execute(fazenda);
         }
@@ -65,7 +66,7 @@ namespace Solum.Pages
         {
             var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
             if (!confirm) return;
-            var fazenda = (sender as MenuItem).CommandParameter;
+            var fazenda = (sender as MenuItem)?.CommandParameter;
             var context = BindingContext as FazendaListViewModel;
             context?.DeleteCommand.Execute(fazenda);
         }

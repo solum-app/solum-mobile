@@ -11,15 +11,15 @@ namespace Solum.Pages
 		{
             InitializeComponent();
             BindingContext = new AnaliseViewModel (Navigation);
-			//Init ();
+            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
 		}
 
 		public AnalisePage (Analise analise)
 		{
             InitializeComponent();
             BindingContext = new AnaliseViewModel (Navigation, analise);
-			//Init ();
-		}
+            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+        }
 
         //void Init()
         //{

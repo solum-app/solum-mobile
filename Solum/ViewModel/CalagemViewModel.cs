@@ -34,8 +34,6 @@ namespace Solum.ViewModel
             ProfundidadeList.Add(10);
             ProfundidadeList.Add(20);
             ProfundidadeList.Add(40);
-            //ProfundidadeSelected = ProfundidadeList[2];
-            //V2Selected = V2List.FirstOrDefault(x => x == 70);
         }
 
         #region Commands
@@ -93,7 +91,7 @@ namespace Solum.ViewModel
             {
                 IsBusy = true;
                 var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new RecomendaCalagemPage(Navigation, _calagem.Id));
+                await Navigation.PushAsync(new RecomendaCalagemPage(_calagem.Id));
                 Navigation.RemovePage(current);
                 IsBusy = false;
             }

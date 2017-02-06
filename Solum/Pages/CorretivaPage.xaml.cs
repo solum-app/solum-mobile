@@ -5,10 +5,10 @@ namespace Solum.Pages
 {
     public partial class CorretivaPage : ContentPage
     {
-        public CorretivaPage(INavigation navigation, string analiseId)
+        public CorretivaPage(string analiseId)
         {
             InitializeComponent();
-            BindingContext = new CorretivaViewModel(navigation, analiseId);
+            BindingContext = new CorretivaViewModel(Navigation, analiseId);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
         }
     }

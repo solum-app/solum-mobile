@@ -5,10 +5,10 @@ namespace Solum.Pages
 {
 	public partial class RecomendaCalagemPage : ContentPage
 	{
-		public RecomendaCalagemPage(INavigation navigation, string calagemid)
+		public RecomendaCalagemPage(string calagemid)
 		{
 			InitializeComponent();
-            BindingContext = new RecomendacaoCalagemViewModel(navigation, calagemid);
+            BindingContext = new RecomendacaoCalagemViewModel(Navigation, calagemid);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
 		}
 

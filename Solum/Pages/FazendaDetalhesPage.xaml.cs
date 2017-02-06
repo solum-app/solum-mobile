@@ -12,7 +12,7 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new FazendaDetalhesViewModel(Navigation, fazenda, fromAnalise);
-			NavigationPage.SetBackButtonTitle(this, "Voltar");
+			NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
 			
             if (Device.OS == TargetPlatform.Android)
             {

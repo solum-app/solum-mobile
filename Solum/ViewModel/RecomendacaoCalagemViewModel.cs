@@ -63,7 +63,7 @@ namespace Solum.ViewModel
             {
                 IsBusy = true;
                 var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new CalagemPage(Navigation, Calagem.AnaliseId));
+                await Navigation.PushAsync(new CalagemPage(Calagem.AnaliseId));
                 Navigation.RemovePage(current);
                 IsBusy = false;
             }

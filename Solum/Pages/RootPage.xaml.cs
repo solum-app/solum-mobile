@@ -43,9 +43,9 @@ namespace Solum.Pages
             sairGesture.Tapped += OnSairTapped;
             SairLabel.GestureRecognizers.Add(sairGesture);
 
-			var testeGesture = new TapGestureRecognizer();
-            testeGesture.Tapped += OnTesteTapped;
-            TesteLabel.GestureRecognizers.Add(testeGesture);
+			//var testeGesture = new TapGestureRecognizer();
+   //         testeGesture.Tapped += OnTesteTapped;
+   //         TesteLabel.GestureRecognizers.Add(testeGesture);
         }
 
         public async void OnAnalisesTapped(object sender, EventArgs e)
@@ -136,34 +136,34 @@ namespace Solum.Pages
         }
 
 
-		public async void OnTesteTapped(object sender, EventArgs e)
-		{
-			if (Device.OS == TargetPlatform.iOS)
-			{
-				if (_currentPage.GetType() == typeof(SemeaduraPage))
-				{
-					IsPresented = false;
-				}
-				else
-				{
-					_currentPage = new SemeaduraPage(null);
-					Detail = new NavigationPage(_currentPage)
-					{
-						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
-						BarTextColor = Color.White
-					};
-					IsPresented = false;
-				}
-			}
-			else
-			{
-				var page = new SemeaduraPage(null);
-				await _navigationPage.Navigation.PushAsync(page);
-				_navigationPage.Navigation.RemovePage(_currentPage);
-				_currentPage = page;
-				IsPresented = false;
-			}
-		}
+		//public async void OnTesteTapped(object sender, EventArgs e)
+		//{
+		//	if (Device.OS == TargetPlatform.iOS)
+		//	{
+		//		if (_currentPage.GetType() == typeof(SemeaduraPage))
+		//		{
+		//			IsPresented = false;
+		//		}
+		//		else
+		//		{
+		//			_currentPage = new SemeaduraPage(null);
+		//			Detail = new NavigationPage(_currentPage)
+		//			{
+		//				BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
+		//				BarTextColor = Color.White
+		//			};
+		//			IsPresented = false;
+		//		}
+		//	}
+		//	else
+		//	{
+		//		var page = new SemeaduraPage(null);
+		//		await _navigationPage.Navigation.PushAsync(page);
+		//		_navigationPage.Navigation.RemovePage(_currentPage);
+		//		_currentPage = page;
+		//		IsPresented = false;
+		//	}
+		//}
 
         public async void OnSairTapped(object sender, EventArgs e)
         {
