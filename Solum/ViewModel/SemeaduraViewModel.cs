@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using Realms;
 using Solum.Handlers;
@@ -12,7 +14,8 @@ namespace Solum.ViewModel
     {
         public SemeaduraViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
-            _analise = Realm.GetInstance().Find<Analise>(analiseId);
+            _realm = Realm.GetInstance();
+            _analise = _realm.Find<Analise>(analiseId);
             var p = InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC);
             IsPotassioBaixo = !p.ToUpper().Equals("ADEQUADO") || !p.ToUpper().Equals("ALTO");
             PageTitle = $"{_analise.Talhao.Fazenda.Nome} - {_analise.Talhao.Nome}";
@@ -33,6 +36,8 @@ namespace Solum.ViewModel
         private readonly Analise _analise;
 
         private ICommand _recomendarCommand;
+
+        private readonly Realm _realm;
 
         #endregion
 
@@ -92,10 +97,41 @@ namespace Solum.ViewModel
                 return;
             }
 
+            Semeadura obj;
+            if (_realm.All<Semeadura>().Any(s => s.AnaliseId.Equals(_analise.Id)))
+            {
+                obj = _realm.All<Semeadura>().FirstOrDefault(s => s.AnaliseId.Equals(_analise.Id));
+                using (var transaction = _realm.BeginWrite())
+                {
+                    obj.Cultura = CulturaSelected;
+                    obj.Expectativa = ExpectativaSelected;
+                    transaction.Commit();
+                }
+            }
+            else
+            {
+               obj = new Semeadura()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Analise = _analise,
+                    AnaliseId = _analise.Id,
+                    Cultura = CulturaSelected,
+                    Expectativa = ExpectativaSelected
+                };
+
+                using (var transaction = _realm.BeginWrite())
+                {
+                    _realm.Add(obj);
+                    transaction.Commit();
+                }
+            }
+
             if (!IsBusy)
             {
                 IsBusy = true;
+                var current = Navigation.NavigationStack.LastOrDefault();
                 await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, ExpectativaSelected, CulturaSelected));
+                Navigation.RemovePage(current);
                 IsBusy = false;
             }
         }

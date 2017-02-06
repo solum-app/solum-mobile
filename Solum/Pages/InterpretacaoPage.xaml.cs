@@ -16,12 +16,11 @@ namespace Solum.Pages
 {
     public partial class InterpretacaoPage : ContentPage
     {
-        public InterpretacaoPage(INavigation navigation, Analise analise)
+        public InterpretacaoPage(Analise analise)
         {
             InitializeComponent();
-          //  this.analise = analise;
-          BindingContext = new InterpretacaoViewModel(navigation, analise);
-          NavigationPage.SetBackButtonTitle(this, "Voltar");
+            BindingContext = new InterpretacaoViewModel(Navigation, analise);
+            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
         }
 
         //private async void OnSalvarTapped(object sender, EventArgs e)
@@ -64,9 +63,9 @@ namespace Solum.Pages
             //Header 
             g.DrawString("Relatório de Interpretação de Análise de Solo", headerFont, new PdfSolidBrush(black),
                 new PointF(110, 20));
-            g.DrawString(analise.Talhao.Fazenda.Nome, subHeadingFont, new PdfSolidBrush(black), new PointF(110, 52));
-            g.DrawString("Talhão " + analise.Talhao, textFont, new PdfSolidBrush(black), new PointF(110, 74));
-            g.DrawString(string.Format("{0:dd/MM/yyyy}", analise.Data), textFont, new PdfSolidBrush(black),
+            g.DrawString(_analise.Talhao.Fazenda.Nome, subHeadingFont, new PdfSolidBrush(black), new PointF(110, 52));
+            g.DrawString("Talhão " + _analise.Talhao, textFont, new PdfSolidBrush(black), new PointF(110, 74));
+            g.DrawString(string.Format("{0:dd/MM/yyyy}", _analise.Data), textFont, new PdfSolidBrush(black),
                 new PointF(page.Graphics.ClientSize.Width - 75, 25));
             g.DrawRectangle(new PdfSolidBrush(green), new RectangleF(0, 105, page.Graphics.ClientSize.Width, 5));
 
@@ -98,7 +97,7 @@ namespace Solum.Pages
             //K
             valorAtual = (BindingContext as InterpretacaoViewModel).Analise.Potassio.ToString("F",
                 CultureInfo.InvariantCulture);
-            valorAdequado = CtcKConverter(analise.CTC);
+            valorAdequado = CtcKConverter(_analise.CTC);
             classe = (BindingContext as InterpretacaoViewModel).InterpretacaoK;
 
             y = BodyContent(g, "K", valorAtual, valorAdequado, classe, y, grayLight);
@@ -286,7 +285,7 @@ namespace Solum.Pages
         private readonly Color green = Color.FromArgb(255, 63, 170, 88);
         private readonly Color white = Color.FromArgb(255, 255, 255, 255);
 
-        private readonly Analise analise;
+        private readonly Analise _analise;
 
         #endregion
     }

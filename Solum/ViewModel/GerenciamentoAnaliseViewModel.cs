@@ -165,7 +165,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new InterpretacaoPage(Navigation, Analise));
+                await Navigation.PushAsync(new InterpretacaoPage(Analise));
                 IsBusy = false;
             }
         }
@@ -175,7 +175,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new CalagemPage(Navigation, Analise.Id));
+                await Navigation.PushAsync(new CalagemPage(Analise.Id));
                 IsBusy = false;
             }
         }
@@ -188,7 +188,7 @@ namespace Solum.ViewModel
 				var bo = _realm.All<Calagem>().Any(c => c.AnaliseId.Equals(Analise.Id));
 				if (bo){
 					var s = _realm.All<Calagem>().FirstOrDefault(c => c.AnaliseId.Equals(Analise.Id)).Id;
-					await Navigation.PushAsync(new RecomendaCalagemPage(Navigation, s));
+					await Navigation.PushAsync(new RecomendaCalagemPage(s));
 				}
                     
 				else {
@@ -204,7 +204,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new CorretivaPage(Navigation, Analise.Id));
+                await Navigation.PushAsync(new CorretivaPage(Analise.Id));
                 IsBusy = false;
             }
         }
@@ -214,9 +214,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                var current = Navigation.NavigationStack.LastOrDefault();
                 await Navigation.PushAsync(new SemeaduraPage(Analise.Id));
-                Navigation.RemovePage(current);
                 IsBusy = false;
             }
         }
@@ -226,9 +224,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new CoberturaPage(Analise));
-                Navigation.RemovePage(current);
+                await Navigation.PushAsync(new CoberturaPage(Analise.Id));
                 IsBusy = false;
             }
         }

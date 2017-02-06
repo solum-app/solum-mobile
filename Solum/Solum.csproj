@@ -34,8 +34,10 @@
   <ItemGroup>
     <Compile Include="Handlers\MilhoSemeaturaInterpreter.cs" />
     <Compile Include="Handlers\ISemeaduraInterpreter.cs" />
+    <Compile Include="Interfaces\ICoberturaInterpreter.cs" />
     <Compile Include="Messages\MessagingCenterMessages.cs" />
     <Compile Include="Models\Calagem.cs" />
+    <Compile Include="Models\Semeadura.cs" />
     <Compile Include="Pages\RecomendaSemeaduraPage.xaml.cs">
       <DependentUpon>RecomendaSemeaduraPage.xaml</DependentUpon>
     </Compile>
@@ -103,6 +105,7 @@
     <Compile Include="Effects\NoBorderEffect.cs" />
     <Compile Include="ViewModel\CadastroViewModel.cs" />
     <Compile Include="ViewModel\CalagemViewModel.cs" />
+    <Compile Include="ViewModel\CoberturaViewModel.cs" />
     <Compile Include="ViewModel\CorretivaViewModel.cs" />
     <Compile Include="ViewModel\FazendaCadastroViewModel.cs" />
     <Compile Include="ViewModel\FazendaDetalhesViewModel.cs" />
