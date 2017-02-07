@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Windows.Input;
 using Realms;
+using Solum.Handlers;
+using Solum.Interfaces;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -14,7 +16,7 @@ namespace Solum.ViewModel
         {
             _realm = Realm.GetInstance();
             Analise = _realm.Find<Analise>(analise.Id);
-            PageTitle = Analise.Nome;
+            PageTitle = $"Análise {Analise.Nome}";
             UpdateValues();
         }
 
@@ -26,7 +28,7 @@ namespace Solum.ViewModel
         private ICommand _showInterpretacaoPageCommand;
         private ICommand _showSemeaduraPageCommand;
 
-        private bool _hasInterpretacaoAccomplished;
+        private bool _wasInterpreted;
         private bool _hasCalagemCalculation;
         private bool _hasCorretivaCalculation;
         private bool _hasSemeaduraCalculation;
@@ -59,10 +61,10 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _analise, value); }
         }
 
-        public bool HasInterpretacaoAccomplished
+        public bool WasInterpreted
         {
-            get { return _hasInterpretacaoAccomplished; }
-            set { SetPropertyChanged(ref _hasInterpretacaoAccomplished, value); }
+            get { return _wasInterpreted; }
+            set { SetPropertyChanged(ref _wasInterpreted, value); }
         }
 
         public bool HasCalagemCalculation
@@ -175,7 +177,10 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new CalagemPage(Analise.Id));
+                if (WasInterpreted)
+                    await Navigation.PushAsync(new CalagemPage(Analise.Id));
+                else
+                    "Você precisa realizar a interpretação primeiro".ToDisplayAlert(MessageType.Aviso);
                 IsBusy = false;
             }
         }
@@ -185,17 +190,18 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-				var bo = _realm.All<Calagem>().Any(c => c.AnaliseId.Equals(Analise.Id));
-				if (bo){
+				var wasCalculated = _realm.All<Calagem>().Any(c => c.AnaliseId.Equals(Analise.Id));
+				if (wasCalculated){
 					var s = _realm.All<Calagem>().FirstOrDefault(c => c.AnaliseId.Equals(Analise.Id)).Id;
 					await Navigation.PushAsync(new RecomendaCalagemPage(s));
-				}
-                    
-				else {
+                    IsBusy = false;
+                }
+				else
+                {
 					IsBusy = false;
 					ShowCalagemPage();
 				}
-                IsBusy = false;
+                
             }
         }
 
@@ -204,7 +210,10 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new CorretivaPage(Analise.Id));
+                if(HasCalagemCalculation)
+                    await Navigation.PushAsync(new CorretivaPage(Analise.Id));
+                else
+                    "Você precisa executar o cálculo para recomendação de calagem primeiro".ToDisplayAlert(MessageType.Aviso);
                 IsBusy = false;
             }
         }
@@ -214,7 +223,10 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new SemeaduraPage(Analise.Id));
+                if(HasCorretivaCalculation)
+                    await Navigation.PushAsync(new SemeaduraPage(Analise.Id));
+                else
+                    "Você precisa executar o cálculo da recomendação corretiva primeiro".ToDisplayAlert(MessageType.Aviso);
                 IsBusy = false;
             }
         }
@@ -224,7 +236,10 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new CoberturaPage(Analise.Id));
+                if(HasSemeaduraCalculation)
+                    await Navigation.PushAsync(new CoberturaPage(Analise.Id));
+                else
+                    "Você precisa executar a recomendação de semeadura primeiro".ToDisplayAlert(MessageType.Aviso);
                 IsBusy = false;
             }
         }
@@ -232,11 +247,31 @@ namespace Solum.ViewModel
         public void UpdateValues()
         {
             Analise = _realm.Find<Analise>(Analise.Id);
-            if (Analise.DataInterpretacao != null) InterpretacaoDate = Analise.DataInterpretacao.ToString();
-            if (Analise.DataCalculoCalagem != null) CalagemDate = Analise.DataCalculoCalagem.ToString();
-            if (Analise.DataCalculoCorretiva != null) CorretivaDate = Analise.DataCalculoCorretiva.ToString();
-            if (Analise.DataCalculoSemeadura != null) SemeaduraDate = Analise.DataCalculoSemeadura.ToString();
-            if (Analise.DataCalculoCobertura != null) CoberturaDate = Analise.DataCalculoCobertura.ToString();
+            if (Analise.DataInterpretacao != null)
+            {
+                InterpretacaoDate = Analise.DataInterpretacao.ToString();
+                WasInterpreted = true;
+            }
+            if (Analise.DataCalculoCalagem != null)
+            {
+                CalagemDate = Analise.DataCalculoCalagem.ToString();
+                HasCalagemCalculation = true;
+            }
+            if (Analise.DataCalculoCorretiva != null)
+            {
+                CorretivaDate = Analise.DataCalculoCorretiva.ToString();
+                HasCorretivaCalculation = true;
+            }
+            if (Analise.DataCalculoSemeadura != null)
+            {
+                SemeaduraDate = Analise.DataCalculoSemeadura.ToString();
+                HasSemeaduraCalculation = true;
+            }
+            if (Analise.DataCalculoCobertura != null)
+            {
+                CoberturaDate = Analise.DataCalculoCobertura.ToString();
+                HasCoberturaCalculation = true;
+            }
         }
 
         #endregion
