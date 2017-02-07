@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:converter="clr-namespace:Solum.Handlers;"
-			 x:Class="Solum.Pages.GerenciamentoAnalisePage"
-			 Title="{Binding PageTitle, StringFormat='Análise {0}'}">
+<ContentPage 
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:converter="clr-namespace:Solum.Handlers;"
+  x:Class="Solum.Pages.GerenciamentoAnalisePage"
+  Title="{Binding PageTitle}">
 
 
 	<ScrollView BackgroundColor="{StaticResource colorBackground}">
@@ -42,7 +43,11 @@
 									Android="0.3"/>
 			        </BoxView.HeightRequest>
 				</BoxView>
-				<Image Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status_check"/>
+				<Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" 
+               VerticalOptions="Center" Source="ic_status_check" IsVisible="{Binding WasInterpreted}"/>
+        <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" 
+               HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status" IsVisible="{Binding WasInterpreted, Converter={x:Static converter:IverseBoolConverter.Instance}}"/>
+        
 				<Label Text="Interpretação" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}"/>
 				<Label Text="{Binding InterpretacaoDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
@@ -67,7 +72,8 @@
 				<Grid.GestureRecognizers>
 	        		<TapGestureRecognizer Command="{Binding ShowRecomendacaoCalagemPageCommand}" NumberOfTapsRequired="1" />
 				</Grid.GestureRecognizers>
-				<Image Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status"/>
+        <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status_check" IsVisible="{Binding HasCalagemCalculation}"/>
+        <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status" IsVisible="{Binding HasCalagemCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}"/>
 				<Label Text="Calagem" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}"/>
 	      		<Label Text="{Binding CalagemDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
@@ -92,7 +98,8 @@
 				<Grid.GestureRecognizers>
 					<TapGestureRecognizer Command="{Binding ShowCorretivaPageCommand}" NumberOfTapsRequired="1" />
 				</Grid.GestureRecognizers>
-				<Image Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status"/>
+        <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status_check" IsVisible="{Binding HasCorretivaCalculation}"/>
+        <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status" IsVisible="{Binding HasCorretivaCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}"/>
 				<Label Text="Adubação Corretiva" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}"/>
 	      		<Label Text="{Binding CorretivaDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
@@ -115,9 +122,10 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Grid.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding ShowSemeaduraPageCommand}" />
+					<TapGestureRecognizer Command="{Binding ShowSemeaduraPageCommand}"  />
 				</Grid.GestureRecognizers>
-				<Image Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status"/>
+        <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status_check" IsVisible="{Binding HasSemeaduraCalculation}"/>
+        <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status" IsVisible="{Binding HasSemeaduraCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}"/>
 				<Label Text="Adubação de Semeadura" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}"/>
 	      		<Label Text="{Binding SemeaduraDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
@@ -142,7 +150,8 @@
 				<Grid.GestureRecognizers>
 					<TapGestureRecognizer Command="{Binding ShowCoberturaPageCommand}" NumberOfTapsRequired="1"/>
 				</Grid.GestureRecognizers>
-				<Image Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status"/>
+        <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status_check" IsVisible="{Binding HasCoberturaCalculation}"/>
+        <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status" IsVisible="{Binding HasCoberturaCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}"/>
 				<Label Text="Adubação de Cobertura" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}"/>
 	      		<Label Text="{Binding CoberturaDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 			</Grid>
@@ -155,7 +164,9 @@
 				</BoxView.HeightRequest>
 			</BoxView>
 
-			<!--<Button Text="Salvar" />-->
+      <Button Text="Gerar Relatório" Command="{Binding GerarRelatorioCommand}" Margin="16" 
+              BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}"
+              VerticalOptions="EndAndExpand" IsVisible="{Binding CanMakeReport}" />
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

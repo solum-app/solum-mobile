@@ -29,7 +29,8 @@
 
 			<Entry 
 				x:Name="NomeEntry" Placeholder="Nome Completo"
-				Text="{Binding Name, Mode=TwoWay}" PlaceholderColor="{StaticResource colorTextHint}">
+				Text="{Binding Name, Mode=TwoWay}" PlaceholderColor="{StaticResource colorTextHint}" 
+        Completed="NomeEntryOnCompleted">
 				<Entry.Effects>
 					<effects:NoBorderEffect />
 				</Entry.Effects>
@@ -43,7 +44,8 @@
 				HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18" />
 
 			<Entry x:Name="EmailEntry" Placeholder="Email Válido"
-				Text="{Binding Email, Mode=TwoWay}" PlaceholderColor="{StaticResource colorTextHint}">
+				Text="{Binding Email, Mode=TwoWay}" PlaceholderColor="{StaticResource colorTextHint}"
+        Completed="EmailEntryOnCompleted">
 				<Entry.Effects>
 					<effects:NoBorderEffect />
 				</Entry.Effects>
@@ -59,7 +61,8 @@
 			<Entry
 				x:Name="SenhaEntry" Placeholder="Senha"
 				Text="{Binding Password, Mode=TwoWay}" IsPassword="True"
-				PlaceholderColor="{StaticResource colorTextHint}">
+				PlaceholderColor="{StaticResource colorTextHint}"
+        Completed="SenhaEntryOnCompleted">
 				<Entry.Effects>
 					<effects:NoBorderEffect />
 				</Entry.Effects>
@@ -75,7 +78,8 @@
 			<Entry 
 				x:Name="ConfirmarSenhaEntry" Placeholder="Confirma Senha"
 				Text="{Binding ConfirmPassword, Mode=TwoWay}" IsPassword="True"
-				PlaceholderColor="{StaticResource colorTextHint}">
+				PlaceholderColor="{StaticResource colorTextHint}"
+        Completed="ConfirmarSenhaEntryOnCompleted">
 				<Entry.Effects>
 					<effects:NoBorderEffect />
 				</Entry.Effects>
@@ -136,7 +140,7 @@
 				IsVisible="{Binding InRegistering, Converter={x:Static converter:IverseBoolConverter.Instance}}">
 				
 				<Label.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding BackCommand}" />
+					<TapGestureRecognizer Command="{Binding BackCommand}" NumberOfTapsRequired="1"/>
 				</Label.GestureRecognizers>
 			</Label>
       
