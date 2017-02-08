@@ -45,7 +45,7 @@
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
 						iOS="0.5"
-						Android="0"/>
+						Android="0.3"/>
 				</BoxView.HeightRequest>
 			</BoxView>
 
@@ -80,7 +80,7 @@
 				</BoxView>
 				<Label Text="V2" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
 				<Label Text="{Binding Calagem.V2, StringFormat='{0}%'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
-				<BoxView BackgroundColor="#C8C7CC" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
+				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
 					<BoxView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double"
 							iOS="0.5"
@@ -126,7 +126,7 @@
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
 						iOS="0.5"
-						Android="0"/>
+						Android="0.3"/>
 				</BoxView.HeightRequest>
 			</BoxView>
 

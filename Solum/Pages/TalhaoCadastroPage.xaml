@@ -94,7 +94,7 @@
 			<BoxView.HeightRequest>
 				<OnPlatform x:TypeArguments="x:Double"
 					iOS="0.5"
-					Android="0"/>
+					Android="0.3"/>
 			</BoxView.HeightRequest>
 		</BoxView>
 

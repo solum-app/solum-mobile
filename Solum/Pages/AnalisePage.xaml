@@ -191,7 +191,7 @@
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
 						    iOS="0.5"
-						    Android="0" />
+						    Android="0.3" />
 				</BoxView.HeightRequest>
 			</BoxView>
 
@@ -512,7 +512,7 @@
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
 						    iOS="0.5"
-						    Android="0" />
+						    Android="0.3" />
 				</BoxView.HeightRequest>
 			</BoxView>
 
@@ -644,7 +644,7 @@
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
 						    iOS="0.5"
-						    Android="0" />
+						    Android="0.3" />
 				</BoxView.HeightRequest>
 			</BoxView>
 			<Button Text="Salvar" IsEnabled="true" Command="{Binding SaveCommand}" Margin="16"
