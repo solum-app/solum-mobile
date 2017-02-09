@@ -40,7 +40,7 @@
 				</BoxView>
 				<Label Text="Quantidade de P2O5" VerticalOptions="Center" Grid.Row="0" Grid.Column="1"
 					   TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0" />
-				<Label Text="{Binding P205, StringFormat='{0} Kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"
+				<Label Text="{Binding P2O5, StringFormat='{0} Kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"
 					   TextColor="#757575" VerticalTextAlignment="Center" Margin="0,0,0,8" />
 				<BoxView BackgroundColor="#C8C7CC" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
 					<BoxView.HeightRequest>
@@ -62,7 +62,7 @@
 				</Grid.RowDefinitions>
 				<Label Text="Quantidade de K2O" VerticalOptions="Center" Grid.Row="0" Grid.Column="1"
 					   TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0" />
-				<Label Text="{Binding K20, StringFormat='{0} Kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"
+				<Label Text="{Binding K2O, StringFormat='{0} Kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1"
 					   TextColor="#757575" VerticalTextAlignment="Center" Margin="0,0,0,8" />
 			</Grid>
 
