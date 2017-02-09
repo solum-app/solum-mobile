@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Realms;
 using Solum.Handlers;
 using Solum.Models;
@@ -20,8 +21,8 @@ namespace Solum.ViewModel
 
         private string _pageTitle;
 
-        private string _p205;
-        private string _k20;
+        private string _p2O5;
+        private string _k2O;
 
         private Analise _analise;
         private readonly Realm _realm;
@@ -36,16 +37,16 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _pageTitle, value); }
         }
 
-        public string P205
+        public string P2O5
         {
-            get { return _p205; }
-            set { SetPropertyChanged(ref _p205, value); }
+            get { return _p2O5; }
+            set { SetPropertyChanged(ref _p2O5, value); }
         }
 
-        public string K20
+        public string K2O
         {
-            get { return _k20; }
-            set { SetPropertyChanged(ref _k20, value); }
+            get { return _k2O; }
+            set { SetPropertyChanged(ref _k2O, value); }
         }
 
         #endregion
@@ -61,14 +62,14 @@ namespace Solum.ViewModel
             if (!pInterpretaded.Equals("Adequado".ToUpper()) || !pInterpretaded.Equals("Alto".ToUpper()))
             {
                 if (pInterpretaded.Equals("Muito Baixo".ToUpper()))
-                    P205 = ((argila / 10) * 4).ToString("N");
+                    P2O5 = ((argila / 10) * 4).ToString("N");
                 else if (pInterpretaded.Equals("Baixo".ToUpper()))
-                    P205 = ((argila / 10) * 2).ToString("N");
+                    P2O5 = ((argila / 10) * 2).ToString("N");
                 else if (pInterpretaded.Equals("Medio".ToUpper()))
-                    P205 = ((argila / 10) * 1).ToString("N");
+                    P2O5 = ((argila / 10) * 1).ToString("N");
             }
             else
-                P205 = pInterpretaded;
+                P2O5 = pInterpretaded;
 
             if (!kInterpretaded.Equals("Adequado".ToUpper()) || !kInterpretaded.Equals("Alto".ToUpper()))
             {
@@ -76,19 +77,20 @@ namespace Solum.ViewModel
                 if (ctc < 4)
                 {
                     if (kInterpretaded.Equals("Baixo".ToUpper()))
-                        K20 = 50.0f.ToString("N");
+                        K2O = 50.0f.ToString("N");
                     else if (kInterpretaded.Equals("Medio".ToUpper()))
-                        K20 = 25.0f.ToString("N");
+                        K2O = 25.0f.ToString("N");
                 }
                 else
                 {
                     if (kInterpretaded.Equals("Baixo".ToUpper()))
-                        K20 = 100.0f.ToString("N");
+                        K2O = 100.0f.ToString("N");
                     else if (kInterpretaded.Equals("Medio".ToUpper()))
-                        K20 = 50.0f.ToString("N");
+                        K2O = 50.0f.ToString("N");
                 }
-            } else
-                K20 = kInterpretaded;
+            }
+            else
+                K2O = kInterpretaded;
 
             using (var transaction = _realm.BeginWrite())
             {

@@ -130,7 +130,8 @@
 					<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
 				</BoxView.HeightRequest>
 			</BoxView>
-			<Button Text="Gerar Relatório" Command="{Binding GerarRelatorioCommand}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand" IsVisible="{Binding CanMakeReport}" />
+			<Button Text="Gerar Relatório" Command="{Binding GeneratePdfCommand}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand" 
+              IsEnabled="{Binding IsGeneratingReport, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
 		</StackLayout>
 	</ScrollView>
 </ContentPage>
