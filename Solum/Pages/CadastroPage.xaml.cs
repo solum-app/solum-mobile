@@ -15,27 +15,23 @@ namespace Solum.Pages
             NavigationPage.SetHasBackButton(this, false);
         }
 
-        private void NomeEntryOnCompleted(object sender, EventArgs e)
+        private void NomeEntry_OnCompleted(object sender, EventArgs e)
         {
-            NomeEntry.Unfocus();
             EmailEntry.Focus();
         }
 
-        private void EmailEntryOnCompleted(object sender, EventArgs e)
+        private void EmailEntry_OnCompleted(object sender, EventArgs e)
         {
-            EmailEntry.Unfocus();
             SenhaEntry.Focus();
         }
 
-        private void SenhaEntryOnCompleted(object sender, EventArgs e)
+        private void SenhaEntry_OnCompleted(object sender, EventArgs e)
         {
-            SenhaEntry.Unfocus();
             ConfirmarSenhaEntry.Focus();
         }
 
-        private void ConfirmarSenhaEntryOnCompleted(object sender, EventArgs e)
+        private void ConfirmarSenhaEntry_OnCompleted(object sender, EventArgs e)
         {
-            ConfirmarSenhaEntry.Unfocus();
             EstadosPicker.Focus();
         }
     }
