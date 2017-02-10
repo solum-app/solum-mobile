@@ -21,6 +21,8 @@ namespace Solum.ViewModel
             PageTitle = "Nova Análise";
             FazendaName = "Selecione uma fazenda";
             TalhaoName = "Selecione um talhão";
+            FazendaLabelColor = (Color)Application.Current.Resources["colorTextHint"];
+            TalhaoLabelColor = (Color)Application.Current.Resources["colorTextHint"];
             Subscribe();
         }
 
@@ -51,7 +53,9 @@ namespace Solum.ViewModel
 
         private string _pageTitle;
         private string _fazendaName;
+        private Color _fazendaLabelColor;
         private string _talhaoName;
+        private Color _talhaoLabelColor;
         private string _analiseName;
         private DateTimeOffset _data = DateTimeOffset.Now;
 
@@ -90,13 +94,33 @@ namespace Solum.ViewModel
         public string FazendaName
         {
             get { return _fazendaName; }
-            set { SetPropertyChanged(ref _fazendaName, value); }
+            set
+            {
+                SetPropertyChanged(ref _fazendaName, value); 
+                FazendaLabelColor = Color.Black;
+            }
+        }
+
+        public Color FazendaLabelColor
+        {
+            get { return _fazendaLabelColor; }
+            set { SetPropertyChanged(ref _fazendaLabelColor, value); }
         }
 
         public string TalhaoName
         {
             get { return _talhaoName; }
-            set { SetPropertyChanged(ref _talhaoName, value); }
+            set
+            {
+                SetPropertyChanged(ref _talhaoName, value);
+                TalhaoLabelColor = Color.Black;
+            }
+        }
+
+        public Color TalhaoLabelColor
+        {
+            get { return _talhaoLabelColor; }
+            set { SetPropertyChanged(ref _talhaoLabelColor, value); }
         }
 
         public string AnaliseName
