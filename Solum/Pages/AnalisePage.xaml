@@ -9,7 +9,7 @@
 	Title="{Binding PageTitle}">
 
 	<ScrollView BackgroundColor="{StaticResource colorBackground}">
-		<StackLayout Spacing="0">
+    <StackLayout Spacing="0">
 			<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness"
@@ -85,7 +85,7 @@
 				<Label 
 					x:Name="fazendaLabel"
 					Text="{Binding FazendaName}"
-					TextColor="{StaticResource colorTextHint}"
+					TextColor="{Binding FazendaLabelColor}"
 					VerticalOptions="Center" 
 					Grid.Column="2"
 					Margin="16,0"
@@ -128,7 +128,7 @@
 				<Label 
 					x:Name="talhaoLabel"
 					Text="{Binding TalhaoName}"
-					TextColor="{StaticResource colorTextHint}"
+					TextColor="{Binding TalhaoLabelColor}"
 					VerticalOptions="Center"
 					Grid.Column="2"
 					Margin="16,0"
@@ -160,6 +160,7 @@
 				</BoxView.HeightRequest>
 			</BoxView>
 			</Grid>
+      
 			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="16" />
