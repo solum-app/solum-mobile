@@ -250,7 +250,12 @@ namespace Solum.ViewModel
             {
                 IsBusy = true;
                 if (HasCorretivaCalculation)
-                    await Navigation.PushAsync(new SemeaduraPage(Analise.Id));
+                    if (HasSemeaduraCalculation)
+                    {
+                        var semeadura = _realm.All<Semeadura>().FirstOrDefault(x => x.AnaliseId.Equals(Analise.Id));
+                        await Navigation.PushAsync(new RecomendaSemeaduraPage(Analise.Id, semeadura.Expectativa, semeadura.Cultura));
+                    } else 
+                        await Navigation.PushAsync(new SemeaduraPage(Analise.Id));
                 else
                     "Você precisa executar o cálculo da recomendação corretiva primeiro".ToDisplayAlert(MessageType.Aviso);
                 IsBusy = false;
