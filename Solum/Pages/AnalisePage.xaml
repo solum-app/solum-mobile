@@ -88,12 +88,17 @@
 					TextColor="{Binding FazendaLabelColor}"
 					VerticalOptions="Center" 
 					Grid.Column="2"
-					Margin="16,0"
 					HorizontalTextAlignment="End">
 
 					<Label.Effects>
 						<effects:NoBorderEffect />
 					</Label.Effects>
+
+					<Label.Margin>
+						<OnPlatform x:TypeArguments="Thickness"
+								iOS="16,0"
+								Android="16,0,18,0" />
+					</Label.Margin>
 
 					<Label.FontSize>
 					<OnPlatform x:TypeArguments="x:Double"
@@ -131,9 +136,14 @@
 					TextColor="{Binding TalhaoLabelColor}"
 					VerticalOptions="Center"
 					Grid.Column="2"
-					Margin="16,0"
 					HorizontalTextAlignment="End">
 
+					<Label.Margin>
+						<OnPlatform x:TypeArguments="Thickness"
+								iOS="16,0"
+								Android="16,0,18,0" />
+					</Label.Margin>
+					
 					<Label.Effects>
 						<effects:NoBorderEffect />
 					</Label.Effects>
