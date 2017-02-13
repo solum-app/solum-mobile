@@ -29,7 +29,7 @@ namespace Solum.ViewModel
         public AnaliseViewModel(INavigation navigation, Analise analise) : base(navigation)
         {
             _realm = Realm.GetInstance();
-            PageTitle = $"Atualizar Análise: {analise.Nome}";
+            PageTitle = "Editar Análise";
             Fazenda = _realm.Find<Fazenda>(analise.Talhao.FazendaId);
             Talhao = _realm.Find<Talhao>(analise.TalhaoId);
             FazendaName = Fazenda.Nome;

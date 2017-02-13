@@ -18,7 +18,7 @@ namespace Solum.ViewModel
             Fazenda = fazenda;
             HasItems = _realm.All<Talhao>().Any(t => t.FazendaId.Equals(Fazenda.Id));
             _fromAnalise = fromAnalise;
-            PageTitle = fazenda.Nome;
+            PageTitle = fazenda.ToString();
         }
 
         #region Propriedades privadas

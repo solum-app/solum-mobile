@@ -29,7 +29,7 @@ namespace Solum.ViewModel
             _realm = Realm.GetInstance();
             _fazenda = fazenda;
             FazendaName = fazenda.Nome;
-            PageTitle = $"Atualizar {FazendaName}";
+            PageTitle = "Editar Fazenda";
             LoadEstados();
             EstadoSelected = _realm.Find<Estado>(_fazenda.Cidade.EstadoId);
             LoadCidades();

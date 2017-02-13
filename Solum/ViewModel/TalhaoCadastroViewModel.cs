@@ -26,7 +26,7 @@ namespace Solum.ViewModel
             _isUpdate = true;
             Fazenda = _realm.Find<Fazenda>(talhao.FazendaId);
             Talhao = talhao;
-            PageTitle = "Atualizar Talhão:" + _talhao.Nome;
+            PageTitle = "Editar Talhão";
             TalhaoName = Talhao.Nome;
             TalhaoArea = Talhao.Area;
         }
