@@ -4,6 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="Solum.Pages.RecomendaSemeaduraPage"
 	xmlns:effects="clr-namespace:Solum.Effects"
+	xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
 	Title="{Binding PageTitle}">
 
   <ScrollView Grid.Row="0" BackgroundColor="{StaticResource colorBackground}">
@@ -149,6 +150,14 @@
 						Android="0.3"/>
         </BoxView.HeightRequest>
       </BoxView>
+
+      <Button 
+        Text="Editar" 
+        Command="{Binding ShowSemeaduraPageCommand}"
+        Margin="16" 
+        BackgroundColor="{StaticResource colorAccent}"
+        TextColor="{StaticResource colorTextPrimary}"
+        VerticalOptions="EndAndExpand" />
     </StackLayout>
   </ScrollView>
 </ContentPage>

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
+using System.Windows.Input;
 using Realms;
 using Solum.Handlers;
 using Solum.Models;
+using Solum.Pages;
 using Xamarin.Forms;
 
 namespace Solum.ViewModel
@@ -24,7 +27,7 @@ namespace Solum.ViewModel
                 interpreter.CalculateK(expectativa, 
                     InterpretaHandler.InterpretaK(analise.Potassio, analise.CTC))
                 .ToString();
-
+            _analiseId = analiseId;
             using (var transaction = Realm.GetInstance().BeginWrite())
             {
                 analise.DataCalculoSemeadura = DateTimeOffset.Now;
@@ -39,6 +42,13 @@ namespace Solum.ViewModel
         private string _pageTitle;
         private string _expectativa;
         private string _cultura;
+
+        private string _analiseId;
+
+        private ICommand _showSemeaduraPageCommand;
+
+        public ICommand ShowSemeaduraPageCommand
+            => _showSemeaduraPageCommand ?? (_showSemeaduraPageCommand = new Command(ShowSemeaduraPage));
 
         public string PageTitle
         {
@@ -74,6 +84,18 @@ namespace Solum.ViewModel
         {
             get { return _k20;}
             set { SetPropertyChanged(ref _k20, value); }
+        }
+
+        private async void ShowSemeaduraPage()
+        {
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                var current = Navigation.NavigationStack.LastOrDefault();
+                await Navigation.PushAsync(new SemeaduraPage(_analiseId));
+                Navigation.RemovePage(current);
+                IsBusy = false;
+            }
         }
     }
 }
