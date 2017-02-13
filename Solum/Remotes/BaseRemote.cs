@@ -13,7 +13,7 @@ namespace Solum.Remotes
             {
                 BaseAddress = Settings.BaseUri,
                 MaxResponseContentBufferSize = 10240000,
-                Timeout = TimeSpan.FromSeconds(10)
+                Timeout = TimeSpan.FromSeconds(20)
             };
         }
     }

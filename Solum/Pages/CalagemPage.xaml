@@ -71,8 +71,7 @@
           HasBorder="false"
           PlaceholderColor="{StaticResource colorTextHint}"
           TextAlignment="Right"
-          Grid.Column="2"
-          SelectedIndexChanged="V2Picker_OnSelectedIndexChanged">
+          Grid.Column="2">
           
           <renderers:CustomPicker.TextSize>
             <OnPlatform x:TypeArguments="x:Double" Android="14" iOS="17"/>
@@ -125,8 +124,7 @@
           Margin="16,0"
           Placeholder="%" 
           HorizontalTextAlignment="End" 
-          PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="PrntEntry_OnCompleted">
+          PlaceholderColor="{StaticResource colorTextHint}">
           
           <Entry.Effects>
             <effects:NoBorderEffect />

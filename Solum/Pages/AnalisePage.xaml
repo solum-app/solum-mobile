@@ -49,8 +49,7 @@
 					Margin="16,0"
 					Placeholder="Identificação"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="AnaliseNameEntry_OnCompleted">
+					PlaceholderColor="{StaticResource colorTextHint}">
 
 				<Entry.Effects>
 					<effects:NoBorderEffect />
@@ -91,8 +90,7 @@
 					VerticalOptions="Center" 
 					Grid.Column="2"
 					Margin="16,0"
-					HorizontalTextAlignment="End"
-          >
+					HorizontalTextAlignment="End">
 
 					<Label.Effects>
 						<effects:NoBorderEffect />
@@ -246,7 +244,7 @@
 					Placeholder="Potencial Hidrogeniônico (CaCl₂)"
 					HorizontalTextAlignment="End"
 					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="PhEntry_OnCompleted">
+          Completed="PhEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -290,7 +288,7 @@
 					Placeholder="Fósforo (mg dm⁻³)"
 					HorizontalTextAlignment="End"
 					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="FosforoEntry_OnCompleted">
+          Completed="FosforoEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -335,7 +333,7 @@
 					Placeholder="Potássio (mg dm⁻³)"
 					HorizontalTextAlignment="End"
 					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="PotassioEntry_OnCompleted">
+          Completed="PotassioEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -380,7 +378,7 @@
 					Placeholder="Cálcio (cmolc dm⁻³)"
 					HorizontalTextAlignment="End"
 					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="CalcioEntry_OnCompleted">
+          Completed="CalcioEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -424,7 +422,7 @@
 					Placeholder="Magnésio (cmolc dm⁻³)"
 					HorizontalTextAlignment="End"
 					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="MagnesioEntry_OnCompleted">
+          Completed="MagnesioEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -464,7 +462,7 @@
 					Placeholder="Alumínio (cmolc dm⁻³)"
 					HorizontalTextAlignment="End"
 					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="AluminioEntry_OnCompleted">
+          Completed="AluminioEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -504,7 +502,7 @@
 					Placeholder="Hidrogênio (cmolc dm⁻³)"
 					HorizontalTextAlignment="End"
 					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="HidrogenioEntry_OnCompleted">
+          Completed="HidrogenioEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -546,7 +544,7 @@
 					Placeholder="Mat. Org. (g dm⁻³)"
 					HorizontalTextAlignment="End"
 					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="MateriaOrganicaEntry_OnCompleted">
+          Completed="MateriaOrganicaEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -604,7 +602,7 @@
 					Placeholder="Areia (g kg⁻¹)"
 					HorizontalTextAlignment="End"
 					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="AreiaEntry_OnCompleted">
+          Completed="AreiaEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -642,7 +640,7 @@
 					Placeholder="Silte (g kg⁻¹)"
 					HorizontalTextAlignment="End"
 					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="SilteEntry_OnCompleted">
+          Completed="SilteEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -681,7 +679,7 @@
 					Placeholder="Argila (g kg⁻¹)"
 					HorizontalTextAlignment="End"
 					PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="ArgilaEntry_OnCompleted">
+          Completed="ArgilaEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
