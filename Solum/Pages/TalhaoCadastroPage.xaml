@@ -39,12 +39,14 @@
 			</BoxView>
 			<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 			<Entry
-				   Keyboard="Text"
-				   Text="{Binding TalhaoName}"
-				   VerticalOptions="Center" Grid.Column="2"
-				   Margin="16,0" Placeholder="Nome do Talhão"
-				   HorizontalTextAlignment="End"
-				   PlaceholderColor="{StaticResource colorTextHint}">
+        x:Name="NomeEntry"
+        Keyboard="Text"
+        Text="{Binding TalhaoName}"
+        VerticalOptions="Center" Grid.Column="2"
+        Margin="16,0" Placeholder="Nome do Talhão"
+        HorizontalTextAlignment="End"
+        PlaceholderColor="{StaticResource colorTextHint}"
+        Completed="NomeEntryOnCompleted">
 
 				<Entry.Effects>
 					<effects:NoBorderEffect />
@@ -54,7 +56,9 @@
 								iOS="17"
 								Android="14" />
 				</Entry.FontSize>
+        
 			</Entry>
+      
 			<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
 				<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
@@ -72,12 +76,15 @@
 			</Grid.ColumnDefinitions>
 			<Label Text="Área" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 			<Entry 
-				   Keyboard="Numeric"
-				   Text="{Binding TalhaoArea}"
-				   VerticalOptions="Center" Grid.Column="2"
-				   Margin="16,0" Placeholder="ha"
-				   HorizontalTextAlignment="End"
-				   PlaceholderColor="{StaticResource colorTextHint}">
+        x:Name="AreaEntry"
+        Keyboard="Numeric"
+        Text="{Binding TalhaoArea}"
+        VerticalOptions="Center" 
+        Grid.Column="2"
+        Margin="16,0"
+        Placeholder="ha"
+        HorizontalTextAlignment="End"
+        PlaceholderColor="{StaticResource colorTextHint}">
 				<Entry.Effects>
 					<effects:NoBorderEffect />
 				</Entry.Effects>

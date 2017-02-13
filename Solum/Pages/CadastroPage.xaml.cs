@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using Solum.ViewModel;
 using Xamarin.Forms;
 
@@ -17,26 +16,17 @@ namespace Solum.Pages
 
         private void NomeEntryOnCompleted(object sender, EventArgs e)
         {
-            NomeEntry.Unfocus();
             EmailEntry.Focus();
         }
 
         private void EmailEntryOnCompleted(object sender, EventArgs e)
         {
-            EmailEntry.Unfocus();
             SenhaEntry.Focus();
         }
 
         private void SenhaEntryOnCompleted(object sender, EventArgs e)
         {
-            SenhaEntry.Unfocus();
             ConfirmarSenhaEntry.Focus();
-        }
-
-        private void ConfirmarSenhaEntryOnCompleted(object sender, EventArgs e)
-        {
-            ConfirmarSenhaEntry.Unfocus();
-            EstadosPicker.Focus();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Solum.Models;
+﻿using System;
+using Solum.Models;
 using Solum.ViewModel;
 using Xamarin.Forms;
 

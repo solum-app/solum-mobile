@@ -1,4 +1,5 @@
-﻿using Solum.Models;
+﻿using System;
+using Solum.Models;
 using Solum.ViewModel;
 using Xamarin.Forms;
 using static Solum.Settings;
@@ -19,6 +20,11 @@ namespace Solum.Pages
             InitializeComponent();
             BindingContext = new TalhaoCadastroViewModel(Navigation, talhao);
             NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
+        }
+
+        private void NomeEntryOnCompleted(object sender, EventArgs e)
+        {
+            AreaEntry.Focus();
         }
     }
 }

@@ -232,7 +232,9 @@
 					</BoxView.HeightRequest>
 				</BoxView>
 				<Label Text="pH" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<Entry 
+				
+        <Entry 
+          x:Name="PhEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding PotencialHidrogenico}"
@@ -242,7 +244,8 @@
 					Margin="16,0"
 					Placeholder="Potencial Hidrogeniônico (CaCl₂)"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="PhEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -272,6 +275,7 @@
 				</Grid.ColumnDefinitions>
 				<Label Text="P" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 				<Entry 
+          x:Name="FosforoEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Fosforo}"
@@ -281,7 +285,8 @@
 					Margin="16,0"
 					Placeholder="Fósforo (mg dm⁻³)"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="FosforoEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -311,6 +316,7 @@
 				</Grid.ColumnDefinitions>
 				<Label Text="K" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 				<Entry 
+          x:Name="PotassioEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Potassio}"
@@ -320,7 +326,8 @@
 					Margin="16,0"
 					Placeholder="Potássio (mg dm⁻³)"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="PotassioEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -349,6 +356,7 @@
 				</Grid.ColumnDefinitions>
 				<Label Text="Ca" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 				<Entry 
+          x:Name="CalcioEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Calcio}"
@@ -358,7 +366,8 @@
 					Margin="16,0"
 					Placeholder="Cálcio (cmolc dm⁻³)"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="CalcioEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -386,6 +395,7 @@
 				</Grid.ColumnDefinitions>
 				<Label Text="Mg" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 				<Entry 
+          x:Name="MagnesioEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Magnesio}"
@@ -395,7 +405,8 @@
 					Margin="16,0"
 					Placeholder="Magnésio (cmolc dm⁻³)"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="MagnesioEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -423,6 +434,7 @@
 				</Grid.ColumnDefinitions>
 				<Label Text="Al" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 				<Entry 
+          x:Name="AluminioEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Aluminio}"
@@ -431,7 +443,8 @@
 					Grid.Column="2" Margin="16,0"
 					Placeholder="Alumínio (cmolc dm⁻³)"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="AluminioEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -459,7 +472,7 @@
 				</Grid.ColumnDefinitions>
 				<Label Text="H" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 				<Entry
-					x:Name="hEntry"
+					x:Name="HidrogenioEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Hidrogenio}"
@@ -469,7 +482,8 @@
 					Margin="16,0"
 					Placeholder="Hidrogênio (cmolc dm⁻³)"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="HidrogenioEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -497,7 +511,7 @@
 				</Grid.ColumnDefinitions>
 				<Label Text="M.O." VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 				<Entry
-					x:Name="moEntry"
+					x:Name="MateriaOrganicaEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding MateriaOrganica}"
@@ -507,7 +521,8 @@
 					Margin="16,0"
 					Placeholder="Mat. Org. (g dm⁻³)"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="MateriaOrganicaEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -554,7 +569,7 @@
 				</BoxView>
 				<Label Text="Areia" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 				<Entry
-					x:Name="areiaEntry"
+					x:Name="AreiaEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Areia}"
@@ -564,7 +579,8 @@
 					Margin="16,0"
 					Placeholder="Areia (g kg⁻¹)"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="AreiaEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -592,7 +608,7 @@
 				</Grid.ColumnDefinitions>
 				<Label Text="Silte" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 				<Entry
-					x:Name="sliteEntry"
+					x:Name="SilteEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Silte}"
@@ -601,7 +617,8 @@
 					Grid.Column="2" Margin="16,0"
 					Placeholder="Silte (g kg⁻¹)"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="SilteEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
@@ -629,7 +646,7 @@
 				</Grid.ColumnDefinitions>
 				<Label Text="Argila" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 				<Entry
-					x:Name="argilaEntry"
+					x:Name="ArgilaEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Argila}"
@@ -639,7 +656,8 @@
 					Margin="16,0"
 					Placeholder="Argila (g kg⁻¹)"
 					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="ArgilaEntryOnCompleted">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />

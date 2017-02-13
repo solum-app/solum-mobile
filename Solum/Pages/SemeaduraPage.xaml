@@ -24,15 +24,17 @@
 				</BoxView>
 				<Label Text="Expectativa de Rendimento" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 
-				<renderers:CustomPicker ItemsSource="{Binding Expectativas}" 
-						SelectedItem="{Binding ExpectativaSelected}" 
-						VerticalOptions="Center" 
-						Grid.Column="2" 
-						Margin="16,0" 
-						HasBorder="false" 
-						PlaceholderColor="{StaticResource colorTextHint}" 
-						Title="t/ha" 
-						TextAlignment="Right">
+				<renderers:CustomPicker 
+          x:Name="ExpectativaPicker"
+          ItemsSource="{Binding Expectativas}" 
+          SelectedItem="{Binding ExpectativaSelected}" 
+          VerticalOptions="Center" 
+          Grid.Column="2" 
+          Margin="16,0" 
+          HasBorder="false" 
+          PlaceholderColor="{StaticResource colorTextHint}" 
+          Title="t/ha" 
+          TextAlignment="Right">
 					<renderers:CustomPicker.TextSize>
 						<OnPlatform x:TypeArguments="x:Double" Android="14" iOS="17" />
 					</renderers:CustomPicker.TextSize>
@@ -51,7 +53,7 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Label Text="Cultura" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<renderers:CustomPicker x:Name="picker"  
+				<renderers:CustomPicker x:Name="CulturaPicker"  
 						ItemsSource="{Binding Culturas}" 
 						SelectedItem="{Binding CulturaSelected}" 
 						VerticalOptions="Center" 

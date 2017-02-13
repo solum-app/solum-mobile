@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage 
+<ContentPage
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum"
@@ -10,90 +10,111 @@
 	x:Class="Solum.Pages.CadastroPage">
 
 
-	<ScrollView>
-		<StackLayout
+  <ScrollView>
+    <StackLayout
 			VerticalOptions="FillAndExpand"
 			HorizontalOptions="FillAndExpand"
 			BackgroundColor="{StaticResource loginBackgroundPrimary}"
 			Spacing="0"
 			Padding="16">
 
-			<Label 
+      <Label
 				Text="Informações Pessoais" HorizontalTextAlignment="Center"
 				TextColor="{StaticResource colorTextSecundary}" FontSize="Large"
 				FontAttributes="Bold" Margin="0,16,0,32" />
 
-			<Label 
+      <Label
 				Text="Todos os campos são obrigatórios" HorizontalTextAlignment="Center"
 				FontSize="Small" TextColor="{StaticResource colorTextPrimary}" Margin="0,0,0,32" />
 
-			<Entry 
-				x:Name="NomeEntry" Placeholder="Nome Completo"
-				Text="{Binding Name, Mode=TwoWay}" PlaceholderColor="{StaticResource colorTextHint}" 
+      <Entry
+				x:Name="NomeEntry"
+        Placeholder="Nome Completo"
+				Text="{Binding Name}"
+        PlaceholderColor="{StaticResource colorTextHint}"
         Completed="NomeEntryOnCompleted">
-				<Entry.Effects>
-					<effects:NoBorderEffect />
-				</Entry.Effects>
-				<Entry.FontSize>
-					<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
-				</Entry.FontSize>
-			</Entry>
+        
+        <Entry.Effects>
+          <effects:NoBorderEffect />
+        </Entry.Effects>
+        
+        <Entry.FontSize>
+          <OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+        </Entry.FontSize>
+        
+      </Entry>
 
-			<BoxView 
+      <BoxView
 				BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1"
 				HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18" />
 
-			<Entry x:Name="EmailEntry" Placeholder="Email Válido"
-				Text="{Binding Email, Mode=TwoWay}" PlaceholderColor="{StaticResource colorTextHint}"
+      <Entry
+        x:Name="EmailEntry"
+        Placeholder="Email Válido"
+				Text="{Binding Email}"
+        PlaceholderColor="{StaticResource colorTextHint}"
         Completed="EmailEntryOnCompleted">
-				<Entry.Effects>
-					<effects:NoBorderEffect />
-				</Entry.Effects>
-				<Entry.FontSize>
-					<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
-				</Entry.FontSize>
-			</Entry>
+        
+        <Entry.Effects>
+          <effects:NoBorderEffect />
+        </Entry.Effects>
+        
+        <Entry.FontSize>
+          <OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+        </Entry.FontSize>
+        
+      </Entry>
 
-			<BoxView 
+      <BoxView
 				BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1"
 				HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18" />
 
-			<Entry
-				x:Name="SenhaEntry" Placeholder="Senha"
-				Text="{Binding Password, Mode=TwoWay}" IsPassword="True"
+      <Entry
+				x:Name="SenhaEntry"
+        Placeholder="Senha"
+				Text="{Binding Password}"
+        IsPassword="True"
 				PlaceholderColor="{StaticResource colorTextHint}"
         Completed="SenhaEntryOnCompleted">
-				<Entry.Effects>
-					<effects:NoBorderEffect />
-				</Entry.Effects>
-				<Entry.FontSize>
-					<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
-				</Entry.FontSize>
-			</Entry>
+        
+        <Entry.Effects>
+          <effects:NoBorderEffect />
+        </Entry.Effects>
+        
+        <Entry.FontSize>
+          <OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+        </Entry.FontSize>
+        
+      </Entry>
 
-			<BoxView 
+      <BoxView
 				BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1"
 				HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18" />
 
-			<Entry 
-				x:Name="ConfirmarSenhaEntry" Placeholder="Confirma Senha"
-				Text="{Binding ConfirmPassword, Mode=TwoWay}" IsPassword="True"
-				PlaceholderColor="{StaticResource colorTextHint}"
-        Completed="ConfirmarSenhaEntryOnCompleted">
-				<Entry.Effects>
-					<effects:NoBorderEffect />
-				</Entry.Effects>
-				<Entry.FontSize>
-					<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
-				</Entry.FontSize>
-			</Entry>
+      <Entry
+				x:Name="ConfirmarSenhaEntry"
+        Placeholder="Confirma Senha"
+				Text="{Binding ConfirmPassword}"
+        IsPassword="True"
+				PlaceholderColor="{StaticResource colorTextHint}">
+       
+        <Entry.Effects>
+          <effects:NoBorderEffect />
+        </Entry.Effects>
+        
+        <Entry.FontSize>
+          <OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+        </Entry.FontSize>
+        
+      </Entry>
 
-			<BoxView 
+      <BoxView
 				BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1"
 				HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18" />
 
-			<renderers:CustomPicker 
-				x:Name="EstadosPicker" ItemsSource="{Binding Estados}"
+      <renderers:CustomPicker
+				x:Name="EstadosPicker"
+        ItemsSource="{Binding Estados}"
 				SelectedItem="{Binding EstadoSelected}"
 				ItemSelectedCommand="{Binding UpdateCidadesCommand}"
 				Title="Selecione o Estado"
@@ -101,52 +122,63 @@
 				PlaceholderColor="{StaticResource colorTextHint}"
 				IsEnabled="{Binding IsEstadosLoaded}">
 
-				<renderers:CustomPicker.TextSize>
-					<OnPlatform x:TypeArguments="x:Double" Android="14" />
-				</renderers:CustomPicker.TextSize>
-			</renderers:CustomPicker>
+        <renderers:CustomPicker.TextSize>
+          <OnPlatform x:TypeArguments="x:Double" Android="14" />
+        </renderers:CustomPicker.TextSize>
+        
+      </renderers:CustomPicker>
 
-			<BoxView 
+      <BoxView
 				BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1"
 				HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18" />
 
-			<renderers:CustomPicker 
-				x:Name="CidadesPicker" ItemsSource="{Binding Cidades}"
+      <renderers:CustomPicker
+				x:Name="CidadesPicker"
+        ItemsSource="{Binding Cidades}"
 				SelectedItem="{Binding CidadeSelected}"
 				Title="Selecione a Cidade"
 				HasBorder="false"
 				PlaceholderColor="{StaticResource colorTextHint}"
 				IsEnabled="{Binding IsCidadesLoaded}">
 
-				<renderers:CustomPicker.TextSize>
-					<OnPlatform x:TypeArguments="x:Double" Android="14" />
-				</renderers:CustomPicker.TextSize>
-			</renderers:CustomPicker>
+        <renderers:CustomPicker.TextSize>
+          <OnPlatform x:TypeArguments="x:Double" Android="14" />
+        </renderers:CustomPicker.TextSize>
+      </renderers:CustomPicker>
 
-			<BoxView 
+      <BoxView
 				BackgroundColor="{StaticResource colorSeparatorEntry}" HeightRequest="1"
 				HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,2,0,18" />
 
-			<Button 
-				Text="Cadastrar" Command="{Binding RegisterCommand}"
-				Margin="0,16" BackgroundColor="{StaticResource colorAccent}"
-				TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"
+      <Button
+				Text="Cadastrar"
+        Command="{Binding RegisterCommand}"
+				Margin="0,16"
+        BackgroundColor="{StaticResource colorAccent}"
+				TextColor="{StaticResource colorTextPrimary}"
+        VerticalOptions="EndAndExpand"
 				IsVisible="{Binding InRegistering, Converter={x:Static converter:IverseBoolConverter.Instance}}"/>
 
-			<Label Text="Cancelar" Margin="0,0,0,16"
+      <Label
+        Text="Cancelar"
+        HeightRequest="35"
+        Margin="16,0,16,16"
 				HorizontalTextAlignment="Center"
+        VerticalTextAlignment="Center"  
 				TextColor="{StaticResource colorTextPrimary}"
-				VerticalOptions="End" FontSize="Small"
+				VerticalOptions="End"
+        FontSize="Small"
 				IsVisible="{Binding InRegistering, Converter={x:Static converter:IverseBoolConverter.Instance}}">
-				
-				<Label.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding BackCommand}" NumberOfTapsRequired="1"/>
-				</Label.GestureRecognizers>
-			</Label>
-      
-			<ActivityIndicator 
+
+        <Label.GestureRecognizers>
+          <TapGestureRecognizer Command="{Binding BackCommand}" NumberOfTapsRequired="1"/>
+        </Label.GestureRecognizers>
+      </Label>
+
+      <ActivityIndicator
 				IsRunning="{Binding InRegistering}"
 				WidthRequest="40" Color="{StaticResource colorPrimary}" IsVisible="false"/>
+      
     </StackLayout>
   </ScrollView>
 </ContentPage>
