@@ -30,15 +30,18 @@
       <Entry
 				x:Name="NomeEntry"
         Placeholder="Nome Completo"
-				Text="{Binding Name, Mode=TwoWay}"
+				Text="{Binding Name}"
         PlaceholderColor="{StaticResource colorTextHint}"
-        Completed="NomeEntry_OnCompleted">
+        Completed="NomeEntryOnCompleted">
+        
         <Entry.Effects>
           <effects:NoBorderEffect />
         </Entry.Effects>
+        
         <Entry.FontSize>
           <OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
         </Entry.FontSize>
+        
       </Entry>
 
       <BoxView
@@ -48,15 +51,18 @@
       <Entry
         x:Name="EmailEntry"
         Placeholder="Email Válido"
-				Text="{Binding Email, Mode=TwoWay}"
+				Text="{Binding Email}"
         PlaceholderColor="{StaticResource colorTextHint}"
-        Completed="EmailEntry_OnCompleted">
+        Completed="EmailEntryOnCompleted">
+        
         <Entry.Effects>
           <effects:NoBorderEffect />
         </Entry.Effects>
+        
         <Entry.FontSize>
           <OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
         </Entry.FontSize>
+        
       </Entry>
 
       <BoxView
@@ -66,16 +72,19 @@
       <Entry
 				x:Name="SenhaEntry"
         Placeholder="Senha"
-				Text="{Binding Password, Mode=TwoWay}"
+				Text="{Binding Password}"
         IsPassword="True"
 				PlaceholderColor="{StaticResource colorTextHint}"
-        Completed="SenhaEntry_OnCompleted">
+        Completed="SenhaEntryOnCompleted">
+        
         <Entry.Effects>
           <effects:NoBorderEffect />
         </Entry.Effects>
+        
         <Entry.FontSize>
           <OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
         </Entry.FontSize>
+        
       </Entry>
 
       <BoxView
@@ -85,16 +94,18 @@
       <Entry
 				x:Name="ConfirmarSenhaEntry"
         Placeholder="Confirma Senha"
-				Text="{Binding ConfirmPassword, Mode=TwoWay}"
+				Text="{Binding ConfirmPassword}"
         IsPassword="True"
-				PlaceholderColor="{StaticResource colorTextHint}"
-        Completed="ConfirmarSenhaEntry_OnCompleted">
+				PlaceholderColor="{StaticResource colorTextHint}">
+       
         <Entry.Effects>
           <effects:NoBorderEffect />
         </Entry.Effects>
+        
         <Entry.FontSize>
           <OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
         </Entry.FontSize>
+        
       </Entry>
 
       <BoxView
@@ -114,6 +125,7 @@
         <renderers:CustomPicker.TextSize>
           <OnPlatform x:TypeArguments="x:Double" Android="14" />
         </renderers:CustomPicker.TextSize>
+        
       </renderers:CustomPicker>
 
       <BoxView
@@ -166,6 +178,7 @@
       <ActivityIndicator
 				IsRunning="{Binding InRegistering}"
 				WidthRequest="40" Color="{StaticResource colorPrimary}" IsVisible="false"/>
+      
     </StackLayout>
   </ScrollView>
 </ContentPage>

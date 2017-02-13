@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using Solum.ViewModel;
 using Xamarin.Forms;
 
@@ -15,24 +14,19 @@ namespace Solum.Pages
             NavigationPage.SetHasBackButton(this, false);
         }
 
-        private void NomeEntry_OnCompleted(object sender, EventArgs e)
+        private void NomeEntryOnCompleted(object sender, EventArgs e)
         {
             EmailEntry.Focus();
         }
 
-        private void EmailEntry_OnCompleted(object sender, EventArgs e)
+        private void EmailEntryOnCompleted(object sender, EventArgs e)
         {
             SenhaEntry.Focus();
         }
 
-        private void SenhaEntry_OnCompleted(object sender, EventArgs e)
+        private void SenhaEntryOnCompleted(object sender, EventArgs e)
         {
             ConfirmarSenhaEntry.Focus();
-        }
-
-        private void ConfirmarSenhaEntry_OnCompleted(object sender, EventArgs e)
-        {
-            EstadosPicker.Focus();
         }
     }
 }
