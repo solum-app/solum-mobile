@@ -26,7 +26,7 @@ namespace Solum.ViewModel
             PageTitle = $"{analise.Talhao.Fazenda.Nome} - {analise.Talhao.Nome}";
             var semeadura = realm.All<Semeadura>().FirstOrDefault(s => s.AnaliseId.Equals(analiseid));
             Cultura = semeadura.Cultura;
-            Expectativa = semeadura.Expectativa.ToString();
+			Expectativa = $"{semeadura.Expectativa.ToString()} t/ha";
             var calculator = CoberturaInjector.GetInstance(semeadura.Cultura.ToUpper());
             N = calculator?.CalculateN(semeadura.Expectativa);
             P205 = calculator?.CalculateP(semeadura.Expectativa);

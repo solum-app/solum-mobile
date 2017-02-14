@@ -16,7 +16,7 @@ namespace Solum.ViewModel
             var interpreter = SemeaduraInjector.GetInstance(cultura);
             var analise = Realm.GetInstance().Find<Analise>(analiseId);
             PageTitle = $"{analise.Talhao.Fazenda} - {analise.Talhao}";
-            Expectativa = $"{expectativa} T/ha";
+            Expectativa = $"{expectativa} t/ha";
             Cultura = cultura;
             N = interpreter.CalculateN(expectativa, null).ToString();
             P205 =

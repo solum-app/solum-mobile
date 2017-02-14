@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:effects="clr-namespace:Solum.Effects" xmlns:renderers="clr-namespace:Solum.Renderers" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Solum.Pages.SemeaduraPage" Title="{Binding PageTitle}">
 	<ScrollView Grid.Row="0" BackgroundColor="{StaticResource colorBackground}">
 		<StackLayout Spacing="0">
-			<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES ADUBAÇÃO DE SEMEADURA">
+			<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES DE PRODUTIVIDADE">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness" iOS="16,24,16,4" Android="16, 13" />
 				</Label.Margin>

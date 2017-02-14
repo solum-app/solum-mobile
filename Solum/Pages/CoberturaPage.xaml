@@ -66,7 +66,7 @@
 					<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
 				</BoxView.HeightRequest>
 			</BoxView>
-			<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES ADUBAÇÃO DE SEMEADURA">
+			<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES DE PRODUTIVIDADE">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness" iOS="16,24,16,4" Android="16, 13" />
 				</Label.Margin>
