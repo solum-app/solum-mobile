@@ -53,8 +53,8 @@
     <Compile Include="Pages\CadastroPage.xaml.cs">
       <DependentUpon>CadastroPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CoberturaPage.xaml.cs">
-      <DependentUpon>CoberturaPage.xaml</DependentUpon>
+    <Compile Include="Pages\AdubacaoCoberturaPage.xaml.cs">
+      <DependentUpon>AdubacaoCoberturaPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\FazendaCadastroPage.xaml.cs">
       <DependentUpon>FazendaCadastroPage.xaml</DependentUpon>
@@ -105,8 +105,8 @@
     <Compile Include="Effects\NoBorderEffect.cs" />
     <Compile Include="ViewModel\CadastroViewModel.cs" />
     <Compile Include="ViewModel\CalagemViewModel.cs" />
-    <Compile Include="ViewModel\CoberturaViewModel.cs" />
-    <Compile Include="ViewModel\CorretivaViewModel.cs" />
+    <Compile Include="ViewModel\AdubacaoCoberturaViewModel.cs" />
+    <Compile Include="ViewModel\AdubacaoCorretivaViewModel.cs" />
     <Compile Include="ViewModel\FazendaCadastroViewModel.cs" />
     <Compile Include="ViewModel\FazendaDetalhesViewModel.cs" />
     <Compile Include="ViewModel\FazendaListViewModel.cs" />
@@ -133,8 +133,8 @@
     <Compile Include="Pages\RecomendaCalagemPage.xaml.cs">
       <DependentUpon>RecomendaCalagemPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CorretivaPage.xaml.cs">
-      <DependentUpon>CorretivaPage.xaml</DependentUpon>
+    <Compile Include="Pages\AdubacaoCorretivaPage.xaml.cs">
+      <DependentUpon>AdubacaoCorretivaPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SemeaduraPage.xaml.cs">
       <DependentUpon>SemeaduraPage.xaml</DependentUpon>
@@ -161,7 +161,7 @@
     <EmbeddedResource Include="Pages\RecomendaCalagemPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\CorretivaPage.xaml">
+    <EmbeddedResource Include="Pages\AdubacaoCorretivaPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Solum.xaml" />
@@ -297,7 +297,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\CoberturaPage.xaml">
+    <EmbeddedResource Include="Pages\AdubacaoCoberturaPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -3,12 +3,12 @@ using Xamarin.Forms;
 
 namespace Solum.Pages
 {
-    public partial class CorretivaPage : ContentPage
+    public partial class AdubacaoCoberturaPage : ContentPage
     {
-        public CorretivaPage(string analiseId)
+        public AdubacaoCoberturaPage(string analiseid)
         {
             InitializeComponent();
-            BindingContext = new CorretivaViewModel(Navigation, analiseId);
+            BindingContext = new AdubacaoCoberturaViewModel(Navigation, analiseid);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
         }
     }
