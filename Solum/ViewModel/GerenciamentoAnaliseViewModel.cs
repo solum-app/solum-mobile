@@ -24,7 +24,7 @@ namespace Solum.ViewModel
         {
             _realm = Realm.GetInstance();
             Analise = _realm.Find<Analise>(analise.Id);
-            PageTitle = $"Análise {Analise.Nome}";
+            PageTitle = Analise.Identificacao;
             UpdateValues();
         }
 
@@ -237,7 +237,7 @@ namespace Solum.ViewModel
             {
                 IsBusy = true;
                 if (HasCalagemCalculation)
-                    await Navigation.PushAsync(new CorretivaPage(Analise.Id));
+                    await Navigation.PushAsync(new AdubacaoCorretivaPage(Analise.Id));
                 else
                     "Você precisa executar o cálculo para recomendação de calagem primeiro".ToDisplayAlert(MessageType.Aviso);
                 IsBusy = false;
@@ -268,7 +268,7 @@ namespace Solum.ViewModel
             {
                 IsBusy = true;
                 if (HasSemeaduraCalculation)
-                    await Navigation.PushAsync(new CoberturaPage(Analise.Id));
+                    await Navigation.PushAsync(new AdubacaoCoberturaPage(Analise.Id));
                 else
                     "Você precisa executar a recomendação de semeadura primeiro".ToDisplayAlert(MessageType.Aviso);
                 IsBusy = false;
@@ -322,7 +322,7 @@ namespace Solum.ViewModel
             infos.Author = "Sydy Tecnologia";
             infos.CreationDate = DateTime.Now;
             infos.Creator = "Solum";
-            infos.Title = $"Análise {Analise.Nome}";
+            infos.Title = $"Análise {Analise.Identificacao}";
             infos.Subject = "Relatório";
 
             var prefs = _doc.ViewerPreferences;
@@ -484,7 +484,7 @@ namespace Solum.ViewModel
                 g.DrawRectangle(new PdfSolidBrush(_grayLight), new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
                 y += 9;
-                var corretivavm = new CorretivaViewModel(Navigation, _analise.Id);
+                var corretivavm = new AdubacaoCorretivaViewModel(Navigation, _analise.Id);
                 g.DrawString(corretivavm.P2O5, textFont, new PdfSolidBrush(_black), new PointF(25, y));
                 g.DrawString(corretivavm.K2O, textFont, new PdfSolidBrush(_black), new PointF(175, y));
             }
@@ -532,12 +532,12 @@ namespace Solum.ViewModel
 
                 y += 9;
                 var cobertura = _realm.All<Semeadura>().FirstOrDefault(s => s.AnaliseId.Equals(Analise.Id));
-                var coberturavm = new CoberturaViewModel(Navigation, _analise.Id);
+                var coberturavm = new AdubacaoCoberturaViewModel(Navigation, _analise.Id);
                 g.DrawString(cobertura.Cultura, textFont, new PdfSolidBrush(_black), new PointF(25, y));
                 g.DrawString(cobertura.Expectativa.ToString(), textFont, new PdfSolidBrush(_black), new PointF(125, y));
                 g.DrawString(coberturavm.N, textFont, new PdfSolidBrush(_black), new PointF(225, y));
-                g.DrawString(coberturavm.P205, textFont, new PdfSolidBrush(_black), new PointF(325, y));
-                g.DrawString(coberturavm.K20, textFont, new PdfSolidBrush(_black), new PointF(475, y));
+                g.DrawString(coberturavm.P2O5, textFont, new PdfSolidBrush(_black), new PointF(325, y));
+                g.DrawString(coberturavm.K2O, textFont, new PdfSolidBrush(_black), new PointF(475, y));
 
             }
 

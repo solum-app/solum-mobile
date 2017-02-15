@@ -1,53 +1,33 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:renderers="clr-namespace:Solum.Renderers"
-             xmlns:handlers="clr-namespace:Solum.Handlers"
-             x:Class="Solum.Pages.AnalisesPage"
-             Title="Análises"
-             BackgroundColor="{StaticResource colorBackground}">
+<ContentPage
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:renderers="clr-namespace:Solum.Renderers"
+  xmlns:handlers="clr-namespace:Solum.Handlers"
+  x:Class="Solum.Pages.AnalisesPage"
+  BackgroundColor="{StaticResource colorBackground}"
+  Title="Análises">
   
   <AbsoluteLayout x:Name="absolute">
+    <Label 
+      AbsoluteLayout.LayoutFlags="All"
+      AbsoluteLayout.LayoutBounds="0,0,1,1"
+      IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
+      VerticalOptions="Center"
+      HorizontalOptions="Center"
+      FontSize="Medium"
+      Text="Nenhuma análise salva"
+      TextColor="{StaticResource colorTextSecundary}"/>
 
-    <Label AbsoluteLayout.LayoutFlags="All"
-           AbsoluteLayout.LayoutBounds="0,0,1,1"
-           IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
-           VerticalOptions="Center"
-           HorizontalOptions="Center"
-           FontSize="Medium"
-           Text="Nenhuma análise salva"
-           TextColor="{StaticResource colorTextSecundary}"/>
-
-    <renderers:BindableListView IsVisible="{Binding HasItems}"
-                                x:Name="analisesList"
-                                HasUnevenRows="true"
-                                IsGroupingEnabled="true"
-                                ItemClickedCommand="{Binding ItemTappedCommand}"
-                                SeparatorColor="{StaticResource colorSeparator}"
-                                ItemsSource="{Binding Analises}"
-                                GroupDisplayBinding="{Binding Key}"
-                                AbsoluteLayout.LayoutFlags="All"
-                                AbsoluteLayout.LayoutBounds="0,0,1,1">
-      <ListView.GroupHeaderTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <Grid BackgroundColor="{StaticResource colorBackground}">
-              <Label TextColor="{StaticResource colorTextSecundary}" Text="{Binding Key}" LineBreakMode="TailTruncation">
-                <Label.Margin>
-                  <OnPlatform x:TypeArguments="Thickness"
-										iOS="16,24,16,4"
-										Android="16, 13"/>
-                </Label.Margin>
-                <Label.FontSize>
-                  <OnPlatform x:TypeArguments="x:Double"
-										iOS="13"
-										Android="14"/>
-                </Label.FontSize>
-              </Label>
-            </Grid>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.GroupHeaderTemplate>
+    <renderers:BindableListView
+      IsVisible="{Binding HasItems}"
+      HasUnevenRows="true"
+      ItemClickedCommand="{Binding ItemTappedCommand}"
+      SeparatorColor="{StaticResource colorSeparator}"
+      ItemsSource="{Binding Analises}"
+      AbsoluteLayout.LayoutFlags="All"
+      AbsoluteLayout.LayoutBounds="0,0,1,1">
+      
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
@@ -56,26 +36,29 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
               </Grid.RowDefinitions>
-              <Label Text="{Binding Talhao, StringFormat='Talhão {0}'}" Grid.Row="0" TextColor="{StaticResource colorTextPrimary}"/>
-              <Label Text="{Binding Data, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Start"/>
+              
+              <Label Text="{Binding Identificacao}" Grid.Row="0" TextColor="{StaticResource colorTextPrimary}"/>
+              
+              <Label Text="{Binding DataRegistro, StringFormat='{0:dd/MM/yyyy}'}" Grid.Row="1" FontSize="Small"  TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Start"/>
+              
             </Grid>
+            
             <ViewCell.ContextActions>
               <MenuItem CommandParameter="{Binding .}"
                         Clicked="OnEdit"
-                        Text="Editar" 
+                        Text="Editar"
                         Icon="ic_editar"/>
-              
-              <MenuItem CommandParameter="{Binding .}" 
+
+              <MenuItem CommandParameter="{Binding .}"
                         Clicked="OnDelete"
                         Text="Excluir"
                         IsDestructive="True"
                         Icon="ic_excluir"/>
-              
+
             </ViewCell.ContextActions>
           </ViewCell>
         </DataTemplate>
       </ListView.ItemTemplate>
     </renderers:BindableListView>
   </AbsoluteLayout>
-
 </ContentPage>

@@ -21,19 +21,33 @@ namespace Solum.Pages
                     ColorNormal = Color.FromHex("FFD54F"),
                     ColorPressed = Color.FromHex("E6C047"),
                     ColorRipple = Color.FromHex("FFD54F"),
-                    Clicked = async (sender, args) =>
-                        await Navigation.PushAsync(new AnalisePage())
+                    Clicked = (sender, args) => ShowNewAnalisePage()
                 };
 
                 AbsoluteLayout.SetLayoutFlags(fab, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(fab,
-                    new Rectangle(1f, 1f, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+                AbsoluteLayout.SetLayoutBounds(fab, new Rectangle(1f, 1f, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
                 absolute.Children.Add(fab);
             }
             else
             {
-                var item = new ToolbarItem("Add", "ic_add", async () => await Navigation.PushAsync(new AnalisePage()));
+                var item = new ToolbarItem("Add", "ic_add", ShowNewAnalisePage);
                 ToolbarItems.Add(item);
+            }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            (BindingContext as AnalisesViewModel)?.UpdateAnalisesList();
+        }
+
+        private async void ShowNewAnalisePage()
+        {
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                await Navigation.PushAsync(new AnalisePage());
+                IsBusy = false;
             }
         }
 
@@ -45,8 +59,7 @@ namespace Solum.Pages
 
         private async void OnDelete(object sender, EventArgs e)
         {
-            var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
-
+            var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?\nTodos os dados relacionados à essa análise serão exlcuidos!", "Sim", "Não");
             if (confirm)
             {
                 var analise = (sender as MenuItem)?.CommandParameter;

@@ -13,7 +13,7 @@ namespace Solum.ViewModel
             var realm = Realm.GetInstance();
             Analise = realm.Find<Analise>(analise.Id);
             FazendaName = Analise.Talhao.Fazenda.Nome;
-            Date = Analise.Data;
+            Date = Analise.DataRegistro;
             TalhaoName = Analise.Talhao.Nome;
             InterpretacaoTextura = InterpretaHandler.InterpretaTextura(analise.Argila, analise.Silte);
             InterpretacaoPh = InterpretaHandler.InterpretaPh(analise.PotencialHidrogenico);
