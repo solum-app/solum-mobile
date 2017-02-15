@@ -30,12 +30,12 @@
                 case 12:
                     return 180.0f.ToString();
             }
-            return "Não necessário";
+            return 0.ToString("N");
         }
 
         public string CalculateP(int expectativa)
         {
-            return "Não necessário";
+            return 0.ToString("N");
         }
 
         public string CalculateK(int expectativa)
@@ -51,7 +51,7 @@
                 case 12:
                     return 90.0f.ToString();
             }
-            return "Não necessário";
+            return 0.ToString("N");
         }
     }
 

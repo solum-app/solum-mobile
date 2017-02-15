@@ -34,7 +34,7 @@ namespace Solum.ViewModel
             Talhao = _realm.Find<Talhao>(analise.TalhaoId);
             FazendaName = Fazenda.Nome;
             TalhaoName = Talhao.Nome;
-            DateSelected = analise.Data;
+            DateSelected = analise.DataRegistro;
             PotencialHidrogenico = analise.PotencialHidrogenico.ToString();
             Fosforo = analise.Fosforo.ToString();
             Potassio = analise.Potassio.ToString();
@@ -372,9 +372,9 @@ namespace Solum.ViewModel
             {
                 Id = Guid.NewGuid().ToString(),
                 TalhaoId = Talhao.Id,
-                Nome = AnaliseName,
+                Identificacao = AnaliseName,
                 Talhao = Talhao,
-                Data = DateSelected,
+                DataRegistro = DateSelected,
                 PotencialHidrogenico =
                     float.Parse("0" + PotencialHidrogenico.Replace(',', '.'), CultureInfo.InvariantCulture),
                 Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture),
