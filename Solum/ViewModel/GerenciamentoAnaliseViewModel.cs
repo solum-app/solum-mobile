@@ -13,8 +13,8 @@ using Syncfusion.Drawing;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Graphics;
 using Syncfusion.Pdf.Interactive;
-using Syncfusion.Pdf.Tables;
 using Xamarin.Forms;
+using Color = Syncfusion.Drawing.Color;
 
 namespace Solum.ViewModel
 {
@@ -57,11 +57,11 @@ namespace Solum.ViewModel
         private PdfDocument _doc;
         private PdfPage _page;
 
-        private readonly Syncfusion.Drawing.Color _black = Syncfusion.Drawing.Color.FromArgb(255, 52, 52, 52);
-        private readonly Syncfusion.Drawing.Color _gray = Syncfusion.Drawing.Color.FromArgb(255, 155, 155, 155);
-        private readonly Syncfusion.Drawing.Color _grayLight = Syncfusion.Drawing.Color.FromArgb(255, 241, 241, 241);
-        private readonly Syncfusion.Drawing.Color _green = Syncfusion.Drawing.Color.FromArgb(255, 63, 170, 88);
-        private readonly Syncfusion.Drawing.Color _white = Syncfusion.Drawing.Color.FromArgb(255, 255, 255, 255);
+        private readonly Color _black = Color.FromArgb(255, 52, 52, 52);
+        private readonly Color _gray = Color.FromArgb(255, 155, 155, 155);
+        private readonly Color _grayLight = Color.FromArgb(255, 241, 241, 241);
+        private readonly Color _green = Color.FromArgb(255, 63, 170, 88);
+        private readonly Color _white = Color.FromArgb(255, 255, 255, 255);
 
         #endregion
 
@@ -183,6 +183,7 @@ namespace Solum.ViewModel
             => _showCoberturaPageCommand ?? (_showCoberturaPageCommand = new Command(ShowCoberturaPage));
 
         public ICommand GeneratePdfCommand => _generatePdfCommand ?? (_generatePdfCommand = new Command(GeneratePdf));
+
         #endregion
 
         #region Functions
@@ -227,7 +228,6 @@ namespace Solum.ViewModel
                     IsBusy = false;
                     ShowCalagemPage();
                 }
-
             }
         }
 
@@ -239,7 +239,8 @@ namespace Solum.ViewModel
                 if (HasCalagemCalculation)
                     await Navigation.PushAsync(new AdubacaoCorretivaPage(Analise.Id));
                 else
-                    "Você precisa executar o cálculo para recomendação de calagem primeiro".ToDisplayAlert(MessageType.Aviso);
+                    "Você precisa executar o cálculo para recomendação de calagem primeiro".ToDisplayAlert(
+                        MessageType.Aviso);
                 IsBusy = false;
             }
         }
@@ -253,11 +254,16 @@ namespace Solum.ViewModel
                     if (HasSemeaduraCalculation)
                     {
                         var semeadura = _realm.All<Semeadura>().FirstOrDefault(x => x.AnaliseId.Equals(Analise.Id));
-                        await Navigation.PushAsync(new RecomendaSemeaduraPage(Analise.Id, semeadura.Expectativa, semeadura.Cultura));
-                    } else 
+                        await Navigation.PushAsync(new RecomendaSemeaduraPage(Analise.Id, semeadura.Expectativa,
+                            semeadura.Cultura));
+                    }
+                    else
+                    {
                         await Navigation.PushAsync(new SemeaduraPage(Analise.Id));
+                    }
                 else
-                    "Você precisa executar o cálculo da recomendação corretiva primeiro".ToDisplayAlert(MessageType.Aviso);
+                    "Você precisa executar o cálculo da recomendação corretiva primeiro".ToDisplayAlert(
+                        MessageType.Aviso);
                 IsBusy = false;
             }
         }
@@ -330,7 +336,7 @@ namespace Solum.ViewModel
             _doc.PageSettings.Margins.All = 0;
             _page = _doc.Pages.Add();
             var g = _page.Graphics;
-            
+
             PdfFont subHeadingFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10, PdfFontStyle.Bold);
 
             DrawHeader(g, "Relatório de Interpretação da Analise");
@@ -424,23 +430,24 @@ namespace Solum.ViewModel
 
             PdfFont textFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
             //Texto
-            g.DrawString("Fonte das tabelas: Sousa, D.M.G. de; Lobato, E. Cerrado – Correção do solo e adubação. 2ª ed. (2004).\n" +
-                         "pH (CaCl2) – solução de Cloreto de Cálcio 0,01 M na proporção 1:2,5\n" +
-                         "P e K (mg/dm³) - Extrator: solução Mehlich 1 (HCl 0,05 N e H2SO4 0,025 N)\n" +
-                         "Ca, Mg e Al (cmolc/dm³) – Extrator: solução de Cloreto de Potássio 1N (KCl) \n" +
-                         "H (cmolc/dm³) – Extrator: Solução de Acetato de Cálcio\n" +
-                         "M.O. (Matéria Orgânica) (g/dm³) – Extrator: Oxidação com Bicromato de Potássio e determinação colorimétrica \n" +
-                         "Areia, Silte e Argila (g/kg) – Extrator: dispersante NaOH e determinação por densímetro\n" +
-                         "CTC (T) (cmolc/dm³) – Capacidade de Troca de Cátions \n" +
-                         "V (%) – Porcentagem de Saturação por bases\n" +
-                         "m (%) – Porcentagem de Saturação por alumínio\n\n" +
-                         "Observações:\n" +
-                         "A amostragem de solo não é de responsabilidade do laboratório e nem da empresa que gerou o aplicativo Solum.\n" +
-                         "Este laudo não tem fins jurídicos", textFont, new PdfSolidBrush(_black), new PointF(20, y + 50));
+            g.DrawString(
+                "Fonte das tabelas: Sousa, D.M.G. de; Lobato, E. Cerrado – Correção do solo e adubação. 2ª ed. (2004).\n" +
+                "pH (CaCl2) – solução de Cloreto de Cálcio 0,01 M na proporção 1:2,5\n" +
+                "P e K (mg/dm³) - Extrator: solução Mehlich 1 (HCl 0,05 N e H2SO4 0,025 N)\n" +
+                "Ca, Mg e Al (cmolc/dm³) – Extrator: solução de Cloreto de Potássio 1N (KCl) \n" +
+                "H (cmolc/dm³) – Extrator: Solução de Acetato de Cálcio\n" +
+                "M.O. (Matéria Orgânica) (g/dm³) – Extrator: Oxidação com Bicromato de Potássio e determinação colorimétrica \n" +
+                "Areia, Silte e Argila (g/kg) – Extrator: dispersante NaOH e determinação por densímetro\n" +
+                "CTC (T) (cmolc/dm³) – Capacidade de Troca de Cátions \n" +
+                "V (%) – Porcentagem de Saturação por bases\n" +
+                "m (%) – Porcentagem de Saturação por alumínio\n\n" +
+                "Observações:\n" +
+                "A amostragem de solo não é de responsabilidade do laboratório e nem da empresa que gerou o aplicativo Solum.\n" +
+                "Este laudo não tem fins jurídicos", textFont, new PdfSolidBrush(_black), new PointF(20, y + 50));
 
             DrawFooter(g);
 
-           
+
             var txf = new PdfStandardFont(PdfFontFamily.Helvetica, 12, PdfFontStyle.Bold);
             if (HasCalagemCalculation)
             {
@@ -458,8 +465,10 @@ namespace Solum.ViewModel
                 g.DrawString("Quantidade", subHeadingFont, new PdfSolidBrush(_black), new PointF(475, y));
 
                 y += 20;
-                g.DrawRectangle(new PdfSolidBrush(_gray), new RectangleF(20, y, _page.Graphics.ClientSize.Width - 40, 30));
-                g.DrawRectangle(new PdfSolidBrush(_grayLight), new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
+                g.DrawRectangle(new PdfSolidBrush(_gray),
+                    new RectangleF(20, y, _page.Graphics.ClientSize.Width - 40, 30));
+                g.DrawRectangle(new PdfSolidBrush(_grayLight),
+                    new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
                 y += 9;
                 var calagem = _realm.All<Calagem>().FirstOrDefault(c => c.AnaliseId.Equals(Analise.Id));
@@ -468,7 +477,6 @@ namespace Solum.ViewModel
                 g.DrawString(calagem.Profundidade.ToString(), textFont, new PdfSolidBrush(_black), new PointF(325, y));
                 var calagemvm = new RecomendacaoCalagemViewModel(Navigation, calagem.Id);
                 g.DrawString(calagemvm.QuantidadeCal.ToString(), textFont, new PdfSolidBrush(_black), new PointF(475, y));
-
             }
             if (HasCorretivaCalculation)
             {
@@ -480,8 +488,10 @@ namespace Solum.ViewModel
                 g.DrawString("K2O", subHeadingFont, new PdfSolidBrush(_black), new PointF(175, y));
 
                 y += 20;
-                g.DrawRectangle(new PdfSolidBrush(_gray), new RectangleF(20, y, _page.Graphics.ClientSize.Width - 40, 30));
-                g.DrawRectangle(new PdfSolidBrush(_grayLight), new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
+                g.DrawRectangle(new PdfSolidBrush(_gray),
+                    new RectangleF(20, y, _page.Graphics.ClientSize.Width - 40, 30));
+                g.DrawRectangle(new PdfSolidBrush(_grayLight),
+                    new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
                 y += 9;
                 var corretivavm = new AdubacaoCorretivaViewModel(Navigation, _analise.Id);
@@ -502,12 +512,15 @@ namespace Solum.ViewModel
                 g.DrawString("K2O", subHeadingFont, new PdfSolidBrush(_black), new PointF(475, y));
 
                 y += 20;
-                g.DrawRectangle(new PdfSolidBrush(_gray), new RectangleF(20, y, _page.Graphics.ClientSize.Width - 40, 30));
-                g.DrawRectangle(new PdfSolidBrush(_grayLight), new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
+                g.DrawRectangle(new PdfSolidBrush(_gray),
+                    new RectangleF(20, y, _page.Graphics.ClientSize.Width - 40, 30));
+                g.DrawRectangle(new PdfSolidBrush(_grayLight),
+                    new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
                 y += 9;
                 var semeadura = _realm.All<Semeadura>().FirstOrDefault(s => s.AnaliseId.Equals(Analise.Id));
-                var semeaduravm = new RecomendacaoSemeaduraViewModel(Navigation, _analise.Id, semeadura.Expectativa, semeadura.Cultura);
+                var semeaduravm = new RecomendacaoSemeaduraViewModel(Navigation, _analise.Id, semeadura.Expectativa,
+                    semeadura.Cultura);
                 g.DrawString(semeadura.Cultura, textFont, new PdfSolidBrush(_black), new PointF(25, y));
                 g.DrawString(semeadura.Expectativa.ToString(), textFont, new PdfSolidBrush(_black), new PointF(125, y));
                 g.DrawString(semeaduravm.N, textFont, new PdfSolidBrush(_black), new PointF(225, y));
@@ -520,15 +533,17 @@ namespace Solum.ViewModel
                 y += 50;
                 g.DrawString("Recomendação da Adubagem de Cobertura", txf, new PdfSolidBrush(_black), new PointF(25, y));
                 y += 30;
-                g.DrawString("Cultura", subHeadingFont, new PdfSolidBrush(_black), new PointF(25,y));
-                g.DrawString("Expectativa", subHeadingFont, new PdfSolidBrush(_black), new PointF(125,y));
+                g.DrawString("Cultura", subHeadingFont, new PdfSolidBrush(_black), new PointF(25, y));
+                g.DrawString("Expectativa", subHeadingFont, new PdfSolidBrush(_black), new PointF(125, y));
                 g.DrawString("N", subHeadingFont, new PdfSolidBrush(_black), new PointF(225, y));
                 g.DrawString("P2O5", subHeadingFont, new PdfSolidBrush(_black), new PointF(325, y));
                 g.DrawString("K2O", subHeadingFont, new PdfSolidBrush(_black), new PointF(475, y));
 
                 y += 20;
-                g.DrawRectangle(new PdfSolidBrush(_gray), new RectangleF(20, y, _page.Graphics.ClientSize.Width - 40, 30));
-                g.DrawRectangle(new PdfSolidBrush(_grayLight), new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
+                g.DrawRectangle(new PdfSolidBrush(_gray),
+                    new RectangleF(20, y, _page.Graphics.ClientSize.Width - 40, 30));
+                g.DrawRectangle(new PdfSolidBrush(_grayLight),
+                    new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
                 y += 9;
                 var cobertura = _realm.All<Semeadura>().FirstOrDefault(s => s.AnaliseId.Equals(Analise.Id));
@@ -538,12 +553,12 @@ namespace Solum.ViewModel
                 g.DrawString(coberturavm.N, textFont, new PdfSolidBrush(_black), new PointF(225, y));
                 g.DrawString(coberturavm.P2O5, textFont, new PdfSolidBrush(_black), new PointF(325, y));
                 g.DrawString(coberturavm.K2O, textFont, new PdfSolidBrush(_black), new PointF(475, y));
-
             }
 
             g.DrawString("Observações:\n" +
-            "A amostragem de solo não é de responsabilidade do laboratório e nem da empresa que gerou o aplicativo Solum.\n" +
-            "Este laudo não tem fins jurídicos", new PdfStandardFont(PdfFontFamily.Helvetica, 10), new PdfSolidBrush(_black), new PointF(20, y + 50));
+                         "A amostragem de solo não é de responsabilidade do laboratório e nem da empresa que gerou o aplicativo Solum.\n" +
+                         "Este laudo não tem fins jurídicos", new PdfStandardFont(PdfFontFamily.Helvetica, 10),
+                new PdfSolidBrush(_black), new PointF(20, y + 50));
 
             DrawFooter(g);
 
@@ -553,8 +568,6 @@ namespace Solum.ViewModel
             _doc.Close(true);
 
             DependencyService.Get<IPdfViewer>().PreviewPdf(stream);
-
-
         }
 
         private void DrawImage(PdfGraphics page)
@@ -573,9 +586,11 @@ namespace Solum.ViewModel
             PdfFont textFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
 
             page.DrawString(title, headerFont, new PdfSolidBrush(_black), new PointF(110, 20));
-            page.DrawString(_analise.Talhao.Fazenda.ToString(), subHeadingFont, new PdfSolidBrush(_black), new PointF(110, 52));
+            page.DrawString(_analise.Talhao.Fazenda.ToString(), subHeadingFont, new PdfSolidBrush(_black),
+                new PointF(110, 52));
             page.DrawString("Talhão " + _analise.Talhao, textFont, new PdfSolidBrush(_black), new PointF(110, 74));
-            page.DrawString($"{_analise.DataCalculoSemeadura:dd/MM/yyyy}", textFont, new PdfSolidBrush(_black), new PointF(_page.Graphics.ClientSize.Width - 75, 25));
+            page.DrawString($"{_analise.DataCalculoSemeadura:dd/MM/yyyy}", textFont, new PdfSolidBrush(_black),
+                new PointF(_page.Graphics.ClientSize.Width - 75, 25));
             page.DrawRectangle(new PdfSolidBrush(_green), new RectangleF(0, 105, _page.Graphics.ClientSize.Width, 5));
         }
 
@@ -584,11 +599,15 @@ namespace Solum.ViewModel
             PdfFont footerBoldFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10, PdfFontStyle.Bold);
             PdfFont footerFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
 
-        
-            page.DrawRectangle(new PdfSolidBrush(_green), new RectangleF(0, page.ClientSize.Height - 80, page.ClientSize.Width, 5));
-            page.DrawString("Base de cálculo: Bioma Cerrado", footerFont, new PdfSolidBrush(_black), new PointF(20, page.ClientSize.Height - 60));
-            page.DrawString("Relatório gerado pelo aplicativo Solum", footerBoldFont, new PdfSolidBrush(_black), new PointF(20, page.ClientSize.Height - 40));
-            page.DrawString("Desenvolvido por Sydy Tecnologia", footerFont, new PdfSolidBrush(_black), new PointF(page.ClientSize.Width - 175, page.ClientSize.Height - 60));
+
+            page.DrawRectangle(new PdfSolidBrush(_green),
+                new RectangleF(0, page.ClientSize.Height - 80, page.ClientSize.Width, 5));
+            page.DrawString("Base de cálculo: Bioma Cerrado", footerFont, new PdfSolidBrush(_black),
+                new PointF(20, page.ClientSize.Height - 60));
+            page.DrawString("Relatório gerado pelo aplicativo Solum", footerBoldFont, new PdfSolidBrush(_black),
+                new PointF(20, page.ClientSize.Height - 40));
+            page.DrawString("Desenvolvido por Sydy Tecnologia", footerFont, new PdfSolidBrush(_black),
+                new PointF(page.ClientSize.Width - 175, page.ClientSize.Height - 60));
 
             var linkAnnot = new PdfTextWebLink();
             linkAnnot.Url = "http://www.sydy.com.br";
@@ -598,12 +617,15 @@ namespace Solum.ViewModel
             linkAnnot.DrawTextWebLink(page, new PointF(page.ClientSize.Width - 105, page.ClientSize.Height - 40));
         }
 
-        private float BodyContent(PdfGraphics pg, string propriedade, string valorAtual, string valorAdequado, string classe, float yPosition, Syncfusion.Drawing.Color color)
+        private float BodyContent(PdfGraphics pg, string propriedade, string valorAtual, string valorAdequado,
+            string classe, float yPosition, Color color)
         {
             PdfFont textFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
 
-            pg.DrawRectangle(new PdfSolidBrush(_gray), new RectangleF(20, yPosition, _page.Graphics.ClientSize.Width - 40, 30));
-            pg.DrawRectangle(new PdfSolidBrush(color), new RectangleF(21, yPosition + 1, _page.Graphics.ClientSize.Width - 42, 28));
+            pg.DrawRectangle(new PdfSolidBrush(_gray),
+                new RectangleF(20, yPosition, _page.Graphics.ClientSize.Width - 40, 30));
+            pg.DrawRectangle(new PdfSolidBrush(color),
+                new RectangleF(21, yPosition + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
             pg.DrawString(propriedade, textFont, new PdfSolidBrush(_black), new PointF(25, yPosition + 9));
             pg.DrawString(valorAtual, textFont, new PdfSolidBrush(_black), new PointF(175, yPosition + 9));
