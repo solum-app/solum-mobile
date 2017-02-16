@@ -43,7 +43,6 @@ namespace Solum.ViewModel
         private bool _hasSemeaduraCalculation;
         private bool _hasCoberturaCalculation;
         private bool _isGeneratingReport;
-        private string _pageTitle;
 
         private DateTimeOffset? _interpretacaoDate;
         private DateTimeOffset? _calagemDate;
@@ -66,13 +65,7 @@ namespace Solum.ViewModel
         #endregion
 
         #region Binding Properties
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
-
+        
         public Analise Analise
         {
             get { return _analise; }

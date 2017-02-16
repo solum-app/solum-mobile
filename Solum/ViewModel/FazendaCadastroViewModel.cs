@@ -46,7 +46,6 @@ namespace Solum.ViewModel
         private Cidade _cidadeSelected;
         private Estado _estadoSelected;
 
-        private string _pageTitle;
         private string _fazendaName;
         private bool _isEstadosLoaded;
         private bool _isCidadesLoaded;
@@ -60,13 +59,7 @@ namespace Solum.ViewModel
         #endregion
 
         #region Propriedade de Binding
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
-
+       
         public string FazendaName
         {
             get { return _fazendaName; }

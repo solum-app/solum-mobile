@@ -25,7 +25,6 @@ namespace Solum.ViewModel
 
         #region private properties
 
-        private string _pageTitle;
         private IList<int> _expectativas;
         private int _expectativaSelected;
 
@@ -42,13 +41,7 @@ namespace Solum.ViewModel
         #endregion
 
         #region binding properties
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
-
+        
         public IList<int> Expectativas
         {
             get { return _expectativas; }

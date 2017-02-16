@@ -37,8 +37,6 @@ namespace Solum.ViewModel
         #endregion
 
         #region private properties
-
-        private string _pageTitle;
         private string _quantidade;
         private string _v2;
         private string _prnt;
@@ -60,12 +58,6 @@ namespace Solum.ViewModel
         #endregion
 
         #region Binding Properties
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
 
         public string QuantidadeCal
         {

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows.Input;
 using Realms;
-using Solum.Handlers;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -21,13 +20,13 @@ namespace Solum.ViewModel
         #region Private properties
 
         private bool _hasItems;
-        private readonly Realm _realm;
 
         private ICommand _editCommand;
         private ICommand _deleteCommand;
         private ICommand _itemTappedCommand;
 
         private IList<Analise> _analises;
+        private readonly Realm _realm;
 
         #endregion
 
@@ -44,10 +43,6 @@ namespace Solum.ViewModel
             get { return _hasItems; }
             set { SetPropertyChanged(ref _hasItems, value); }
         }
-
-        #endregion
-
-        #region Binding Properties
 
         #endregion
 

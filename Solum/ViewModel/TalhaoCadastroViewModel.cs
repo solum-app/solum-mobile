@@ -100,7 +100,6 @@ namespace Solum.ViewModel
         private Fazenda _fazenda;
         private Talhao _talhao;
 
-        private string _pageTitle;
         private string _talhaoName;
         private string _talhaoArea;
 
@@ -112,12 +111,6 @@ namespace Solum.ViewModel
         #endregion
 
         #region Propriedades de Binding
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
 
         public string TalhaoName
         {

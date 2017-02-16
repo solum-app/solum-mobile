@@ -39,7 +39,6 @@ namespace Solum.ViewModel
         private string _p205;
         private string _k20;
 
-        private string _pageTitle;
         private string _expectativa;
         private string _cultura;
 
@@ -49,12 +48,6 @@ namespace Solum.ViewModel
 
         public ICommand ShowSemeaduraPageCommand
             => _showSemeaduraPageCommand ?? (_showSemeaduraPageCommand = new Command(ShowSemeaduraPage));
-
-        public string PageTitle
-        {
-            get { return _pageTitle;}
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
 
         public string Expectativa
         {

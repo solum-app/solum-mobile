@@ -67,7 +67,7 @@ namespace Solum.ViewModel
 
         private async void Details(Fazenda fazenda)
         {
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
                 if (_fromAnalise)

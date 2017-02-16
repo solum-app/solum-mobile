@@ -26,10 +26,11 @@ namespace Solum.ViewModel
             Subscribe();
         }
 
-        public AnaliseViewModel(INavigation navigation, Analise analise) : base(navigation)
+        public AnaliseViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
             _realm = Realm.GetInstance();
             PageTitle = "Editar Análise";
+            var analise = _realm.Find<Analise>(analiseId);
             Fazenda = _realm.Find<Fazenda>(analise.Talhao.FazendaId);
             Talhao = _realm.Find<Talhao>(analise.TalhaoId);
             FazendaName = Fazenda.Nome;
@@ -51,7 +52,6 @@ namespace Solum.ViewModel
 
         #region Private Properties
 
-        private string _pageTitle;
         private string _fazendaName;
         private Color _fazendaLabelColor;
         private string _talhaoName;
@@ -84,12 +84,6 @@ namespace Solum.ViewModel
         #endregion
 
         #region Binding Properties
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
 
         public string FazendaName
         {
@@ -155,7 +149,7 @@ namespace Solum.ViewModel
         public string PotencialHidrogenico
         {
             get { return _potencialHidrogenico; }
-            set { SetPropertyChanged(ref _potencialHidrogenico, string.Format("{0:0.00}", value)); }
+            set { SetPropertyChanged(ref _potencialHidrogenico, $"{value:0.00}"); }
         }
 
         public string Fosforo
@@ -236,8 +230,7 @@ namespace Solum.ViewModel
         #endregion
 
         #region Funções
-
-      
+        
         private void SelectDate(object date)
         {
             DateSelected = (DateTimeOffset)date;

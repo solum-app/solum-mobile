@@ -27,7 +27,6 @@ namespace Solum.ViewModel
         private ICommand _itemTappedCommand;
         private ICommand _deleteTalhaoCommand;
 
-        private string _pageTitle;
         private bool _hasItems;
         private readonly bool _fromAnalise;
 
@@ -39,12 +38,6 @@ namespace Solum.ViewModel
         #endregion
 
         #region Propriedades de Binding
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
 
         public bool HasItems
         {
@@ -85,7 +78,7 @@ namespace Solum.ViewModel
 
         private async void SelectTalhao(Talhao talhao)
         {
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
                 if (_fromAnalise)
