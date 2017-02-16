@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Realms;
@@ -67,19 +68,26 @@ namespace Solum.ViewModel
 
         private void DeleteAnalise(object obj)
         {
-            var analise = obj as Analise;
-            using (var transaction = _realm.BeginWrite())
+            if (obj != null)
             {
-                _realm.Remove(analise);
-                transaction.Commit();
+                var analise = (Analise) obj;
+                using (var transaction = _realm.BeginWrite())
+                {
+                    _realm.Remove(analise);
+                    transaction.Commit();
+                }
+                Analises.Remove(analise);
             }
-            Analises.Remove(analise);
             UpdateAnalisesList();
         }
 
         private async void ShowEditAnalisePage(object obj)
         {
-            await Navigation.PushAsync(new AnalisePage(obj as Analise));
+            if (obj != null)
+            {
+                var analise = (Analise) obj;
+                await Navigation.PushAsync(new AnalisePage(analise.Id));
+            }
         }
 
         private async void ShowGerenciamentoAnalisePage(object obj)
@@ -87,7 +95,11 @@ namespace Solum.ViewModel
             if (IsNotBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new GerenciamentoAnalisePage(obj as Analise));
+                if (obj != null)
+                {
+                    var analise = (Analise) obj;
+                    await Navigation.PushAsync(new GerenciamentoAnalisePage(analise.Id));
+                }
                 IsBusy = false;
             }
         }

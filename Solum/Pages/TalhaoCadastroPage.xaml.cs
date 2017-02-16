@@ -8,17 +8,17 @@ namespace Solum.Pages
 {
     public partial class TalhaoCadastroPage : ContentPage
     {
-        public TalhaoCadastroPage(Fazenda fazenda, bool fromAnalise)
+        public TalhaoCadastroPage(string fazendaId, bool fromAnalise)
         {
             InitializeComponent();
-            BindingContext = new TalhaoCadastroViewModel(Navigation, fazenda, fromAnalise);
+            BindingContext = new TalhaoCadastroViewModel(Navigation, fazendaId, fromAnalise);
             NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
         }
 
-        public TalhaoCadastroPage(Talhao talhao)
+        public TalhaoCadastroPage(string talhaoId)
         {
             InitializeComponent();
-            BindingContext = new TalhaoCadastroViewModel(Navigation, talhao);
+            BindingContext = new TalhaoCadastroViewModel(Navigation, talhaoId);
             NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
         }
 

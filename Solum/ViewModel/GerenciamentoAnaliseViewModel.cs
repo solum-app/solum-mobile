@@ -20,10 +20,10 @@ namespace Solum.ViewModel
 {
     public class GerenciamentoAnaliseViewModel : BaseViewModel
     {
-        public GerenciamentoAnaliseViewModel(INavigation navigation, Analise analise) : base(navigation)
+        public GerenciamentoAnaliseViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
             _realm = Realm.GetInstance();
-            Analise = _realm.Find<Analise>(analise.Id);
+            Analise = _realm.Find<Analise>(analiseId);
             PageTitle = Analise.Identificacao;
             UpdateValues();
         }
@@ -186,7 +186,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new InterpretacaoPage(Analise));
+                await Navigation.PushAsync(new InterpretacaoPage(Analise.Id));
                 IsBusy = false;
             }
         }

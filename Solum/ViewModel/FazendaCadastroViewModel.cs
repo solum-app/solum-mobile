@@ -22,13 +22,13 @@ namespace Solum.ViewModel
             PageTitle = "Nova Fazenda";
         }
 
-        public FazendaCadastroViewModel(INavigation navigation, Fazenda fazenda, bool fromAnalise) : base(navigation)
+        public FazendaCadastroViewModel(INavigation navigation, string fazenda, bool fromAnalise) : base(navigation)
         {
             _isUpdate = true;
             _fromAnalise = fromAnalise;
             _realm = Realm.GetInstance();
-            _fazenda = fazenda;
-            FazendaName = fazenda.Nome;
+            _fazenda = _realm.Find<Fazenda>(fazenda);
+            FazendaName = _fazenda.Nome;
             PageTitle = "Editar Fazenda";
             LoadEstados();
             EstadoSelected = _realm.Find<Estado>(_fazenda.Cidade.EstadoId);

@@ -12,15 +12,15 @@ namespace Solum.ViewModel
     {
         public RecomendacaoCalagemViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
-            _realm = Realm.GetInstance();
-            _analise = _realm.Find<Analise>(analiseId);
+            var realm = Realm.GetInstance();
+            _analise = realm.Find<Analise>(analiseId);
             PageTitle = _analise.Identificacao;
             V2 = _analise.V2.ToString("N");
             Prnt = _analise.Prnt.ToString("N");
             Profundidade = _analise.Profundidade.ToString("N");
             Calculate();
 
-            using (var tnsc = _realm.BeginWrite())
+            using (var tnsc = realm.BeginWrite())
             {
                 _analise.V2 = 0;
                 _analise.Prnt = 0;
@@ -36,14 +36,14 @@ namespace Solum.ViewModel
 
         #endregion
 
-        #region private properties
+        #region Private Properties
+
         private string _quantidade;
         private string _v2;
         private string _prnt;
         private string _profundidade;
 
         private readonly Analise _analise;
-        private readonly Realm _realm;
 
         private readonly IDictionary<int, float> _values = new Dictionary<int, float>
         {
@@ -89,7 +89,7 @@ namespace Solum.ViewModel
 
         private async void ShowCalagemPage()
         {
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
                 var current = Navigation.NavigationStack.LastOrDefault();
@@ -106,7 +106,7 @@ namespace Solum.ViewModel
             float.TryParse(V2, out fV2);
             var f = 100f / fPrnt;
             var ctc = _analise.CTC;
-            if(_values.Keys.Contains(_analise.Profundidade))
+            if (_values.Keys.Contains(_analise.Profundidade))
                 QuantidadeCal = ((fV2 - _analise.V) * ctc / 100f * f * _values[_analise.Profundidade]).ToString("N");
             QuantidadeCal = ((fV2 - _analise.V) * ctc / 100f * f * _values[20]).ToString("N");
         }

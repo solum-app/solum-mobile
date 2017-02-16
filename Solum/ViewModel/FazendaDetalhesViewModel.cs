@@ -12,13 +12,13 @@ namespace Solum.ViewModel
 {
     public class FazendaDetalhesViewModel : BaseViewModel
     {
-        public FazendaDetalhesViewModel(INavigation navigation, Fazenda fazenda, bool fromAnalise) : base(navigation)
+        public FazendaDetalhesViewModel(INavigation navigation, string fazendaId, bool fromAnalise) : base(navigation)
         {
             _realm = Realm.GetInstance();
-            Fazenda = fazenda;
+            Fazenda = _realm.Find<Fazenda>(fazendaId);
             HasItems = _realm.All<Talhao>().Any(t => t.FazendaId.Equals(Fazenda.Id));
             _fromAnalise = fromAnalise;
-            PageTitle = fazenda.ToString();
+            PageTitle = Fazenda.Nome;
         }
 
         #region Propriedades privadas
@@ -92,7 +92,7 @@ namespace Solum.ViewModel
 
         private async void ShowEditTalhaoPage(Talhao talhao)
         {
-            await Navigation.PushAsync(new TalhaoCadastroPage(talhao));
+            await Navigation.PushAsync(new TalhaoCadastroPage(talhao.Id));
         }
 
         private void DeleteTalhao(Talhao talhao)

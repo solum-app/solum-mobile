@@ -6,10 +6,10 @@ namespace Solum.Pages
 {
     public partial class InterpretacaoPage : ContentPage
     {
-        public InterpretacaoPage(Analise analise)
+        public InterpretacaoPage(string analiseId)
         {
             InitializeComponent();
-            BindingContext = new InterpretacaoViewModel(Navigation, analise);
+            BindingContext = new InterpretacaoViewModel(Navigation, analiseId);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
         }
 

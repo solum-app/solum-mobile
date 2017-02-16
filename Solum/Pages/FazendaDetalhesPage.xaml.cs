@@ -1,5 +1,4 @@
 ﻿using System;
-using Solum.Models;
 using Solum.Renderers;
 using Solum.ViewModel;
 using Xamarin.Forms;
@@ -8,12 +7,12 @@ namespace Solum.Pages
 {
     public partial class FazendaDetalhesPage : ContentPage
     {
-        public FazendaDetalhesPage(Fazenda fazenda, bool fromAnalise)
+        public FazendaDetalhesPage(string fazendaId, bool fromAnalise)
         {
             InitializeComponent();
-            BindingContext = new FazendaDetalhesViewModel(Navigation, fazenda, fromAnalise);
-			NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
-			
+            BindingContext = new FazendaDetalhesViewModel(Navigation, fazendaId, fromAnalise);
+            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+
             if (Device.OS == TargetPlatform.Android)
             {
                 var fab = new FloatingActionButtonView
@@ -27,8 +26,8 @@ namespace Solum.Pages
                         if (!IsBusy)
                         {
                             IsBusy = true;
-                            await Navigation.PushAsync(new TalhaoCadastroPage(fazenda, fromAnalise));
-                            if(fromAnalise)
+                            await Navigation.PushAsync(new TalhaoCadastroPage(fazendaId, fromAnalise));
+                            if (fromAnalise)
                                 Navigation.RemovePage(this);
                             IsBusy = false;
                         }
@@ -43,11 +42,12 @@ namespace Solum.Pages
             else
             {
                 var item = new ToolbarItem("Add", "ic_add",
-                    async () => {
+                    async () =>
+                    {
                         if (!IsBusy)
                         {
                             IsBusy = true;
-                            await Navigation.PushAsync(new TalhaoCadastroPage(fazenda, fromAnalise));
+                            await Navigation.PushAsync(new TalhaoCadastroPage(fazendaId, fromAnalise));
                             if (fromAnalise)
                                 Navigation.RemovePage(this);
                             IsBusy = false;
@@ -87,7 +87,6 @@ namespace Solum.Pages
             var context = BindingContext as FazendaDetalhesViewModel;
             context?.UpdateTalhoesList();
             base.OnAppearing();
-            
         }
     }
 }
