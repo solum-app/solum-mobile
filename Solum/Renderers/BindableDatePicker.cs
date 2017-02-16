@@ -1,31 +1,32 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Xamarin.Forms;
+
 namespace Solum.Renderers
 {
-	public class BindableDatePicker : DatePicker
-	{
-		public static BindableProperty DateSelectedCommandProperty =
-			BindableProperty.Create<BindableDatePicker, ICommand> (
-				x => x.DateSelectedCommand, default (ICommand)
-			);
+    public class BindableDatePicker : DatePicker
+    {
+        public static BindableProperty DateSelectedCommandProperty =
+#pragma warning disable CS0618 // Type or member is obsolete
+            BindableProperty.Create<BindableDatePicker, ICommand>(
+                x => x.DateSelectedCommand, default(ICommand)
+            );
+#pragma warning restore CS0618 // Type or member is obsolete
 
-		public ICommand DateSelectedCommand {
-			get { return (ICommand)this.GetValue (DateSelectedCommandProperty); }
-			set { this.SetValue (DateSelectedCommandProperty, value); }
-		}
+        public BindableDatePicker()
+        {
+            DateSelected += OnDateSelected;
+        }
 
-		public BindableDatePicker ()
-		{
-			this.DateSelected += this.OnDateSelected;
-		}
+        public ICommand DateSelectedCommand
+        {
+            get { return (ICommand) GetValue(DateSelectedCommandProperty); }
+            set { SetValue(DateSelectedCommandProperty, value); }
+        }
 
-		private void OnDateSelected (object sender, DateChangedEventArgs e)
-		{
-			if (this.DateSelectedCommand != null && this.DateSelectedCommand.CanExecute (e)) {
-				this.DateSelectedCommand.Execute (e.NewDate);
-			}
-		}
-	}
+        private void OnDateSelected(object sender, DateChangedEventArgs e)
+        {
+            if (DateSelectedCommand != null && DateSelectedCommand.CanExecute(e))
+                DateSelectedCommand.Execute(e.NewDate);
+        }
+    }
 }
-

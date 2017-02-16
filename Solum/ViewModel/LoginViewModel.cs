@@ -12,7 +12,11 @@ namespace Solum.ViewModel
 {
     public class LoginViewModel : BaseViewModel
     {
-        #region Propriedades Privadas
+        public LoginViewModel(INavigation navigation) : base(navigation)
+        {
+        }
+
+        #region Private Propeties
 
         private ICommand _showRegisterPageCommand;
         private ICommand _loginCommand;
@@ -23,12 +27,7 @@ namespace Solum.ViewModel
 
         #endregion
 
-
-        public LoginViewModel(INavigation navigation) : base(navigation)
-        {
-        }
-
-        #region Propriedades de Binding
+        #region Binding Properties
 
         public string Username
         {
@@ -50,17 +49,19 @@ namespace Solum.ViewModel
 
         #endregion
 
-        #region Commandos
+        #region Commands
 
         public ICommand ShowForgotPasswordPageCommand
             => _showForgtPasswordPageCommand ?? (_showForgtPasswordPageCommand = new Command(ShowForgotPasswordPage));
-        public ICommand ShowRegisterPageCommand => _showRegisterPageCommand ?? (_showRegisterPageCommand = new Command(ShowRegisterPage));
-        public ICommand LoginCommand => _loginCommand ?? (_loginCommand = new Command(DoLogin));
 
+        public ICommand ShowRegisterPageCommand
+            => _showRegisterPageCommand ?? (_showRegisterPageCommand = new Command(ShowRegisterPage));
+
+        public ICommand LoginCommand => _loginCommand ?? (_loginCommand = new Command(DoLogin));
 
         #endregion
 
-        #region Funções
+        #region Functions
 
         private async void DoLogin()
         {
@@ -90,15 +91,15 @@ namespace Solum.ViewModel
             {
                 ServerUnrecheable.ToDisplayAlert(MessageType.Falha);
             }
-            else 
+            else
             {
                 InvalidCredentialsMessage.ToDisplayAlert(MessageType.Erro);
             }
         }
 
-        private async void ShowForgotPasswordPage()
+        private void ShowForgotPasswordPage()
         {
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
                 "Não implementado ainda".ToToast();
@@ -108,7 +109,7 @@ namespace Solum.ViewModel
 
         private async void ShowRegisterPage()
         {
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
                 await Navigation.PushAsync(new CadastroPage());
