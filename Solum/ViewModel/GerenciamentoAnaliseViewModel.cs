@@ -216,11 +216,10 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                var wasCalculated = _realm.All<Calagem>().Any(c => c.AnaliseId.Equals(Analise.Id));
+                var wasCalculated = Analise.DataCalculoCalagem.HasValue;
                 if (wasCalculated)
                 {
-                    var s = _realm.All<Calagem>().FirstOrDefault(c => c.AnaliseId.Equals(Analise.Id)).Id;
-                    await Navigation.PushAsync(new RecomendaCalagemPage(s));
+                    await Navigation.PushAsync(new RecomendaCalagemPage(Analise.Id));
                     IsBusy = false;
                 }
                 else
