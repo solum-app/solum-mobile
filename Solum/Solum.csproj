@@ -37,6 +37,7 @@
     <Compile Include="Interfaces\ICoberturaInterpreter.cs" />
     <Compile Include="Messages\MessagingCenterMessages.cs" />
     <Compile Include="Models\Calagem.cs" />
+    <Compile Include="Models\DisplayItems.cs" />
     <Compile Include="Models\Semeadura.cs" />
     <Compile Include="Pages\RecomendaSemeaduraPage.xaml.cs">
       <DependentUpon>RecomendaSemeaduraPage.xaml</DependentUpon>

@@ -7,35 +7,21 @@
   x:Class="Solum.Pages.CalagemPage"
   Title="{Binding PageTitle}">
 
-  <ScrollView
-    BackgroundColor="{StaticResource colorBackground}">
-    
-    <StackLayout 
-      Spacing="0">
+  <ScrollView BackgroundColor="{StaticResource colorBackground}">
+    <StackLayout Spacing="0">
       
-      <Label 
-        TextColor="{StaticResource colorTextSecundary}" 
-        Text="INFORMAÇÕES PARA CALAGEM">
+      <Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES PARA CALAGEM">
         
         <Label.Margin>
-          <OnPlatform
-            x:TypeArguments="Thickness"
-            iOS="16,24,16,4"
-            Android="16, 13"/>
+          <OnPlatform x:TypeArguments="Thickness" iOS="16,24,16,4" Android="16, 13"/>
         </Label.Margin>
        
         <Label.FontSize>
-          <OnPlatform 
-            x:TypeArguments="x:Double"
-            iOS="13"
-            Android="14"/>
+          <OnPlatform x:TypeArguments="x:Double" iOS="13" Android="14"/>
         </Label.FontSize>
       </Label>
 
-      <Grid 
-        HeightRequest="45" 
-        BackgroundColor="White" 
-        ColumnSpacing="0">
+      <Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
         
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="16"/>
@@ -43,29 +29,20 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
-        <BoxView 
-          Grid.ColumnSpan="3" 
-          BackgroundColor="{StaticResource colorSeparator}" 
-          VerticalOptions="Start">
+        <BoxView Grid.ColumnSpan="3" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
           <BoxView.HeightRequest>
-            <OnPlatform x:TypeArguments="x:Double"
-                        iOS="0.5"
-                        Android="0.3"/>
+            <OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3"/>
           </BoxView.HeightRequest>
         </BoxView>
         
-        <Label 
-          Text="V2"
-          VerticalOptions="Center"
-          Grid.Column="1" 
-          TextColor="{StaticResource colorTextPrimary}"/>
+        <Label Text="V2" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
        
         <renderers:CustomPicker
           x:Name="V2Picker"
           Title="%"
           ItemsSource="{Binding V2List}"
-          SelectedItem="{Binding V2Selected}"
-          ItemSelectedCommand="{Binding UpdateValuesCommand}"
+          SelectedItem="{Binding V2Item}"
+          ItemSelectedCommand="{Binding SetV2ValueCommand}"
           VerticalOptions="Center"
           Margin="16,0"
           HasBorder="false"
@@ -83,25 +60,14 @@
           
         </renderers:CustomPicker>
 
-        <BoxView 
-          BackgroundColor="{StaticResource colorSeparator}" 
-          Grid.Column="1" 
-          Grid.ColumnSpan="2" 
-          VerticalOptions="End">
-          
+        <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
           <BoxView.HeightRequest>
-            <OnPlatform 
-              x:TypeArguments="x:Double"
-              iOS="0.5"
-              Android="0.3"/>
+            <OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3"/>
           </BoxView.HeightRequest>
         </BoxView>
        </Grid>
 
-      <Grid 
-        HeightRequest="45" 
-        BackgroundColor="White" 
-        ColumnSpacing="0">
+      <Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
         
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="16"/>
@@ -109,11 +75,7 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
-        <Label 
-          Text="PRNT"
-          VerticalOptions="Center" 
-          Grid.Column="1"
-          TextColor="{StaticResource colorTextPrimary}"/>
+        <Label Text="PRNT" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
         
         <Entry
           x:Name="PrntEntry"
@@ -124,39 +86,26 @@
           Margin="16,0"
           Placeholder="%" 
           HorizontalTextAlignment="End" 
-          PlaceholderColor="{StaticResource colorTextHint}">
+          PlaceholderColor="{StaticResource colorTextHint}"
+          Completed="PrntEntry_OnCompleted">
           
           <Entry.Effects>
             <effects:NoBorderEffect />
           </Entry.Effects>
           
           <Entry.FontSize>
-            <OnPlatform
-              x:TypeArguments="x:Double"
-							iOS="17"
-							Android="14"/>
+            <OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14"/>
           </Entry.FontSize>
         </Entry>
         
-        <BoxView 
-          BackgroundColor="{StaticResource colorSeparator}"
-          Grid.Column="1"
-          Grid.ColumnSpan="2" 
-          VerticalOptions="End">
-          
+        <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
           <BoxView.HeightRequest>
-            <OnPlatform 
-              x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3"/>
+            <OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3"/>
           </BoxView.HeightRequest>
         </BoxView>
       </Grid>
 
-      <Grid 
-        HeightRequest="45" 
-        BackgroundColor="White" 
-        ColumnSpacing="0">
+      <Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
        
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="16"/>
@@ -164,18 +113,14 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
-        <Label 
-          Text="Profundidade" 
-          VerticalOptions="Center" 
-          Grid.Column="1" 
-          TextColor="{StaticResource colorTextPrimary}"/>
+        <Label Text="Profundidade" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
         
         <renderers:CustomPicker 
           x:Name="ProfundidadePicker"
           Title="cm"
           ItemsSource="{Binding ProfundidadeList}"
-          SelectedItem="{Binding ProfundidadeSelected}"
-          ItemSelectedCommand="{Binding UpdateValuesCommand}"
+          SelectedItem="{Binding ProfundidadeItem}"
+          ItemSelectedCommand="{Binding SetProfundidadeValueCommand}"
           VerticalOptions="Center"
           Margin="16,0"
           HasBorder="false"
@@ -184,10 +129,7 @@
           Grid.Column="2">
           
           <renderers:CustomPicker.TextSize>
-            <OnPlatform 
-              x:TypeArguments="x:Double"
-              Android="14" 
-              iOS="17"/>
+            <OnPlatform x:TypeArguments="x:Double" Android="14" iOS="17"/>
           </renderers:CustomPicker.TextSize>
           
           <renderers:CustomPicker.Effects>
@@ -196,25 +138,15 @@
         </renderers:CustomPicker>
       </Grid>
 
-      <BoxView 
-        BackgroundColor="{StaticResource colorSeparator}" 
-        VerticalOptions="End">
+      <BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
         <BoxView.HeightRequest>
-          <OnPlatform 
-            x:TypeArguments="x:Double"
-						iOS="0.5"
-						Android="0.3"/>
+          <OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3"/>
         </BoxView.HeightRequest>
       </BoxView>
 
-      <Button 
-        Text="Recomendação" 
-        Command="{Binding SaveCommand}" 
-        IsEnabled="true" 
-        Margin="16" 
-        BackgroundColor="{StaticResource colorAccent}" 
-        TextColor="{StaticResource colorTextPrimary}" 
-        VerticalOptions="EndAndExpand"/>
+      <Button Text="Recomendação" Command="{Binding SaveCommand}" IsEnabled="true" Margin="16" BackgroundColor="{StaticResource colorAccent}" 
+              TextColor="{StaticResource colorTextPrimary}" 
+              VerticalOptions="EndAndExpand"/>
     </StackLayout>
   </ScrollView>
 </ContentPage>

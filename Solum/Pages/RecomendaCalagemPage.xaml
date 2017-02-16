@@ -3,21 +3,97 @@
 	xmlns="http://xamarin.com/schemas/2014/forms" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="Solum.Pages.RecomendaCalagemPage"
-	xmlns:effects="clr-namespace:Solum.Effects"
 	Title="{Binding PageTitle}">
 
-	<ScrollView Grid.Row="0" BackgroundColor="{StaticResource colorBackground}">
+	<ScrollView BackgroundColor="{StaticResource colorBackground}">
 		<StackLayout Spacing="0">
-			<Label TextColor="{StaticResource colorTextSecundary}" Text="RECOMENDAÇÃO CALAGEM">
-				<Label.Margin>
-					<OnPlatform x:TypeArguments="Thickness"
-						iOS="16,24,16,4"
-						Android="16, 13"/>
+
+      <Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES PARA CALAGEM">
+        
+        <Label.Margin>
+          <OnPlatform x:TypeArguments="Thickness" iOS="16,24,16,4" Android="16, 13"/>
+        </Label.Margin>
+        
+        <Label.FontSize>
+          <OnPlatform x:TypeArguments="x:Double" iOS="13" Android="14"/>
+        </Label.FontSize>
+      </Label>
+
+      <Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="16"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <BoxView Grid.ColumnSpan="2" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
+          <BoxView.HeightRequest>
+            <OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3"/>
+          </BoxView.HeightRequest>
+        </BoxView>
+        
+        <Label Text="V2" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
+        <Label Text="{Binding V2, StringFormat='{0} %'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        
+        <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
+          <BoxView.HeightRequest>
+            <OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3"/>
+          </BoxView.HeightRequest>
+        </BoxView>
+      </Grid>
+
+      <Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="16"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Label Text="PRNT" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
+        <Label Text="{Binding Prnt, StringFormat='{0} %'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        
+        <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
+          <BoxView.HeightRequest>
+            <OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3"/>
+          </BoxView.HeightRequest>
+        </BoxView>
+      </Grid>
+
+      <Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="16"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Label Text="Profundidade" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
+        <Label Text="{Binding Profundidade, StringFormat='{0} cm'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        
+      </Grid>
+
+      <BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
+        <BoxView.HeightRequest>
+          <OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3"/>
+        </BoxView.HeightRequest>
+      </BoxView>
+      
+      <Label TextColor="{StaticResource colorTextSecundary}" Text="RECOMENDAÇÃO CALAGEM">
+				
+        <Label.Margin>
+					<OnPlatform x:TypeArguments="Thickness" iOS="16,24,16,4" Android="16, 13"/>
 				</Label.Margin>
+        
 				<Label.FontSize>
-					<OnPlatform x:TypeArguments="x:Double"
-						iOS="13"
-						Android="14"/>
+					<OnPlatform x:TypeArguments="x:Double" iOS="13" Android="14"/>
 				</Label.FontSize>
 			</Label>
 
@@ -30,103 +106,20 @@
 					<RowDefinition Height="*"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
-				<BoxView Grid.ColumnSpan="2" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
+				
+        <BoxView Grid.ColumnSpan="2" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
 					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3"/>
+						<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3"/>
 					</BoxView.HeightRequest>
 				</BoxView>
+        
 				<Label Text="Quantidade de Calagem" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
 				<Label Text="{Binding QuantidadeCal, StringFormat='{0} t/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
 			</Grid>
 			
 			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
 				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double"
-						iOS="0.5"
-						Android="0.3"/>
-				</BoxView.HeightRequest>
-			</BoxView>
-
-			<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES PARA CALAGEM">
-				<Label.Margin>
-					<OnPlatform x:TypeArguments="Thickness"
-						iOS="16,24,16,4"
-						Android="16, 13"/>
-				</Label.Margin>
-				<Label.FontSize>
-					<OnPlatform x:TypeArguments="x:Double"
-						iOS="13"
-						Android="14"/>
-				</Label.FontSize>
-			</Label>
-
-			<Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				<BoxView Grid.ColumnSpan="2" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3"/>
-					</BoxView.HeightRequest>
-				</BoxView>
-				<Label Text="V2" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-				<Label Text="{Binding Calagem.V2, StringFormat='{0}%'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3"/>
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			
-			<Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				<Label Text="PRNT" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-				<Label Text="{Binding Calagem.Prnt, StringFormat='{0}%'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3"/>
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-
-			<Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				<Label Text="Profundidade" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-				<Label Text="{Binding Calagem.Profundidade, StringFormat='{0}cm'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
-			</Grid>
-
-			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
-				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double"
-						iOS="0.5"
-						Android="0.3"/>
+					<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3"/>
 				</BoxView.HeightRequest>
 			</BoxView>
 
