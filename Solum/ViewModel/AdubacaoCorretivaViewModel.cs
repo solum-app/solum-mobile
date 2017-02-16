@@ -59,8 +59,10 @@ namespace Solum.ViewModel
                 }
             }
             else
+            {
                 K2O = !string.IsNullOrEmpty(kInterpretaded) ? kInterpretaded : 0.ToString("N");
-            
+            }
+
             using (var transaction = _realm.BeginWrite())
             {
                 _analise.DataCalculoCorretiva = DateTimeOffset.Now;
@@ -72,8 +74,6 @@ namespace Solum.ViewModel
 
         #region Private Properties
 
-        private string _pageTitle;
-
         private string _p2O5;
         private string _k2O;
 
@@ -83,12 +83,6 @@ namespace Solum.ViewModel
         #endregion
 
         #region Binding Properties
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
 
         public string P2O5
         {

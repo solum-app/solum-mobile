@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
 using System.Windows.Input;
 using Realms;
 using Solum.Handlers;
@@ -20,7 +18,7 @@ namespace Solum.ViewModel
             PageTitle = _analise.Identificacao;
 
             _v2Selected = _analise.V2 != 0 ? _analise.V2.ToString() : null;
-            Prnt = _analise.Prnt != 0 ? $"{_analise.Prnt.ToString("N")} %" : null;
+            Prnt = _analise.Prnt != 0 ? $"{_analise.Prnt:N} %" : null;
             _profundidadeSelected = _analise.Profundidade != 0 ? _analise.Profundidade.ToString() : null;
 
             V2List = new List<DisplayItems>();
@@ -41,7 +39,7 @@ namespace Solum.ViewModel
 
         public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(Save));
 
-        public ICommand SetV2ValueCommand => 
+        public ICommand SetV2ValueCommand =>
             _setV2ValueCommand ?? (_setV2ValueCommand = new Command(SetV2Value));
 
         public ICommand SetProfundidadeValueCommand
@@ -72,7 +70,7 @@ namespace Solum.ViewModel
                 transaction.Commit();
             }
 
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
                 var current = Navigation.NavigationStack.LastOrDefault();
@@ -91,11 +89,10 @@ namespace Solum.ViewModel
         {
             _profundidadeSelected = ((int) ProfundidadeItem.Value).ToString("N");
         }
+
         #endregion
 
         #region Private properties
-
-        private string _pageTitle;
 
         private string _v2Selected;
         private string _profundidadeSelected;
@@ -118,12 +115,6 @@ namespace Solum.ViewModel
 
         #region Binding Properties
 
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
-        
         public DisplayItems ProfundidadeItem
         {
             get { return _profundidadeItem; }
@@ -141,12 +132,13 @@ namespace Solum.ViewModel
             get { return _profundidadeList; }
             set { SetPropertyChanged(ref _profundidadeList, value); }
         }
+
         public IList<DisplayItems> V2List
         {
             get { return _v2List; }
             set { SetPropertyChanged(ref _v2List, value); }
         }
-        
+
 
         public string Prnt
         {

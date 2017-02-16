@@ -22,13 +22,13 @@ namespace Solum.ViewModel
             PageTitle = "Nova Fazenda";
         }
 
-        public FazendaCadastroViewModel(INavigation navigation, Fazenda fazenda, bool fromAnalise) : base(navigation)
+        public FazendaCadastroViewModel(INavigation navigation, string fazenda, bool fromAnalise) : base(navigation)
         {
             _isUpdate = true;
             _fromAnalise = fromAnalise;
             _realm = Realm.GetInstance();
-            _fazenda = fazenda;
-            FazendaName = fazenda.Nome;
+            _fazenda = _realm.Find<Fazenda>(fazenda);
+            FazendaName = _fazenda.Nome;
             PageTitle = "Editar Fazenda";
             LoadEstados();
             EstadoSelected = _realm.Find<Estado>(_fazenda.Cidade.EstadoId);
@@ -46,7 +46,6 @@ namespace Solum.ViewModel
         private Cidade _cidadeSelected;
         private Estado _estadoSelected;
 
-        private string _pageTitle;
         private string _fazendaName;
         private bool _isEstadosLoaded;
         private bool _isCidadesLoaded;
@@ -60,13 +59,7 @@ namespace Solum.ViewModel
         #endregion
 
         #region Propriedade de Binding
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
-
+       
         public string FazendaName
         {
             get { return _fazendaName; }

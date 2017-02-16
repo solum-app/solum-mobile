@@ -12,7 +12,9 @@ namespace Solum.Pages
 		{
 			InitializeComponent ();
 
-			LoadHtml ();
+#pragma warning disable 4014
+			LoadHtml();
+#pragma warning restore 4014
 		}
 
 		async Task LoadHtml ()

@@ -6,10 +6,10 @@ namespace Solum.Pages
 {
     public partial class GerenciamentoAnalisePage : ContentPage
     {
-        public GerenciamentoAnalisePage(Analise analise)
+        public GerenciamentoAnalisePage(string analiseId)
         {
             InitializeComponent();
-            BindingContext = new GerenciamentoAnaliseViewModel(Navigation, analise);
+            BindingContext = new GerenciamentoAnaliseViewModel(Navigation, analiseId);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
         }
 

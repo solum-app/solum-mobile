@@ -11,33 +11,33 @@ namespace Solum.ViewModel
 {
     public class TalhaoCadastroViewModel : BaseViewModel
     {
-        public TalhaoCadastroViewModel(INavigation navigation, Fazenda fazenda, bool fromAnalise) : base(navigation)
+        public TalhaoCadastroViewModel(INavigation navigation, string fazendaId, bool fromAnalise) : base(navigation)
         {
+            PageTitle = "Novo Talhão";
             _realm = Realm.GetInstance();
             _isUpdate = false;
             _fromAnalise = fromAnalise;
-            PageTitle = "Novo Talhão";
-            Fazenda = fazenda;
+            Fazenda = _realm.Find<Fazenda>(fazendaId);
         }
 
-        public TalhaoCadastroViewModel(INavigation navigation, Talhao talhao) : base(navigation)
+        public TalhaoCadastroViewModel(INavigation navigation, string talhaoId) : base(navigation)
         {
+            PageTitle = "Editar Talhão";
             _realm = Realm.GetInstance();
             _isUpdate = true;
-            Fazenda = _realm.Find<Fazenda>(talhao.FazendaId);
-            Talhao = talhao;
-            PageTitle = "Editar Talhão";
+            Talhao = _realm.Find<Talhao>(talhaoId);
+            Fazenda = _realm.Find<Fazenda>(Talhao.FazendaId);
             TalhaoName = Talhao.Nome;
             TalhaoArea = Talhao.Area;
         }
 
-        #region Comandos
+        #region Commands
 
         public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(Save));
 
         #endregion
 
-        #region Funções
+        #region Functions
 
         private async void Save()
         {
@@ -93,14 +93,13 @@ namespace Solum.ViewModel
 
         #endregion
 
-        #region Propriedades privadas
+        #region Private Properties
 
         private ICommand _saveCommand;
 
         private Fazenda _fazenda;
         private Talhao _talhao;
 
-        private string _pageTitle;
         private string _talhaoName;
         private string _talhaoArea;
 
@@ -111,13 +110,7 @@ namespace Solum.ViewModel
 
         #endregion
 
-        #region Propriedades de Binding
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
+        #region Binding Properties
 
         public string TalhaoName
         {

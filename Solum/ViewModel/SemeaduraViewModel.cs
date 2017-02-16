@@ -18,14 +18,13 @@ namespace Solum.ViewModel
             _analise = _realm.Find<Analise>(analiseId);
             var p = InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC);
             IsPotassioBaixo = !p.ToUpper().Equals("ADEQUADO") || !p.ToUpper().Equals("ALTO");
-            PageTitle = $"{_analise.Talhao.Fazenda} - {_analise.Talhao}";
+            PageTitle = _analise.Identificacao;
             Expectativas = new List<int> {6, 8, 10, 12};
             Culturas = new List<string> {"Milho"};
         }
 
         #region private properties
 
-        private string _pageTitle;
         private IList<int> _expectativas;
         private int _expectativaSelected;
 
@@ -42,13 +41,7 @@ namespace Solum.ViewModel
         #endregion
 
         #region binding properties
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
-
+        
         public IList<int> Expectativas
         {
             get { return _expectativas; }

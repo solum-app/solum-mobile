@@ -8,25 +8,25 @@ namespace Solum.ViewModel
 {
     public class InterpretacaoViewModel : BaseViewModel
     {
-        public InterpretacaoViewModel(INavigation navigation, Analise analise) : base(navigation)
+        public InterpretacaoViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
             var realm = Realm.GetInstance();
-            Analise = realm.Find<Analise>(analise.Id);
+            Analise = realm.Find<Analise>(analiseId);
             FazendaName = Analise.Talhao.Fazenda.Nome;
             Date = Analise.DataRegistro;
             TalhaoName = Analise.Talhao.Nome;
-            InterpretacaoTextura = InterpretaHandler.InterpretaTextura(analise.Argila, analise.Silte);
-            InterpretacaoPh = InterpretaHandler.InterpretaPh(analise.PotencialHidrogenico);
-            InterpretacaoP = InterpretaHandler.InterpretaP(analise.Fosforo, InterpretacaoTextura);
-            InterpretacaoK = InterpretaHandler.InterpretaK(analise.Potassio, analise.CTC);
-            InterpretacaoCa = InterpretaHandler.InterpretaCa(analise.Calcio);
-            InterpretacaoMg = InterpretaHandler.InterpretaMg(analise.Magnesio);
-            InterpretacaoCaK = InterpretaHandler.InterpretaCaK(analise.CaK);
-            InterpretacaoMgK = InterpretaHandler.InterpretaMgK(analise.MgK);
-            InterpretacaoM = InterpretaHandler.InterpretaM(analise.M);
-            InterpretacaoV = InterpretaHandler.InterpretaV(analise.V);
-            InterpretacaoCtc = InterpretaHandler.InterpretaCtc(analise.CTC, InterpretacaoTextura);
-            InterpretacaoMo = InterpretaHandler.InterpretaMo(analise.MateriaOrganica, InterpretacaoTextura);
+            InterpretacaoTextura = InterpretaHandler.InterpretaTextura(Analise.Argila, Analise.Silte);
+            InterpretacaoPh = InterpretaHandler.InterpretaPh(Analise.PotencialHidrogenico);
+            InterpretacaoP = InterpretaHandler.InterpretaP(Analise.Fosforo, InterpretacaoTextura);
+            InterpretacaoK = InterpretaHandler.InterpretaK(Analise.Potassio, Analise.CTC);
+            InterpretacaoCa = InterpretaHandler.InterpretaCa(Analise.Calcio);
+            InterpretacaoMg = InterpretaHandler.InterpretaMg(Analise.Magnesio);
+            InterpretacaoCaK = InterpretaHandler.InterpretaCaK(Analise.CaK);
+            InterpretacaoMgK = InterpretaHandler.InterpretaMgK(Analise.MgK);
+            InterpretacaoM = InterpretaHandler.InterpretaM(Analise.M);
+            InterpretacaoV = InterpretaHandler.InterpretaV(Analise.V);
+            InterpretacaoCtc = InterpretaHandler.InterpretaCtc(Analise.CTC, InterpretacaoTextura);
+            InterpretacaoMo = InterpretaHandler.InterpretaMo(Analise.MateriaOrganica, InterpretacaoTextura);
             using (var transaction = realm.BeginWrite())
             {
                 Analise.DataInterpretacao = DateTimeOffset.Now;
@@ -65,7 +65,7 @@ namespace Solum.ViewModel
 
         public string FazendaName
         {
-            get { return _fazendaName;}
+            get { return _fazendaName; }
             set { SetPropertyChanged(ref _fazendaName, value); }
         }
 

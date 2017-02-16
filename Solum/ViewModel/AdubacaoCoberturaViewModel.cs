@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Realms;
+﻿using Realms;
 using Solum.Interfaces;
 using Solum.Models;
 using Xamarin.Forms;
@@ -9,10 +7,30 @@ namespace Solum.ViewModel
 {
     public class AdubacaoCoberturaViewModel : BaseViewModel
     {
+        public AdubacaoCoberturaViewModel(INavigation navigation, string analiseid) : base(navigation)
+        {
+            var realm = Realm.GetInstance();
+            _analise = realm.Find<Analise>(analiseid);
+            PageTitle = _analise.Identificacao;
+            Cultura = _analise.Cultura;
+            Expectativa = _analise.Expectativa.ToString();
+            Calculate();
+        }
+
+        #region Functions
+
+        private void Calculate()
+        {
+            var calculator = CoberturaInjector.GetInstance(_analise.Cultura.ToUpper());
+            N = calculator?.CalculateN(_analise.Expectativa);
+            P2O5 = calculator?.CalculateP(_analise.Expectativa);
+            K2O = calculator?.CalculateK(_analise.Expectativa);
+        }
+
+        #endregion
 
         #region Private properites
 
-        private string _pageTitle;
         private string _expectativa;
         private string _cultura;
 
@@ -20,47 +38,11 @@ namespace Solum.ViewModel
         private string _p2O5;
         private string _k2O;
 
+        private readonly Analise _analise;
+
         #endregion
 
         #region Binding properties
-
-        #endregion
-
-        #region Commands
-
-        #endregion
-
-        #region Functions
-
-        #endregion
-
-
-        public AdubacaoCoberturaViewModel(INavigation navigation, string analiseid) : base(navigation)
-        {
-            var realm = Realm.GetInstance();
-            var analise = realm.Find<Analise>(analiseid);
-            PageTitle = analise.Identificacao;
-
-            var semeadura = realm.All<Semeadura>().FirstOrDefault(s => s.AnaliseId.Equals(analiseid));
-
-            Cultura = semeadura.Cultura;
-			Expectativa = semeadura.Expectativa.ToString();
-            var calculator = CoberturaInjector.GetInstance(semeadura.Cultura.ToUpper());
-            N = calculator?.CalculateN(semeadura.Expectativa);
-            P2O5 = calculator?.CalculateP(semeadura.Expectativa);
-            K2O = calculator?.CalculateK(semeadura.Expectativa);
-            using (var transaction = realm.BeginWrite())
-            {
-                analise.DataCalculoCobertura = DateTimeOffset.Now;
-                transaction.Commit();
-            }
-        }
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
 
         public string Expectativa
         {
@@ -91,5 +73,11 @@ namespace Solum.ViewModel
             get { return _k2O; }
             set { SetPropertyChanged(ref _k2O, value); }
         }
+
+        #endregion
+
+        #region Commands
+
+        #endregion
     }
 }

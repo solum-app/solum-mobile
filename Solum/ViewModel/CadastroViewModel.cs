@@ -23,7 +23,7 @@ namespace Solum.ViewModel
             LoadEstados();
         }
 
-        #region Propriedades privadas
+        #region Private Properties
 
         private ICommand _updateCidadesCommand;
         private ICommand _registerCommand;
@@ -48,8 +48,8 @@ namespace Solum.ViewModel
 
         #endregion
 
-        #region Propriedades de Binding
-
+        #region Binding Properties
+        
         public string Name
         {
             get { return _name; }
@@ -118,7 +118,7 @@ namespace Solum.ViewModel
 
         #endregion
 
-        #region Comandos
+        #region Commands
 
         public ICommand RegisterCommand => _registerCommand ?? (_registerCommand = new Command(Register));
 
@@ -129,7 +129,7 @@ namespace Solum.ViewModel
 
         #endregion
 
-        #region Funções
+        #region Functions
 
         public void LoadEstados()
         {
@@ -213,7 +213,7 @@ namespace Solum.ViewModel
 
         public async void Back()
         {
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
                 await Navigation.PopAsync();

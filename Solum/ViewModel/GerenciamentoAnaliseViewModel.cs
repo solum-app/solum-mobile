@@ -20,10 +20,10 @@ namespace Solum.ViewModel
 {
     public class GerenciamentoAnaliseViewModel : BaseViewModel
     {
-        public GerenciamentoAnaliseViewModel(INavigation navigation, Analise analise) : base(navigation)
+        public GerenciamentoAnaliseViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
             _realm = Realm.GetInstance();
-            Analise = _realm.Find<Analise>(analise.Id);
+            Analise = _realm.Find<Analise>(analiseId);
             PageTitle = Analise.Identificacao;
             UpdateValues();
         }
@@ -43,7 +43,6 @@ namespace Solum.ViewModel
         private bool _hasSemeaduraCalculation;
         private bool _hasCoberturaCalculation;
         private bool _isGeneratingReport;
-        private string _pageTitle;
 
         private DateTimeOffset? _interpretacaoDate;
         private DateTimeOffset? _calagemDate;
@@ -66,13 +65,7 @@ namespace Solum.ViewModel
         #endregion
 
         #region Binding Properties
-
-        public string PageTitle
-        {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
-
+        
         public Analise Analise
         {
             get { return _analise; }
@@ -193,7 +186,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new InterpretacaoPage(Analise));
+                await Navigation.PushAsync(new InterpretacaoPage(Analise.Id));
                 IsBusy = false;
             }
         }

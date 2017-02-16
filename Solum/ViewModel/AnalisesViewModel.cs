@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Realms;
-using Solum.Handlers;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -21,13 +21,13 @@ namespace Solum.ViewModel
         #region Private properties
 
         private bool _hasItems;
-        private readonly Realm _realm;
 
         private ICommand _editCommand;
         private ICommand _deleteCommand;
         private ICommand _itemTappedCommand;
 
         private IList<Analise> _analises;
+        private readonly Realm _realm;
 
         #endregion
 
@@ -44,10 +44,6 @@ namespace Solum.ViewModel
             get { return _hasItems; }
             set { SetPropertyChanged(ref _hasItems, value); }
         }
-
-        #endregion
-
-        #region Binding Properties
 
         #endregion
 
@@ -72,19 +68,26 @@ namespace Solum.ViewModel
 
         private void DeleteAnalise(object obj)
         {
-            var analise = obj as Analise;
-            using (var transaction = _realm.BeginWrite())
+            if (obj != null)
             {
-                _realm.Remove(analise);
-                transaction.Commit();
+                var analise = (Analise) obj;
+                using (var transaction = _realm.BeginWrite())
+                {
+                    _realm.Remove(analise);
+                    transaction.Commit();
+                }
+                Analises.Remove(analise);
             }
-            Analises.Remove(analise);
             UpdateAnalisesList();
         }
 
         private async void ShowEditAnalisePage(object obj)
         {
-            await Navigation.PushAsync(new AnalisePage(obj as Analise));
+            if (obj != null)
+            {
+                var analise = (Analise) obj;
+                await Navigation.PushAsync(new AnalisePage(analise.Id));
+            }
         }
 
         private async void ShowGerenciamentoAnalisePage(object obj)
@@ -92,7 +95,11 @@ namespace Solum.ViewModel
             if (IsNotBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new GerenciamentoAnalisePage(obj as Analise));
+                if (obj != null)
+                {
+                    var analise = (Analise) obj;
+                    await Navigation.PushAsync(new GerenciamentoAnalisePage(analise.Id));
+                }
                 IsBusy = false;
             }
         }

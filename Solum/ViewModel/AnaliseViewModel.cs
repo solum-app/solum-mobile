@@ -19,21 +19,23 @@ namespace Solum.ViewModel
         {
             _realm = Realm.GetInstance();
             PageTitle = "Nova Análise";
-            FazendaName = "Selecione uma fazenda";
-            TalhaoName = "Selecione um talhão";
+            FazendaNome = "Selecione uma fazenda";
+            TalhaoNome = "Selecione um talhão";
             FazendaLabelColor = (Color)Application.Current.Resources["colorTextHint"];
             TalhaoLabelColor = (Color)Application.Current.Resources["colorTextHint"];
             Subscribe();
         }
 
-        public AnaliseViewModel(INavigation navigation, Analise analise) : base(navigation)
+        public AnaliseViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
             _realm = Realm.GetInstance();
             PageTitle = "Editar Análise";
+            var analise = _realm.Find<Analise>(analiseId);
+            IdentificacaoAnalise = Analise.Identificacao;
             Fazenda = _realm.Find<Fazenda>(analise.Talhao.FazendaId);
             Talhao = _realm.Find<Talhao>(analise.TalhaoId);
-            FazendaName = Fazenda.Nome;
-            TalhaoName = Talhao.Nome;
+            FazendaNome = Fazenda.Nome;
+            TalhaoNome = Talhao.Nome;
             DateSelected = analise.DataRegistro;
             PotencialHidrogenico = analise.PotencialHidrogenico.ToString();
             Fosforo = analise.Fosforo.ToString();
@@ -51,12 +53,11 @@ namespace Solum.ViewModel
 
         #region Private Properties
 
-        private string _pageTitle;
-        private string _fazendaName;
+        private string _fazendaNome;
         private Color _fazendaLabelColor;
-        private string _talhaoName;
+        private string _talhaoNome;
         private Color _talhaoLabelColor;
-        private string _analiseName;
+        private string _identificacaoAnalise;
         private DateTimeOffset _data = DateTimeOffset.Now;
 
         private string _potencialHidrogenico;
@@ -85,18 +86,12 @@ namespace Solum.ViewModel
 
         #region Binding Properties
 
-        public string PageTitle
+        public string FazendaNome
         {
-            get { return _pageTitle; }
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
-
-        public string FazendaName
-        {
-            get { return _fazendaName; }
+            get { return _fazendaNome; }
             set
             {
-                SetPropertyChanged(ref _fazendaName, value); 
+                SetPropertyChanged(ref _fazendaNome, value); 
                 FazendaLabelColor = Color.Black;
             }
         }
@@ -107,12 +102,12 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _fazendaLabelColor, value); }
         }
 
-        public string TalhaoName
+        public string TalhaoNome
         {
-            get { return _talhaoName; }
+            get { return _talhaoNome; }
             set
             {
-                SetPropertyChanged(ref _talhaoName, value);
+                SetPropertyChanged(ref _talhaoNome, value);
                 TalhaoLabelColor = Color.Black;
             }
         }
@@ -123,10 +118,10 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _talhaoLabelColor, value); }
         }
 
-        public string AnaliseName
+        public string IdentificacaoAnalise
         {
-            get { return _analiseName; }
-            set { SetPropertyChanged(ref _analiseName, value); }
+            get { return _identificacaoAnalise; }
+            set { SetPropertyChanged(ref _identificacaoAnalise, value); }
         }
         public Analise Analise
         {
@@ -155,7 +150,7 @@ namespace Solum.ViewModel
         public string PotencialHidrogenico
         {
             get { return _potencialHidrogenico; }
-            set { SetPropertyChanged(ref _potencialHidrogenico, string.Format("{0:0.00}", value)); }
+            set { SetPropertyChanged(ref _potencialHidrogenico, $"{value:0.00}"); }
         }
 
         public string Fosforo
@@ -236,8 +231,7 @@ namespace Solum.ViewModel
         #endregion
 
         #region Funções
-
-      
+        
         private void SelectDate(object date)
         {
             DateSelected = (DateTimeOffset)date;
@@ -256,7 +250,7 @@ namespace Solum.ViewModel
         private void SelectFazenda(string id)
         {
             Fazenda = _realm.Find<Fazenda>(id);
-            FazendaName = Fazenda.Nome;
+            FazendaNome = Fazenda.Nome;
         }
 
         private async void ShowTalhoes()
@@ -270,7 +264,7 @@ namespace Solum.ViewModel
             if (!IsBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new FazendaDetalhesPage(Fazenda, true));
+                await Navigation.PushAsync(new FazendaDetalhesPage(Fazenda.Id, true));
                 IsBusy = false;
             }
         }
@@ -278,7 +272,7 @@ namespace Solum.ViewModel
         private void SelectTalhao(string id)
         {
             Talhao = _realm.Find<Talhao>(id);
-            TalhaoName = Talhao.Nome;
+            TalhaoNome = Talhao.Nome;
         }
 
         private async void Save()
@@ -289,7 +283,7 @@ namespace Solum.ViewModel
                 return;
             }
 
-            if (string.IsNullOrEmpty(AnaliseName))
+            if (string.IsNullOrEmpty(IdentificacaoAnalise))
             {
                 "Identifique a análise com um nome".ToDisplayAlert(MessageType.Aviso);
                 return;
@@ -372,7 +366,7 @@ namespace Solum.ViewModel
             {
                 Id = Guid.NewGuid().ToString(),
                 TalhaoId = Talhao.Id,
-                Identificacao = AnaliseName,
+                Identificacao = IdentificacaoAnalise,
                 Talhao = Talhao,
                 DataRegistro = DateSelected,
                 PotencialHidrogenico =
@@ -397,7 +391,7 @@ namespace Solum.ViewModel
 
             Success.ToToast(ToastNotificationType.Sucesso);
             var last = Navigation.NavigationStack.LastOrDefault();
-            await Navigation.PushAsync(new GerenciamentoAnalisePage(analise));
+            await Navigation.PushAsync(new GerenciamentoAnalisePage(analise.Id));
             Navigation.RemovePage(last);
             Dispose();
         }

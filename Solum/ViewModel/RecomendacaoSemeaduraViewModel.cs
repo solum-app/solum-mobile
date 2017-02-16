@@ -15,8 +15,8 @@ namespace Solum.ViewModel
         {
             var interpreter = SemeaduraInjector.GetInstance(cultura);
             var analise = Realm.GetInstance().Find<Analise>(analiseId);
-            PageTitle = $"{analise.Talhao.Fazenda} - {analise.Talhao}";
-            Expectativa = $"{expectativa} t/ha";
+            PageTitle = analise.Identificacao;
+            Expectativa = expectativa.ToString("N");
             Cultura = cultura;
             N = interpreter.CalculateN(expectativa, null).ToString();
             P205 =
@@ -24,9 +24,9 @@ namespace Solum.ViewModel
                     InterpretaHandler.InterpretaP(analise.Fosforo,
                         InterpretaHandler.InterpretaTextura(analise.Argila, analise.Silte))).ToString();
             K20 =
-                interpreter.CalculateK(expectativa, 
-                    InterpretaHandler.InterpretaK(analise.Potassio, analise.CTC))
-                .ToString();
+                interpreter.CalculateK(expectativa,
+                        InterpretaHandler.InterpretaK(analise.Potassio, analise.CTC))
+                    .ToString();
             _analiseId = analiseId;
             using (var transaction = Realm.GetInstance().BeginWrite())
             {
@@ -34,61 +34,68 @@ namespace Solum.ViewModel
                 transaction.Commit();
             }
         }
-
-        private string _n;
-        private string _p205;
-        private string _k20;
-
-        private string _pageTitle;
-        private string _expectativa;
-        private string _cultura;
-
-        private string _analiseId;
-
-        private ICommand _showSemeaduraPageCommand;
-
-        public ICommand ShowSemeaduraPageCommand
-            => _showSemeaduraPageCommand ?? (_showSemeaduraPageCommand = new Command(ShowSemeaduraPage));
-
-        public string PageTitle
-        {
-            get { return _pageTitle;}
-            set { SetPropertyChanged(ref _pageTitle, value); }
-        }
+        
+        #region Binding Properties
 
         public string Expectativa
         {
-            get { return _expectativa;}
+            get { return _expectativa; }
             set { SetPropertyChanged(ref _expectativa, value); }
         }
 
         public string Cultura
         {
-            get { return _cultura;}
+            get { return _cultura; }
             set { SetPropertyChanged(ref _cultura, value); }
         }
 
         public string N
         {
-            get { return _n;}
+            get { return _n; }
             set { SetPropertyChanged(ref _n, value); }
         }
 
         public string P205
         {
-            get { return _p205;}
+            get { return _p205; }
             set { SetPropertyChanged(ref _p205, value); }
         }
 
         public string K20
         {
-            get { return _k20;}
+            get { return _k20; }
             set { SetPropertyChanged(ref _k20, value); }
         }
 
+        #endregion
+
+        #region Private Properties
+
+        private string _n;
+        private string _p205;
+        private string _k20;
+
+        private string _expectativa;
+        private string _cultura;
+
+        private readonly string _analiseId;
+
+        private ICommand _showSemeaduraPageCommand;
+
+        #endregion
+
+        #region Commands
+
+        public ICommand ShowSemeaduraPageCommand
+            => _showSemeaduraPageCommand ?? (_showSemeaduraPageCommand = new Command(ShowSemeaduraPage));
+
+        #endregion
+
+        #region Functions
+
         private async void ShowSemeaduraPage()
         {
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
                 var current = Navigation.NavigationStack.LastOrDefault();
@@ -97,5 +104,7 @@ namespace Solum.ViewModel
                 IsBusy = false;
             }
         }
+
+        #endregion
     }
 }

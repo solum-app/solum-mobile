@@ -67,7 +67,7 @@ namespace Solum.ViewModel
 
         private async void Details(Fazenda fazenda)
         {
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
                 if (_fromAnalise)
@@ -77,7 +77,7 @@ namespace Solum.ViewModel
                 }
                 else
                 {
-                    await Navigation.PushAsync(new FazendaDetalhesPage(fazenda, _fromAnalise));
+                    await Navigation.PushAsync(new FazendaDetalhesPage(fazenda.Id, _fromAnalise));
                 }
                 IsBusy = false;
             }
@@ -86,7 +86,7 @@ namespace Solum.ViewModel
         private async void Edit(Fazenda fazenda)
         {
             var current = Navigation.NavigationStack.LastOrDefault();
-            await Navigation.PushAsync(new FazendaCadastroPage(fazenda, _fromAnalise));
+            await Navigation.PushAsync(new FazendaCadastroPage(fazenda.Id, _fromAnalise));
             if (_fromAnalise)
                 Navigation.RemovePage(current);
         }
