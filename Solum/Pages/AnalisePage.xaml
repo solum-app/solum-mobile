@@ -41,7 +41,7 @@
 				<Entry 
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
-					Text="{Binding AnaliseName}"
+					Text="{Binding IdentificacaoAnalise}"
 					Keyboard="Text"
 					VerticalOptions="Center"
 					Grid.Column="2"
@@ -84,7 +84,7 @@
         
 				<Label 
 					x:Name="fazendaLabel"
-					Text="{Binding FazendaName}"
+					Text="{Binding FazendaNome}"
 					TextColor="{Binding FazendaLabelColor}"
 					VerticalOptions="Center" 
 					Grid.Column="2"
@@ -132,7 +132,7 @@
       
 				<Label 
 					x:Name="talhaoLabel"
-					Text="{Binding TalhaoName}"
+					Text="{Binding TalhaoNome}"
 					TextColor="{Binding TalhaoLabelColor}"
 					VerticalOptions="Center"
 					Grid.Column="2"

@@ -98,7 +98,7 @@
         
 				<Label Text="Quantidade de N" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0" />
         
-				<Label Text="{Binding N, StringFormat='{0} Kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8" />
+				<Label Text="{Binding N, StringFormat='{0} kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8" />
         
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
 					<BoxView.HeightRequest>
@@ -119,7 +119,7 @@
         
 				<Label Text="Quantidade de P2O5" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0" />
         
-				<Label Text="{Binding P2O5, StringFormat='{0} Kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8" />
+				<Label Text="{Binding P2O5, StringFormat='{0} kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8" />
         
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
 					<BoxView.HeightRequest>
@@ -140,7 +140,7 @@
         
 				<Label Text="Quantidade de K2O" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0" />
         
-				<Label Text="{Binding K2O, StringFormat='{0} Kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8" />
+				<Label Text="{Binding K2O, StringFormat='{0} kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8" />
         
 			</Grid>
       
@@ -149,6 +149,8 @@
 					<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
 				</BoxView.HeightRequest>
 			</BoxView>
+
+      <Button Text="Salvar" Command="{Binding SalvarCommand}" IsVisible="{Binding EnableButton}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

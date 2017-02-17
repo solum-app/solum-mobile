@@ -369,8 +369,7 @@ namespace Solum.ViewModel
                 Identificacao = IdentificacaoAnalise,
                 Talhao = Talhao,
                 DataRegistro = DateSelected,
-                PotencialHidrogenico =
-                    float.Parse("0" + PotencialHidrogenico.Replace(',', '.'), CultureInfo.InvariantCulture),
+                PotencialHidrogenico = float.Parse("0" + PotencialHidrogenico.Replace(',', '.'), CultureInfo.InvariantCulture),
                 Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture),
                 Potassio = float.Parse("0" + Potassio.Replace(',', '.'), CultureInfo.InvariantCulture),
                 Calcio = float.Parse("0" + Calcio.Replace(',', '.'), CultureInfo.InvariantCulture),

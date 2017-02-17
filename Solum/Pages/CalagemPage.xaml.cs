@@ -1,4 +1,5 @@
 ﻿using System;
+using Solum.Models;
 using Solum.ViewModel;
 using Xamarin.Forms;
 
@@ -10,6 +11,13 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new CalagemViewModel(Navigation, analiseId);
+            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+        }
+
+        public CalagemPage(Analise analise)
+        {
+            InitializeComponent();
+            BindingContext = new CalagemViewModel(Navigation, analise);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
         }
 

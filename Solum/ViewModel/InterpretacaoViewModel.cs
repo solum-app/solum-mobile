@@ -30,6 +30,7 @@ namespace Solum.ViewModel
             using (var transaction = realm.BeginWrite())
             {
                 Analise.DataInterpretacao = DateTimeOffset.Now;
+                Analise.WasInterpreted = true;
                 transaction.Commit();
             }
         }

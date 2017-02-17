@@ -5,10 +5,10 @@ namespace Solum.Pages
 {
     public partial class AdubacaoCoberturaPage : ContentPage
     {
-        public AdubacaoCoberturaPage(string analiseid)
+        public AdubacaoCoberturaPage(string analiseid, bool enableButton)
         {
             InitializeComponent();
-            BindingContext = new AdubacaoCoberturaViewModel(Navigation, analiseid);
+            BindingContext = new AdubacaoCoberturaViewModel(Navigation, analiseid, enableButton);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
         }
     }

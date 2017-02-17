@@ -1,4 +1,6 @@
-﻿using Realms;
+﻿using System;
+using System.Windows.Input;
+using Realms;
 using Solum.Interfaces;
 using Solum.Models;
 using Xamarin.Forms;
@@ -7,15 +9,23 @@ namespace Solum.ViewModel
 {
     public class AdubacaoCoberturaViewModel : BaseViewModel
     {
-        public AdubacaoCoberturaViewModel(INavigation navigation, string analiseid) : base(navigation)
+        public AdubacaoCoberturaViewModel(INavigation navigation, string analiseid, bool enableButton)
+            : base(navigation)
         {
-            var realm = Realm.GetInstance();
-            _analise = realm.Find<Analise>(analiseid);
+            _realm = Realm.GetInstance();
+            _analise = _realm.Find<Analise>(analiseid);
             PageTitle = _analise.Identificacao;
             Cultura = _analise.Cultura;
             Expectativa = _analise.Expectativa.ToString();
             Calculate();
+            EnableButton = enableButton;
         }
+
+        #region Commands
+
+        public ICommand SalvarCommand => _salvarCommand ?? (_salvarCommand = new Command(Salvar));
+
+        #endregion
 
         #region Functions
 
@@ -27,10 +37,28 @@ namespace Solum.ViewModel
             K2O = calculator?.CalculateK(_analise.Expectativa);
         }
 
+        private async void Salvar()
+        {
+            using (var transaction = _realm.BeginWrite())
+            {
+                _analise.DataCalculoCobertura = DateTimeOffset.Now;
+                _analise.HasCobertura = true;
+                transaction.Commit();
+            }
+
+            if (IsNotBusy)
+            {
+                IsBusy = true;
+                await Navigation.PopAsync();
+                IsBusy = false;
+            }
+        }
+
         #endregion
 
         #region Private properites
 
+        private bool _enableButton;
         private string _expectativa;
         private string _cultura;
 
@@ -38,11 +66,20 @@ namespace Solum.ViewModel
         private string _p2O5;
         private string _k2O;
 
+        private ICommand _salvarCommand;
+
         private readonly Analise _analise;
+        private readonly Realm _realm;
 
         #endregion
 
         #region Binding properties
+
+        public bool EnableButton
+        {
+            get { return _enableButton; }
+            set { SetPropertyChanged(ref _enableButton, value); }
+        }
 
         public string Expectativa
         {
@@ -76,7 +113,7 @@ namespace Solum.ViewModel
 
         #endregion
 
-        #region Commands
+        #region Functions
 
         #endregion
     }

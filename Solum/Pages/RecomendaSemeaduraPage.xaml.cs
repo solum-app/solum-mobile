@@ -1,4 +1,5 @@
-﻿using Solum.ViewModel;
+﻿using System.Linq;
+using Solum.ViewModel;
 using Xamarin.Forms;
 
 namespace Solum.Pages
@@ -10,6 +11,17 @@ namespace Solum.Pages
             InitializeComponent();
             BindingContext = new RecomendacaoSemeaduraViewModel(Navigation, analiseId, expectativaSelected, culturaSelected);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            ToolbarItems.Add(new ToolbarItem("Edit", "ic_editar", async () =>
+            {
+                if (!IsBusy)
+                {
+                    IsBusy = true;
+                    var current = Navigation.NavigationStack.LastOrDefault();
+                    await Navigation.PushAsync(new SemeaduraPage(analiseId, true));
+                    Navigation.RemovePage(current);
+                    IsBusy = false;
+                }
+            }));
         }
     }
 }

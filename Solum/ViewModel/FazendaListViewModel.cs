@@ -102,6 +102,12 @@ namespace Solum.ViewModel
             UpdateFazendaList();
         }
 
+        public bool CanDelete(string fazendaId)
+        {
+
+
+            return false;
+        }
         public void UpdateFazendaList()
         {
             Fazendas = _realm.All<Fazenda>().OrderBy(x => x.Nome).ToList();

@@ -1,4 +1,5 @@
 ﻿using System;
+using Solum.Models;
 using Solum.Renderers;
 using Solum.ViewModel;
 using Xamarin.Forms;
@@ -64,11 +65,16 @@ namespace Solum.Pages
 
         private async void OnDelete(object sender, EventArgs e)
         {
-            var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
-            if (!confirm) return;
-            var fazenda = (sender as MenuItem)?.CommandParameter;
+            var fazenda = (sender as MenuItem).CommandParameter;
             var context = BindingContext as FazendaListViewModel;
-            context?.DeleteCommand.Execute(fazenda);
+            var canDelete = context.CanDelete((fazenda as Fazenda).Id);
+            if (canDelete)
+            {
+                var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
+                if (confirm)
+                    context.DeleteCommand.Execute(fazenda);
+            }
+
         }
 
         protected override void OnAppearing()

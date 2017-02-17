@@ -13,26 +13,21 @@ namespace Solum.ViewModel
     {
         public RecomendacaoSemeaduraViewModel(INavigation navigation, string analiseId, int expectativa, string cultura) : base(navigation)
         {
+            _realm = Realm.GetInstance();
             var interpreter = SemeaduraInjector.GetInstance(cultura);
-            var analise = Realm.GetInstance().Find<Analise>(analiseId);
-            PageTitle = analise.Identificacao;
-            Expectativa = expectativa.ToString("N");
+            _analise = _realm.Find<Analise>(analiseId);
+            PageTitle = _analise.Identificacao;
+            Expectativa = expectativa.ToString();
             Cultura = cultura;
             N = interpreter.CalculateN(expectativa, null).ToString();
             P205 =
                 interpreter.CalculateP(expectativa,
-                    InterpretaHandler.InterpretaP(analise.Fosforo,
-                        InterpretaHandler.InterpretaTextura(analise.Argila, analise.Silte))).ToString();
+                    InterpretaHandler.InterpretaP(_analise.Fosforo,
+                        InterpretaHandler.InterpretaTextura(_analise.Argila, _analise.Silte))).ToString();
             K20 =
                 interpreter.CalculateK(expectativa,
-                        InterpretaHandler.InterpretaK(analise.Potassio, analise.CTC))
+                        InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC))
                     .ToString();
-            _analiseId = analiseId;
-            using (var transaction = Realm.GetInstance().BeginWrite())
-            {
-                analise.DataCalculoSemeadura = DateTimeOffset.Now;
-                transaction.Commit();
-            }
         }
         
         #region Binding Properties
@@ -78,29 +73,37 @@ namespace Solum.ViewModel
         private string _expectativa;
         private string _cultura;
 
-        private readonly string _analiseId;
-
         private ICommand _showSemeaduraPageCommand;
+
+        private readonly Analise _analise;
+        private readonly Realm _realm;
 
         #endregion
 
         #region Commands
 
-        public ICommand ShowSemeaduraPageCommand
-            => _showSemeaduraPageCommand ?? (_showSemeaduraPageCommand = new Command(ShowSemeaduraPage));
+        public ICommand SalvarCommand
+            => _showSemeaduraPageCommand ?? (_showSemeaduraPageCommand = new Command(Salvar));
 
         #endregion
 
         #region Functions
 
-        private async void ShowSemeaduraPage()
+        private async void Salvar()
         {
+            using (var transaction = _realm.BeginWrite())
+            {
+                _analise.DataCalculoSemeadura = DateTimeOffset.Now;
+                _analise.HasSemeadura = true;
+                _analise.Cultura = Cultura;
+                _analise.Expectativa = int.Parse(Expectativa);
+                transaction.Commit();
+            }
+
             if (IsNotBusy)
             {
                 IsBusy = true;
-                var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new SemeaduraPage(_analiseId));
-                Navigation.RemovePage(current);
+                await Navigation.PopAsync();
                 IsBusy = false;
             }
         }

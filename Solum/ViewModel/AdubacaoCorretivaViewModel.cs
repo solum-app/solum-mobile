@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using Realms;
 using Solum.Handlers;
 using Solum.Models;
@@ -74,6 +75,7 @@ namespace Solum.ViewModel
 
         #region Private Properties
 
+        private ICommand _salvarCommand;
         private string _p2O5;
         private string _k2O;
 
@@ -84,6 +86,7 @@ namespace Solum.ViewModel
 
         #region Binding Properties
 
+        public ICommand SalvarCommand => _salvarCommand ?? (_salvarCommand = new Command(Salvar));
         public string P2O5
         {
             get { return _p2O5; }
@@ -94,6 +97,27 @@ namespace Solum.ViewModel
         {
             get { return _k2O; }
             set { SetPropertyChanged(ref _k2O, value); }
+        }
+
+        #endregion
+
+        #region Functions
+
+        private async void Salvar()
+        {
+            using (var transaction = _realm.BeginWrite())
+            {
+                _analise.DataCalculoCorretiva = DateTimeOffset.Now;
+                _analise.HasCorretiva = true;
+                transaction.Commit();
+            }
+
+            if (IsNotBusy)
+            {
+                IsBusy = true;
+                await Navigation.PopAsync();
+                IsBusy = false;
+            }
         }
 
         #endregion

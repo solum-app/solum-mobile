@@ -12,7 +12,7 @@ namespace Solum.ViewModel
 {
     public class SemeaduraViewModel : BaseViewModel
     {
-        public SemeaduraViewModel(INavigation navigation, string analiseId) : base(navigation)
+        public SemeaduraViewModel(INavigation navigation, string analiseId, bool enableButton) : base(navigation)
         {
             _realm = Realm.GetInstance();
             _analise = _realm.Find<Analise>(analiseId);
@@ -37,11 +37,18 @@ namespace Solum.ViewModel
         private ICommand _recomendarCommand;
 
         private readonly Realm _realm;
+        private bool _enableButton;
 
         #endregion
 
         #region binding properties
-        
+
+        public bool EnableButton
+        {
+            get { return _enableButton; }
+            set { SetPropertyChanged(ref _enableButton, value); }
+        }
+
         public IList<int> Expectativas
         {
             get { return _expectativas; }
@@ -84,42 +91,18 @@ namespace Solum.ViewModel
 
         private async void Recomendar()
         {
-            if (ExpectativaSelected == 0 || string.IsNullOrEmpty(CulturaSelected))
+            if (ExpectativaSelected == 0)
             {
-                "Selecione a sua expectativa e a cultura".ToDisplayAlert(MessageType.Aviso);
+                "Selecione a sua expectativa".ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+            if (string.IsNullOrEmpty(CulturaSelected))
+            {
+                "Selecione a cultura".ToDisplayAlert(MessageType.Aviso);
                 return;
             }
 
-            Semeadura obj;
-            if (_realm.All<Semeadura>().Any(s => s.AnaliseId.Equals(_analise.Id)))
-            {
-                obj = _realm.All<Semeadura>().FirstOrDefault(s => s.AnaliseId.Equals(_analise.Id));
-                using (var transaction = _realm.BeginWrite())
-                {
-                    obj.Cultura = CulturaSelected;
-                    obj.Expectativa = ExpectativaSelected;
-                    transaction.Commit();
-                }
-            }
-            else
-            {
-               obj = new Semeadura()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Analise = _analise,
-                    AnaliseId = _analise.Id,
-                    Cultura = CulturaSelected,
-                    Expectativa = ExpectativaSelected
-                };
-
-                using (var transaction = _realm.BeginWrite())
-                {
-                    _realm.Add(obj);
-                    transaction.Commit();
-                }
-            }
-
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
                 var current = Navigation.NavigationStack.LastOrDefault();
