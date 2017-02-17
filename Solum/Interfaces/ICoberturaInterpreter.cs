@@ -30,12 +30,12 @@
                 case 12:
                     return 180.0f.ToString();
             }
-            return 0.ToString("N");
+            return 0.ToString();
         }
 
         public string CalculateP(int expectativa)
         {
-            return 0.ToString("N");
+            return 0.ToString();
         }
 
         public string CalculateK(int expectativa)
@@ -51,7 +51,7 @@
                 case 12:
                     return 90.0f.ToString();
             }
-            return 0.ToString("N");
+            return 0.ToString();
         }
     }
 

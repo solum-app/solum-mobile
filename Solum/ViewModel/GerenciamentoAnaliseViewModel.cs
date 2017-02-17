@@ -25,7 +25,11 @@ namespace Solum.ViewModel
             _realm = Realm.GetInstance();
             Analise = _realm.Find<Analise>(analiseId);
             PageTitle = Analise.Identificacao;
-            UpdateValues();
+            WasInterpreted = Analise.WasInterpreted;
+            HasCalagemCalculation = Analise.HasCalagem;
+            HasCorretivaCalculation = Analise.HasCorretiva;
+            HasSemeaduraCalculation = Analise.HasSemeadura;
+            HasCoberturaCalculation = Analise.HasCobertura;
         }
 
         #region Private Properties
@@ -44,11 +48,11 @@ namespace Solum.ViewModel
         private bool _hasCoberturaCalculation;
         private bool _isGeneratingReport;
 
-        private DateTimeOffset? _interpretacaoDate;
-        private DateTimeOffset? _calagemDate;
-        private DateTimeOffset? _corretivaDate;
-        private DateTimeOffset? _semeaduraDate;
-        private DateTimeOffset? _coberturaDate;
+        private string _interpretacaoDate;
+        private string _calagemDate;
+        private string _corretivaDate;
+        private string _semeaduraDate;
+        private string _coberturaDate;
 
         private Analise _analise;
         private readonly Realm _realm;
@@ -65,7 +69,7 @@ namespace Solum.ViewModel
         #endregion
 
         #region Binding Properties
-        
+
         public Analise Analise
         {
             get { return _analise; }
@@ -112,47 +116,47 @@ namespace Solum.ViewModel
         {
             get
             {
-                return _interpretacaoDate.HasValue
-                    ? $"Realizada em  {_interpretacaoDate.Value:dd/MM/yy}"
+                return Analise.WasInterpreted
+                    ? $"Realizada em  {Analise.DataInterpretacao:dd/MM/yy}"
                     : "Não realizada ainda";
             }
-            set { SetPropertyChanged(ref _interpretacaoDate, DateTimeOffset.Parse(value)); }
+            set { SetPropertyChanged(ref _interpretacaoDate, (value)); }
         }
 
         public string CalagemDate
         {
             get
             {
-                return _calagemDate.HasValue ? $"Realizada em {_calagemDate.Value:dd/MM/yy}" : "Não realizada ainda";
+                return Analise.HasCalagem? $"Realizada em {Analise.DataCalculoCalagem:dd/MM/yy}" : "Não realizada ainda";
             }
-            set { SetPropertyChanged(ref _calagemDate, DateTimeOffset.Parse(value)); }
+            set { SetPropertyChanged(ref _calagemDate, value); }
         }
 
         public string CorretivaDate
         {
             get
             {
-                return _corretivaDate.HasValue ? $"Realizada em {_corretivaDate.Value:dd/MM/yy}" : "Não realizada ainda";
+                return Analise.HasCorretiva ? $"Realizada em {Analise.DataCalculoCorretiva:dd/MM/yy}" : "Não realizada ainda";
             }
-            set { SetPropertyChanged(ref _corretivaDate, DateTimeOffset.Parse(value)); }
+            set { SetPropertyChanged(ref _corretivaDate, value); }
         }
 
         public string SemeaduraDate
         {
             get
             {
-                return _semeaduraDate.HasValue ? $"Realizada em {_semeaduraDate.Value:dd/MM/yy}" : "Não realizada ainda";
+                return Analise.HasSemeadura ? $"Realizada em {Analise.DataCalculoSemeadura:dd/MM/yy}" : "Não realizada ainda";
             }
-            set { SetPropertyChanged(ref _semeaduraDate, DateTimeOffset.Parse(value)); }
+            set { SetPropertyChanged(ref _semeaduraDate, value); }
         }
 
         public string CoberturaDate
         {
             get
             {
-                return _coberturaDate.HasValue ? $"Realizada em {_coberturaDate.Value:dd/MM/yy}" : "Não realizada ainda";
+                return Analise.HasCobertura ? $"Realizada em {Analise.DataCalculoCobertura:dd/MM/yy}" : "Não realizada ainda";
             }
-            set { SetPropertyChanged(ref _coberturaDate, DateTimeOffset.Parse(value)); }
+            set { SetPropertyChanged(ref _coberturaDate, value); }
         }
 
         #endregion
@@ -183,7 +187,7 @@ namespace Solum.ViewModel
 
         private async void ShowInterpretacaoPage()
         {
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
                 await Navigation.PushAsync(new InterpretacaoPage(Analise.Id));
@@ -193,26 +197,27 @@ namespace Solum.ViewModel
 
         private async void ShowCalagemPage()
         {
-            if (!IsBusy)
+            if (!WasInterpreted)
+            {
+                "Você precisa realizar a interpretação primeiro".ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+            if (IsNotBusy)
             {
                 IsBusy = true;
-                if (WasInterpreted)
-                    await Navigation.PushAsync(new CalagemPage(Analise.Id));
-                else
-                    "Você precisa realizar a interpretação primeiro".ToDisplayAlert(MessageType.Aviso);
+                await Navigation.PushAsync(new CalagemPage(Analise.Id));
                 IsBusy = false;
             }
         }
 
         private async void ShowRecomendacaoCalagemPage()
         {
-            if (!IsBusy)
+            if (IsNotBusy)
             {
                 IsBusy = true;
-                var wasCalculated = Analise.DataCalculoCalagem.HasValue;
-                if (wasCalculated)
+                if (HasCalagemCalculation)
                 {
-                    await Navigation.PushAsync(new RecomendaCalagemPage(Analise.Id));
+                    await Navigation.PushAsync(new RecomendaCalagemPage(Analise.Id, Analise.V2, Analise.Prnt, Analise.Profundidade, false));
                     IsBusy = false;
                 }
                 else
@@ -225,50 +230,51 @@ namespace Solum.ViewModel
 
         private async void ShowCorretivaPage()
         {
-            if (!IsBusy)
+            if (!HasCalagemCalculation)
+            {
+                "Você precisa executar o cálculo para recomendação de calagem primeiro".ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (IsNotBusy)
             {
                 IsBusy = true;
-                if (HasCalagemCalculation)
-                    await Navigation.PushAsync(new AdubacaoCorretivaPage(Analise.Id));
-                else
-                    "Você precisa executar o cálculo para recomendação de calagem primeiro".ToDisplayAlert(
-                        MessageType.Aviso);
+                await Navigation.PushAsync(new AdubacaoCorretivaPage(Analise.Id));
                 IsBusy = false;
             }
         }
 
         private async void ShowSemeaduraPage()
         {
-            if (!IsBusy)
+            if (!HasCorretivaCalculation)
+            {
+                "Você precisa executar o cálculo da recomendação corretiva primeiro".ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+            if (IsNotBusy)
             {
                 IsBusy = true;
-                if (HasCorretivaCalculation)
-                    if (HasSemeaduraCalculation)
-                    {
-                        var semeadura = _realm.All<Semeadura>().FirstOrDefault(x => x.AnaliseId.Equals(Analise.Id));
-                        await Navigation.PushAsync(new RecomendaSemeaduraPage(Analise.Id, semeadura.Expectativa,
-                            semeadura.Cultura));
-                    }
-                    else
-                    {
-                        await Navigation.PushAsync(new SemeaduraPage(Analise.Id));
-                    }
+                if (HasSemeaduraCalculation)
+                    await Navigation.PushAsync(new RecomendaSemeaduraPage(Analise.Id, Analise.Expectativa,
+                        Analise.Cultura));
                 else
-                    "Você precisa executar o cálculo da recomendação corretiva primeiro".ToDisplayAlert(
-                        MessageType.Aviso);
+                    await Navigation.PushAsync(new SemeaduraPage(Analise.Id, false));
                 IsBusy = false;
             }
         }
 
         private async void ShowCoberturaPage()
         {
-            if (!IsBusy)
+            if (!HasSemeaduraCalculation)
+            {
+                "Você precisa executar a recomendação de semeadura primeiro".ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (IsNotBusy)
             {
                 IsBusy = true;
-                if (HasSemeaduraCalculation)
-                    await Navigation.PushAsync(new AdubacaoCoberturaPage(Analise.Id));
-                else
-                    "Você precisa executar a recomendação de semeadura primeiro".ToDisplayAlert(MessageType.Aviso);
+                await Navigation.PushAsync(new AdubacaoCoberturaPage(Analise.Id, !Analise.HasCobertura));
                 IsBusy = false;
             }
         }
@@ -276,34 +282,33 @@ namespace Solum.ViewModel
         public void UpdateValues()
         {
             Analise = _realm.Find<Analise>(Analise.Id);
-            if (Analise.DataInterpretacao != null)
+            if (Analise.WasInterpreted)
             {
                 InterpretacaoDate = Analise.DataInterpretacao.ToString();
                 WasInterpreted = true;
             }
-            if (Analise.DataCalculoCalagem != null)
+            if (Analise.HasCalagem)
             {
                 CalagemDate = Analise.DataCalculoCalagem.ToString();
                 HasCalagemCalculation = true;
             }
-            if (Analise.DataCalculoCorretiva != null)
+            if (Analise.HasCorretiva)
             {
                 CorretivaDate = Analise.DataCalculoCorretiva.ToString();
                 HasCorretivaCalculation = true;
             }
-            if (Analise.DataCalculoSemeadura != null)
+            if (Analise.HasSemeadura)
             {
                 SemeaduraDate = Analise.DataCalculoSemeadura.ToString();
                 HasSemeaduraCalculation = true;
             }
-            if (Analise.DataCalculoCobertura != null)
+            if (Analise.HasCobertura)
             {
                 CoberturaDate = Analise.DataCalculoCobertura.ToString();
                 HasCoberturaCalculation = true;
             }
         }
-
-
+        
         private void GeneratePdf()
         {
             IsGeneratingReport = true;
@@ -313,8 +318,7 @@ namespace Solum.ViewModel
                 "Você precisa ao menos realizar a interpretação dos dados".ToDisplayAlert(MessageType.Aviso);
                 return;
             }
-
-
+            
             _doc = new PdfDocument();
             var infos = _doc.DocumentInformation;
             infos.Author = "Sydy Tecnologia";
@@ -467,8 +471,8 @@ namespace Solum.ViewModel
                 g.DrawString(calagem.V2.ToString(), textFont, new PdfSolidBrush(_black), new PointF(25, y));
                 g.DrawString(calagem.Prnt.ToString(), textFont, new PdfSolidBrush(_black), new PointF(175, y));
                 g.DrawString(calagem.Profundidade.ToString(), textFont, new PdfSolidBrush(_black), new PointF(325, y));
-                var calagemvm = new RecomendacaoCalagemViewModel(Navigation, calagem.Id);
-                g.DrawString(calagemvm.QuantidadeCal.ToString(), textFont, new PdfSolidBrush(_black), new PointF(475, y));
+                var calagemvm = new RecomendacaoCalagemViewModel(Navigation, Analise.Id, Analise.V2, Analise.Prnt, Analise.Profundidade, false);
+                g.DrawString(calagemvm.QuantidadeCal, textFont, new PdfSolidBrush(_black), new PointF(475, y));
             }
             if (HasCorretivaCalculation)
             {
@@ -539,7 +543,7 @@ namespace Solum.ViewModel
 
                 y += 9;
                 var cobertura = _realm.All<Semeadura>().FirstOrDefault(s => s.AnaliseId.Equals(Analise.Id));
-                var coberturavm = new AdubacaoCoberturaViewModel(Navigation, _analise.Id);
+                var coberturavm = new AdubacaoCoberturaViewModel(Navigation, _analise.Id, false);
                 g.DrawString(cobertura.Cultura, textFont, new PdfSolidBrush(_black), new PointF(25, y));
                 g.DrawString(cobertura.Expectativa.ToString(), textFont, new PdfSolidBrush(_black), new PointF(125, y));
                 g.DrawString(coberturavm.N, textFont, new PdfSolidBrush(_black), new PointF(225, y));

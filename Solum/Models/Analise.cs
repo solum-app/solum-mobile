@@ -19,11 +19,16 @@ namespace Solum.Models
         public string TalhaoId { get; set; }
         public string Identificacao { get; set; }
         public DateTimeOffset DataRegistro { get; set; }
-        public DateTimeOffset? DataInterpretacao { get; set; }
-        public DateTimeOffset? DataCalculoCalagem { get; set; }
-        public DateTimeOffset? DataCalculoCorretiva { get; set; }
-        public DateTimeOffset? DataCalculoSemeadura { get; set; }
-        public DateTimeOffset? DataCalculoCobertura { get; set; }
+        public DateTimeOffset DataInterpretacao { get; set; }
+        public bool WasInterpreted { get; set; }
+        public DateTimeOffset DataCalculoCalagem { get; set; }
+        public bool HasCalagem { get; set; }
+        public DateTimeOffset DataCalculoCorretiva { get; set; }
+        public bool HasCorretiva { get; set; }
+        public DateTimeOffset DataCalculoSemeadura { get; set; }
+        public bool HasSemeadura { get; set; }
+        public DateTimeOffset DataCalculoCobertura { get; set; }
+        public bool HasCobertura { get; set; }
 
         public Talhao Talhao { get; set; }
 
@@ -58,7 +63,7 @@ namespace Solum.Models
 
         #endregion
 
-        #region Semeadura Data
+        #region Semeadura
 
         public string Cultura { get; set; }
         public int Expectativa { get; set; }

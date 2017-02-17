@@ -3,12 +3,70 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="Solum.Pages.RecomendaSemeaduraPage"
-	xmlns:effects="clr-namespace:Solum.Effects"
-	xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
 	Title="{Binding PageTitle}">
 
-  <ScrollView Grid.Row="0" BackgroundColor="{StaticResource colorBackground}">
+  <ScrollView BackgroundColor="{StaticResource colorBackground}">
     <StackLayout Spacing="0">
+
+      <Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES DE PRODUTIVIDADE">
+        <Label.Margin>
+          <OnPlatform x:TypeArguments="Thickness"
+						iOS="16,24,16,4"
+						Android="16, 13"/>
+        </Label.Margin>
+        <Label.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+						iOS="13"
+						Android="14"/>
+        </Label.FontSize>
+      </Label>
+      
+      <Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="16"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <BoxView Grid.ColumnSpan="2" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
+          <BoxView.HeightRequest>
+            <OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3"/>
+          </BoxView.HeightRequest>
+        </BoxView>
+        <Label Text="Expectativa de rendimento" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
+        <Label Text="{Binding Expectativa, StringFormat='{0} t/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
+          <BoxView.HeightRequest>
+            <OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3"/>
+          </BoxView.HeightRequest>
+        </BoxView>
+      </Grid>
+
+      <Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="16"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Text="Cultura" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
+        <Label Text="{Binding Cultura}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+      </Grid>
+
+      <BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
+        <BoxView.HeightRequest>
+          <OnPlatform x:TypeArguments="x:Double"
+						iOS="0.5"
+						Android="0.3"/>
+        </BoxView.HeightRequest>
+      </BoxView>
+      
       <Label TextColor="{StaticResource colorTextSecundary}" Text="RECOMENDAÇÃO ADUBAÇÃO DE SEMEADURA">
         <Label.Margin>
           <OnPlatform x:TypeArguments="Thickness"
@@ -39,7 +97,7 @@
           </BoxView.HeightRequest>
         </BoxView>
         <Label Text="Quantidade de N" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-        <Label Text="{Binding N}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        <Label Text="{Binding N, StringFormat='{0} kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
         <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
           <BoxView.HeightRequest>
             <OnPlatform x:TypeArguments="x:Double"
@@ -59,7 +117,7 @@
           <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Text="Quantidade de P2O5" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-        <Label Text="{Binding P205}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        <Label Text="{Binding P205, StringFormat='{0} kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
         <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
           <BoxView.HeightRequest>
             <OnPlatform x:TypeArguments="x:Double"
@@ -79,7 +137,7 @@
           <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Text="Quantidade de K2O" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-        <Label Text="{Binding K20}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
+        <Label Text="{Binding K20, StringFormat='{0} kg/ha'}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
       </Grid>
 
       <BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
@@ -90,58 +148,6 @@
         </BoxView.HeightRequest>
       </BoxView>
 
-      <Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES DE PRODUTIVIDADE">
-        <Label.Margin>
-          <OnPlatform x:TypeArguments="Thickness"
-						iOS="16,24,16,4"
-						Android="16, 13"/>
-        </Label.Margin>
-        <Label.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
-						iOS="13"
-						Android="14"/>
-        </Label.FontSize>
-      </Label>
-
-      <Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="16"/>
-          <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="*"/>
-          <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <BoxView Grid.ColumnSpan="2" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
-          <BoxView.HeightRequest>
-            <OnPlatform x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3"/>
-          </BoxView.HeightRequest>
-        </BoxView>
-        <Label Text="Expectativa de rendimento" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-        <Label Text="{Binding Expectativa}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
-        <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Row="1" Grid.Column="1" VerticalOptions="End">
-          <BoxView.HeightRequest>
-            <OnPlatform x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3"/>
-          </BoxView.HeightRequest>
-        </BoxView>
-      </Grid>
-
-      <Grid HeightRequest="72" BackgroundColor="White" ColumnSpacing="0" RowSpacing="0">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="16"/>
-          <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="*"/>
-          <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Label Text="Cultura" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" VerticalTextAlignment="Center" Margin="0,8,0,0"/>
-        <Label Text="{Binding Cultura}" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="{StaticResource colorTextSecundary}" VerticalTextAlignment="Center" Margin="0,0,0,8"/>
-      </Grid>
 
       <BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
         <BoxView.HeightRequest>
@@ -151,13 +157,15 @@
         </BoxView.HeightRequest>
       </BoxView>
 
-      <Button 
+      <!--<Button 
         Text="Editar" 
         Command="{Binding ShowSemeaduraPageCommand}"
         Margin="16" 
         BackgroundColor="{StaticResource colorAccent}"
         TextColor="{StaticResource colorTextPrimary}"
-        VerticalOptions="EndAndExpand" />
+        VerticalOptions="EndAndExpand" />-->
+
+      <Button Text="Salvar" Command="{Binding SalvarCommand}" IsVisible="{Binding EnableButton}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
     </StackLayout>
   </ScrollView>
 </ContentPage>

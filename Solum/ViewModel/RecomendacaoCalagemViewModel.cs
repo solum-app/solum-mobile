@@ -1,49 +1,44 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Realms;
+using Solum.Handlers;
+using Solum.Interfaces;
 using Solum.Models;
-using Solum.Pages;
 using Xamarin.Forms;
 
 namespace Solum.ViewModel
 {
     public class RecomendacaoCalagemViewModel : BaseViewModel
     {
-        public RecomendacaoCalagemViewModel(INavigation navigation, string analiseId) : base(navigation)
+        public RecomendacaoCalagemViewModel(INavigation navigation, string analiseId, float v2, float prnt, float profundidade, bool enableButton) : base(navigation)
         {
-            var realm = Realm.GetInstance();
-            _analise = realm.Find<Analise>(analiseId);
+            _realm = Realm.GetInstance();
+            _analise = _realm.Find<Analise>(analiseId);
             PageTitle = _analise.Identificacao;
-            V2 = _analise.V2.ToString("N");
-            Prnt = _analise.Prnt.ToString("N");
-            Profundidade = _analise.Profundidade.ToString("N");
+            V2 = v2.ToString();
+            Prnt = prnt.ToString();
+            Profundidade = profundidade.ToString();
             Calculate();
-
-            using (var tnsc = realm.BeginWrite())
-            {
-                _analise.V2 = 0;
-                _analise.Prnt = 0;
-                _analise.Profundidade = 0;
-                tnsc.Commit();
-            }
+            EnableButton = enableButton;
         }
 
         #region Commands
 
-        public ICommand ShowCalagemPageCommand
-            => _showCalagemPageCommand ?? (_showCalagemPageCommand = new Command(ShowCalagemPage));
+        public ICommand SalvarCommand => _salvarCommand ?? (_salvarCommand = new Command(Salvar));
 
         #endregion
 
         #region Private Properties
 
+        private bool _enableButton;
         private string _quantidade;
         private string _v2;
         private string _prnt;
         private string _profundidade;
 
         private readonly Analise _analise;
+        private readonly Realm _realm;
 
         private readonly IDictionary<int, float> _values = new Dictionary<int, float>
         {
@@ -53,12 +48,19 @@ namespace Solum.ViewModel
             {40, 2.0f}
         };
 
-        private ICommand _showCalagemPageCommand;
+        private ICommand _salvarCommand;
+        private float v2ItemValue;
+        private float profundidadeItemValue;
 
         #endregion
 
         #region Binding Properties
 
+        public bool EnableButton
+        {
+            get { return _enableButton; }
+            set { SetPropertyChanged(ref _enableButton, value); }
+        }
         public string QuantidadeCal
         {
             get { return _quantidade; }
@@ -87,14 +89,23 @@ namespace Solum.ViewModel
 
         #region Functions
 
-        private async void ShowCalagemPage()
+        private async void Salvar()
         {
+            using (var transaction = _realm.BeginWrite())
+            {
+                _analise.V2 = float.Parse(V2);
+                _analise.Prnt = float.Parse(Prnt);
+                _analise.Profundidade = int.Parse(Profundidade);
+                _analise.DataCalculoCalagem = DateTimeOffset.Now;
+                _analise.HasCalagem = true;
+                transaction.Commit();
+            }
+
             if (IsNotBusy)
             {
                 IsBusy = true;
-                var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new CalagemPage(_analise.Id));
-                Navigation.RemovePage(current);
+                "Dados salvo com sucesso".ToToast(ToastNotificationType.Sucesso);
+                await Navigation.PopAsync();
                 IsBusy = false;
             }
         }
@@ -104,12 +115,22 @@ namespace Solum.ViewModel
             float fPrnt, fV2;
             float.TryParse(Prnt, out fPrnt);
             float.TryParse(V2, out fV2);
+
             var f = 100f / fPrnt;
             var ctc = _analise.CTC;
-            if (_values.Keys.Contains(_analise.Profundidade))
-                QuantidadeCal = ((fV2 - _analise.V) * ctc / 100f * f * _values[_analise.Profundidade]).ToString("N");
-            QuantidadeCal = ((fV2 - _analise.V) * ctc / 100f * f * _values[20]).ToString("N");
+
+            var x = fV2 - _analise.V;
+            var s = (x) * ctc;
+            var k = 100f * f;
+            var j = (s / k);
+            if (_values.Keys.Contains(int.Parse(Profundidade)))
+                j *= _values[int.Parse(Profundidade)];
+            else
+                j *= _values[20];
+            QuantidadeCal = j.ToString();
         }
+
+
 
         #endregion
     }
