@@ -6,7 +6,6 @@ namespace Solum.Models
 {
     public class Analise : RealmObject
     {
-        // testesgaysgaysag
         public Analise()
         {
             Id = Guid.NewGuid().ToString();
