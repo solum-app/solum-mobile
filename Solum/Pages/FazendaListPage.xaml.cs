@@ -1,4 +1,5 @@
 ﻿using System;
+using Solum.Handlers;
 using Solum.Models;
 using Solum.Renderers;
 using Solum.ViewModel;
@@ -65,14 +66,19 @@ namespace Solum.Pages
 
         private async void OnDelete(object sender, EventArgs e)
         {
-            var fazenda = (sender as MenuItem).CommandParameter;
+            var fazenda = (sender as MenuItem)?.CommandParameter;
             var context = BindingContext as FazendaListViewModel;
-            var canDelete = context.CanDelete((fazenda as Fazenda).Id);
-            if (canDelete)
+            var canDelete = context?.CanDelete((fazenda as Fazenda)?.Id);
+            if (canDelete != null && canDelete.Value)
             {
-                var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim", "Não");
+                var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim",
+                    "Não");
                 if (confirm)
                     context.DeleteCommand.Execute(fazenda);
+            }
+            else
+            {
+                "Essa fazenda não pode ser removida, existem análises atreladas à ela.\nRemova as análises primeiro".ToDisplayAlert(MessageType.Aviso);
             }
 
         }
