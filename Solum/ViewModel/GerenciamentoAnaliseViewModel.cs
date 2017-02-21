@@ -239,7 +239,7 @@ namespace Solum.ViewModel
             if (IsNotBusy)
             {
                 IsBusy = true;
-                await Navigation.PushAsync(new AdubacaoCorretivaPage(Analise.Id));
+                await Navigation.PushAsync(new AdubacaoCorretivaPage(Analise.Id, !Analise.HasCorretiva));
                 IsBusy = false;
             }
         }
@@ -256,7 +256,7 @@ namespace Solum.ViewModel
                 IsBusy = true;
                 if (HasSemeaduraCalculation)
                     await Navigation.PushAsync(new RecomendaSemeaduraPage(Analise.Id, Analise.Expectativa,
-                        Analise.Cultura));
+                        Analise.Cultura, !Analise.HasSemeadura));
                 else
                     await Navigation.PushAsync(new SemeaduraPage(Analise.Id, false));
                 IsBusy = false;
@@ -489,7 +489,7 @@ namespace Solum.ViewModel
                     new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
                 y += 9;
-                var corretivavm = new AdubacaoCorretivaViewModel(Navigation, _analise.Id);
+                var corretivavm = new AdubacaoCorretivaViewModel(Navigation, _analise.Id, false);
                 g.DrawString(corretivavm.P2O5, textFont, new PdfSolidBrush(_black), new PointF(25, y));
                 g.DrawString(corretivavm.K2O, textFont, new PdfSolidBrush(_black), new PointF(175, y));
             }
@@ -514,7 +514,7 @@ namespace Solum.ViewModel
 
                 y += 9;
                 var semeaduravm = new RecomendacaoSemeaduraViewModel(Navigation, _analise.Id, Analise.Expectativa,
-                    Analise.Cultura);
+                    Analise.Cultura, false);
                 g.DrawString(Analise.Cultura, textFont, new PdfSolidBrush(_black), new PointF(25, y));
                 g.DrawString(Analise.Expectativa.ToString(), textFont, new PdfSolidBrush(_black), new PointF(125, y));
                 g.DrawString(semeaduravm.N, textFont, new PdfSolidBrush(_black), new PointF(225, y));

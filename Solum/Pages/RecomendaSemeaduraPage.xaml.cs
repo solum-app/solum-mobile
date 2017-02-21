@@ -6,10 +6,10 @@ namespace Solum.Pages
 {
     public partial class RecomendaSemeaduraPage : ContentPage
     {
-        public RecomendaSemeaduraPage(string analiseId, int expectativaSelected, string culturaSelected)
+        public RecomendaSemeaduraPage(string analiseId, int expectativaSelected, string culturaSelected, bool enableButton)
         {
             InitializeComponent();
-            BindingContext = new RecomendacaoSemeaduraViewModel(Navigation, analiseId, expectativaSelected, culturaSelected);
+            BindingContext = new RecomendacaoSemeaduraViewModel(Navigation, analiseId, expectativaSelected, culturaSelected, enableButton);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
             ToolbarItems.Add(new ToolbarItem("Edit", "ic_editar", async () =>
             {

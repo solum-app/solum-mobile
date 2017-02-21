@@ -11,7 +11,7 @@ namespace Solum.ViewModel
 {
     public class RecomendacaoSemeaduraViewModel : BaseViewModel
     {
-        public RecomendacaoSemeaduraViewModel(INavigation navigation, string analiseId, int expectativa, string cultura) : base(navigation)
+        public RecomendacaoSemeaduraViewModel(INavigation navigation, string analiseId, int expectativa, string cultura, bool enableButton) : base(navigation)
         {
             _realm = Realm.GetInstance();
             var interpreter = SemeaduraInjector.GetInstance(cultura);
@@ -28,10 +28,16 @@ namespace Solum.ViewModel
                 interpreter.CalculateK(expectativa,
                         InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC))
                     .ToString();
+            EnableButton = enableButton;
         }
         
         #region Binding Properties
 
+        public bool EnableButton
+        {
+            get { return _enableButton; }
+            set { SetPropertyChanged(ref _enableButton, value); }
+        }
         public string Expectativa
         {
             get { return _expectativa; }
@@ -66,6 +72,7 @@ namespace Solum.ViewModel
 
         #region Private Properties
 
+        private bool _enableButton;
         private string _n;
         private string _p205;
         private string _k20;

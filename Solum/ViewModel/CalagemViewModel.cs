@@ -15,8 +15,8 @@ namespace Solum.ViewModel
     {
         public CalagemViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
-            _realm = Realm.GetInstance();
-            _analise = _realm.Find<Analise>(analiseId);
+            var realm = Realm.GetInstance();
+            _analise = realm.Find<Analise>(analiseId);
             PageTitle = _analise.Identificacao;
 
             V2List = new List<DisplayItems>();
@@ -30,28 +30,13 @@ namespace Solum.ViewModel
                 new DisplayItems("20 cm", 20),
                 new DisplayItems("40 cm", 40)
             };
-        }
 
-        public CalagemViewModel(INavigation navigation, Analise analise) : base(navigation)
-        {
-            _realm = Realm.GetInstance();
-            _analise = _realm.Find<Analise>(analise.Id);
-            PageTitle = _analise.Identificacao;
-
-            V2List = new List<DisplayItems>();
-            for (var i = 30; i <= 80; i += 5)
-                V2List.Add(new DisplayItems($"{i} %", i));
-
-            ProfundidadeList = new List<DisplayItems>
+            if (_analise.HasCalagem)
             {
-                new DisplayItems("5 cm", 5),
-                new DisplayItems("10 cm", 10),
-                new DisplayItems("20 cm", 20),
-                new DisplayItems("40 cm", 40)
-            };
-            V2Item = V2List.FirstOrDefault(x => x.Value.Equals(_analise.V2));
-            ProfundidadeItem = ProfundidadeList.FirstOrDefault(x => x.Value.Equals(_analise.Profundidade));
-            Prnt = _analise.Prnt.ToString();
+                V2Item = V2List.FirstOrDefault(x => x.Value.Equals(_analise.V2));
+                ProfundidadeItem = ProfundidadeList.FirstOrDefault(x => x.Value.Equals(_analise.Profundidade));
+                Prnt = $"{_analise.Prnt} %";
+            }
         }
 
         #region Commands
@@ -123,7 +108,6 @@ namespace Solum.ViewModel
         private ICommand _saveCommand;
 
         private readonly Analise _analise;
-        private readonly Realm _realm;
 
         #endregion
 
