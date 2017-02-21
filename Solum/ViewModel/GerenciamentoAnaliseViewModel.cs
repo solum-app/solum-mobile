@@ -467,10 +467,9 @@ namespace Solum.ViewModel
                     new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
                 y += 9;
-                var calagem = _realm.All<Calagem>().FirstOrDefault(c => c.AnaliseId.Equals(Analise.Id));
-                g.DrawString(calagem.V2.ToString(), textFont, new PdfSolidBrush(_black), new PointF(25, y));
-                g.DrawString(calagem.Prnt.ToString(), textFont, new PdfSolidBrush(_black), new PointF(175, y));
-                g.DrawString(calagem.Profundidade.ToString(), textFont, new PdfSolidBrush(_black), new PointF(325, y));
+                g.DrawString(Analise.V2.ToString(), textFont, new PdfSolidBrush(_black), new PointF(25, y));
+                g.DrawString(Analise.Prnt.ToString(), textFont, new PdfSolidBrush(_black), new PointF(175, y));
+                g.DrawString(Analise.Profundidade.ToString(), textFont, new PdfSolidBrush(_black), new PointF(325, y));
                 var calagemvm = new RecomendacaoCalagemViewModel(Navigation, Analise.Id, Analise.V2, Analise.Prnt, Analise.Profundidade, false);
                 g.DrawString(calagemvm.QuantidadeCal, textFont, new PdfSolidBrush(_black), new PointF(475, y));
             }
@@ -514,11 +513,10 @@ namespace Solum.ViewModel
                     new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
                 y += 9;
-                var semeadura = _realm.All<Semeadura>().FirstOrDefault(s => s.AnaliseId.Equals(Analise.Id));
-                var semeaduravm = new RecomendacaoSemeaduraViewModel(Navigation, _analise.Id, semeadura.Expectativa,
-                    semeadura.Cultura);
-                g.DrawString(semeadura.Cultura, textFont, new PdfSolidBrush(_black), new PointF(25, y));
-                g.DrawString(semeadura.Expectativa.ToString(), textFont, new PdfSolidBrush(_black), new PointF(125, y));
+                var semeaduravm = new RecomendacaoSemeaduraViewModel(Navigation, _analise.Id, Analise.Expectativa,
+                    Analise.Cultura);
+                g.DrawString(Analise.Cultura, textFont, new PdfSolidBrush(_black), new PointF(25, y));
+                g.DrawString(Analise.Expectativa.ToString(), textFont, new PdfSolidBrush(_black), new PointF(125, y));
                 g.DrawString(semeaduravm.N, textFont, new PdfSolidBrush(_black), new PointF(225, y));
                 g.DrawString(semeaduravm.P205, textFont, new PdfSolidBrush(_black), new PointF(325, y));
                 g.DrawString(semeaduravm.K20, textFont, new PdfSolidBrush(_black), new PointF(475, y));
@@ -542,10 +540,9 @@ namespace Solum.ViewModel
                     new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
                 y += 9;
-                var cobertura = _realm.All<Semeadura>().FirstOrDefault(s => s.AnaliseId.Equals(Analise.Id));
                 var coberturavm = new AdubacaoCoberturaViewModel(Navigation, _analise.Id, false);
-                g.DrawString(cobertura.Cultura, textFont, new PdfSolidBrush(_black), new PointF(25, y));
-                g.DrawString(cobertura.Expectativa.ToString(), textFont, new PdfSolidBrush(_black), new PointF(125, y));
+                g.DrawString(Analise.Cultura, textFont, new PdfSolidBrush(_black), new PointF(25, y));
+                g.DrawString(Analise.Expectativa.ToString(), textFont, new PdfSolidBrush(_black), new PointF(125, y));
                 g.DrawString(coberturavm.N, textFont, new PdfSolidBrush(_black), new PointF(225, y));
                 g.DrawString(coberturavm.P2O5, textFont, new PdfSolidBrush(_black), new PointF(325, y));
                 g.DrawString(coberturavm.K2O, textFont, new PdfSolidBrush(_black), new PointF(475, y));

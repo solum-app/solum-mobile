@@ -95,6 +95,11 @@ namespace Solum.ViewModel
             await Navigation.PushAsync(new TalhaoCadastroPage(talhao.Id));
         }
 
+        public bool CanDelete(string talhaoid)
+        {
+            return !_realm.All<Analise>().Any(a => a.TalhaoId.Equals(talhaoid));
+        }
+
         private void DeleteTalhao(Talhao talhao)
         {
             var find = _realm.Find<Talhao>(talhao.Id);

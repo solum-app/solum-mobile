@@ -104,9 +104,13 @@ namespace Solum.ViewModel
 
         public bool CanDelete(string fazendaId)
         {
-
-
-            return false;
+            var talhoes = _realm.All<Talhao>().Where(t => t.FazendaId.Equals(fazendaId)).ToList();
+            foreach (var t in talhoes)
+            {
+                if (_realm.All<Analise>().Any(a => a.TalhaoId.Equals(t.Id)))
+                    return false;
+            }
+            return true;
         }
         public void UpdateFazendaList()
         {
