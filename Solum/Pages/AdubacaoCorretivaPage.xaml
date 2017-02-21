@@ -65,7 +65,7 @@
 				</BoxView.HeightRequest>
 			</BoxView>
 
-      <Button Text="Salvar" Command="{Binding SalvarCommand}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
+      <Button Text="Salvar" Command="{Binding SalvarCommand}" IsVisible="{Binding EnableButton}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand"/>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

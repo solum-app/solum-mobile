@@ -106,7 +106,7 @@ namespace Solum.ViewModel
             {
                 IsBusy = true;
                 var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, ExpectativaSelected, CulturaSelected));
+                await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, ExpectativaSelected, CulturaSelected, true));
                 Navigation.RemovePage(current);
                 IsBusy = false;
             }

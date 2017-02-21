@@ -14,19 +14,17 @@ namespace Solum.Pages
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
         }
 
-        public CalagemPage(Analise analise)
+        private void PrntEntry_OnFocused(object sender, FocusEventArgs e)
         {
-            InitializeComponent();
-            BindingContext = new CalagemViewModel(Navigation, analise);
-            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            var text = ((Entry) sender).Text;
+            if(!string.IsNullOrEmpty(text))
+                ((Entry) sender).Text = text.Replace("%", "").Trim();
         }
 
-        private void PrntEntry_OnCompleted(object sender, EventArgs e)
+        private void PrntEntry_OnUnfocused(object sender, FocusEventArgs e)
         {
-            var entry = sender as Entry;
-            var text = entry.Text;
-            if (!text.Contains("%"))
-                entry.Text = text + " %";
+            if(!string.IsNullOrEmpty(((Entry)sender).Text))
+                ((Entry)sender).Text += " %";
         }
     }
 }

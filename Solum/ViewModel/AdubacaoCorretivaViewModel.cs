@@ -9,11 +9,12 @@ namespace Solum.ViewModel
 {
     public class AdubacaoCorretivaViewModel : BaseViewModel
     {
-        public AdubacaoCorretivaViewModel(INavigation navigation, string analiseId) : base(navigation)
+        public AdubacaoCorretivaViewModel(INavigation navigation, string analiseId, bool enableButton) : base(navigation)
         {
             _realm = Realm.GetInstance();
             _analise = _realm.Find<Analise>(analiseId);
             PageTitle = _analise.Identificacao;
+            EnableButton = enableButton;
             Calculate();
         }
 
@@ -75,6 +76,7 @@ namespace Solum.ViewModel
 
         #region Private Properties
 
+        private bool _enableButton;
         private ICommand _salvarCommand;
         private string _p2O5;
         private string _k2O;
@@ -97,6 +99,12 @@ namespace Solum.ViewModel
         {
             get { return _k2O; }
             set { SetPropertyChanged(ref _k2O, value); }
+        }
+
+        public bool EnableButton
+        {
+            get { return _enableButton;}
+            set { SetPropertyChanged(ref _enableButton, value); }
         }
 
         #endregion

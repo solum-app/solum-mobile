@@ -30,24 +30,24 @@ namespace Solum.ViewModel
         {
             _realm = Realm.GetInstance();
             PageTitle = "Editar Análise";
-            var analise = _realm.Find<Analise>(analiseId);
+            Analise = _realm.Find<Analise>(analiseId);
             IdentificacaoAnalise = Analise.Identificacao;
-            Fazenda = _realm.Find<Fazenda>(analise.Talhao.FazendaId);
-            Talhao = _realm.Find<Talhao>(analise.TalhaoId);
+            Fazenda = _realm.Find<Fazenda>(Analise.Talhao.FazendaId);
+            Talhao = _realm.Find<Talhao>(Analise.TalhaoId);
             FazendaNome = Fazenda.Nome;
             TalhaoNome = Talhao.Nome;
-            DateSelected = analise.DataRegistro;
-            PotencialHidrogenico = analise.PotencialHidrogenico.ToString();
-            Fosforo = analise.Fosforo.ToString();
-            Potassio = analise.Potassio.ToString();
-            Calcio = analise.Calcio.ToString();
-            Magnesio = analise.Magnesio.ToString();
-            Aluminio = analise.Aluminio.ToString();
-            Hidrogenio = analise.Hidrogenio.ToString();
-            MateriaOrganica = analise.MateriaOrganica.ToString();
-            Areia = analise.Areia.ToString();
-            Silte = analise.Silte.ToString();
-            Argila = analise.Argila.ToString();
+            DateSelected = Analise.DataRegistro;
+            PotencialHidrogenico = Analise.PotencialHidrogenico.ToString();
+            Fosforo = Analise.Fosforo.ToString();
+            Potassio = Analise.Potassio.ToString();
+            Calcio = Analise.Calcio.ToString();
+            Magnesio = Analise.Magnesio.ToString();
+            Aluminio = Analise.Aluminio.ToString();
+            Hidrogenio = Analise.Hidrogenio.ToString();
+            MateriaOrganica = Analise.MateriaOrganica.ToString();
+            Areia = Analise.Areia.ToString();
+            Silte = Analise.Silte.ToString();
+            Argila = Analise.Argila.ToString();
             Subscribe();
         }
 
@@ -91,7 +91,7 @@ namespace Solum.ViewModel
             get { return _fazendaNome; }
             set
             {
-                SetPropertyChanged(ref _fazendaNome, value); 
+                SetPropertyChanged(ref _fazendaNome, value);
                 FazendaLabelColor = Color.Black;
             }
         }
@@ -231,7 +231,7 @@ namespace Solum.ViewModel
         #endregion
 
         #region Funções
-        
+
         private void SelectDate(object date)
         {
             DateSelected = (DateTimeOffset)date;
@@ -260,7 +260,7 @@ namespace Solum.ViewModel
                 "Selecione uma fazenda".ToDisplayAlert(MessageType.Aviso);
                 return;
             }
-                
+
             if (!IsBusy)
             {
                 IsBusy = true;
@@ -362,35 +362,66 @@ namespace Solum.ViewModel
             }
 
 
-            var analise = new Analise
+            if (Analise == null)
             {
-                Id = Guid.NewGuid().ToString(),
-                TalhaoId = Talhao.Id,
-                Identificacao = IdentificacaoAnalise,
-                Talhao = Talhao,
-                DataRegistro = DateSelected,
-                PotencialHidrogenico = float.Parse("0" + PotencialHidrogenico.Replace(',', '.'), CultureInfo.InvariantCulture),
-                Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture),
-                Potassio = float.Parse("0" + Potassio.Replace(',', '.'), CultureInfo.InvariantCulture),
-                Calcio = float.Parse("0" + Calcio.Replace(',', '.'), CultureInfo.InvariantCulture),
-                Magnesio = float.Parse("0" + Magnesio.Replace(',', '.'), CultureInfo.InvariantCulture),
-                Aluminio = float.Parse("0" + Aluminio.Replace(',', '.'), CultureInfo.InvariantCulture),
-                Hidrogenio = float.Parse("0" + Hidrogenio.Replace(',', '.'), CultureInfo.InvariantCulture),
-                MateriaOrganica = float.Parse("0" + MateriaOrganica.Replace(',', '.'), CultureInfo.InvariantCulture),
-                Areia = float.Parse("0" + Areia.Replace(',', '.'), CultureInfo.InvariantCulture),
-                Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture),
-                Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture)
-            };
+                Analise = new Analise()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    TalhaoId = Talhao.Id,
+                    Identificacao = IdentificacaoAnalise,
+                    Talhao = Talhao,
+                    DataRegistro = DateSelected,
+                    PotencialHidrogenico =
+                        float.Parse("0" + PotencialHidrogenico.Replace(',', '.'), CultureInfo.InvariantCulture),
+                    Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture),
+                    Potassio = float.Parse("0" + Potassio.Replace(',', '.'), CultureInfo.InvariantCulture),
+                    Calcio = float.Parse("0" + Calcio.Replace(',', '.'), CultureInfo.InvariantCulture),
+                    Magnesio = float.Parse("0" + Magnesio.Replace(',', '.'), CultureInfo.InvariantCulture),
+                    Aluminio = float.Parse("0" + Aluminio.Replace(',', '.'), CultureInfo.InvariantCulture),
+                    Hidrogenio = float.Parse("0" + Hidrogenio.Replace(',', '.'), CultureInfo.InvariantCulture),
+                    MateriaOrganica = float.Parse("0" + MateriaOrganica.Replace(',', '.'), CultureInfo.InvariantCulture),
+                    Areia = float.Parse("0" + Areia.Replace(',', '.'), CultureInfo.InvariantCulture),
+                    Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture),
+                    Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture)
+                };
 
-            using (var transaction = _realm.BeginWrite())
+                using (var transaction = _realm.BeginWrite())
+                {
+                    _realm.Add(Analise);
+                    transaction.Commit();
+                }
+            }
+            else
             {
-                _realm.Add(analise);
-                transaction.Commit();
+                using (var transaction = _realm.BeginWrite())
+                {
+                    Analise.Identificacao = IdentificacaoAnalise;
+                    Analise.TalhaoId = Talhao.Id;
+                    Analise.Talhao = Talhao;
+                    Analise.DataRegistro = DateSelected;
+                    Analise.PotencialHidrogenico = float.Parse("0" + PotencialHidrogenico.Replace(',', '.'), CultureInfo.InvariantCulture);
+                    Analise.Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture);
+                    Analise.Potassio = float.Parse("0" + Potassio.Replace(',', '.'), CultureInfo.InvariantCulture);
+                    Analise.Calcio = float.Parse("0" + Calcio.Replace(',', '.'), CultureInfo.InvariantCulture);
+                    Analise.Magnesio = float.Parse("0" + Magnesio.Replace(',', '.'), CultureInfo.InvariantCulture);
+                    Analise.Aluminio = float.Parse("0" + Aluminio.Replace(',', '.'), CultureInfo.InvariantCulture);
+                    Analise.Hidrogenio = float.Parse("0" + Hidrogenio.Replace(',', '.'), CultureInfo.InvariantCulture);
+                    Analise.MateriaOrganica = float.Parse("0" + MateriaOrganica.Replace(',', '.'), CultureInfo.InvariantCulture);
+                    Analise.Areia = float.Parse("0" + Areia.Replace(',', '.'), CultureInfo.InvariantCulture);
+                    Analise.Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture);
+                    Analise.Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture);
+                    Analise.WasInterpreted = false;
+                    Analise.HasCalagem = false;
+                    Analise.HasCorretiva = false;
+                    Analise.HasSemeadura = false;
+                    Analise.HasCobertura = false;
+                    transaction.Commit();
+                }
             }
 
             Success.ToToast(ToastNotificationType.Sucesso);
             var last = Navigation.NavigationStack.LastOrDefault();
-            await Navigation.PushAsync(new GerenciamentoAnalisePage(analise.Id));
+            await Navigation.PushAsync(new GerenciamentoAnalisePage(Analise.Id));
             Navigation.RemovePage(last);
             Dispose();
         }

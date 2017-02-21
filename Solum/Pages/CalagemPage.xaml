@@ -78,6 +78,8 @@
         
         <Entry
           x:Name="PrntEntry"
+          Focused="PrntEntry_OnFocused"
+          Unfocused="PrntEntry_OnUnfocused"
           Text="{Binding Prnt}" 
           Keyboard="Numeric" 
           VerticalOptions="Center" 
@@ -85,8 +87,7 @@
           Margin="16,0"
           Placeholder="%" 
           HorizontalTextAlignment="End" 
-          PlaceholderColor="{StaticResource colorTextHint}"
-          Completed="PrntEntry_OnCompleted">
+          PlaceholderColor="{StaticResource colorTextHint}">
           
           <Entry.Effects>
             <effects:NoBorderEffect />
