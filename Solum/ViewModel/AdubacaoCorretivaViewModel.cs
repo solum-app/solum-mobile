@@ -119,7 +119,7 @@ namespace Solum.ViewModel
                 _analise.HasCorretiva = true;
                 transaction.Commit();
             }
-
+            MessagesResource.DadosSalvos.ToToast();
             if (IsNotBusy)
             {
                 IsBusy = true;

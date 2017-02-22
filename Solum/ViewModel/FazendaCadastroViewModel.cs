@@ -5,10 +5,8 @@ using System.Windows.Input;
 using Realms;
 using Solum.Handlers;
 using Solum.Interfaces;
-using Solum.Messages;
 using Solum.Models;
 using Xamarin.Forms;
-using static Solum.Messages.FazendaMessages;
 
 namespace Solum.ViewModel
 {
@@ -137,13 +135,13 @@ namespace Solum.ViewModel
             {
                 if (string.IsNullOrEmpty(FazendaName))
                 {
-                    FazendaNameNull.ToDisplayAlert(MessageType.Erro);
+                    MessagesResource.FazendaCadastroNomeVazio.ToDisplayAlert(MessageType.Info);
                     return;
                 }
 
                 if (CidadeSelected == null)
                 {
-                    CidadeIsntSelected.ToDisplayAlert(MessageType.Erro);
+                    MessagesResource.FazendaCadastroCidadeVazia.ToDisplayAlert(MessageType.Info);
                     return;
                 }
 
@@ -166,15 +164,15 @@ namespace Solum.ViewModel
                 }
 
                 if (!_fromAnalise)
-                    Success.ToToast(ToastNotificationType.Sucesso);
+                    MessagesResource.FazendaCadastroSucesso.ToToast();
                 else
-                    MessagingCenter.Send(this, MessagingCenterMessages.FazendaSelected, fazenda.Id);
+                    MessagingCenter.Send(this, MessagesResource.McFazendaSelecionada, fazenda.Id);
             }
             else
             {
                 if (string.IsNullOrEmpty(FazendaName))
                 {
-                    FazendaNameNull.ToDisplayAlert(MessageType.Erro);
+                    MessagesResource.FazendaCadastroNomeVazio.ToDisplayAlert(MessageType.Info);
                     return;
                 }
 
@@ -185,8 +183,8 @@ namespace Solum.ViewModel
                     _fazenda.CidadeId = CidadeSelected.Id;
                     transaction.Commit();
                 }
-                MessagingCenter.Send(this, MessagingCenterMessages.FazendaSelected, _fazenda.Id);
-                Updated.ToToast();
+                MessagingCenter.Send(this, MessagesResource.McFazendaSelecionada, _fazenda.Id);
+                MessagesResource.FazendaEdicaoSucesso.ToToast(ToastNotificationType.Sucesso);
             }
             await Navigation.PopAsync();
         }

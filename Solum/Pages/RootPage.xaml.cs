@@ -171,15 +171,17 @@ namespace Solum.Pages
             if (command)
             {
                 var authservice = AuthService.Instance;
-                await authservice.Logoff();
-
-                _currentPage = new LoginPage();
-                _navigationPage = new NavigationPage(_currentPage)
+                var logoff = await authservice.Logoff();
+                if (logoff)
                 {
-                    BarBackgroundColor = Color.Transparent,
-                    BarTextColor = Color.Black
-                };
-                Application.Current.MainPage = _navigationPage;
+                    _currentPage = new LoginPage();
+                    _navigationPage = new NavigationPage(_currentPage)
+                    {
+                        BarBackgroundColor = Color.Transparent,
+                        BarTextColor = Color.Black
+                    };
+                    Application.Current.MainPage = _navigationPage;
+                }
             }
         }
     }

@@ -19,7 +19,6 @@ namespace Solum.Pages
 
         private void UsernameEntryOnCompleted(object sender, EventArgs e)
         {
-            UsernameEntry.Unfocus();
             PasswordEntry.Focus();
         }
 

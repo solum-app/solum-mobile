@@ -4,8 +4,6 @@ using Realms;
 using Solum.Handlers;
 using Solum.Models;
 using Xamarin.Forms;
-using static Solum.Messages.TalhaoMessages;
-using static Solum.Messages.MessagingCenterMessages;
 
 namespace Solum.ViewModel
 {
@@ -45,7 +43,7 @@ namespace Solum.ViewModel
             {
                 if (string.IsNullOrEmpty(TalhaoName))
                 {
-                    TalhaoNameNull.ToDisplayAlert(MessageType.Aviso);
+                    MessagesResource.TalhaoCadastroNomeVazio.ToDisplayAlert();
                     return;
                 }
 
@@ -64,8 +62,8 @@ namespace Solum.ViewModel
                     _realm.Add(novo);
                     transaction.Commit();
                 }
-                if (!_fromAnalise) Success.ToToast();
-                else MessagingCenter.Send(this, TalhaoSelected, novo.Id);
+                if (!_fromAnalise) MessagesResource.TalhaoCadastroSucesso.ToToast();
+                else MessagingCenter.Send(this, MessagesResource.McTalhaoSelecionado, novo.Id);
                 await Navigation.PopAsync();
             }
 
@@ -73,7 +71,7 @@ namespace Solum.ViewModel
             {
                 if (string.IsNullOrEmpty(TalhaoName))
                 {
-                    TalhaoNameNull.ToDisplayAlert(MessageType.Aviso);
+                    MessagesResource.TalhaoCadastroNomeVazio.ToDisplayAlert(MessageType.Info);
                     return;
                 }
 
@@ -85,8 +83,8 @@ namespace Solum.ViewModel
                     transaction.Commit();
                 }
 
-                if (!_fromAnalise) UpdateSuccess.ToToast();
-                else MessagingCenter.Send(this, TalhaoSelected, Talhao.Id);
+                if (!_fromAnalise) MessagesResource.TalhaoCadastroSucesso.ToToast();
+                else MessagingCenter.Send(this, MessagesResource.McTalhaoSelecionado, Talhao.Id);
                 await Navigation.PopAsync();
             }
         }

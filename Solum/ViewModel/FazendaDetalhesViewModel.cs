@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows.Input;
 using Realms;
 using Solum.Handlers;
-using Solum.Messages;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -83,7 +82,7 @@ namespace Solum.ViewModel
                 IsBusy = true;
                 if (_fromAnalise)
                 {
-                    MessagingCenter.Send(this, MessagingCenterMessages.TalhaoSelected, talhao.Id);
+                    MessagingCenter.Send(this, MessagesResource.McTalhaoSelecionado, talhao.Id);
                     await Navigation.PopAsync();
                 }
                 IsBusy = false;
@@ -108,7 +107,7 @@ namespace Solum.ViewModel
                 _realm.Remove(find);
                 transaction.Commit();
             }
-            TalhaoMessages.Deleted.ToToast();
+            MessagesResource.TalhaoRemocaoSucesso.ToToast();
             UpdateTalhoesList();
         }
 
