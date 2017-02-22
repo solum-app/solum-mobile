@@ -58,7 +58,7 @@ namespace Solum.Service
                 _realm.Add(usuario, true);
                 transaction.Commit();
             }
-            _accountRemote.SetToken(usuario.AccessToken);
+          //  _accountRemote.SetToken(usuario.AccessToken);
             return AuthResult.LoginSuccessFully;
         }
 
