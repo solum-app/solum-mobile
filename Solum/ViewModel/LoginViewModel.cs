@@ -6,7 +6,6 @@ using Solum.Pages;
 using Solum.Remotes.Results;
 using Solum.Service;
 using Xamarin.Forms;
-using static Solum.Messages.LoginMessages;
 
 namespace Solum.ViewModel
 {
@@ -65,35 +64,41 @@ namespace Solum.ViewModel
 
         private async void DoLogin()
         {
-            var binding = new LoginBinding
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
-                Username = Username?.Trim(),
-                Password = Password?.Trim()
-            };
-
-            if (!binding.IsValid)
-            {
-                NullEntriesMessage.ToDisplayAlert(MessageType.Aviso);
+                MessagesResource.LoginCredenciaisNulas.ToDisplayAlert(MessageType.Aviso);
                 return;
             }
 
+            var binding = new LoginBinding
+            {
+                Username = Username.Trim(),
+                Password = Password.Trim()
+            };
+
             InLogin = true;
+
             var authService = AuthService.Instance;
             var login = await authService.Login(binding);
+
             InLogin = false;
+
             if (login == AuthResult.LoginSuccessFully)
             {
-                LoginSuccessMessage.ToToast(ToastNotificationType.Sucesso);
+                MessagesResource.LoginSucesso.ToToast();
                 Application.Current.MainPage = new RootPage();
                 Dispose();
             }
+
             else if (login == AuthResult.ServerUnrecheable)
             {
-                ServerUnrecheable.ToDisplayAlert(MessageType.Falha);
+                MessagesResource.ServidorIndisponivel.ToDisplayAlert(MessageType.Aviso);
+                return;
             }
             else
             {
-                InvalidCredentialsMessage.ToDisplayAlert(MessageType.Erro);
+                MessagesResource.LoginCredenciaisErradas.ToDisplayAlert(MessageType.Erro);
+                return;
             }
         }
 
@@ -102,7 +107,7 @@ namespace Solum.ViewModel
             if (IsNotBusy)
             {
                 IsBusy = true;
-                "Não implementado ainda".ToToast();
+                MessagesResource.NaoImplementado.ToToast(ToastNotificationType.Info);
                 IsBusy = false;
             }
         }

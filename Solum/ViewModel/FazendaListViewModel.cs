@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows.Input;
 using Realms;
 using Solum.Handlers;
-using Solum.Messages;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -72,7 +71,7 @@ namespace Solum.ViewModel
                 IsBusy = true;
                 if (_fromAnalise)
                 {
-                    MessagingCenter.Send(this, MessagingCenterMessages.FazendaSelected, fazenda.Id);
+                    MessagingCenter.Send(this, MessagesResource.McFazendaSelecionada, fazenda.Id);
                     await Navigation.PopAsync();
                 }
                 else
@@ -98,7 +97,7 @@ namespace Solum.ViewModel
                 _realm.Remove(fazenda);
                 transaction.Commit();
             }
-            FazendaMessages.Deleted.ToToast();
+            MessagesResource.FazendaRemocaoSucesso.ToToast();
             UpdateFazendaList();
         }
 

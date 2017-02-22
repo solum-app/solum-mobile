@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Plugin.Connectivity;
 using Solum.Handlers;
@@ -90,6 +91,11 @@ namespace Solum.Remotes
             }
             var url = $"{Settings.BaseUri}{Settings.AccountLogoutUri}";
             return await Client.PostAsync(url, null);
+        }
+
+        public void SetToken(string token)
+        {
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer "+ token);
         }
     }
 }

@@ -35,7 +35,6 @@
     <Compile Include="Handlers\MilhoSemeaturaInterpreter.cs" />
     <Compile Include="Handlers\ISemeaduraInterpreter.cs" />
     <Compile Include="Interfaces\ICoberturaInterpreter.cs" />
-    <Compile Include="Messages\MessagingCenterMessages.cs" />
     <Compile Include="Models\Calagem.cs" />
     <Compile Include="Models\DisplayItems.cs" />
     <Compile Include="Models\Semeadura.cs" />
@@ -44,7 +43,6 @@
     </Compile>
     <Compile Include="Renderers\ImageCircle.cs" />
     <Compile Include="Effects\IStatusBarColor.cs" />
-    <Compile Include="Messages\DisplayMessages.cs" />
     <Compile Include="Models\Bindings.cs" />
     <Compile Include="Models\Cidade.cs" />
     <Compile Include="Models\Estado.cs" />
@@ -82,6 +80,11 @@
     <Compile Include="Remotes\EstadoRemote.cs" />
     <Compile Include="Remotes\Results\RegisterResult.cs" />
     <Compile Include="Renderers\CustomPicker.cs" />
+    <Compile Include="MessagesResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessagesResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Service\AuthService.cs" />
     <Compile Include="Service\SyncService.cs" />
     <Compile Include="Settings.cs" />
@@ -164,6 +167,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\AdubacaoCorretivaPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessagesResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessagesResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Solum.xaml" />
     <Compile Include="Solum.xaml.cs" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using Realms;
+using Solum.Handlers;
 using Solum.Interfaces;
 using Solum.Models;
 using Xamarin.Forms;
@@ -23,7 +24,7 @@ namespace Solum.ViewModel
 
         #region Commands
 
-        public ICommand SalvarCommand => _salvarCommand ?? (_salvarCommand = new Command(Salvar));
+        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(Salvar));
 
         #endregion
 
@@ -46,6 +47,8 @@ namespace Solum.ViewModel
                 transaction.Commit();
             }
 
+            MessagesResource.DadosSalvos.ToToast();
+
             if (IsNotBusy)
             {
                 IsBusy = true;
@@ -66,7 +69,7 @@ namespace Solum.ViewModel
         private string _p2O5;
         private string _k2O;
 
-        private ICommand _salvarCommand;
+        private ICommand _saveCommand;
 
         private readonly Analise _analise;
         private readonly Realm _realm;
@@ -110,10 +113,6 @@ namespace Solum.ViewModel
             get { return _k2O; }
             set { SetPropertyChanged(ref _k2O, value); }
         }
-
-        #endregion
-
-        #region Functions
 
         #endregion
     }

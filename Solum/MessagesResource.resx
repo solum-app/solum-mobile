@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AnaliseAlNull" xml:space="preserve">
+    <value>Preencha o valor de Al</value>
+  </data>
+  <data name="AnaliseAreiaNull" xml:space="preserve">
+    <value>Preencha o valor para Areia</value>
+  </data>
+  <data name="AnaliseArgilaNull" xml:space="preserve">
+    <value>Preencha o valor para Argila</value>
+  </data>
+  <data name="AnaliseCaNull" xml:space="preserve">
+    <value>Preencha o valor de Ca</value>
+  </data>
+  <data name="AnaliseDataInvalida" xml:space="preserve">
+    <value>A data selecionada não pode ser utilizada</value>
+  </data>
+  <data name="AnaliseFazendaNull" xml:space="preserve">
+    <value>Selecione uma fazenda primeiro</value>
+  </data>
+  <data name="AnaliseHNull" xml:space="preserve">
+    <value>Preencha o valor de H</value>
+  </data>
+  <data name="AnaliseIdentificacaoNull" xml:space="preserve">
+    <value>Preencha o campo de identificação da análise</value>
+  </data>
+  <data name="AnaliseKNull" xml:space="preserve">
+    <value>Preencha o valor de K</value>
+  </data>
+  <data name="AnaliseMgNull" xml:space="preserve">
+    <value>Preencha o valor de Mg</value>
+  </data>
+  <data name="AnaliseMoNull" xml:space="preserve">
+    <value>Preencha o valor para Matéria Orgânica</value>
+  </data>
+  <data name="AnalisePhNull" xml:space="preserve">
+    <value>Preencha o valor do PH</value>
+  </data>
+  <data name="AnalisePNull" xml:space="preserve">
+    <value>Preencha o valor de P</value>
+  </data>
+  <data name="AnaliseSilteNull" xml:space="preserve">
+    <value>Preencha o valor para Silte</value>
+  </data>
+  <data name="AnaliseSucesso" xml:space="preserve">
+    <value>Dados da análise salvos com sucesso</value>
+  </data>
+  <data name="AnaliseTalhaoNull" xml:space="preserve">
+    <value>Selecione uma fazenda para poder selecionar o talhão</value>
+  </data>
+  <data name="CamposVazios" xml:space="preserve">
+    <value>Preencha todos os campos </value>
+    <comment>Display - Mensagem para campos vazios</comment>
+  </data>
+  <data name="FazendaCadastroCidadeVazia" xml:space="preserve">
+    <value>Selecione o estado e a cidade de endereço da fazenda</value>
+    <comment>Display - Mensagem para cidade de fazenda não selecionada</comment>
+  </data>
+  <data name="FazendaCadastroNomeVazio" xml:space="preserve">
+    <value>Preencha o campo de nome da fazenda</value>
+    <comment>Display - Mensagem para nome de fazenda vazio</comment>
+  </data>
+  <data name="FazendaCadastroSucesso" xml:space="preserve">
+    <value>Fazenda cadastrada com sucesso</value>
+    <comment>Toast - Mensagem para fazenda cadastrada</comment>
+  </data>
+  <data name="FazendaEdicaoSucesso" xml:space="preserve">
+    <value>Fazenda atualizada com sucesso</value>
+    <comment>Toast - Mensagem para fazenda atualizada</comment>
+  </data>
+  <data name="FazendaRemocaoFalha" xml:space="preserve">
+    <value>Não foi possível remover fazenda: a fazenda possui análises. Remova as análises primeiro</value>
+    <comment>Display - Mensagem para erro na remoção de fazenda</comment>
+  </data>
+  <data name="FazendaRemocaoSucesso" xml:space="preserve">
+    <value>Fazenda removida com sucesso</value>
+    <comment>Toast - Mensagem para fazenda removida</comment>
+  </data>
+  <data name="LoginCredenciaisErradas" xml:space="preserve">
+    <value>Seu e-mail ou senha estão incorretos</value>
+    <comment>Display - Dados login errado</comment>
+  </data>
+  <data name="LoginCredenciaisNulas" xml:space="preserve">
+    <value>Preencha os campos de Usuário e Senha.</value>
+    <comment>Display - Aviso na tela de login para campos vazios</comment>
+  </data>
+  <data name="LoginSucesso" xml:space="preserve">
+    <value>Login com sucesso</value>
+    <comment>Toast - Aviso que login foi realizado com sucesso</comment>
+  </data>
+  <data name="McFazendaSelecionada" xml:space="preserve">
+    <value>FazendaSelecionada</value>
+  </data>
+  <data name="McTalhaoSelecionado" xml:space="preserve">
+    <value>TalhaoSelecionado</value>
+  </data>
+  <data name="NaoImplementado" xml:space="preserve">
+    <value>Função não implementada ainda</value>
+    <comment>Toast - Funções não implementadas</comment>
+  </data>
+  <data name="ServidorIndisponivel" xml:space="preserve">
+    <value>Não foi possível conectar ao servidor</value>
+    <comment>Display - Não foi possível conectar ao servidor</comment>
+  </data>
+  <data name="TalhaoCadastroNomeVazio" xml:space="preserve">
+    <value>Preencha o campo com nome do talhão</value>
+    <comment>Display - Mensagem para nome de talhão vazio</comment>
+  </data>
+  <data name="TalhaoCadastroSucesso" xml:space="preserve">
+    <value>Talhão cadastrado com sucesso</value>
+    <comment>Toast - Mensagem para talhão cadastrado</comment>
+  </data>
+  <data name="TalhaoEdicaoSucesso" xml:space="preserve">
+    <value>Talhão atualizado com sucesso</value>
+  </data>
+  <data name="TalhaoRemocaoFalha" xml:space="preserve">
+    <value>Não foi possível remover o talhão: o talhão possui análises. Remova as análises primeiro</value>
+  </data>
+  <data name="TalhaoRemocaoSucesso" xml:space="preserve">
+    <value>Talhao removido com sucesso</value>
+  </data>
+  <data name="UsuarioCadastroCidadeNula" xml:space="preserve">
+    <value>Selecione o estado e a cidade que reside</value>
+    <comment>Display - Mensagem para cidade não selecionada</comment>
+  </data>
+  <data name="UsuarioCadastroEmailInvalido" xml:space="preserve">
+    <value>Seu e-mail não está no formato correto</value>
+    <comment>Display - Mensagem para e-mail inválido</comment>
+  </data>
+  <data name="UsuarioCadastroFalhou" xml:space="preserve">
+    <value>Seu cadastro não foi realizado com sucesso. Seu e-mail já está sendo utilizado</value>
+    <comment>Display - Mensagem de falha para cadastro</comment>
+  </data>
+  <data name="UsuarioCadastroSenhaCurta" xml:space="preserve">
+    <value>Sua senha deve conter ao menos 6 caracteres</value>
+    <comment>Display - Mensagem para senha curta</comment>
+  </data>
+  <data name="UsuarioCadastroSenhasNaoConferem" xml:space="preserve">
+    <value>Suas senhas não são iguais.</value>
+    <comment>Display - Mensagem para senhas diferentes</comment>
+  </data>
+  <data name="UsuarioCadastroSucesso" xml:space="preserve">
+    <value>Seu cadastro foi realizado com sucesso</value>
+    <comment>Display - Mensagem de sucesso para cadastro</comment>
+  </data>
+  <data name="DadosSalvos" xml:space="preserve">
+    <value>As informações foram salvas</value>
+  </data>
+</root>

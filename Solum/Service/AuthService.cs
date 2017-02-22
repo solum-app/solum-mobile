@@ -58,7 +58,7 @@ namespace Solum.Service
                 _realm.Add(usuario, true);
                 transaction.Commit();
             }
-
+          //  _accountRemote.SetToken(usuario.AccessToken);
             return AuthResult.LoginSuccessFully;
         }
 
@@ -83,19 +83,20 @@ namespace Solum.Service
             return RefreshTokenResult.Success;
         }
 
-        public async Task Logoff()
+        public async Task<bool> Logoff()
         {
             var result = await _accountRemote.Logout();
             if (result == null)
             {
                 "Nâo foi possível realizar logoff, servidor indisponível".ToDisplayAlert(MessageType.Falha);
-                return;
+                return false;
             }
             using (var transaction = _realm.BeginWrite())
             {
                 _realm.RemoveAll<Usuario>();
                 transaction.Commit();
             }
+            return true;
         }
     }
 }

@@ -5,7 +5,6 @@ using EmailValidation;
 using Realms;
 using Solum.Handlers;
 using Solum.Interfaces;
-using Solum.Messages;
 using Solum.Models;
 using Solum.Remotes.Results;
 using Solum.Service;
@@ -146,45 +145,38 @@ namespace Solum.ViewModel
 
         public async void Register()
         {
-            InRegistering = true;
 
-            if (string.IsNullOrEmpty(Name) ||
-                string.IsNullOrEmpty(Email) ||
-                string.IsNullOrEmpty(Password) ||
-                string.IsNullOrEmpty(ConfirmPassword))
+            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(ConfirmPassword))
             {
-                RegisterMessages.NullEntriesMessage.ToDisplayAlert(MessageType.Erro);
-                InRegistering = false;
+                MessagesResource.CamposVazios.ToDisplayAlert(MessageType.Info);
                 return;
             }
 
             if (!EmailValidator.Validate(Email))
             {
-                RegisterMessages.InvalidEmail.ToDisplayAlert(MessageType.Erro);
-                InRegistering = false;
+                MessagesResource.UsuarioCadastroEmailInvalido.ToDisplayAlert(MessageType.Info);
                 return;
             }
 
             if (Password.Length < 6)
             {
-                RegisterMessages.PasswordToShort.ToDisplayAlert(MessageType.Erro);
-                InRegistering = false;
+                MessagesResource.UsuarioCadastroSenhaCurta.ToDisplayAlert(MessageType.Info);
                 return;
             }
 
             if (!Password.Equals(ConfirmPassword))
             {
-                RegisterMessages.PasswordIsntMatch.ToDisplayAlert(MessageType.Erro);
-                InRegistering = false;
+                MessagesResource.UsuarioCadastroSenhasNaoConferem.ToDisplayAlert(MessageType.Info);
                 return;
             }
 
             if (CidadeSelected == null)
             {
-                RegisterMessages.CidadeIsntSelected.ToDisplayAlert(MessageType.Erro);
-                InRegistering = false;
+                MessagesResource.UsuarioCadastroCidadeNula.ToDisplayAlert(MessageType.Info);
                 return;
             }
+
+            InRegistering = true;
 
             var registerBinding = new RegisterBinding
             {
@@ -199,13 +191,13 @@ namespace Solum.ViewModel
 
             if (result == RegisterResult.RegisterSuccefully)
             {
-                RegisterMessages.Success.ToToast(ToastNotificationType.Sucesso);
+                MessagesResource.UsuarioCadastroSucesso.ToToast();
                 InRegistering = false;
                 await Navigation.PopAsync();
             }
             else
             {
-                RegisterMessages.Unsucces.ToDisplayAlert(MessageType.Falha);
+                MessagesResource.UsuarioCadastroFalhou.ToDisplayAlert(MessageType.Aviso);
                 InRegistering = false;
             }
         }
