@@ -139,7 +139,7 @@
     <value>Preencha o valor de H</value>
   </data>
   <data name="AnaliseIdentificacaoNull" xml:space="preserve">
-    <value>Preencha o campo de identificacao da análise</value>
+    <value>Preencha o campo de identificação da análise</value>
   </data>
   <data name="AnaliseKNull" xml:space="preserve">
     <value>Preencha o valor de K</value>
@@ -228,7 +228,7 @@
     <comment>Toast - Mensagem para talhão cadastrado</comment>
   </data>
   <data name="TalhaoEdicaoSucesso" xml:space="preserve">
-    <value>Talhao atualizado com sucesso</value>
+    <value>Talhão atualizado com sucesso</value>
   </data>
   <data name="TalhaoRemocaoFalha" xml:space="preserve">
     <value>Não foi possível remover o talhão: o talhão possui análises. Remova as análises primeiro</value>
