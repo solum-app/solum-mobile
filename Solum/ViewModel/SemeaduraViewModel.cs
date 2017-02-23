@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Realms;
@@ -19,18 +18,52 @@ namespace Solum.ViewModel
             var k = InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC);
             var textura = InterpretaHandler.InterpretaTextura(_analise.Argila, _analise.Silte);
             var p = InterpretaHandler.InterpretaP(_analise.Fosforo, textura);
-            IsPotassioBaixo = !k.ToUpper().Equals("ADEQUADO") || !k.ToUpper().Equals("ALTO");
-            IsFosforoBaixo = !p.ToUpper().Equals("ADEQUADO") || !p.ToUpper().Equals("ALTO");
+            IsPotassioBaixo = k.ToUpper() != "ADEQUADO" & k.ToUpper() != "ALTO";
+            IsFosforoBaixo = p.ToUpper() != "ADEQUADO" & p.ToUpper() != "ALTO";
             PageTitle = _analise.Identificacao;
             Expectativas = new List<DisplayItems>
             {
-                new DisplayItems("6 t", 6),
-                new DisplayItems("8 t", 8),
-                new DisplayItems("10 t",10),
-                new DisplayItems("12 t", 12)
+                new DisplayItems("6 t/ha", 6),
+                new DisplayItems("8 t/ha", 8),
+                new DisplayItems("10 t/ha", 10),
+                new DisplayItems("12 t/ha", 12)
             };
             Culturas = new List<string> {"Milho"};
         }
+
+        #region commands
+
+        public ICommand RecomendarCommand => _recomendarCommand ?? (_recomendarCommand = new Command(Recomendar));
+
+        #endregion
+
+        #region functions
+
+        private async void Recomendar()
+        {
+            if (ExpectativaSelected == null)
+            {
+                "Selecione a sua expectativa".ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+            if (string.IsNullOrEmpty(CulturaSelected))
+            {
+                "Selecione a cultura".ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
+
+            if (IsNotBusy)
+            {
+                IsBusy = true;
+                var current = Navigation.NavigationStack.LastOrDefault();
+                await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, (int) ExpectativaSelected.Value,
+                    CulturaSelected, true));
+                Navigation.RemovePage(current);
+                IsBusy = false;
+            }
+        }
+
+        #endregion
 
         #region private properties
 
@@ -67,68 +100,37 @@ namespace Solum.ViewModel
 
         public DisplayItems ExpectativaSelected
         {
-            get { return _expectativaSelected;}
+            get { return _expectativaSelected; }
             set { SetPropertyChanged(ref _expectativaSelected, value); }
         }
 
         public IList<string> Culturas
         {
-            get { return _culturas;}
+            get { return _culturas; }
             set { SetPropertyChanged(ref _culturas, value); }
         }
 
         public string CulturaSelected
         {
-            get { return _culturaSelected;}
+            get { return _culturaSelected; }
             set { SetPropertyChanged(ref _culturaSelected, value); }
         }
 
         public bool IsPotassioBaixo
         {
-            get { return _isPotassioBaixo;}
+            get { return _isPotassioBaixo; }
             set { SetPropertyChanged(ref _isPotassioBaixo, value); }
         }
 
         public bool IsFosforoBaixo
         {
-            get { return _isFosforoBaixo;}
+            get { return _isFosforoBaixo; }
             set { SetPropertyChanged(ref _isFosforoBaixo, value); }
         }
 
-        public bool IsPotassioFosforoBaixo => IsPotassioBaixo || IsFosforoBaixo;
-
-        #endregion
-
-        #region commands
-
-        public ICommand RecomendarCommand => _recomendarCommand ?? (_recomendarCommand = new Command(Recomendar));
-
-        #endregion
-
-        #region functions
-
-        private async void Recomendar()
-        {
-            if (ExpectativaSelected == null)
-            {
-                "Selecione a sua expectativa".ToDisplayAlert(MessageType.Aviso);
-                return;
-            }
-            if (string.IsNullOrEmpty(CulturaSelected))
-            {
-                "Selecione a cultura".ToDisplayAlert(MessageType.Aviso);
-                return;
-            }
-
-            if (IsNotBusy)
-            {
-                IsBusy = true;
-                var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, (int) ExpectativaSelected.Value, CulturaSelected, true));
-                Navigation.RemovePage(current);
-                IsBusy = false;
-            }
-        }
+        public bool IsPotassioFosforoBaixo => IsPotassioBaixo && IsFosforoBaixo;
+        public bool JustPotassioBaixo => IsPotassioBaixo && !IsFosforoBaixo;
+        public bool JustFosforoBaixo => !IsPotassioBaixo && IsFosforoBaixo;
 
         #endregion
     }
