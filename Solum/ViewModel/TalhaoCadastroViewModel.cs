@@ -47,6 +47,9 @@ namespace Solum.ViewModel
                     return;
                 }
 
+                if (!string.IsNullOrEmpty(TalhaoArea))
+                    TalhaoArea = TalhaoArea.Replace("ha", "").Trim();
+
                 var novo = new Talhao
                 {
                     Id = Guid.NewGuid().ToString(),
