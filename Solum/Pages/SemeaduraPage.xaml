@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:effects="clr-namespace:Solum.Effects" xmlns:renderers="clr-namespace:Solum.Renderers" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Solum.Pages.SemeaduraPage" Title="{Binding PageTitle}">
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:effects="clr-namespace:Solum.Effects"
+             xmlns:renderers="clr-namespace:Solum.Renderers" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Solum.Pages.SemeaduraPage" Title="{Binding PageTitle}">
 	<ScrollView Grid.Row="0" BackgroundColor="{StaticResource colorBackground}">
 		<StackLayout Spacing="0">
 			<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES DE PRODUTIVIDADE">
@@ -22,25 +25,27 @@
 						<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
 					</BoxView.HeightRequest>
 				</BoxView>
-				<Label Text="Expectativa de Rendimento" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label Text="Expectativa de Rendimento" VerticalOptions="Center" Grid.Column="1"
+				       TextColor="{StaticResource colorTextPrimary}" />
 
-				<renderers:CustomPicker 
-          x:Name="ExpectativaPicker"
-          ItemsSource="{Binding Expectativas}" 
-          SelectedItem="{Binding ExpectativaSelected}" 
-          VerticalOptions="Center" 
-          Grid.Column="2" 
-          Margin="16,0" 
-          HasBorder="false" 
-          PlaceholderColor="{StaticResource colorTextHint}" 
-          Title="t/ha" 
-          TextAlignment="Right">
+				<renderers:CustomPicker
+					x:Name="ExpectativaPicker"
+					ItemsSource="{Binding Expectativas}"
+					SelectedItem="{Binding ExpectativaSelected}"
+					VerticalOptions="Center"
+					Grid.Column="2"
+					Margin="16,0"
+					HasBorder="false"
+					PlaceholderColor="{StaticResource colorTextHint}"
+					Title="t/ha"
+					TextAlignment="Right">
 					<renderers:CustomPicker.TextSize>
 						<OnPlatform x:TypeArguments="x:Double" Android="14" iOS="17" />
 					</renderers:CustomPicker.TextSize>
 				</renderers:CustomPicker>
 
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
+				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
+				         VerticalOptions="End">
 					<BoxView.HeightRequest>
 						<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
 					</BoxView.HeightRequest>
@@ -53,15 +58,15 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Label Text="Cultura" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<renderers:CustomPicker x:Name="CulturaPicker"  
-						ItemsSource="{Binding Culturas}" 
-						SelectedItem="{Binding CulturaSelected}" 
-						VerticalOptions="Center" 
-						Grid.Column="2" Margin="16,0" 
-						HasBorder="false" 
-						Title="Selecione a cultura"
-						PlaceholderColor="{StaticResource colorTextHint}"
-						TextAlignment="Right">
+				<renderers:CustomPicker x:Name="CulturaPicker"
+				                        ItemsSource="{Binding Culturas}"
+				                        SelectedItem="{Binding CulturaSelected}"
+				                        VerticalOptions="Center"
+				                        Grid.Column="2" Margin="16,0"
+				                        HasBorder="false"
+				                        Title="Selecione a cultura"
+				                        PlaceholderColor="{StaticResource colorTextHint}"
+				                        TextAlignment="Right">
 					<renderers:CustomPicker.TextSize>
 						<OnPlatform x:TypeArguments="x:Double" Android="14" iOS="17" />
 					</renderers:CustomPicker.TextSize>
@@ -72,8 +77,12 @@
 					<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
 				</BoxView.HeightRequest>
 			</BoxView>
-			<Label Text="AVISO! O nível de Potássio de sua análise estava baixo, para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva." TextColor="{StaticResource colorTextPrimary}" Margin="16" FontSize="Small" IsVisible="{Binding IsPotassioBaixo}" />
-			<Button Text="Recomendação" Command="{Binding RecomendarCommand}" IsEnabled="true" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand" />
+			<Label
+				Text="AVISO! O nível de Potássio de sua análise estava baixo, para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva."
+				TextColor="{StaticResource colorTextPrimary}" Margin="16" FontSize="Small" IsVisible="{Binding IsPotassioBaixo}" />
+			<Button Text="Recomendação" Command="{Binding RecomendarCommand}" IsEnabled="true" Margin="16"
+			        BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}"
+			        VerticalOptions="EndAndExpand" />
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

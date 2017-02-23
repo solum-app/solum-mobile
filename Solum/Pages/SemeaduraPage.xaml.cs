@@ -5,10 +5,10 @@ namespace Solum.Pages
 {
     public partial class SemeaduraPage : ContentPage
     {
-        public SemeaduraPage(string analiseId, bool enableButton)
+        public SemeaduraPage(string analiseId)
         {
             InitializeComponent();
-            BindingContext = new SemeaduraViewModel(Navigation, analiseId, enableButton);
+            BindingContext = new SemeaduraViewModel(Navigation, analiseId);
             NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
         }
     }
