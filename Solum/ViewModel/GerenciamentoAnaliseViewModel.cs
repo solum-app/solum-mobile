@@ -258,7 +258,7 @@ namespace Solum.ViewModel
                     await Navigation.PushAsync(new RecomendaSemeaduraPage(Analise.Id, Analise.Expectativa,
                         Analise.Cultura, !Analise.HasSemeadura));
                 else
-                    await Navigation.PushAsync(new SemeaduraPage(Analise.Id, false));
+                    await Navigation.PushAsync(new SemeaduraPage(Analise.Id));
                 IsBusy = false;
             }
         }

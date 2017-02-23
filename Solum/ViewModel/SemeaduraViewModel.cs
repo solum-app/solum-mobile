@@ -12,21 +12,27 @@ namespace Solum.ViewModel
 {
     public class SemeaduraViewModel : BaseViewModel
     {
-        public SemeaduraViewModel(INavigation navigation, string analiseId, bool enableButton) : base(navigation)
+        public SemeaduraViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
             _realm = Realm.GetInstance();
             _analise = _realm.Find<Analise>(analiseId);
             var p = InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC);
             IsPotassioBaixo = !p.ToUpper().Equals("ADEQUADO") || !p.ToUpper().Equals("ALTO");
             PageTitle = _analise.Identificacao;
-            Expectativas = new List<int> {6, 8, 10, 12};
+            Expectativas = new List<DisplayItems>
+            {
+                new DisplayItems("6 t", 6),
+                new DisplayItems("8 t", 8),
+                new DisplayItems("10 t",10),
+                new DisplayItems("12 t", 12)
+            };
             Culturas = new List<string> {"Milho"};
         }
 
         #region private properties
 
-        private IList<int> _expectativas;
-        private int _expectativaSelected;
+        private IList<DisplayItems> _expectativas;
+        private DisplayItems _expectativaSelected;
 
         private IList<string> _culturas;
         private string _culturaSelected;
@@ -49,13 +55,13 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _enableButton, value); }
         }
 
-        public IList<int> Expectativas
+        public IList<DisplayItems> Expectativas
         {
             get { return _expectativas; }
             set { SetPropertyChanged(ref _expectativas, value); }
         }
 
-        public int ExpectativaSelected
+        public DisplayItems ExpectativaSelected
         {
             get { return _expectativaSelected;}
             set { SetPropertyChanged(ref _expectativaSelected, value); }
@@ -91,7 +97,7 @@ namespace Solum.ViewModel
 
         private async void Recomendar()
         {
-            if (ExpectativaSelected == 0)
+            if (ExpectativaSelected == null)
             {
                 "Selecione a sua expectativa".ToDisplayAlert(MessageType.Aviso);
                 return;
@@ -106,7 +112,7 @@ namespace Solum.ViewModel
             {
                 IsBusy = true;
                 var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, ExpectativaSelected, CulturaSelected, true));
+                await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, (int) ExpectativaSelected.Value, CulturaSelected, true));
                 Navigation.RemovePage(current);
                 IsBusy = false;
             }

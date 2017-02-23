@@ -14,23 +14,27 @@ namespace Solum.ViewModel
         public RecomendacaoSemeaduraViewModel(INavigation navigation, string analiseId, int expectativa, string cultura, bool enableButton) : base(navigation)
         {
             _realm = Realm.GetInstance();
-            var interpreter = SemeaduraInjector.GetInstance(cultura);
+            _interpreter = SemeaduraInjector.GetInstance(cultura);
             _analise = _realm.Find<Analise>(analiseId);
             PageTitle = _analise.Identificacao;
+            EnableButton = enableButton;
+            Init(expectativa, cultura);
+        }
+
+        private void Init(int expectativa, string cultura)
+        {
             Expectativa = expectativa.ToString();
             Cultura = cultura;
-            N = interpreter.CalculateN(expectativa, null).ToString();
+            N = _interpreter.CalculateN(expectativa, null).ToString();
             P205 =
-                interpreter.CalculateP(expectativa,
+                _interpreter.CalculateP(expectativa,
                     InterpretaHandler.InterpretaP(_analise.Fosforo,
                         InterpretaHandler.InterpretaTextura(_analise.Argila, _analise.Silte))).ToString();
             K20 =
-                interpreter.CalculateK(expectativa,
+                _interpreter.CalculateK(expectativa,
                         InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC))
                     .ToString();
-            EnableButton = enableButton;
         }
-        
         #region Binding Properties
 
         public bool EnableButton
@@ -81,6 +85,7 @@ namespace Solum.ViewModel
         private string _cultura;
 
         private ICommand _showSemeaduraPageCommand;
+        private readonly ISemeaduraInterpreter _interpreter;
 
         private readonly Analise _analise;
         private readonly Realm _realm;
@@ -98,6 +103,9 @@ namespace Solum.ViewModel
 
         private async void Salvar()
         {
+            var count = Navigation.NavigationStack.Count();
+            var last = Navigation.NavigationStack[count - 2];
+            Navigation.RemovePage(last);
             using (var transaction = _realm.BeginWrite())
             {
                 _analise.DataCalculoSemeadura = DateTimeOffset.Now;

@@ -17,7 +17,7 @@ namespace Solum.Pages
                 {
                     IsBusy = true;
                     //var current = Navigation.NavigationStack.LastOrDefault();
-                    await Navigation.PushAsync(new SemeaduraPage(analiseId, true));
+                    await Navigation.PushAsync(new SemeaduraPage(analiseId));
                     //Navigation.RemovePage(current);
                     IsBusy = false;
                 }
