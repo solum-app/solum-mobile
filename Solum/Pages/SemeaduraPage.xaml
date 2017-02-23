@@ -72,14 +72,20 @@
 					</renderers:CustomPicker.TextSize>
 				</renderers:CustomPicker>
 			</Grid>
-			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
+			<BoxView BackgroundColor="{StaticResource colorSeparator}"
+			         VerticalOptions="End">
 				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
+					<OnPlatform x:TypeArguments="x:Double"
+					            iOS="0.5"
+					            Android="0.3" />
 				</BoxView.HeightRequest>
 			</BoxView>
+
 			<Label
-				Text="AVISO! O nível de Potássio de sua análise estava baixo, para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva."
-				TextColor="{StaticResource colorTextPrimary}" Margin="16" FontSize="Small" IsVisible="{Binding IsPotassioBaixo}" />
+				Text="AVISO! O nível de Potássio e/ou Fosforo de sua análise está(ão) baixo(s), para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva."
+				TextColor="{StaticResource colorTextPrimary}" Margin="16" FontSize="Small"
+				IsVisible="{Binding IsFosforoPotassioBaixo}" />
+
 			<Button Text="Recomendação" Command="{Binding RecomendarCommand}" IsEnabled="true" Margin="16"
 			        BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}"
 			        VerticalOptions="EndAndExpand" />

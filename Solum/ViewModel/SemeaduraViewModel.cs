@@ -14,10 +14,13 @@ namespace Solum.ViewModel
     {
         public SemeaduraViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
-            _realm = Realm.GetInstance();
-            _analise = _realm.Find<Analise>(analiseId);
-            var p = InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC);
-            IsPotassioBaixo = !p.ToUpper().Equals("ADEQUADO") || !p.ToUpper().Equals("ALTO");
+            var realm = Realm.GetInstance();
+            _analise = realm.Find<Analise>(analiseId);
+            var k = InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC);
+            var textura = InterpretaHandler.InterpretaTextura(_analise.Argila, _analise.Silte);
+            var p = InterpretaHandler.InterpretaP(_analise.Fosforo, textura);
+            IsPotassioBaixo = !k.ToUpper().Equals("ADEQUADO") || !k.ToUpper().Equals("ALTO");
+            IsFosforoBaixo = !p.ToUpper().Equals("ADEQUADO") || !p.ToUpper().Equals("ALTO");
             PageTitle = _analise.Identificacao;
             Expectativas = new List<DisplayItems>
             {
@@ -38,11 +41,12 @@ namespace Solum.ViewModel
         private string _culturaSelected;
 
         private bool _isPotassioBaixo;
+        private bool _isFosforoBaixo;
+
         private readonly Analise _analise;
 
         private ICommand _recomendarCommand;
 
-        private readonly Realm _realm;
         private bool _enableButton;
 
         #endregion
@@ -84,6 +88,14 @@ namespace Solum.ViewModel
             get { return _isPotassioBaixo;}
             set { SetPropertyChanged(ref _isPotassioBaixo, value); }
         }
+
+        public bool IsFosforoBaixo
+        {
+            get { return _isFosforoBaixo;}
+            set { SetPropertyChanged(ref _isFosforoBaixo, value); }
+        }
+
+        public bool IsPotassioFosforoBaixo => IsPotassioBaixo || IsFosforoBaixo;
 
         #endregion
 
