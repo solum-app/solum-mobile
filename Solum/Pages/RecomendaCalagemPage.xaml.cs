@@ -16,9 +16,9 @@ namespace Solum.Pages
                 if (!IsBusy)
                 {
                     IsBusy = true;
-                    var current = Navigation.NavigationStack.LastOrDefault();
+                    //var current = Navigation.NavigationStack.LastOrDefault();
                     await Navigation.PushAsync(new CalagemPage(analiseId));
-                    Navigation.RemovePage(current);
+                    //Navigation.RemovePage(current);
                     IsBusy = false;
                 }
             }));
