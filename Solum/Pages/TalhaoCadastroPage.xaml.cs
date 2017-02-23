@@ -26,5 +26,19 @@ namespace Solum.Pages
         {
             AreaEntry.Focus();
         }
+
+        private void AreaEntry_OnFocused(object sender, FocusEventArgs e)
+        {
+            var text = ((Entry) sender).Text;
+            if (!string.IsNullOrEmpty(text))
+                ((Entry) sender).Text = text.Replace("ha", "").Trim();
+        }
+
+        private void AreaEntry_OnUnfocused(object sender, FocusEventArgs e)
+        {
+            var text = ((Entry)sender).Text;
+            if (!string.IsNullOrEmpty(text))
+                ((Entry) sender).Text = $"{text} ha";
+        }
     }
 }
