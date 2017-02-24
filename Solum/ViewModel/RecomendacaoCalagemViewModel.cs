@@ -49,9 +49,6 @@ namespace Solum.ViewModel
         };
 
         private ICommand _salvarCommand;
-        private float v2ItemValue;
-        private float profundidadeItemValue;
-
         #endregion
 
         #region Binding Properties
@@ -69,19 +66,19 @@ namespace Solum.ViewModel
 
         public string V2
         {
-            get { return _v2; }
+            get { return string.Format(_v2, "###.###"); }
             set { SetPropertyChanged(ref _v2, value); }
         }
 
         public string Prnt
         {
-            get { return _prnt; }
+            get { return string.Format(_prnt, "###.###"); }
             set { SetPropertyChanged(ref _prnt, value); }
         }
 
         public string Profundidade
         {
-            get { return _profundidade; }
+            get { return string.Format(_profundidade, "##"); }
             set { SetPropertyChanged(ref _profundidade, value); }
         }
 
@@ -127,7 +124,7 @@ namespace Solum.ViewModel
                 j *= _values[int.Parse(Profundidade)];
             else
                 j *= _values[20];
-            QuantidadeCal = j.ToString();
+            QuantidadeCal = j.ToString("###.###");
         }
 
 

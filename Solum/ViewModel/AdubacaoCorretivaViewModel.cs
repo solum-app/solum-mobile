@@ -28,48 +28,48 @@ namespace Solum.ViewModel
             var pInterpretaded = InterpretaHandler.InterpretaP(_analise.Fosforo, textura).ToUpper();
             var kInterpretaded = InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC).ToUpper();
 
-            if (!pInterpretaded.Equals("Adequado".ToUpper()) || !pInterpretaded.Equals("Alto".ToUpper()))
+            if (pInterpretaded != "ADEQUADO" && pInterpretaded != "ALTO")
             {
                 if (pInterpretaded.Equals("Muito Baixo".ToUpper()))
-                    P2O5 = (argila / 10 * 4).ToString("N");
+                    P2O5 = (argila / 10 * 4).ToString("###");
                 else if (pInterpretaded.Equals("Baixo".ToUpper()))
-                    P2O5 = (argila / 10 * 2).ToString("N");
+                    P2O5 = (argila / 10 * 2).ToString("###");
                 else if (pInterpretaded.Equals("Medio".ToUpper()))
-                    P2O5 = (argila / 10 * 1).ToString("N");
+                    P2O5 = (argila / 10 * 1).ToString("###");
             }
             else
             {
-                P2O5 = !string.IsNullOrEmpty(pInterpretaded) ? pInterpretaded : 0.ToString("N");
+                P2O5 = 0.ToString();
             }
 
-            if (!kInterpretaded.Equals("Adequado".ToUpper()) || !kInterpretaded.Equals("Alto".ToUpper()))
+            if (!kInterpretaded.Equals("Adequado".ToUpper()) && !kInterpretaded.Equals("Alto".ToUpper()))
             {
                 var ctc = _analise.CTC;
                 if (ctc < 4)
                 {
                     if (kInterpretaded.Equals("Baixo".ToUpper()))
-                        K2O = 50.0f.ToString("N");
+                        K2O = 50.0f.ToString("###");
                     else if (kInterpretaded.Equals("Medio".ToUpper()))
-                        K2O = 25.0f.ToString("N");
+                        K2O = 25.0f.ToString("###");
                 }
                 else
                 {
                     if (kInterpretaded.Equals("Baixo".ToUpper()))
-                        K2O = 100.0f.ToString("N");
+                        K2O = 100.0f.ToString("###");
                     else if (kInterpretaded.Equals("Medio".ToUpper()))
-                        K2O = 50.0f.ToString("N");
+                        K2O = 50.0f.ToString("###");
                 }
             }
             else
             {
-                K2O = !string.IsNullOrEmpty(kInterpretaded) ? kInterpretaded : 0.ToString("N");
+                K2O = 0.ToString();
             }
 
-            using (var transaction = _realm.BeginWrite())
-            {
-                _analise.DataCalculoCorretiva = DateTimeOffset.Now;
-                transaction.Commit();
-            }
+            //using (var transaction = _realm.BeginWrite())
+            //{
+            //    _analise.DataCalculoCorretiva = DateTimeOffset.Now;
+            //    transaction.Commit();
+            //}
         }
 
         #endregion
