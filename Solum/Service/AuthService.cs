@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
@@ -58,7 +59,7 @@ namespace Solum.Service
                 _realm.Add(usuario, true);
                 transaction.Commit();
             }
-          //  _accountRemote.SetToken(usuario.AccessToken);
+
             return AuthResult.LoginSuccessFully;
         }
 
@@ -85,6 +86,8 @@ namespace Solum.Service
 
         public async Task<bool> Logoff()
         {
+            var user = _realm.All<Usuario>().FirstOrDefault();
+            _accountRemote.Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", user.AccessToken);
             var result = await _accountRemote.Logout();
             if (result == null)
             {
