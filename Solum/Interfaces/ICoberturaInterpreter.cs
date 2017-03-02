@@ -1,4 +1,6 @@
-﻿namespace Solum.Interfaces
+﻿using Solum.Models;
+
+namespace Solum.Interfaces
 {
     public interface ICoberturaInterpreter
     {
@@ -57,11 +59,9 @@
 
     public static class CoberturaInjector
     {
-        public static ICoberturaInterpreter GetInstance(string cultura)
+        public static ICoberturaInterpreter GetInstance(Cultura cultura)
         {
-            if (cultura.Equals("MILHO"))
-                return MilhoCoberturaInterpreter.Instance;
-            return null;
+            return cultura == Cultura.Milho ? MilhoCoberturaInterpreter.Instance : null;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Solum.Models
 
         public override string ToString()
         {
-            return HasArea ? Nome : $"{Nome} - {Area}ha";
+            return HasArea ? Nome : $"{Nome} - {Area} ha";
         }
     }
 }

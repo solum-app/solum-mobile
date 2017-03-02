@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Solum.Models;
 using Solum.ViewModel;
 using Xamarin.Forms;
 
@@ -6,7 +7,7 @@ namespace Solum.Pages
 {
     public partial class RecomendaSemeaduraPage : ContentPage
     {
-        public RecomendaSemeaduraPage(string analiseId, int expectativaSelected, string culturaSelected, bool enableButton)
+        public RecomendaSemeaduraPage(string analiseId, int expectativaSelected, Cultura culturaSelected, bool enableButton)
         {
             InitializeComponent();
             BindingContext = new RecomendacaoSemeaduraViewModel(Navigation, analiseId, expectativaSelected, culturaSelected, enableButton);

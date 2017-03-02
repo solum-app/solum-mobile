@@ -10,13 +10,14 @@ namespace Solum.ViewModel
 {
     public class AdubacaoCoberturaViewModel : BaseViewModel
     {
-        public AdubacaoCoberturaViewModel(INavigation navigation, string analiseid, bool enableButton)
-            : base(navigation)
+        public AdubacaoCoberturaViewModel(INavigation navigation, string analiseid, bool enableButton) : base(navigation)
         {
             _realm = Realm.GetInstance();
             _analise = _realm.Find<Analise>(analiseid);
             PageTitle = _analise.Identificacao;
-            Cultura = _analise.Cultura;
+            Cultura c;
+            Enum.TryParse(_analise.Cultura, out c);
+            Cultura = c;
             Expectativa = _analise.Expectativa.ToString();
             Calculate();
             EnableButton = enableButton;
@@ -32,7 +33,7 @@ namespace Solum.ViewModel
 
         private void Calculate()
         {
-            var calculator = CoberturaInjector.GetInstance(_analise.Cultura.ToUpper());
+            var calculator = CoberturaInjector.GetInstance(Cultura);
             N = calculator?.CalculateN(_analise.Expectativa);
             P2O5 = calculator?.CalculateP(_analise.Expectativa);
             K2O = calculator?.CalculateK(_analise.Expectativa);
@@ -63,7 +64,7 @@ namespace Solum.ViewModel
 
         private bool _enableButton;
         private string _expectativa;
-        private string _cultura;
+        private Cultura _cultura;
 
         private string _n;
         private string _p2O5;
@@ -90,7 +91,7 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _expectativa, value); }
         }
 
-        public string Cultura
+        public Cultura Cultura
         {
             get { return _cultura; }
             set { SetPropertyChanged(ref _cultura, value); }

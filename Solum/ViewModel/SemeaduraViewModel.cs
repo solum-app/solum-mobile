@@ -15,11 +15,11 @@ namespace Solum.ViewModel
         {
             var realm = Realm.GetInstance();
             _analise = realm.Find<Analise>(analiseId);
-            var k = InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC);
-            var textura = InterpretaHandler.InterpretaTextura(_analise.Argila, _analise.Silte);
-            var p = InterpretaHandler.InterpretaP(_analise.Fosforo, textura);
-            IsPotassioBaixo = k.ToUpper() != "ADEQUADO" & k.ToUpper() != "ALTO";
-            IsFosforoBaixo = p.ToUpper() != "ADEQUADO" & p.ToUpper() != "ALTO";
+            var k = Interpretador.NivelPotassio(_analise.Potassio, _analise.CTC);
+            var textura = Interpretador.Textura(_analise.Argila, _analise.Silte);
+            var p = Interpretador.NiveFosforo(_analise.Fosforo, textura);
+            IsPotassioBaixo = k != Nivel.Adequado && k != Nivel.Alto;
+            IsFosforoBaixo = p != Nivel.Adequado && p != Nivel.Alto; 
             PageTitle = _analise.Identificacao;
             Expectativas = new List<DisplayItems>
             {
@@ -28,7 +28,7 @@ namespace Solum.ViewModel
                 new DisplayItems("10 t/ha", 10),
                 new DisplayItems("12 t/ha", 12)
             };
-            Culturas = new List<string> {"Milho"};
+            Culturas = new List<Cultura> {Cultura.Milho};
         }
 
         #region commands
@@ -46,18 +46,17 @@ namespace Solum.ViewModel
                 "Selecione a sua expectativa".ToDisplayAlert(MessageType.Aviso);
                 return;
             }
-            if (string.IsNullOrEmpty(CulturaSelected))
-            {
-                "Selecione a cultura".ToDisplayAlert(MessageType.Aviso);
-                return;
-            }
+            //if (CulturaSelected == null)
+            //{
+            //    "Selecione a cultura".ToDisplayAlert(MessageType.Aviso);
+            //    return;
+            //}
 
             if (IsNotBusy)
             {
                 IsBusy = true;
                 var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, (int) ExpectativaSelected.Value,
-                    CulturaSelected, true));
+                await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, (int) ExpectativaSelected.Value, CulturaSelected, true));
                 Navigation.RemovePage(current);
                 IsBusy = false;
             }
@@ -70,8 +69,8 @@ namespace Solum.ViewModel
         private IList<DisplayItems> _expectativas;
         private DisplayItems _expectativaSelected;
 
-        private IList<string> _culturas;
-        private string _culturaSelected;
+        private IList<Cultura> _culturas;
+        private Cultura _culturaSelected;
 
         private bool _isPotassioBaixo;
         private bool _isFosforoBaixo;
@@ -104,13 +103,13 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _expectativaSelected, value); }
         }
 
-        public IList<string> Culturas
+        public IList<Cultura> Culturas
         {
             get { return _culturas; }
             set { SetPropertyChanged(ref _culturas, value); }
         }
 
-        public string CulturaSelected
+        public Cultura CulturaSelected
         {
             get { return _culturaSelected; }
             set { SetPropertyChanged(ref _culturaSelected, value); }
