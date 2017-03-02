@@ -15,23 +15,78 @@ namespace Solum.ViewModel
             FazendaName = Analise.Talhao.Fazenda.Nome;
             Date = Analise.DataRegistro;
             TalhaoName = Analise.Talhao.Nome;
-            InterpretacaoTextura = InterpretaHandler.InterpretaTextura(Analise.Argila, Analise.Silte);
-            InterpretacaoPh = InterpretaHandler.InterpretaPh(Analise.PotencialHidrogenico);
-            InterpretacaoP = InterpretaHandler.InterpretaP(Analise.Fosforo, InterpretacaoTextura);
-            InterpretacaoK = InterpretaHandler.InterpretaK(Analise.Potassio, Analise.CTC);
-            InterpretacaoCa = InterpretaHandler.InterpretaCa(Analise.Calcio);
-            InterpretacaoMg = InterpretaHandler.InterpretaMg(Analise.Magnesio);
-            InterpretacaoCaK = InterpretaHandler.InterpretaCaK(Analise.CaK);
-            InterpretacaoMgK = InterpretaHandler.InterpretaMgK(Analise.MgK);
-            InterpretacaoM = InterpretaHandler.InterpretaM(Analise.M);
-            InterpretacaoV = InterpretaHandler.InterpretaV(Analise.V);
-            InterpretacaoCtc = InterpretaHandler.InterpretaCtc(Analise.CTC, InterpretacaoTextura);
-            InterpretacaoMo = InterpretaHandler.InterpretaMo(Analise.MateriaOrganica, InterpretacaoTextura);
+
+            Textura = Interpretador.Textura(Analise.Argila, Analise.Silte);
+            NivelPh = Interpretador.NivelPotencialHidrogenico(Analise.PotencialHidrogenico);
+            NivelP = Interpretador.NiveFosforo(Analise.Fosforo, Textura);
+            NivelK = Interpretador.NivelPotassio(Analise.Potassio, Analise.CTC);
+            NivelCa = Interpretador.NivelCalcio(Analise.Calcio);
+            NivelMg = Interpretador.NivelMagnesio(Analise.Magnesio);
+            NivelMo = Interpretador.NivelMateriaOrganica(Analise.MateriaOrganica, Textura);
+            NivelCtc = Interpretador.NivelCtc(Analise.CTC, Textura);
+            NivelV = Interpretador.NivelV(Analise.V);
+            NivelM = Interpretador.NivelM(Analise.M);
+            NivelCaK = Interpretador.NivelCalcioPotassio(Analise.CaK);
+            NivelMgk = Interpretador.NivelMagnesioPotassio(Analise.MgK);
+
+            InterpretacaoTextura = TexturaConverter(Textura);
+            InterpretacaoPh = NivelConverter(NivelPh);
+            InterpretacaoP = NivelConverter(NivelP);
+            InterpretacaoK = NivelConverter(NivelK);
+            InterpretacaoCa = NivelConverter(NivelCa);
+            InterpretacaoMg = NivelConverter(NivelMg);
+            InterpretacaoCaK = NivelConverter(NivelCaK);
+            InterpretacaoMgK = NivelConverter(NivelMgk);
+            InterpretacaoM = NivelConverter(NivelM);
+            InterpretacaoV = NivelConverter(NivelV);
+            InterpretacaoCtc = NivelConverter(NivelCtc);
+            InterpretacaoMo = NivelConverter(NivelMo);
+
             using (var transaction = realm.BeginWrite())
             {
                 Analise.DataInterpretacao = DateTimeOffset.Now;
                 Analise.WasInterpreted = true;
                 transaction.Commit();
+            }
+        }
+
+        private string NivelConverter(Nivel nivel)
+        {
+            switch (nivel)
+            {
+                case Nivel.MuitoBaixo:
+                    return "Muito Baixo";
+                case Nivel.Baixo:
+                    return "Baixo";
+                case Nivel.Adequado:
+                    return "Adequado";
+                case Nivel.Medio:
+                    return "Médio";
+                case Nivel.Alto:
+                    return "Alto";
+                case Nivel.MuitoAlto:
+                    return "Muito Alto";
+                case Nivel.Nenhum:
+                    return "";
+                default:
+                    return "";
+            }
+        }
+
+        private string TexturaConverter(Textura textura)
+        {
+            switch (textura)
+            {
+                case Textura.Arenosa:
+                    return "Arenosa";
+                case Textura.Media:
+                    return "Média";
+                case Textura.Argilosa:
+                    return "Argilosa";
+                case Textura.MuitoArgilosa:
+                    return "Muito Argilosa";
+                default:
+                    return "";
             }
         }
 
@@ -54,9 +109,94 @@ namespace Solum.ViewModel
         private string _interpretacaoTextura;
         private string _interpretacaoV;
 
+        private Nivel _nivelCa;
+        private Nivel _nivelCaK;
+        private Nivel _nivelCtc;
+        private Nivel _nivelK;
+        private Nivel _nivelM;
+        private Nivel _nivelMg;
+        private Nivel _nivelMgK;
+        private Nivel _nivelMo;
+        private Nivel _nivelP;
+        private Nivel _nivelPh;
+        private Textura _textura;
+        private Nivel _nivelV;
+
         #endregion
 
         #region Binding Properties
+
+        public Nivel NivelCa
+        {
+            get { return _nivelCa; }
+            set { SetPropertyChanged(ref _nivelCa, value); }
+        }
+
+        public Nivel NivelCaK
+        {
+            get { return _nivelCaK; }
+            set { SetPropertyChanged(ref _nivelCaK, value); }
+        }
+
+        public Nivel NivelCtc
+        {
+            get { return _nivelCtc; }
+            set { SetPropertyChanged(ref _nivelCtc, value); }
+        }
+
+        public Nivel NivelK
+        {
+            get { return _nivelK; }
+            set { SetPropertyChanged(ref _nivelK, value); }
+        }
+
+        public Nivel NivelM
+        {
+            get { return _nivelM; }
+            set { SetPropertyChanged(ref _nivelM, value); }
+        }
+
+        public Nivel NivelMg
+        {
+            get { return _nivelMg; }
+            set { SetPropertyChanged(ref _nivelMg, value); }
+        }
+
+        public Nivel NivelMgk
+        {
+            get { return _nivelMgK; }
+            set { SetPropertyChanged(ref _nivelMgK, value); }
+        }
+
+        public Nivel NivelMo
+        {
+            get { return _nivelMo; }
+            set { SetPropertyChanged(ref _nivelMo, value); }
+        }
+
+        public Nivel NivelP
+        {
+            get { return _nivelP; }
+            set { SetPropertyChanged(ref _nivelP, value); }
+        }
+
+        public Nivel NivelPh
+        {
+            get { return _nivelPh; }
+            set { SetPropertyChanged(ref _nivelPh, value); }
+        }
+
+        public Nivel NivelV
+        {
+            get { return _nivelV; }
+            set { SetPropertyChanged(ref _nivelV, value); }
+        }
+
+        public Textura Textura
+        {
+            get { return _textura; }
+            set { SetPropertyChanged(ref _textura, value); }
+        }
 
         public Analise Analise
         {

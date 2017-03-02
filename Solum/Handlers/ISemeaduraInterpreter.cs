@@ -1,19 +1,25 @@
-﻿namespace Solum.Handlers
+﻿using Solum.Models;
+
+namespace Solum.Handlers
 {
     public interface ISemeaduraInterpreter
     {
-        float CalculateN(int expectativa, string level);
-        float CalculateP(int expectativa, string level);
-        float CalculateK(int expectativa, string level);
+        float QuanidadeNitrogenio(int expectativa, Nivel nivel);
+        float QuantidadeFosforo(int expectativa, Nivel nivel);
+        float QuantidadePotassio(int expectativa, Nivel nivel);
     }
 
     public static class SemeaduraInjector
     {
-        public static ISemeaduraInterpreter GetInstance(string name)
+        public static ISemeaduraInterpreter GetInstance(Cultura cultura)
         {
-            if (name.ToUpper().Equals("MILHO"))
-                return MilhoSemeaturaInterpreter.Instance;
-            return null;
+            switch (cultura)
+            {
+                case Cultura.Milho:
+                    return MilhoSemeaturaInterpreter.Instance;
+                default:
+                    return null;
+            }
         }
     }
 }

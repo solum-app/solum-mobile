@@ -31,7 +31,7 @@
 			<!--pH-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoPh, Converter={x:Static handlers:PhCorValueConverter.Instance} }" />
+					<BoxView WidthRequest="6" BackgroundColor="{Binding NivelPh, Converter={x:Static handlers:PhCorValueConverter.Instance} }" />
 	 				<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
 	 						<RowDefinition  Height="Auto"/>
@@ -55,7 +55,8 @@
 			<!--P-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoP, Converter={x:Static handlers:PCorValueConverter.Instance} }" />
+					<BoxView WidthRequest="6"
+							 BackgroundColor="{Binding NivelP, Converter={x:Static handlers:PCorValueConverter.Instance} }" />
 	 				<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
 	 						<RowDefinition  Height="Auto"/>
@@ -71,7 +72,7 @@
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Fosforo, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding InterpretacaoTextura, Converter={x:Static handlers:TexturaPValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding Textura, Converter={x:Static handlers:TexturaPValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 	 				</Grid>
 	 			</StackLayout>
 			</Frame>
@@ -79,7 +80,8 @@
 			<!--K-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoK, Converter={x:Static handlers:KCorValueConverter.Instance} }" />
+					<BoxView WidthRequest="6"
+							 BackgroundColor="{Binding NivelK, Converter={x:Static handlers:KCorValueConverter.Instance} }" />
 	 				<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
 	 						<RowDefinition  Height="Auto"/>
@@ -103,7 +105,8 @@
 			<!--Ca-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoCa, Converter={x:Static handlers:CaMgCorValueConverter.Instance} }" />
+					<BoxView WidthRequest="6"
+							 BackgroundColor="{Binding NivelCa, Converter={x:Static handlers:CaMgCorValueConverter.Instance} }" />
 	 				<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
 	 						<RowDefinition  Height="Auto"/>
@@ -127,7 +130,8 @@
 			<!--Mg-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoMg, Converter={x:Static handlers:CaMgCorValueConverter.Instance} }" />
+					<BoxView WidthRequest="6"
+							 BackgroundColor="{Binding NivelMg, Converter={x:Static handlers:CaMgCorValueConverter.Instance} }" />
 					<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
 	 						<RowDefinition  Height="Auto"/>
@@ -151,7 +155,8 @@
 			<!--M.O.-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoMo, Converter={x:Static handlers:MoCorValueConverter.Instance} }" />
+					<BoxView WidthRequest="6"
+							 BackgroundColor="{Binding NivelMo, Converter={x:Static handlers:MoCorValueConverter.Instance} }" />
 					<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
 	 						<RowDefinition  Height="Auto"/>
@@ -167,7 +172,7 @@
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.MateriaOrganica, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding InterpretacaoTextura, Converter={x:Static handlers:TexturaMoValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding Textura, Converter={x:Static handlers:TexturaMoValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 	 				</Grid>
 	 			</StackLayout>
 			</Frame>
@@ -175,7 +180,8 @@
 			<!--CTC(T)-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoCtc, Converter={x:Static handlers:CtcCorValueConverter.Instance} }" />
+					<BoxView WidthRequest="6"
+							 BackgroundColor="{Binding NivelCtc, Converter={x:Static handlers:CtcCorValueConverter.Instance} }" />
 					<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
 	 						<RowDefinition  Height="Auto"/>
@@ -191,7 +197,7 @@
 	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.CTC, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding InterpretacaoTextura, Converter={x:Static handlers:TexturaCtcValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
+	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding Textura, Converter={x:Static handlers:TexturaCtcValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
 	 				</Grid>
 	 			</StackLayout>
 			</Frame>
@@ -199,7 +205,8 @@
 			<!--V(%)-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoV, Converter={x:Static handlers:VCorValueConverter.Instance} }" />
+					<BoxView WidthRequest="6"
+							 BackgroundColor="{Binding NivelV, Converter={x:Static handlers:VCorValueConverter.Instance} }" />
 					<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
 	 						<RowDefinition  Height="Auto"/>
@@ -223,7 +230,8 @@
 			<!--m(%)-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoM, Converter={x:Static handlers:MCorValueConverter.Instance} }" />
+					<BoxView WidthRequest="6"
+							 BackgroundColor="{Binding NivelM, Converter={x:Static handlers:MCorValueConverter.Instance} }" />
 					<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
 	 						<RowDefinition  Height="Auto"/>
@@ -247,7 +255,8 @@
 			<!--Ca/K-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoCaK, Converter={x:Static handlers:CaMgKCorValueConverter.Instance} }" />
+					<BoxView WidthRequest="6"
+							 BackgroundColor="{Binding NivelCaK, Converter={x:Static handlers:CaMgKCorValueConverter.Instance} }" />
 					<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
 	 						<RowDefinition  Height="Auto"/>
@@ -271,7 +280,8 @@
 			<!--Mg/K-->
 			<Frame Margin="8,4" Padding="0">
 				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding InterpretacaoMgK, Converter={x:Static handlers:CaMgKCorValueConverter.Instance} }" />
+					<BoxView WidthRequest="6"
+							 BackgroundColor="{Binding NivelMgk, Converter={x:Static handlers:CaMgKCorValueConverter.Instance} }" />
 					<Grid Padding="8" HorizontalOptions="FillAndExpand">
 	 					<Grid.RowDefinitions>
 	 						<RowDefinition  Height="Auto"/>

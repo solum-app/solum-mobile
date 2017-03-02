@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using Realms;
@@ -120,14 +119,14 @@ namespace Solum.ViewModel
                     ? $"Realizada em  {Analise.DataInterpretacao:dd/MM/yy}"
                     : "Não realizada ainda";
             }
-            set { SetPropertyChanged(ref _interpretacaoDate, (value)); }
+            set { SetPropertyChanged(ref _interpretacaoDate, value); }
         }
 
         public string CalagemDate
         {
             get
             {
-                return Analise.HasCalagem? $"Realizada em {Analise.DataCalculoCalagem:dd/MM/yy}" : "Não realizada ainda";
+                return Analise.HasCalagem ? $"Realizada em {Analise.DataCalculoCalagem:dd/MM/yy}" : "Não realizada ainda";
             }
             set { SetPropertyChanged(ref _calagemDate, value); }
         }
@@ -136,7 +135,9 @@ namespace Solum.ViewModel
         {
             get
             {
-                return Analise.HasCorretiva ? $"Realizada em {Analise.DataCalculoCorretiva:dd/MM/yy}" : "Não realizada ainda";
+                return Analise.HasCorretiva
+                    ? $"Realizada em {Analise.DataCalculoCorretiva:dd/MM/yy}"
+                    : "Não realizada ainda";
             }
             set { SetPropertyChanged(ref _corretivaDate, value); }
         }
@@ -145,7 +146,9 @@ namespace Solum.ViewModel
         {
             get
             {
-                return Analise.HasSemeadura ? $"Realizada em {Analise.DataCalculoSemeadura:dd/MM/yy}" : "Não realizada ainda";
+                return Analise.HasSemeadura
+                    ? $"Realizada em {Analise.DataCalculoSemeadura:dd/MM/yy}"
+                    : "Não realizada ainda";
             }
             set { SetPropertyChanged(ref _semeaduraDate, value); }
         }
@@ -154,7 +157,9 @@ namespace Solum.ViewModel
         {
             get
             {
-                return Analise.HasCobertura ? $"Realizada em {Analise.DataCalculoCobertura:dd/MM/yy}" : "Não realizada ainda";
+                return Analise.HasCobertura
+                    ? $"Realizada em {Analise.DataCalculoCobertura:dd/MM/yy}"
+                    : "Não realizada ainda";
             }
             set { SetPropertyChanged(ref _coberturaDate, value); }
         }
@@ -217,7 +222,8 @@ namespace Solum.ViewModel
                 IsBusy = true;
                 if (HasCalagemCalculation)
                 {
-                    await Navigation.PushAsync(new RecomendaCalagemPage(Analise.Id, Analise.V2, Analise.Prnt, Analise.Profundidade, false));
+                    await Navigation.PushAsync(new RecomendaCalagemPage(Analise.Id, Analise.V2, Analise.Prnt,
+                        Analise.Profundidade, false));
                     IsBusy = false;
                 }
                 else
@@ -255,8 +261,11 @@ namespace Solum.ViewModel
             {
                 IsBusy = true;
                 if (HasSemeaduraCalculation)
-                    await Navigation.PushAsync(new RecomendaSemeaduraPage(Analise.Id, Analise.Expectativa,
-                        Analise.Cultura, !Analise.HasSemeadura));
+                {
+                    Cultura c;
+                    Enum.TryParse(Analise.Cultura, out c);
+                    await Navigation.PushAsync(new RecomendaSemeaduraPage(Analise.Id, Analise.Expectativa, c, !Analise.HasSemeadura));
+                }
                 else
                     await Navigation.PushAsync(new SemeaduraPage(Analise.Id));
                 IsBusy = false;
@@ -308,7 +317,7 @@ namespace Solum.ViewModel
                 HasCoberturaCalculation = true;
             }
         }
-        
+
         private void GeneratePdf()
         {
             IsGeneratingReport = true;
@@ -318,7 +327,7 @@ namespace Solum.ViewModel
                 "Você precisa ao menos realizar a interpretação dos dados".ToDisplayAlert(MessageType.Aviso);
                 return;
             }
-            
+
             _doc = new PdfDocument();
             var infos = _doc.DocumentInformation;
             infos.Author = "Sydy Tecnologia";
@@ -340,7 +349,7 @@ namespace Solum.ViewModel
 
             var argila = Analise.Argila;
             var silte = Analise.Silte;
-            var textura = InterpretaHandler.InterpretaTextura(argila, silte);
+            var textura = Interpretador.Textura(argila, silte);
             g.DrawString("Textura: " + textura, subHeadingFont, new PdfSolidBrush(_black), new PointF(25, 130));
             g.DrawString("Propriedade", subHeadingFont, new PdfSolidBrush(_black), new PointF(25, 160));
             g.DrawString("Valor atual", subHeadingFont, new PdfSolidBrush(_black), new PointF(175, 160));
@@ -351,76 +360,76 @@ namespace Solum.ViewModel
             //pH
             var valorAtual = Analise.PotencialHidrogenico.ToString("F", CultureInfo.InvariantCulture);
             var valorAdequado = "4,81 a 5,50";
-            var classe = InterpretaHandler.InterpretaPh(Analise.PotencialHidrogenico);
+            var classe = NivelConverter(Interpretador.NivelPotencialHidrogenico(Analise.PotencialHidrogenico));
             var y = BodyContent(g, "pH (CaCl2)", valorAtual, valorAdequado, classe, 180, _grayLight);
 
             //Fósforo
             valorAtual = Analise.Fosforo.ToString("F", CultureInfo.InvariantCulture);
             valorAdequado = TexturaPConverter(textura);
-            classe = InterpretaHandler.InterpretaP(Analise.Fosforo, textura);
+            classe = NivelConverter(Interpretador.NiveFosforo(Analise.Fosforo, textura));
 
             y = BodyContent(g, "P", valorAtual, valorAdequado, classe, y, _white);
 
             //K
             valorAtual = Analise.Potassio.ToString("F", CultureInfo.InvariantCulture);
             valorAdequado = CtcKConverter(_analise.CTC);
-            classe = InterpretaHandler.InterpretaK(Analise.Potassio, Analise.CTC);
+            classe = NivelConverter(Interpretador.NivelPotassio(Analise.Potassio, Analise.CTC));
 
             y = BodyContent(g, "K", valorAtual, valorAdequado, classe, y, _grayLight);
 
             //Ca
             valorAtual = Analise.Calcio.ToString("F", CultureInfo.InvariantCulture);
             valorAdequado = "1,50 a 7,00";
-            classe = InterpretaHandler.InterpretaCa(Analise.Calcio);
+            classe = NivelConverter(Interpretador.NivelCalcio(Analise.Calcio));
 
             y = BodyContent(g, "Ca", valorAtual, valorAdequado, classe, y, _white);
 
             //Mg
             valorAtual = Analise.Magnesio.ToString("F", CultureInfo.InvariantCulture);
             valorAdequado = "0,50 a 2,00";
-            classe = InterpretaHandler.InterpretaMg(Analise.Magnesio);
+            classe = NivelConverter(Interpretador.NivelMagnesio(Analise.Magnesio));
 
             y = BodyContent(g, "Mg", valorAtual, valorAdequado, classe, y, _grayLight);
 
             //M.O.
             valorAtual = Analise.MateriaOrganica.ToString("F", CultureInfo.InvariantCulture);
             valorAdequado = TexturaMoConverter(textura);
-            classe = InterpretaHandler.InterpretaMo(Analise.MateriaOrganica, textura);
+            classe = NivelConverter(Interpretador.NivelMateriaOrganica(Analise.MateriaOrganica, textura));
 
             y = BodyContent(g, "M.O.", valorAtual, valorAdequado, classe, y, _white);
 
             //CTC(T)
             valorAtual = Analise.CTC.ToString("F", CultureInfo.InvariantCulture);
             valorAdequado = TexturaCTCConverter(textura);
-            classe = InterpretaHandler.InterpretaCtc(Analise.CTC, textura);
+            classe = NivelConverter(Interpretador.NivelCtc(Analise.CTC, textura));
 
             y = BodyContent(g, "CTC(T)", valorAtual, valorAdequado, classe, y, _grayLight);
 
             //V(%)
             valorAtual = Analise.V.ToString("F", CultureInfo.InvariantCulture) + "%";
             valorAdequado = "35,01 a 60,00";
-            classe = InterpretaHandler.InterpretaV(Analise.V);
+            classe = NivelConverter(Interpretador.NivelV(Analise.V));
 
             y = BodyContent(g, "V(%)", valorAtual, valorAdequado, classe, y, _white);
 
             //m(%)
             valorAtual = Analise.M.ToString("F", CultureInfo.InvariantCulture) + "%";
             valorAdequado = "Baixo";
-            classe = InterpretaHandler.InterpretaM(Analise.M);
+            classe = NivelConverter(Interpretador.NivelM(Analise.M));
 
             y = BodyContent(g, "m%", valorAtual, valorAdequado, classe, y, _grayLight);
 
             //Ca/K
             valorAtual = Analise.CaK.ToString("F", CultureInfo.InvariantCulture);
             valorAdequado = "14,01 a 25,00";
-            classe = InterpretaHandler.InterpretaCaK(Analise.CaK);
+            classe = NivelConverter(Interpretador.NivelCalcioPotassio(Analise.CaK));
 
             y = BodyContent(g, "Ca/K", valorAtual, valorAdequado, classe, y, _white);
 
             //Mg/K
             valorAtual = Analise.MgK.ToString("F", CultureInfo.InvariantCulture);
             valorAdequado = "4,01 a 15,00";
-            classe = InterpretaHandler.InterpretaMgK(Analise.MgK);
+            classe = NivelConverter(Interpretador.NivelMagnesioPotassio(Analise.MgK));
 
             y = BodyContent(g, "Mg/K", valorAtual, valorAdequado, classe, y, _grayLight);
 
@@ -461,14 +470,17 @@ namespace Solum.ViewModel
                 g.DrawString("Quantidade", subHeadingFont, new PdfSolidBrush(_black), new PointF(475, y));
 
                 y += 20;
-                g.DrawRectangle(new PdfSolidBrush(_gray), new RectangleF(20, y, _page.Graphics.ClientSize.Width - 40, 30));
-                g.DrawRectangle(new PdfSolidBrush(_grayLight), new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
+                g.DrawRectangle(new PdfSolidBrush(_gray),
+                    new RectangleF(20, y, _page.Graphics.ClientSize.Width - 40, 30));
+                g.DrawRectangle(new PdfSolidBrush(_grayLight),
+                    new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
                 y += 9;
                 g.DrawString($"{Analise.V2} %", textFont, new PdfSolidBrush(_black), new PointF(25, y));
                 g.DrawString($"{Analise.Prnt} %", textFont, new PdfSolidBrush(_black), new PointF(175, y));
                 g.DrawString($"{Analise.Profundidade} cm", textFont, new PdfSolidBrush(_black), new PointF(325, y));
-                var calagemvm = new RecomendacaoCalagemViewModel(Navigation, Analise.Id, Analise.V2, Analise.Prnt, Analise.Profundidade, false);
+                var calagemvm = new RecomendacaoCalagemViewModel(Navigation, Analise.Id, Analise.V2, Analise.Prnt,
+                    Analise.Profundidade, false);
                 g.DrawString($"{calagemvm.QuantidadeCal} kg/ha", textFont, new PdfSolidBrush(_black), new PointF(475, y));
             }
             if (HasCorretivaCalculation)
@@ -511,9 +523,10 @@ namespace Solum.ViewModel
                     new RectangleF(21, y + 1, _page.Graphics.ClientSize.Width - 42, 28));
 
                 y += 9;
-                var semeaduravm = new RecomendacaoSemeaduraViewModel(Navigation, _analise.Id, Analise.Expectativa,
-                    Analise.Cultura, false);
-                g.DrawString(Analise.Cultura, textFont, new PdfSolidBrush(_black), new PointF(25, y));
+                Cultura c;
+                Cultura.TryParse(Analise.Cultura, out c);
+                var semeaduravm = new RecomendacaoSemeaduraViewModel(Navigation, _analise.Id, Analise.Expectativa, c, false);
+                g.DrawString(Analise.Cultura.ToString(), textFont, new PdfSolidBrush(_black), new PointF(25, y));
                 g.DrawString($"{Analise.Expectativa} t/ha", textFont, new PdfSolidBrush(_black), new PointF(125, y));
                 g.DrawString($"{semeaduravm.N} kg/ha", textFont, new PdfSolidBrush(_black), new PointF(225, y));
                 g.DrawString($"{semeaduravm.P205} kg/ha", textFont, new PdfSolidBrush(_black), new PointF(325, y));
@@ -539,7 +552,7 @@ namespace Solum.ViewModel
 
                 y += 9;
                 var coberturavm = new AdubacaoCoberturaViewModel(Navigation, _analise.Id, false);
-                g.DrawString(Analise.Cultura, textFont, new PdfSolidBrush(_black), new PointF(25, y));
+                g.DrawString(Analise.Cultura.ToString(), textFont, new PdfSolidBrush(_black), new PointF(25, y));
                 g.DrawString($"{Analise.Expectativa} t/ha", textFont, new PdfSolidBrush(_black), new PointF(125, y));
                 g.DrawString($"{coberturavm.N} kg/ha", textFont, new PdfSolidBrush(_black), new PointF(225, y));
                 g.DrawString($"{coberturavm.P2O5} kg/ha", textFont, new PdfSolidBrush(_black), new PointF(325, y));
@@ -626,17 +639,17 @@ namespace Solum.ViewModel
             return yPosition + 29;
         }
 
-        private string TexturaPConverter(string textura)
+        private string TexturaPConverter(Textura textura)
         {
             switch (textura)
             {
-                case "Arenosa":
+                case Textura.Arenosa:
                     return "18,01 a 25,00";
-                case "Média":
+                case Textura.Media:
                     return "15,01 a 20,00";
-                case "Argilosa":
+                case Textura.Argilosa:
                     return "8,01 a 12,00";
-                case "Muito argilosa":
+                case Textura.MuitoArgilosa:
                     return "4,01 a 6,00";
                 default:
                     return "";
@@ -645,40 +658,61 @@ namespace Solum.ViewModel
 
         private string CtcKConverter(float ctc)
         {
-            if (ctc < 4)
-                return "30,01 a 40,00";
-            return "50,01 a 80,00";
+            return ctc < 4 ? "30,01 a 40,00" : "50,01 a 80,00";
         }
 
-        private string TexturaCTCConverter(string textura)
+        private string TexturaCTCConverter(Textura textura)
         {
             switch (textura)
             {
-                case "Arenosa":
+                case Textura.Arenosa:
                     return "4,01 a 6,00";
-                case "Média":
+                case Textura.Media:
                     return "6,01 a 9,00";
-                case "Argilosa":
+                case Textura.Argilosa:
                     return "9,01 a 13,50";
-                case "Muito argilosa":
+                case Textura.MuitoArgilosa:
                     return "12,01 a 18,00";
                 default:
                     return "";
             }
         }
 
-        private string TexturaMoConverter(string textura)
+        private string TexturaMoConverter(Textura textura)
         {
             switch (textura)
             {
-                case "Arenosa":
+                case Textura.Arenosa:
                     return "10,01 a 15,00";
-                case "Média":
+                case Textura.Media:
                     return "20,01 a 30,00";
-                case "Argilosa":
+                case Textura.Argilosa:
                     return "30,01 a 45,00";
-                case "Muito argilosa":
+                case Textura.MuitoArgilosa:
                     return "35,01 a 52,00";
+                default:
+                    return "";
+            }
+        }
+
+        private string NivelConverter(Nivel nivel)
+        {
+            switch (nivel)
+            {
+                case Nivel.MuitoBaixo:
+                    return "Muito Baixo";
+                case Nivel.Baixo:
+                    return "Baixo";
+                case Nivel.Adequado:
+                    return "Adequado";
+                case Nivel.Medio:
+                    return "Médio";
+                case Nivel.Alto:
+                    return "Alto";
+                case Nivel.MuitoAlto:
+                    return "Muito Alto";
+                case Nivel.Nenhum:
+                    return "";
                 default:
                     return "";
             }

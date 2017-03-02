@@ -73,25 +73,25 @@ namespace Solum.Models
         #region Calculated Properites
 
         [Ignored]
-        public float SB => CalculoHandler.CalcularSB(Potassio, Calcio, Magnesio);
+        public float SB => Calculador.CalcularSb(Potassio, Calcio, Magnesio);
 
         [Ignored]
-        public float CTC => CalculoHandler.CalcularCTC(SB, Hidrogenio, Aluminio);
+        public float CTC => Calculador.CalcularCtc(SB, Hidrogenio, Aluminio);
 
         [Ignored]
-        public float V => CalculoHandler.CalcularV(SB, CTC);
+        public float V => Calculador.CalcularV(SB, CTC);
 
         [Ignored]
-        public float M => CalculoHandler.CalcularM(Aluminio, SB);
+        public float M => Calculador.CalcularM(Aluminio, SB);
 
         [Ignored]
-        public float CaMg => CalculoHandler.CalcularCaMg(Calcio, Magnesio);
+        public float CaMg => Calculador.CalcularCaMg(Calcio, Magnesio);
 
         [Ignored]
-        public float CaK => CalculoHandler.CalcularCaK(Calcio, Potassio);
+        public float CaK => Calculador.CalcularCaK(Calcio, Potassio);
 
         [Ignored]
-        public float MgK => CalculoHandler.CalcularMgK(Magnesio, Potassio);
+        public float MgK => Calculador.CalcularMgK(Magnesio, Potassio);
 
         #endregion
     }

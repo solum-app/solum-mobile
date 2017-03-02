@@ -37,6 +37,7 @@
     <Compile Include="Interfaces\ICoberturaInterpreter.cs" />
     <Compile Include="Models\Calagem.cs" />
     <Compile Include="Models\DisplayItems.cs" />
+    <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Semeadura.cs" />
     <Compile Include="Pages\RecomendaSemeaduraPage.xaml.cs">
       <DependentUpon>RecomendaSemeaduraPage.xaml</DependentUpon>
@@ -102,7 +103,7 @@
     <Compile Include="ViewModel\BaseNotify.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\AnaliseViewModel.cs" />
-    <Compile Include="Handlers\CalculoHandler.cs" />
+    <Compile Include="Handlers\Calculador.cs" />
     <Compile Include="Pages\InterpretacaoPage.xaml.cs">
       <DependentUpon>InterpretacaoPage.xaml</DependentUpon>
     </Compile>
@@ -116,7 +117,7 @@
     <Compile Include="ViewModel\FazendaListViewModel.cs" />
     <Compile Include="ViewModel\GerenciamentoAnaliseViewModel.cs" />
     <Compile Include="ViewModel\InterpretacaoViewModel.cs" />
-    <Compile Include="Handlers\InterpretaHandler.cs" />
+    <Compile Include="Handlers\Interpretador.cs" />
     <Compile Include="Handlers\Converters.cs" />
     <Compile Include="Renderers\FloatingActionButtonView.cs" />
     <Compile Include="Renderers\FloatingActionButtonSize.cs" />

@@ -11,7 +11,7 @@ namespace Solum.ViewModel
 {
     public class RecomendacaoSemeaduraViewModel : BaseViewModel
     {
-        public RecomendacaoSemeaduraViewModel(INavigation navigation, string analiseId, int expectativa, string cultura, bool enableButton) : base(navigation)
+        public RecomendacaoSemeaduraViewModel(INavigation navigation, string analiseId, int expectativa, Cultura cultura, bool enableButton) : base(navigation)
         {
             _realm = Realm.GetInstance();
             _interpreter = SemeaduraInjector.GetInstance(cultura);
@@ -21,20 +21,21 @@ namespace Solum.ViewModel
             Init(expectativa, cultura);
         }
 
-        private void Init(int expectativa, string cultura)
+        private void Init(int expectativa, Cultura cultura)
         {
             Expectativa = expectativa.ToString();
             Cultura = cultura;
-            N = _interpreter.CalculateN(expectativa, null).ToString();
+            N = _interpreter.QuanidadeNitrogenio(expectativa, Nivel.Adequado).ToString();
             P205 =
-                _interpreter.CalculateP(expectativa,
-                    InterpretaHandler.InterpretaP(_analise.Fosforo,
-                        InterpretaHandler.InterpretaTextura(_analise.Argila, _analise.Silte))).ToString();
+                _interpreter.QuantidadeFosforo(expectativa,
+                    Interpretador.NiveFosforo(_analise.Fosforo,
+                        Interpretador.Textura(_analise.Argila, _analise.Silte))).ToString();
             K20 =
-                _interpreter.CalculateK(expectativa,
-                        InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC))
+                _interpreter.QuantidadePotassio(expectativa,
+                        Interpretador.NivelPotassio(_analise.Potassio, _analise.CTC))
                     .ToString();
         }
+       
         #region Binding Properties
 
         public bool EnableButton
@@ -48,7 +49,7 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _expectativa, value); }
         }
 
-        public string Cultura
+        public Cultura Cultura
         {
             get { return _cultura; }
             set { SetPropertyChanged(ref _cultura, value); }
@@ -82,7 +83,7 @@ namespace Solum.ViewModel
         private string _k20;
 
         private string _expectativa;
-        private string _cultura;
+        private Cultura _cultura;
 
         private ICommand _showSemeaduraPageCommand;
         private readonly ISemeaduraInterpreter _interpreter;
@@ -110,7 +111,7 @@ namespace Solum.ViewModel
             {
                 _analise.DataCalculoSemeadura = DateTimeOffset.Now;
                 _analise.HasSemeadura = true;
-                _analise.Cultura = Cultura;
+                _analise.Cultura = Cultura.ToString();
                 _analise.Expectativa = int.Parse(Expectativa);
                 transaction.Commit();
             }

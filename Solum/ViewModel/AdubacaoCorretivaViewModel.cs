@@ -24,52 +24,62 @@ namespace Solum.ViewModel
         {
             var argila = _analise.Argila;
 
-            var textura = InterpretaHandler.InterpretaTextura(_analise.Argila, _analise.Silte);
-            var pInterpretaded = InterpretaHandler.InterpretaP(_analise.Fosforo, textura).ToUpper();
-            var kInterpretaded = InterpretaHandler.InterpretaK(_analise.Potassio, _analise.CTC).ToUpper();
+            var textura = Interpretador.Textura(_analise.Argila, _analise.Silte);
+            var pInterpretaded = Interpretador.NiveFosforo(_analise.Fosforo, textura);
+            var kInterpretaded = Interpretador.NivelPotassio(_analise.Potassio, _analise.CTC);
 
-            if (pInterpretaded != "ADEQUADO" && pInterpretaded != "ALTO")
+            if (pInterpretaded != Nivel.Adequado && pInterpretaded != Nivel.Alto)
             {
-                if (pInterpretaded.Equals("Muito Baixo".ToUpper()))
-                    P2O5 = (argila / 10 * 4).ToString("###");
-                else if (pInterpretaded.Equals("Baixo".ToUpper()))
-                    P2O5 = (argila / 10 * 2).ToString("###");
-                else if (pInterpretaded.Equals("Medio".ToUpper()))
-                    P2O5 = (argila / 10 * 1).ToString("###");
+                switch (pInterpretaded)
+                {
+                    case Nivel.MuitoBaixo:
+                        P2O5 = (argila / 10 * 4).ToString("###");
+                        break;
+                    case Nivel.Baixo:
+                        P2O5 = (argila / 10 * 2).ToString("###");
+                        break;
+                    case Nivel.Medio:
+                        P2O5 = (argila / 10 * 1).ToString("###");
+                        break;
+                }
             }
             else
             {
                 P2O5 = 0.ToString();
             }
 
-            if (!kInterpretaded.Equals("Adequado".ToUpper()) && !kInterpretaded.Equals("Alto".ToUpper()))
+            if (kInterpretaded != Nivel.Adequado && kInterpretaded != Nivel.Alto)
             {
                 var ctc = _analise.CTC;
                 if (ctc < 4)
                 {
-                    if (kInterpretaded.Equals("Baixo".ToUpper()))
-                        K2O = 50.0f.ToString("###");
-                    else if (kInterpretaded.Equals("Medio".ToUpper()))
-                        K2O = 25.0f.ToString("###");
+                    switch (kInterpretaded)
+                    {
+                        case Nivel.Baixo:
+                            K2O = 50.0f.ToString("###");
+                            break;
+                        case Nivel.Medio:
+                            K2O = 25.0f.ToString("###");
+                            break;
+                    }
                 }
                 else
                 {
-                    if (kInterpretaded.Equals("Baixo".ToUpper()))
-                        K2O = 100.0f.ToString("###");
-                    else if (kInterpretaded.Equals("Medio".ToUpper()))
-                        K2O = 50.0f.ToString("###");
+                    switch (kInterpretaded)
+                    {
+                        case Nivel.Baixo:
+                            K2O = 100.0f.ToString("###");
+                            break;
+                        case Nivel.Medio:
+                            K2O = 50.0f.ToString("###");
+                            break;
+                    }
                 }
             }
             else
             {
                 K2O = 0.ToString();
             }
-
-            //using (var transaction = _realm.BeginWrite())
-            //{
-            //    _analise.DataCalculoCorretiva = DateTimeOffset.Now;
-            //    transaction.Commit();
-            //}
         }
 
         #endregion
