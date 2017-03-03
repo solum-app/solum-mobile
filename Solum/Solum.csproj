@@ -36,7 +36,7 @@
     <Compile Include="Handlers\ISemeaduraInterpreter.cs" />
     <Compile Include="Interfaces\ICoberturaInterpreter.cs" />
     <Compile Include="Models\Calagem.cs" />
-    <Compile Include="Models\DisplayItems.cs" />
+    <Compile Include="Models\DisplayNumber.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Semeadura.cs" />
     <Compile Include="Pages\RecomendaSemeaduraPage.xaml.cs">

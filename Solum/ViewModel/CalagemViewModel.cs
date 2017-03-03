@@ -19,16 +19,16 @@ namespace Solum.ViewModel
             _analise = realm.Find<Analise>(analiseId);
             PageTitle = _analise.Identificacao;
 
-            V2List = new List<DisplayItems>();
+            V2List = new List<DisplayNumber>();
             for (var i = 30; i <= 80; i += 5)
-                V2List.Add(new DisplayItems($"{i} %", i));
+                V2List.Add(new DisplayNumber($"{i} %", i));
 
-            ProfundidadeList = new List<DisplayItems>
+            ProfundidadeList = new List<DisplayNumber>
             {
-                new DisplayItems("5 cm", 5),
-                new DisplayItems("10 cm", 10),
-                new DisplayItems("20 cm", 20),
-                new DisplayItems("40 cm", 40)
+                new DisplayNumber("5 cm", 5),
+                new DisplayNumber("10 cm", 10),
+                new DisplayNumber("20 cm", 20),
+                new DisplayNumber("40 cm", 40)
             };
 
             if (_analise.HasCalagem)
@@ -99,11 +99,11 @@ namespace Solum.ViewModel
 
         private string _prnt;
 
-        private DisplayItems _v2Item;
-        private DisplayItems _profundidadeItem;
+        private DisplayNumber _v2Item;
+        private DisplayNumber _profundidadeItem;
 
-        private IList<DisplayItems> _v2List;
-        private IList<DisplayItems> _profundidadeList;
+        private IList<DisplayNumber> _v2List;
+        private IList<DisplayNumber> _profundidadeList;
 
         private ICommand _saveCommand;
 
@@ -113,25 +113,25 @@ namespace Solum.ViewModel
 
         #region Binding Properties
 
-        public DisplayItems ProfundidadeItem
+        public DisplayNumber ProfundidadeItem
         {
             get { return _profundidadeItem; }
             set { SetPropertyChanged(ref _profundidadeItem, value); }
         }
 
-        public DisplayItems V2Item
+        public DisplayNumber V2Item
         {
             get { return _v2Item; }
             set { SetPropertyChanged(ref _v2Item, value); }
         }
 
-        public IList<DisplayItems> ProfundidadeList
+        public IList<DisplayNumber> ProfundidadeList
         {
             get { return _profundidadeList; }
             set { SetPropertyChanged(ref _profundidadeList, value); }
         }
 
-        public IList<DisplayItems> V2List
+        public IList<DisplayNumber> V2List
         {
             get { return _v2List; }
             set { SetPropertyChanged(ref _v2List, value); }
