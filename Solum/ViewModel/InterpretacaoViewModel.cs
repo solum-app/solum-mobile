@@ -30,7 +30,7 @@ namespace Solum.ViewModel
             NivelMgk = Interpretador.NivelMagnesioPotassio(Analise.MgK);
 
             InterpretacaoTextura = TexturaConverter(Textura);
-            InterpretacaoPh = NivelConverter(NivelPh);
+            InterpretacaoPh = NivelPhConverter(NivelPh);
             InterpretacaoP = NivelConverter(NivelP);
             InterpretacaoK = NivelConverter(NivelK);
             InterpretacaoCa = NivelConverter(NivelCa);
@@ -50,6 +50,24 @@ namespace Solum.ViewModel
             }
         }
 
+        private string NivelPhConverter(Nivel nivel)
+        {
+            switch (nivel)
+            {
+                case Nivel.MuitoBaixo:
+                    return "Acidez Muito Baixa";
+                case Nivel.Baixo:
+                    return "Acidez Baixa";
+                case Nivel.Medio:
+                    return "Acidez Média";
+                case Nivel.Adequado:
+                    return "Acidez Adequeada";
+                case Nivel.Alto:
+                    return "Acidez Alta";
+                default:
+                    return "";
+            }
+        }
         private string NivelConverter(Nivel nivel)
         {
             switch (nivel)
