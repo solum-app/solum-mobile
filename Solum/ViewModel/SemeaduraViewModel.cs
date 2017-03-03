@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Realms;
@@ -21,14 +22,26 @@ namespace Solum.ViewModel
             IsPotassioBaixo = k != Nivel.Adequado && k != Nivel.Alto;
             IsFosforoBaixo = p != Nivel.Adequado && p != Nivel.Alto; 
             PageTitle = _analise.Identificacao;
-            Expectativas = new List<DisplayItems>
+
+            Expectativas = new List<DisplayNumber>
             {
-                new DisplayItems("6 t/ha", 6),
-                new DisplayItems("8 t/ha", 8),
-                new DisplayItems("10 t/ha", 10),
-                new DisplayItems("12 t/ha", 12)
+                new DisplayNumber("6 t/ha", 6),
+                new DisplayNumber("8 t/ha", 8),
+                new DisplayNumber("10 t/ha", 10),
+                new DisplayNumber("12 t/ha", 12)
             };
-            Culturas = new List<Cultura> {Cultura.Milho};
+
+            Culturas = new List<DisplayEnum>();
+            foreach (Cultura value in Enum.GetValues(typeof(Cultura)))
+            {
+                Culturas.Add(new DisplayEnum(value.ToString(), value));
+            }
+
+            if (_analise.HasSemeadura)
+            {
+                CulturaSelected = Culturas.FirstOrDefault(x => x.Text.Equals(_analise.Cultura));
+                ExpectativaSelected = Expectativas.FirstOrDefault(x => x.Value == _analise.Expectativa);
+            }
         }
 
         #region commands
@@ -46,17 +59,18 @@ namespace Solum.ViewModel
                 "Selecione a sua expectativa".ToDisplayAlert(MessageType.Aviso);
                 return;
             }
-            //if (CulturaSelected == null)
-            //{
-            //    "Selecione a cultura".ToDisplayAlert(MessageType.Aviso);
-            //    return;
-            //}
+
+            if (CulturaSelected == null)
+            {
+                "Selecione a cultura".ToDisplayAlert(MessageType.Aviso);
+                return;
+            }
 
             if (IsNotBusy)
             {
                 IsBusy = true;
                 var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, (int) ExpectativaSelected.Value, CulturaSelected, true));
+                await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, (int) ExpectativaSelected.Value, (Cultura) CulturaSelected.Item, true));
                 Navigation.RemovePage(current);
                 IsBusy = false;
             }
@@ -66,11 +80,11 @@ namespace Solum.ViewModel
 
         #region private properties
 
-        private IList<DisplayItems> _expectativas;
-        private DisplayItems _expectativaSelected;
+        private IList<DisplayNumber> _expectativas;
+        private DisplayNumber _expectativaSelected;
 
-        private IList<Cultura> _culturas;
-        private Cultura _culturaSelected;
+        private IList<DisplayEnum> _culturas;
+        private DisplayEnum _culturaSelected;
 
         private bool _isPotassioBaixo;
         private bool _isFosforoBaixo;
@@ -91,25 +105,25 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _enableButton, value); }
         }
 
-        public IList<DisplayItems> Expectativas
+        public IList<DisplayNumber> Expectativas
         {
             get { return _expectativas; }
             set { SetPropertyChanged(ref _expectativas, value); }
         }
 
-        public DisplayItems ExpectativaSelected
+        public DisplayNumber ExpectativaSelected
         {
             get { return _expectativaSelected; }
             set { SetPropertyChanged(ref _expectativaSelected, value); }
         }
 
-        public IList<Cultura> Culturas
+        public IList<DisplayEnum> Culturas
         {
             get { return _culturas; }
             set { SetPropertyChanged(ref _culturas, value); }
         }
 
-        public Cultura CulturaSelected
+        public DisplayEnum CulturaSelected
         {
             get { return _culturaSelected; }
             set { SetPropertyChanged(ref _culturaSelected, value); }
