@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Solum.Handlers;
 using Solum.Interfaces;
 using Solum.Models;
@@ -107,7 +108,7 @@ namespace Solum.ViewModel
             if (IsNotBusy)
             {
                 IsBusy = true;
-                MessagesResource.NaoImplementado.ToToast(ToastNotificationType.Info);
+                Device.OpenUri(new Uri("http://192.168.0.13/solum"));
                 IsBusy = false;
             }
         }
