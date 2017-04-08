@@ -1,8 +1,12 @@
-﻿using System.Linq;
-using Realms;
-using Solum.Models;
+﻿
+using System;
+using System.Linq;
+using Microsoft.WindowsAzure.MobileServices;
+using Solum.Abstractions;
+using Solum.Helpers;
 using Solum.Pages;
-using Solum.Service;
+using Solum.Services;
+using Xamarin.Auth;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,12 +16,13 @@ namespace Solum
 {
     public partial class App : Application
     {
+        public static MobileServiceClient Client { get; } = new MobileServiceClient(new Uri(Locations.AppServiceUrl));
         public App()
         {
             InitializeComponent();
-            SyncService.CidadeEstadoSync();
-            var isUsuarioLogado = Realm.GetInstance().All<Usuario>().Any();
-            if (!isUsuarioLogado)
+            ServiceLocator.Instance.Add<ICloudService, AzureCloudService>();
+            var logged = AccountStore.Create().FindAccountsForService("identity").FirstOrDefault();
+            if (logged == null)
                 MainPage = new NavigationPage(new LoginPage())
                 {
                     BackgroundColor = Color.Transparent,
