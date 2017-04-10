@@ -11,7 +11,7 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new RecomendacaoSemeaduraViewModel(Navigation, analiseId, expectativaSelected, culturaSelected, enableButton);
-            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
             ToolbarItems.Add(new ToolbarItem("Edit", "ic_editar", async () =>
             {
                 if (!IsBusy)

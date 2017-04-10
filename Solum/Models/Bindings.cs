@@ -16,10 +16,10 @@
 
     public class LoginBinding
     {
-        public string Username { get; set; }
+        public string Email { get; set; }
         public string Password { get; set; }
-        public static string GrantType { get; } = "password";
-        public bool IsValid { get { return !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password); } }
+        //public static string GrantType { get; } = "password";
+        //public bool IsValid { get { return !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password); } }
     }
 
     public class RefreshTokenBinding

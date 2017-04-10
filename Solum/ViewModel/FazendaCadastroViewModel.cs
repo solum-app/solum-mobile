@@ -29,7 +29,7 @@ namespace Solum.ViewModel
             FazendaName = _fazenda.Nome;
             PageTitle = "Editar Fazenda";
             LoadEstados();
-            EstadoSelected = _realm.Find<Estado>(_fazenda.Cidade.EstadoId);
+            EstadoSelected = null;//_realm.Find<Estado>(_fazenda.Cidade.EstadoId);
             LoadCidades();
             CidadeSelected = _realm.Find<Cidade>(_fazenda.CidadeId);
         }
@@ -116,7 +116,7 @@ namespace Solum.ViewModel
 
         public void LoadEstados()
         {
-            Estados = _realm.All<Estado>().OrderBy(x => x.Nome).ToList();
+            Estados = null; //_realm.All<Estado>().OrderBy(x => x.Nome).ToList();
             IsEstadosLoaded = true;
         }
 

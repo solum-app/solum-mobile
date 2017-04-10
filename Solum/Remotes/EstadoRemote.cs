@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
+using Solum.Helpers;
 using Solum.Models;
 
 namespace Solum.Remotes
@@ -14,8 +15,8 @@ namespace Solum.Remotes
                 throw new Exception("Sem conexão com Internet");
 
             var url = Settings.BaseUri + Settings.EstadoUri + "?all=true";
-            var response =  Client.GetAsync(url).Result;
-            if(!response.IsSuccessStatusCode) throw new Exception("Houve um erro na obteção dos dados do servidor");
+            var response = Client.GetAsync(url).Result;
+            if (!response.IsSuccessStatusCode) throw new Exception("Houve um erro na obteção dos dados do servidor");
             var content = response.Content.ReadAsStringAsync().Result;
             var collection = JsonConvert.DeserializeObject<ICollection<Estado>>(content);
             return collection;
@@ -26,7 +27,7 @@ namespace Solum.Remotes
             if (!CrossConnectivity.Current.IsConnected)
                 throw new Exception("Sem conexão com Internet");
 
-            var url = Settings.BaseUri + Settings.CidadeUri+ "?estadoid="+ estadoId + "&all=true";
+            var url = Settings.BaseUri + Settings.CidadeUri + "?estadoid=" + estadoId + "&all=true";
             var response = Client.GetAsync(url).Result;
             if (!response.IsSuccessStatusCode) throw new Exception("Houve um erro na obteção dos dados do servidor");
             var content = response.Content.ReadAsStringAsync().Result;

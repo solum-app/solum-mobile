@@ -9,7 +9,7 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new AdubacaoCorretivaViewModel(Navigation, analiseId, enableButton);
-            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
         }
     }
 }

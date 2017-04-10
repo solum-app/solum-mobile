@@ -10,14 +10,14 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new AnaliseViewModel(Navigation);
-            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
         }
 
         public AnalisePage(string analiseId)
         {
             InitializeComponent();
             BindingContext = new AnaliseViewModel(Navigation, analiseId);
-            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
         }
 
         private void OnEntryFocused(object sender, EventArgs e)

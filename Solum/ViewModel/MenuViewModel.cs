@@ -12,9 +12,9 @@ namespace Solum.ViewModel
 
         public MenuViewModel(INavigation navigation) : base(navigation)
         {
-            var user = Realm.GetInstance().All<Usuario>().FirstOrDefault();
-            Nome = user.Nome;
-            Email = user.Username;
+           // var user = Realm.GetInstance().All<Usuario>().FirstOrDefault();
+            Nome = "Teste";
+            Email = "Teste@gmail.com";
         }
 
         public string Nome

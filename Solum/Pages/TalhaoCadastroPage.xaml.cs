@@ -1,8 +1,6 @@
 ﻿using System;
-using Solum.Models;
 using Solum.ViewModel;
 using Xamarin.Forms;
-using static Solum.Settings;
 
 namespace Solum.Pages
 {
@@ -12,14 +10,14 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new TalhaoCadastroViewModel(Navigation, fazendaId, fromAnalise);
-            NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
         }
 
         public TalhaoCadastroPage(string talhaoId)
         {
             InitializeComponent();
             BindingContext = new TalhaoCadastroViewModel(Navigation, talhaoId);
-            NavigationPage.SetBackButtonTitle(this, BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
         }
 
         private void NomeEntryOnCompleted(object sender, EventArgs e)

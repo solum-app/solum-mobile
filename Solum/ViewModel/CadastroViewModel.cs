@@ -17,7 +17,7 @@ namespace Solum.ViewModel
         public CadastroViewModel(INavigation navigation) : base(navigation)
         {
             _realm = Realm.GetInstance();
-            _authService = AuthService.Instance;
+            //_authService = AuthService.Instance;
             IsEstadosLoaded = false;
             LoadEstados();
         }
@@ -42,7 +42,7 @@ namespace Solum.ViewModel
         private bool _isCidadesLoaded;
         private bool _isEstadosLoaded;
 
-        private readonly AuthService _authService;
+        //private readonly AuthService _authService;
         private readonly Realm _realm;
 
         #endregion
@@ -132,7 +132,7 @@ namespace Solum.ViewModel
 
         public void LoadEstados()
         {
-            Estados = _realm.All<Estado>().OrderBy(x => x.Nome).ToList();
+            Estados = null;//_realm.All<Estado>().OrderBy(x => x.Nome).ToList();
             IsEstadosLoaded = true;
         }
 
@@ -187,19 +187,19 @@ namespace Solum.ViewModel
                 CidadeId = CidadeSelected.Id
             };
 
-            var result = await _authService.Register(registerBinding);
+            //var result = await _authService.Register(registerBinding);
 
-            if (result == RegisterResult.RegisterSuccefully)
-            {
-                MessagesResource.UsuarioCadastroSucesso.ToToast();
-                InRegistering = false;
-                await Navigation.PopAsync();
-            }
-            else
-            {
-                MessagesResource.UsuarioCadastroFalhou.ToDisplayAlert(MessageType.Aviso);
-                InRegistering = false;
-            }
+            //if (result == RegisterResult.RegisterSuccefully)
+            //{
+            //    MessagesResource.UsuarioCadastroSucesso.ToToast();
+            //    InRegistering = false;
+            //    await Navigation.PopAsync();
+            //}
+            //else
+            //{
+            //    MessagesResource.UsuarioCadastroFalhou.ToDisplayAlert(MessageType.Aviso);
+            //    InRegistering = false;
+            //}
         }
 
 

@@ -11,7 +11,7 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new AnalisesViewModel(Navigation);
-            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
 
             if (Device.OS == TargetPlatform.Android)
             {

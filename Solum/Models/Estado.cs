@@ -1,13 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Realms;
-
-namespace Solum.Models
+﻿namespace Solum.Models
 {
-    public class Estado : RealmObject
+    public class Estado : DataTable
     {
-        [PrimaryKey]
-        public string Id { get; set; }
         public string Nome { get; set; }
         public string Uf { get; set; }
 

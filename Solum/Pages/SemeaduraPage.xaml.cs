@@ -9,7 +9,7 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new SemeaduraViewModel(Navigation, analiseId);
-            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new CalagemViewModel(Navigation, analiseId);
-            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
         }
 
         private void PrntEntry_OnFocused(object sender, FocusEventArgs e)

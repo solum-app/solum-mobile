@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using Solum.Helpers;
 
 namespace Solum.Remotes
 {
@@ -11,7 +12,7 @@ namespace Solum.Remotes
         {
             Client = new HttpClient
             {
-                BaseAddress = Settings.BaseUri,
+                BaseAddress = new Uri(Settings.BaseUri),
                 MaxResponseContentBufferSize = 10240000,
                 Timeout = TimeSpan.FromSeconds(20)
             };

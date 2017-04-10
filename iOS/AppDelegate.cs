@@ -1,35 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
-using HockeyApp;
+﻿using Foundation;
+using Microsoft.WindowsAzure.MobileServices;
 using UIKit;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 namespace Solum.iOS
 {
-	[Register ("AppDelegate")]
-	public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
-	{
-		const string HOCKEYAPP_KEY = "48f0548fc8a044709b96170f1979a0c6";
+    [Register("AppDelegate")]
+    public class AppDelegate : FormsApplicationDelegate
+    {
+        private const string HOCKEYAPP_KEY = "48f0548fc8a044709b96170f1979a0c6";
 
-		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
-		{
-			//HockeyApp setup
-			#if (!DEBUG)
+        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+        {
+            //HockeyApp setup
+#if (!DEBUG)
 			var manager = BITHockeyManager.SharedHockeyManager;
 			manager.Configure (HOCKEYAPP_KEY);
 			manager.CrashManager.CrashManagerStatus = BITCrashManagerStatus.AutoSend;
 			manager.StartManager ();
 			#endif
 
-			global::Xamarin.Forms.Forms.Init ();
-			UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
+            Forms.Init();
+            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
+            CurrentPlatform.Init();
+            LoadApplication(new App());
 
-			LoadApplication (new App ());
-
-			return base.FinishedLaunching (app, options);
-		}
-	}
+            return base.FinishedLaunching(app, options);
+        }
+    }
 }
-

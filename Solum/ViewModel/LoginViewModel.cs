@@ -3,12 +3,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using Microsoft.WindowsAzure.MobileServices;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Solum.Auth;
 using Solum.Handlers;
+using Solum.Helpers;
 using Solum.Models;
 using Solum.Pages;
-using Solum.Services;
+using Solum.Service;
 using Xamarin.Forms;
 
 namespace Solum.ViewModel
@@ -80,26 +81,20 @@ namespace Solum.ViewModel
 
             var binding = new LoginBinding
             {
-                Username = Username.Trim(),
+                Email = Username.Trim(),
                 Password = Password.Trim()
             };
 
             try
             {
-                // "custom" é o que provider de login do mobile app service,
-                // rota completa fica .auth/login/custom
-                // mas não funciona e muito menos lança alguma exception.
-                // pensei se o backend, mas no postman funciona e nem chora.
-                // não sei o que fazer ...
-                // as classes que tem novas ai eu pegue daqui -> https://adrianhall.github.io/develop-mobile-apps-with-csharp-and-azure/chapter2/custom/
-                // que é o livro que o cara escreveu de como usar as parada tudo
-                // mas no final eu acabei criando uma variável estática do MobileClient na class APP
-
-                var user = await App.Client.LoginAsync("custom", JObject.FromObject(binding));
-                //Application.Current.MainPage = new RootPage();
-                //var lastOrDefault = Navigation.NavigationStack.LastOrDefault();
-                //await Navigation.PushAsync(new RootPage());
-                //Navigation.RemovePage(lastOrDefault);
+                var provider = DependencyService.Get<IAuthentication>();
+                if (App.Service.Client == null)
+                    await App.Service.Initialize();
+                var obj = JObject.FromObject(binding);
+                var user = await provider.LoginAsync(App.Service.Client, "custom", obj);
+                Settings.Token = user.MobileServiceAuthenticationToken;
+                Settings.UserId = user.UserId;
+                App.Current.MainPage = new RootPage();
                 IsBusy = false;
             }
             catch (MobileServiceInvalidOperationException ex)
@@ -110,32 +105,10 @@ namespace Solum.ViewModel
             {
                 Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
             }
-
-            IsBusy = false;
-            //InLogin = true;
-
-            //var authService = AuthService.Instance;
-            //var login = await authService.Login(binding);
-
-            //InLogin = false;
-
-            //if (login == AuthResult.LoginSuccessFully)
-            //{
-            //    MessagesResource.LoginSucesso.ToToast();
-            //    Application.Current.MainPage = new RootPage();
-            //    Dispose();
-            //}
-
-            //else if (login == AuthResult.ServerUnrecheable)
-            //{
-            //    MessagesResource.ServidorIndisponivel.ToDisplayAlert(MessageType.Aviso);
-            //    return;
-            //}
-            //else
-            //{
-            //    MessagesResource.LoginCredenciaisErradas.ToDisplayAlert(MessageType.Erro);
-            //    return;
-            //}
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private void ShowForgotPasswordPage()

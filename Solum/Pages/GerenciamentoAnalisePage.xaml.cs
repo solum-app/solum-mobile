@@ -10,7 +10,7 @@ namespace Solum.Pages
         {
             InitializeComponent();
             BindingContext = new GerenciamentoAnaliseViewModel(Navigation, analiseId);
-            NavigationPage.SetBackButtonTitle(this, Settings.BackButtonTitle);
+            NavigationPage.SetBackButtonTitle(this, "Voltar");
         }
 
         protected override void OnAppearing()
