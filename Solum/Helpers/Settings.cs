@@ -34,6 +34,16 @@ namespace Solum.Helpers
 
         private const string TokenKey = "UserToken";
         private static readonly string TokenValue = string.Empty;
+
+        private const string ProviderKey = "CustomProvider";
+        private static readonly string ProviderValue = "Identity";
+
+        private const string EstadosLoadedKey = "EstadosLoaded";
+        private static readonly bool EstadosLoadedValue = false;
+
+        private const string CidadesLoadedKey = "CidadesLoaded";
+        private static readonly bool CidadesLoadedValue = false;
+
         #endregion
         
 
@@ -53,6 +63,24 @@ namespace Solum.Helpers
         {
             get { return AppSettings.GetValueOrDefault(TokenKey, TokenValue); }
             set { AppSettings.AddOrUpdateValue(TokenKey, value); }
+        }
+
+        public static string AuthProvider
+        {
+            get { return AppSettings.GetValueOrDefault(ProviderKey, ProviderValue); }
+            set { AppSettings.AddOrUpdateValue(ProviderKey, value); }
+        }
+
+        public static bool EstadosLoaded
+        {
+            get { return AppSettings.GetValueOrDefault(EstadosLoadedKey, EstadosLoadedValue); }
+            set { AppSettings.AddOrUpdateValue(EstadosLoadedKey, value); }
+        }
+
+        public static bool CidadesLoaded
+        {
+            get { return AppSettings.GetValueOrDefault(CidadesLoadedKey, CidadesLoadedValue); }
+            set { AppSettings.AddOrUpdateValue(CidadesLoadedKey, value); }
         }
 
         public static string CidadeUri { get; set; }

@@ -10,7 +10,7 @@ namespace Solum.Models
         public string CidadeId { get; set; }
         public string UsuarioId { get; set; }
 
-        public Cidade Cidade { get; set; }
+        //public Cidade Cidade { get; set; }
 
         public Usuario Usuario { get; set; }
 

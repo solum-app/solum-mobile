@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Foundation;
 using Microsoft.WindowsAzure.MobileServices;
@@ -8,7 +10,9 @@ using Newtonsoft.Json.Linq;
 using Solum.Auth;
 using Solum.Helpers;
 using Solum.iOS.Auth;
+using Solum.Service;
 using UIKit;
+using Xamarin.Auth;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(SocialAuthentication))]
@@ -17,12 +21,17 @@ namespace Solum.iOS.Auth
 {
     public class SocialAuthentication : IAuthentication
     {
-        public Task<MobileServiceUser> LoginAsync(IMobileServiceClient client,
+        public async Task<MobileServiceUser> LoginAsync(IMobileServiceClient client,
             MobileServiceAuthenticationProvider provider, IDictionary<string, string> parameters = null)
         {
             try
             {
-                return client.LoginAsync(GetController(), provider, parameters);
+                var accountStore = AccountStore.Create();
+                var user = await client.LoginAsync(GetController(), provider, parameters);
+                var acc = new Account(user.UserId);
+                acc.Properties.Add("token", user.MobileServiceAuthenticationToken);
+                accountStore.SaveAsync(acc, provider.ToString());
+                return user;
             }
             catch (Exception e)
             {
@@ -67,7 +76,12 @@ namespace Solum.iOS.Auth
         public async Task<MobileServiceUser> LoginAsync(IMobileServiceClient client, string provider,
             JObject obj)
         {
-            return await client.LoginAsync(provider, obj);
+            var accountStore = AccountStore.Create();
+            var user = await client.LoginAsync(provider, obj);
+            var acc = new Account(user.UserId);
+            acc.Properties.Add("token", user.MobileServiceAuthenticationToken);
+            accountStore.SaveAsync(acc, provider);
+            return user;
         }
 
         private UIViewController GetController()
@@ -82,6 +96,19 @@ namespace Solum.iOS.Auth
                 current = current.PresentedViewController;
 
             return current;
+        }
+
+        public async Task<bool> IsLogged()
+        {
+            var accountStore = AccountStore.Create();
+            var identityLogin = (await accountStore.FindAccountsForServiceAsync(Settings.AuthProvider)).Any();
+            var fbLogin =
+                (await accountStore.FindAccountsForServiceAsync(MobileServiceAuthenticationProvider.Facebook.ToString()))
+                .Any();
+            var gLogin =
+                (await accountStore.FindAccountsForServiceAsync(MobileServiceAuthenticationProvider.Google.ToString()))
+                .Any();
+            return identityLogin || fbLogin || gLogin;
         }
     }
 }

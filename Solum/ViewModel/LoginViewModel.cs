@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows.Input;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json.Linq;
 using Solum.Auth;
 using Solum.Handlers;
-using Solum.Helpers;
 using Solum.Models;
 using Solum.Pages;
-using Solum.Service;
 using Xamarin.Forms;
 
 namespace Solum.ViewModel
@@ -25,6 +22,8 @@ namespace Solum.ViewModel
         private ICommand _showRegisterPageCommand;
         private ICommand _loginCommand;
         private ICommand _showForgtPasswordPageCommand;
+        private ICommand _facebookLoginCommand;
+        private ICommand _googleLoginCommand;
         private string _password;
         private string _username;
         private bool _inLogin;
@@ -63,6 +62,11 @@ namespace Solum.ViewModel
 
         public ICommand LoginCommand => _loginCommand ?? (_loginCommand = new Command(DoLogin));
 
+        public ICommand FacebookLoginCommand
+            => _facebookLoginCommand ?? (_facebookLoginCommand = new Command(FacebookLogin));
+
+        public ICommand GoogleLoginCommand => _googleLoginCommand ?? (_googleLoginCommand = new Command(GoogleLogin));
+
         #endregion
 
         #region Functions
@@ -88,13 +92,9 @@ namespace Solum.ViewModel
             try
             {
                 var provider = DependencyService.Get<IAuthentication>();
-                if (App.Service.Client == null)
-                    await App.Service.Initialize();
                 var obj = JObject.FromObject(binding);
-                var user = await provider.LoginAsync(App.Service.Client, "custom", obj);
-                Settings.Token = user.MobileServiceAuthenticationToken;
-                Settings.UserId = user.UserId;
-                App.Current.MainPage = new RootPage();
+                var user = await provider.LoginAsync(App.Client, "custom", obj);
+                Application.Current.MainPage = new RootPage();
                 IsBusy = false;
             }
             catch (MobileServiceInvalidOperationException ex)
@@ -102,6 +102,60 @@ namespace Solum.ViewModel
                 Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
             }
             catch (Exception  ex)
+            {
+                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async void FacebookLogin()
+        {
+            if (IsBusy)
+                return;
+            IsBusy = true;
+
+            try
+            {
+                var provider = DependencyService.Get<IAuthentication>();
+                var user = await provider.LoginAsync(App.Client, MobileServiceAuthenticationProvider.Facebook);
+                Application.Current.MainPage = new RootPage();
+                IsBusy = false;
+            }
+            catch (MobileServiceInvalidOperationException ex)
+            {
+                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async void GoogleLogin()
+        {
+            if (IsBusy)
+                return;
+            IsBusy = true;
+
+            try
+            {
+                var provider = DependencyService.Get<IAuthentication>();
+                var user = await provider.LoginAsync(App.Client, MobileServiceAuthenticationProvider.Google);
+                Application.Current.MainPage = new RootPage();
+                IsBusy = false;
+            }
+            catch (MobileServiceInvalidOperationException ex)
+            {
+                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
             }

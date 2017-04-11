@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Android.OS;
 using Android.Webkit;
@@ -8,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using Solum.Auth;
 using Solum.Droid.Auth;
 using Solum.Helpers;
+using Xamarin.Auth;
 using Xamarin.Forms;
 using Debug = System.Diagnostics.Debug;
 
@@ -17,11 +19,17 @@ namespace Solum.Droid.Auth
 {
     public class SocialAuthentication : IAuthentication
     {
-        public Task<MobileServiceUser> LoginAsync(IMobileServiceClient client, MobileServiceAuthenticationProvider provider, IDictionary<string, string> parameters = null)
+        public async Task<MobileServiceUser> LoginAsync(IMobileServiceClient client,
+            MobileServiceAuthenticationProvider provider, IDictionary<string, string> parameters = null)
         {
             try
             {
-                return client.LoginAsync(Forms.Context, provider, parameters);
+                var accountStore = AccountStore.Create(Forms.Context);
+                var user = await client.LoginAsync(Forms.Context, provider, parameters);
+                var acc = new Account(user.UserId);
+                acc.Properties.Add("token", user.MobileServiceAuthenticationToken);
+                accountStore.SaveAsync(acc, provider.ToString());
+                return user;
             }
             catch (Exception ex)
             {
@@ -35,7 +43,11 @@ namespace Solum.Droid.Auth
         {
             try
             {
+                var accountStore = AccountStore.Create(Forms.Context);
                 var user = await client.LoginAsync(provider, obj);
+                var acc = new Account(user.UserId);
+                acc.Properties.Add("token", user.MobileServiceAuthenticationToken);
+                accountStore.SaveAsync(acc, provider);
                 return user;
             }
             catch (MobileServiceInvalidOperationException ex)
@@ -82,6 +94,19 @@ namespace Solum.Droid.Auth
             }
 
             return false;
+        }
+
+        public async Task<bool> IsLogged()
+        {
+            var accountStore = AccountStore.Create(Forms.Context);
+            var identityLogin = (await accountStore.FindAccountsForServiceAsync(Settings.AuthProvider)).Any();
+            var fbLogin =
+                (await accountStore.FindAccountsForServiceAsync(MobileServiceAuthenticationProvider.Facebook.ToString()))
+                .Any();
+            var gLogin =
+                (await accountStore.FindAccountsForServiceAsync(MobileServiceAuthenticationProvider.Google.ToString()))
+                .Any();
+            return identityLogin || fbLogin || gLogin;
         }
     }
 }

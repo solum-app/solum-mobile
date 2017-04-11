@@ -31,7 +31,7 @@ namespace Solum.ViewModel
             LoadEstados();
             EstadoSelected = null;//_realm.Find<Estado>(_fazenda.Cidade.EstadoId);
             LoadCidades();
-            CidadeSelected = _realm.Find<Cidade>(_fazenda.CidadeId);
+            //CidadeSelected = _realm.Find<Cidade>(_fazenda.CidadeId);
         }
 
         #region Propriedades Privadas
@@ -122,10 +122,10 @@ namespace Solum.ViewModel
 
         public void LoadCidades()
         {
-            Cidades = _realm.All<Cidade>()
-                .Where(x => x.EstadoId.Equals(EstadoSelected.Id))
-                .OrderBy(n => n.Nome)
-                .ToList();
+            //Cidades = _realm.All<Cidade>()
+            //    .Where(x => x.EstadoId.Equals(EstadoSelected.Id))
+            //    .OrderBy(n => n.Nome)
+            //    .ToList();
             IsCidadesLoaded = true;
         }
 
@@ -152,7 +152,7 @@ namespace Solum.ViewModel
                     Id = Guid.NewGuid().ToString(),
                     Nome = FazendaName,
                     CidadeId = CidadeSelected.Id,
-                    Cidade = CidadeSelected,
+                    //Cidade = CidadeSelected,
                     UsuarioId = usuario.Id,
                     Usuario = usuario
                 };
@@ -179,7 +179,7 @@ namespace Solum.ViewModel
                 using (var transaction = _realm.BeginWrite())
                 {
                     _fazenda.Nome = FazendaName;
-                    _fazenda.Cidade = CidadeSelected;
+                    //_fazenda.Cidade = CidadeSelected;
                     _fazenda.CidadeId = CidadeSelected.Id;
                     transaction.Commit();
                 }

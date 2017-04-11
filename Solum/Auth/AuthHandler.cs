@@ -29,7 +29,7 @@ namespace Solum.Auth
                     return response;
 
                 var service = DependencyService.Get<AzureService>();
-                var client = service.Client;
+                var client = App.Client;
 
                 string authToken = client.CurrentUser.MobileServiceAuthenticationToken;
                 await Semaphore.WaitAsync();

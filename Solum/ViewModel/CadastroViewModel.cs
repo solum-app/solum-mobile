@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading;
 using System.Windows.Input;
 using EmailValidation;
+using Newtonsoft.Json.Linq;
 using Realms;
 using Solum.Handlers;
+using Solum.Helpers;
 using Solum.Interfaces;
 using Solum.Models;
 using Solum.Remotes.Results;
@@ -16,9 +21,6 @@ namespace Solum.ViewModel
     {
         public CadastroViewModel(INavigation navigation) : base(navigation)
         {
-            _realm = Realm.GetInstance();
-            //_authService = AuthService.Instance;
-            IsEstadosLoaded = false;
             LoadEstados();
         }
 
@@ -28,8 +30,8 @@ namespace Solum.ViewModel
         private ICommand _registerCommand;
         private ICommand _backCommand;
 
-        private IList<Estado> _estados;
-        private IList<Cidade> _cidades;
+        private ICollection<Estado> _estados;
+        private ICollection<Cidade> _cidades;
         private Estado _estadoSelected;
         private Cidade _cidadeSelected;
 
@@ -41,9 +43,6 @@ namespace Solum.ViewModel
         private bool _inRegistering;
         private bool _isCidadesLoaded;
         private bool _isEstadosLoaded;
-
-        //private readonly AuthService _authService;
-        private readonly Realm _realm;
 
         #endregion
 
@@ -73,7 +72,7 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _confirmPassword, value.Trim()); }
         }
 
-        public IList<Estado> Estados
+        public ICollection<Estado> Estados
         {
             get { return _estados; }
             set { SetPropertyChanged(ref _estados, value); }
@@ -91,7 +90,7 @@ namespace Solum.ViewModel
             set { SetPropertyChanged(ref _isEstadosLoaded, value); }
         }
 
-        public IList<Cidade> Cidades
+        public ICollection<Cidade> Cidades
         {
             get { return _cidades; }
             set { SetPropertyChanged(ref _cidades, value); }
@@ -130,16 +129,26 @@ namespace Solum.ViewModel
 
         #region Functions
 
-        public void LoadEstados()
+        public async void LoadEstados()
         {
-            Estados = null;//_realm.All<Estado>().OrderBy(x => x.Nome).ToList();
-            IsEstadosLoaded = true;
+            if (!Settings.EstadosLoaded)
+            {
+                if (EstadoService.InSync)
+                    return;
+                await EstadoService.Instance.SyncEstados();
+            }
+            Estados = await EstadoService.Instance.GetEstados();
+            IsEstadosLoaded = Settings.EstadosLoaded;
         }
 
-        public void UpdateCidades()
+        public async void UpdateCidades()
         {
-            Cidades =
-                _realm.All<Cidade>().Where(x => x.EstadoId.Equals(EstadoSelected.Id)).OrderBy(x => x.Nome).ToList();
+            if (!Settings.CidadesLoaded)
+            {
+                if (CidadeService.InSync) return;
+                await CidadeService.Instance.SyncCidades();
+            }
+            Cidades = await CidadeService.Instance.GetCidadesFrom(EstadoSelected.Id);
             IsCidadesLoaded = true;
         }
 
@@ -178,28 +187,14 @@ namespace Solum.ViewModel
 
             InRegistering = true;
 
-            var registerBinding = new RegisterBinding
-            {
-                Nome = Name,
-                Email = Email,
-                Password = Password,
-                ConfirmPassword = ConfirmPassword,
-                CidadeId = CidadeSelected.Id
-            };
+            var dict = new JObject();
+            dict.Add("nome", Name);
+            dict.Add("email", Email);
+            dict.Add("password", Password);
+            dict.Add("ConfirmPassword", ConfirmPassword);
+            dict.Add("CidadeId", CidadeSelected.Id);
 
-            //var result = await _authService.Register(registerBinding);
-
-            //if (result == RegisterResult.RegisterSuccefully)
-            //{
-            //    MessagesResource.UsuarioCadastroSucesso.ToToast();
-            //    InRegistering = false;
-            //    await Navigation.PopAsync();
-            //}
-            //else
-            //{
-            //    MessagesResource.UsuarioCadastroFalhou.ToDisplayAlert(MessageType.Aviso);
-            //    InRegistering = false;
-            //}
+            var token = await App.Client.InvokeApiAsync(".auth/register", dict);
         }
 
 

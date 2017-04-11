@@ -1,4 +1,8 @@
-﻿using Solum.Helpers;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.WindowsAzure.MobileServices;
+using Solum.Auth;
+using Solum.Helpers;
 using Solum.Pages;
 using Solum.Service;
 using Xamarin.Forms;
@@ -9,15 +13,20 @@ namespace Solum
 {
     public partial class App : Application
     {
-        public static AzureService Service { get; set; } = new AzureService();
+        public static MobileServiceClient Client { get; } = new MobileServiceClient(Settings.BaseUri);
         public App()
         {
             InitializeComponent();
-            Service.Initialize();
-            if(string.IsNullOrEmpty(Settings.Token))
-                MainPage = new LoginPage();
+            var authr = DependencyService.Get<IAuthentication>();
+            var isLogged = authr.IsLogged().Result;
+            if (isLogged)
+                MainPage = new RootPage(); 
             else
-                MainPage = new AnalisesPage();
+                MainPage = new NavigationPage(new LoginPage())
+                {
+                    BackgroundColor = Color.Transparent,
+                    BarTextColor = Color.Black
+                };
         }
     }
 }
