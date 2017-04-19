@@ -22,20 +22,16 @@ namespace Solum.Service
         public async Task SyncCidades()
         {
             await Initialize();
-            var estados = await App.Client.GetSyncTable<Estado>().ReadAsync();
             _cidadeTable = App.Client.GetSyncTable<Cidade>();
             try
             {
                 if (!CrossConnectivity.Current.IsConnected)
                     return;
                 InSync = true;
-                foreach (var estado in estados)
-                {
-                    var q = _cidadeTable.CreateQuery()
-                        .Where(c => c.EstadoId.Equals(estado.Id));
-                    await _cidadeTable.PullAsync($"CidadesFrom{estado.Uf}", q);
-                }
-                await App.Client.SyncContext.PushAsync();
+                var q = _cidadeTable.CreateQuery();
+                await _cidadeTable.PullAsync($"CidadesSync", q);
+
+                //await App.Client.SyncContext.PushAsync();
                 Settings.CidadesLoaded = true;
                 InSync = false;
             }

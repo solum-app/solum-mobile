@@ -16,7 +16,7 @@ namespace Solum.Pages
         {
             InitializeComponent();
             if (Device.OS == TargetPlatform.Android)
-				DependencyService.Get<IStatusBarColor>().SetColor((Color)Application.Current.Resources["colorPrimaryDark"]);
+                DependencyService.Get<IStatusBarColor>().SetColor((Color)Application.Current.Resources["colorPrimaryDark"]);
             _currentPage = new AnalisesPage();
             _navigationPage = new NavigationPage(_currentPage)
             {
@@ -43,9 +43,9 @@ namespace Solum.Pages
             sairGesture.Tapped += OnSairTapped;
             SairLabel.GestureRecognizers.Add(sairGesture);
 
-			//var testeGesture = new TapGestureRecognizer();
-   //         testeGesture.Tapped += OnTesteTapped;
-   //         TesteLabel.GestureRecognizers.Add(testeGesture);
+            //var testeGesture = new TapGestureRecognizer();
+            //         testeGesture.Tapped += OnTesteTapped;
+            //         TesteLabel.GestureRecognizers.Add(testeGesture);
         }
 
         public async void OnAnalisesTapped(object sender, EventArgs e)
@@ -60,10 +60,10 @@ namespace Solum.Pages
                 {
                     _currentPage = new AnalisesPage();
                     Detail = new NavigationPage(_currentPage)
-					{
-						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
-						BarTextColor = Color.White
-					};
+                    {
+                        BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
+                        BarTextColor = Color.White
+                    };
                     IsPresented = false;
                 }
             }
@@ -89,10 +89,10 @@ namespace Solum.Pages
                 {
                     _currentPage = new FazendaListPage(false);
                     Detail = new NavigationPage(_currentPage)
-					{
-						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
-						BarTextColor = Color.White
-					};
+                    {
+                        BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
+                        BarTextColor = Color.White
+                    };
                     IsPresented = false;
                 }
             }
@@ -118,10 +118,10 @@ namespace Solum.Pages
                 {
                     _currentPage = new SobrePage();
                     Detail = new NavigationPage(_currentPage)
-					{
-						BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
-						BarTextColor = Color.White
-					};
+                    {
+                        BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
+                        BarTextColor = Color.White
+                    };
                     IsPresented = false;
                 }
             }
@@ -136,51 +136,52 @@ namespace Solum.Pages
         }
 
 
-		//public async void OnTesteTapped(object sender, EventArgs e)
-		//{
-		//	if (Device.OS == TargetPlatform.iOS)
-		//	{
-		//		if (_currentPage.GetType() == typeof(SemeaduraPage))
-		//		{
-		//			IsPresented = false;
-		//		}
-		//		else
-		//		{
-		//			_currentPage = new SemeaduraPage(null);
-		//			Detail = new NavigationPage(_currentPage)
-		//			{
-		//				BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
-		//				BarTextColor = Color.White
-		//			};
-		//			IsPresented = false;
-		//		}
-		//	}
-		//	else
-		//	{
-		//		var page = new SemeaduraPage(null);
-		//		await _navigationPage.Navigation.PushAsync(page);
-		//		_navigationPage.Navigation.RemovePage(_currentPage);
-		//		_currentPage = page;
-		//		IsPresented = false;
-		//	}
-		//}
+        //public async void OnTesteTapped(object sender, EventArgs e)
+        //{
+        //	if (Device.OS == TargetPlatform.iOS)
+        //	{
+        //		if (_currentPage.GetType() == typeof(SemeaduraPage))
+        //		{
+        //			IsPresented = false;
+        //		}
+        //		else
+        //		{
+        //			_currentPage = new SemeaduraPage(null);
+        //			Detail = new NavigationPage(_currentPage)
+        //			{
+        //				BarBackgroundColor = (Color)Application.Current.Resources["colorPrimary"],
+        //				BarTextColor = Color.White
+        //			};
+        //			IsPresented = false;
+        //		}
+        //	}
+        //	else
+        //	{
+        //		var page = new SemeaduraPage(null);
+        //		await _navigationPage.Navigation.PushAsync(page);
+        //		_navigationPage.Navigation.RemovePage(_currentPage);
+        //		_currentPage = page;
+        //		IsPresented = false;
+        //	}
+        //}
 
         public async void OnSairTapped(object sender, EventArgs e)
         {
             var command = await DisplayAlert("Sair", "Você realmente deseja sair do app?", "Sim", "Não");
             if (command)
             {
+                await App.Client.LogoutAsync();
                 //var authservice = AuthService.Instance;
                 //var logoff = await authservice.Logoff();
                 //if (logoff)
                 //{
-                //    _currentPage = new LoginPage();
-                //    _navigationPage = new NavigationPage(_currentPage)
-                //    {
-                //        BarBackgroundColor = Color.Transparent,
-                //        BarTextColor = Color.Black
-                //    };
-                //    Application.Current.MainPage = _navigationPage;
+                _currentPage = new LoginPage();
+                _navigationPage = new NavigationPage(_currentPage)
+                {
+                    BarBackgroundColor = Color.Transparent,
+                    BarTextColor = Color.Black
+                };
+                Application.Current.MainPage = _navigationPage;
                 //}
             }
         }

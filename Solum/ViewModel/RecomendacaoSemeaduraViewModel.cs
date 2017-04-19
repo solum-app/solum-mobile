@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using Realms;
 using Solum.Handlers;
+using Solum.Interfaces;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;

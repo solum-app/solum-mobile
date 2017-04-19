@@ -33,7 +33,7 @@ namespace Solum.Service
                     return;
                 InSync = true;
                 await _estadoTable.PullAsync("TodosOsEstados", _estadoTable.CreateQuery());
-                await App.Client.SyncContext.PushAsync();
+                //await App.Client.SyncContext.PushAsync();
                 InSync = false;
                 Settings.EstadosLoaded = true;
             }

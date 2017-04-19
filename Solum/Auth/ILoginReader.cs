@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Solum.Service
+namespace Solum.Auth
 {
     public interface ILoginReader
     {

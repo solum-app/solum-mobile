@@ -71,22 +71,13 @@
 		        IsVisible="{Binding InLogin, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
 
 		<Button x:Name="FbLogin"
-		        Text="Login com Facebook"
-		        Command="{Binding FacebookLoginCommand}"
-		        Margin="1"
-		        BackgroundColor="#3b5998"
-		        TextColor="White"
-		        VerticalOptions="EndAndExpand"
-		        IsVisible="{Binding InLogin, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
-
-		<Button x:Name="GLogin"
-		        Text="Login com Google"
-		        Command="{Binding GoogleLoginCommand}"
-		        Margin="1"
-		        BackgroundColor="White"
-		        TextColor="#666666"
-		        VerticalOptions="EndAndExpand"
-		        IsVisible="{Binding InLogin, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
+				Text="Login com Facebook"
+				Command="{Binding FacebookLoginCommand}"
+				Margin="1"
+				BackgroundColor="#3b5998"
+				TextColor="White"
+				VerticalOptions="EndAndExpand"
+				IsVisible="{Binding InLogin, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
 
 		<Label HeightRequest="35" VerticalTextAlignment="Center" x:Name="CadastrarLabel" Text="Cadastre-se gratuitamente"
 		       Margin="16,0,16,16" HorizontalTextAlignment="Center" TextColor="{StaticResource colorTextPrimary}"
@@ -98,7 +89,7 @@
 			</Label.GestureRecognizers>
 		</Label>
 		<ActivityIndicator IsRunning="{Binding InLogin}" Color="{StaticResource colorPrimary}" MinimumHeightRequest="40"
-		                   HeightRequest="80" MinimumWidthRequest="40" WidthRequest="80" Margin="16" VerticalOptions="End"
+		                   HeightRequest="80" MinimumWidthRequest="40" WidthRequest="80" Margin="1" VerticalOptions="End"
 		                   IsVisible="false" />
 	</StackLayout>
 </ContentPage>

@@ -10,7 +10,6 @@ using Newtonsoft.Json.Linq;
 using Solum.Auth;
 using Solum.Helpers;
 using Solum.iOS.Auth;
-using Solum.Service;
 using UIKit;
 using Xamarin.Auth;
 using Xamarin.Forms;

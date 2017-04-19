@@ -2,7 +2,7 @@
 
 namespace Solum.Models
 {
-    public class Estado : DataTable
+    public class Estado : EntityData
     {
         public string Nome { get; set; }
         public string Uf { get; set; }

@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Realms;
-using Solum.Models;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Solum.ViewModel
 {

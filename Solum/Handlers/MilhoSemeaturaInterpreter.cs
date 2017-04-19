@@ -1,3 +1,4 @@
+using Solum.Interfaces;
 using Solum.Models;
 
 namespace Solum.Handlers

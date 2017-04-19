@@ -1,6 +1,7 @@
-﻿using Solum.Models;
+﻿using Solum.Handlers;
+using Solum.Models;
 
-namespace Solum.Handlers
+namespace Solum.Interfaces
 {
     public interface ISemeaduraInterpreter
     {

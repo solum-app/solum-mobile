@@ -2,7 +2,7 @@
 
 namespace Solum.Models
 {
-    public class DataTable
+    public class EntityData
     {
         public string Id { get; set; }
         public DateTimeOffset? CreatedAt { get; set; }

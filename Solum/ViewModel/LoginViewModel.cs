@@ -93,8 +93,11 @@ namespace Solum.ViewModel
             {
                 var provider = DependencyService.Get<IAuthentication>();
                 var obj = JObject.FromObject(binding);
-                var user = await provider.LoginAsync(App.Client, "custom", obj);
-                Application.Current.MainPage = new RootPage();
+                var user = await provider.LoginAsync(App.Client, "identity", obj);
+                if(user != null)
+                    Application.Current.MainPage = new RootPage();
+                else 
+                    "Não foi possível realizar login. Tente novamente mais tarde".ToDisplayAlert(MessageType.Aviso);
                 IsBusy = false;
             }
             catch (MobileServiceInvalidOperationException ex)
@@ -121,7 +124,8 @@ namespace Solum.ViewModel
             {
                 var provider = DependencyService.Get<IAuthentication>();
                 var user = await provider.LoginAsync(App.Client, MobileServiceAuthenticationProvider.Facebook);
-                Application.Current.MainPage = new RootPage();
+                if (user != null)
+                    Application.Current.MainPage = new RootPage();
                 IsBusy = false;
             }
             catch (MobileServiceInvalidOperationException ex)
