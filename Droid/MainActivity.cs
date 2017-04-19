@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using HockeyApp;
 using Microsoft.WindowsAzure.MobileServices;
+using Solum.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -17,7 +18,7 @@ namespace Solum.Droid
         protected override void OnCreate(Bundle bundle)
         {
             //HockeyApp setup
-#if (!DEBUG)
+			#if (!DEBUG)
 			CrashManager.Register (this, HOCKEYAPP_KEY, new CrashManagerSettings ());
 			MetricsManager.Register(this, Application, HOCKEYAPP_KEY);
 			#endif
@@ -29,6 +30,7 @@ namespace Solum.Droid
 
             Forms.Init(this, bundle);
             CurrentPlatform.Init();
+			Settings.DBPath = FileAccessHelper.GetLocalFilePath("Solum.db");
             LoadApplication(new App());
         }
     }

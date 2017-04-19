@@ -20,10 +20,8 @@ namespace Solum.Service
         {
             if (App.Client?.SyncContext?.IsInitialized ?? false)
                 return;
-
-            var path = "Solum.db";
-            path = Path.Combine(MobileServiceClient.DefaultDatabasePath, path);
-            var store = new MobileServiceSQLiteStore(path);
+			
+			var store = new MobileServiceSQLiteStore(Settings.DBPath);
             store.DefineTable<Estado>();
             store.DefineTable<Cidade>();
             await App.Client.SyncContext.InitializeAsync(store);

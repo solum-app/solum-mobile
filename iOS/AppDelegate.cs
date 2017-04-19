@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using Microsoft.WindowsAzure.MobileServices;
+using Solum.Helpers;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -24,6 +25,7 @@ namespace Solum.iOS
             Forms.Init();
             UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
             CurrentPlatform.Init();
+			Settings.DBPath = FileAccessHelper.GetLocalFilePath ("Solum.db");
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

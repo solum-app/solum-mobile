@@ -44,6 +44,9 @@ namespace Solum.Helpers
         private const string CidadesLoadedKey = "CidadesLoaded";
         private static readonly bool CidadesLoadedValue = false;
 
+		private const string DBPathKey = "DbPath_key";
+		private static readonly string DBPathValue;
+
         #endregion
         
 
@@ -82,6 +85,12 @@ namespace Solum.Helpers
             get { return AppSettings.GetValueOrDefault(CidadesLoadedKey, CidadesLoadedValue); }
             set { AppSettings.AddOrUpdateValue(CidadesLoadedKey, value); }
         }
+
+		public static string DBPath
+		{
+			get { return AppSettings.GetValueOrDefault(DBPathKey, DBPathValue); }
+			set { AppSettings.AddOrUpdateValue(DBPathKey, value); }
+		}
 
         public static string CidadeUri { get; set; }
         public static string EstadoUri { get; set; }

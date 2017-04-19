@@ -18,7 +18,8 @@ namespace Solum
         public App()
         {
             InitializeComponent();
-            Sync();
+			//Sync();
+			EstadoService.Instance.Initialize();
             var authr = DependencyService.Get<IAuthentication>();
             var isLogged = authr.IsLogged().Result;
             if (isLogged)
