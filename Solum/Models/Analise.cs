@@ -4,7 +4,7 @@ using Solum.Handlers;
 
 namespace Solum.Models
 {
-    public class Analise : RealmObject
+    public class Analise : EntityData
     {
         public Analise()
         {
@@ -12,9 +12,6 @@ namespace Solum.Models
         }
 
         #region Identificação
-
-        [PrimaryKey]
-        public string Id { get; set; }
 
         public string TalhaoId { get; set; }
         public string Identificacao { get; set; }
@@ -29,8 +26,6 @@ namespace Solum.Models
         public bool HasSemeadura { get; set; }
         public DateTimeOffset DataCalculoCobertura { get; set; }
         public bool HasCobertura { get; set; }
-
-        public Talhao Talhao { get; set; }
 
         #endregion
 
@@ -70,7 +65,7 @@ namespace Solum.Models
 
         #endregion
 
-        #region Calculated Properites
+        #region Calculadas
 
         [Ignored]
         public float SB => Calculador.CalcularSb(Potassio, Calcio, Magnesio);

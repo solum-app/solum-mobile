@@ -1,19 +1,11 @@
-﻿using Realms;
-
-namespace Solum.Models
+﻿namespace Solum.Models
 {
-    public class Talhao : RealmObject
+    public class Talhao : EntityData
     {
-        [PrimaryKey]
-        public string Id { get; set; }
         public string FazendaId { get; set; }
         public string Nome { get; set; }
         public string Area { get; set; }
         public bool HasArea { get; set; }
-        public Fazenda Fazenda { get; set; }
-
-        [Ignored]
-        public bool IsValido => !string.IsNullOrEmpty(Nome);
 
         public override string ToString()
         {

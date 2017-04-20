@@ -1,22 +1,14 @@
-﻿using Realms;
-
-namespace Solum.Models
+﻿namespace Solum.Models
 {
-    public class Fazenda : RealmObject
+    public class Fazenda : EntityData
     {
-        [PrimaryKey]
-        public string Id { get; set; }
         public string Nome { get; set; }
         public string CidadeId { get; set; }
         public string UsuarioId { get; set; }
 
-        //public Cidade Cidade { get; set; }
-
-        public Usuario Usuario { get; set; }
-
         public override string ToString()
         {
-            return $"{Nome}";
+            return Nome;
         }
     }
 }

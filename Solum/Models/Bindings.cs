@@ -7,24 +7,12 @@
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public string CidadeId { get; set; }
-
-        public bool IsValid => !string.IsNullOrEmpty(Nome)
-                               && !string.IsNullOrEmpty(Email)
-                               && !string.IsNullOrEmpty(Password)
-                               && !string.IsNullOrEmpty(ConfirmPassword);
     }
 
     public class LoginBinding
     {
         public string Email { get; set; }
         public string Password { get; set; }
-        //public static string GrantType { get; } = "password";
-        //public bool IsValid { get { return !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password); } }
-    }
 
-    public class RefreshTokenBinding
-    {
-        public string RefreshToken { get; set; }
-        public static string GrantType { get; } = "refresh_token";
     }
 }
