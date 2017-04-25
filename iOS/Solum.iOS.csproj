@@ -217,6 +217,12 @@
     <Reference Include="MessageBarLib">
       <HintPath>..\Solum\lib\MessageBarLib.dll</HintPath>
     </Reference>
+    <Reference Include="XFGloss">
+      <HintPath>..\packages\Ansuria.XFGloss.1.0.6.59\lib\Xamarin.iOS10\XFGloss.dll</HintPath>
+    </Reference>
+    <Reference Include="XFGloss.iOS">
+      <HintPath>..\packages\Ansuria.XFGloss.1.0.6.59\lib\Xamarin.iOS10\XFGloss.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Solum\Solum.csproj">
@@ -319,7 +325,6 @@
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
     <None Include="FodyWeavers.xml" />
-    <None Include="Resources\Solum.db" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auth\SocialAuthentication.cs" />
@@ -382,6 +387,7 @@
     <BundleResource Include="Resources\ic_editar.png" />
     <BundleResource Include="Resources\ic_editar%402x.png" />
     <BundleResource Include="Resources\ic_editar%403x.png" />
+    <BundleResource Include="Resources\Solum.db" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_menu_solum%403x.png" />
