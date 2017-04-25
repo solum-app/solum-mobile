@@ -77,6 +77,8 @@ namespace Solum.ViewModel
                 return;
             IsBusy = true;
 
+			var a = Acr.UserDialogs.UserDialogs.Instance.Loading("Teste");
+
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
                 MessagesResource.LoginCredenciaisNulas.ToDisplayAlert(MessageType.Aviso);
