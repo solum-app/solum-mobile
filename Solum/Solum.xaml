@@ -8,7 +8,7 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<Color x:Key="loginBackgroundPrimary">#B7E2E4</Color>
-        	<Color x:Key="loginBackgroundDark">#A3C9CA</Color>
+        	<Color x:Key="loginBackgroundDark">#40a6ab</Color>
 			<Color x:Key="colorPrimary">#2FBC5A</Color>
 			<Color x:Key="colorPrimaryDark">#1FA549</Color>
 			<Color x:Key="colorAccent">#FFD54F</Color>
@@ -58,7 +58,11 @@
 				<Setter Property="BackgroundColor" Value="{StaticResource facebookColor}" />
 			</Style>
 			<Style x:Key="buttonOutlineStyle" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
-				<Setter Property="BackgroundColor" Value="#0FFF" />
+				<Setter Property="BackgroundColor">
+					<Setter.Value>
+						<OnPlatform x:TypeArguments="Color" iOS="#0FFF" Android="#FFF" />
+					</Setter.Value>
+				</Setter>
 				<Setter Property="BorderColor" Value="{StaticResource colorTextSecundary}" />
 				<Setter Property="TextColor" Value="{StaticResource colorTextSecundary}" />
 				<Setter Property="BorderWidth" Value="2" />
