@@ -22,7 +22,10 @@ namespace Solum.iOS
 			manager.StartManager ();
 			#endif
 
+			//Inicializations
             Forms.Init();
+			XFGloss.iOS.Library.Init();
+
             UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
             CurrentPlatform.Init();
 			Settings.DBPath = FileAccessHelper.GetLocalFilePath ("Solum.db");

@@ -217,6 +217,24 @@
     <Reference Include="MessageBarLib">
       <HintPath>..\Solum\lib\MessageBarLib.dll</HintPath>
     </Reference>
+    <Reference Include="XFGloss">
+      <HintPath>..\packages\Ansuria.XFGloss.1.0.6.59\lib\Xamarin.iOS10\XFGloss.dll</HintPath>
+    </Reference>
+    <Reference Include="XFGloss.iOS">
+      <HintPath>..\packages\Ansuria.XFGloss.1.0.6.59\lib\Xamarin.iOS10\XFGloss.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Acr.Support.iOS">
+      <HintPath>..\packages\Acr.Support.2.1.0\lib\Xamarin.iOS10\Acr.Support.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat">
+      <HintPath>..\packages\Splat.1.6.2\lib\Xamarin.iOS10\Splat.dll</HintPath>
+    </Reference>
+    <Reference Include="Acr.UserDialogs">
+      <HintPath>..\packages\Acr.UserDialogs.6.3.10\lib\Xamarin.iOS10\Acr.UserDialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="Acr.UserDialogs.Interface">
+      <HintPath>..\packages\Acr.UserDialogs.6.3.10\lib\Xamarin.iOS10\Acr.UserDialogs.Interface.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Solum\Solum.csproj">
@@ -319,7 +337,6 @@
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
     <None Include="FodyWeavers.xml" />
-    <None Include="Resources\Solum.db" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auth\SocialAuthentication.cs" />
@@ -382,6 +399,7 @@
     <BundleResource Include="Resources\ic_editar.png" />
     <BundleResource Include="Resources\ic_editar%402x.png" />
     <BundleResource Include="Resources\ic_editar%403x.png" />
+    <BundleResource Include="Resources\Solum.db" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_menu_solum%403x.png" />

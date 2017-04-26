@@ -28,8 +28,11 @@ namespace Solum.Droid
             SetTheme(Resource.Style.MyTheme);
             base.OnCreate(bundle);
 
+			//Inicializations
             Forms.Init(this, bundle);
             CurrentPlatform.Init();
+			XFGloss.Droid.Library.Init(this, bundle);
+
 			Settings.DBPath = FileAccessHelper.GetLocalFilePath("Solum.db");
             LoadApplication(new App());
         }
