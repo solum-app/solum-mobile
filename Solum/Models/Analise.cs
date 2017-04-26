@@ -13,6 +13,7 @@ namespace Solum.Models
 
         #region Identificação
 
+        public string UsuarioId { get; set; }
         public string TalhaoId { get; set; }
         public string Identificacao { get; set; }
         public DateTimeOffset DataRegistro { get; set; }

@@ -2,6 +2,8 @@
 {
     public class Talhao : EntityData
     {
+        public string UsuarioId { get; set; }
+        public string TalhaoId { get; set; }
         public string FazendaId { get; set; }
         public string Nome { get; set; }
         public string Area { get; set; }
