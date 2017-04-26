@@ -1,58 +1,56 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using Realms;
 using Solum.Handlers;
 using Solum.Models;
 using Solum.Pages;
+using Solum.Service;
 using Xamarin.Forms;
 
 namespace Solum.ViewModel
 {
     public class FazendaListViewModel : BaseViewModel
     {
+        private readonly bool _fromAnalise;
+        private ICommand _deleteCommand;
+        private ICommand _editCommand;
+        private ICommand _itemTappedCommand;
+
+        private ObservableCollection<Fazenda> _fazendas;
+        private bool _hasItems;
+        private bool _isLoading;
+
         public FazendaListViewModel(INavigation navigation, bool fromAnalise) : base(navigation)
         {
-            _realm = Realm.GetInstance();
-            Fazendas = _realm.All<Fazenda>().OrderBy(x => x.Nome).ToList();
-            HasItems = Fazendas.Any();
+            IsLoading = true;
+            HasItems = IsLoading;
+            UpdateFazendaList();
             _fromAnalise = fromAnalise;
         }
 
-        #region Propriedades privadas
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set => SetPropertyChanged(ref _isLoading, value);
+        }
 
-        private ICommand _editCommand;
-        private ICommand _deleteCommand;
-        private ICommand _itemTappedCommand;
-
-        private IList<Fazenda> _fazendas;
-        private bool _hasItems;
-        private readonly bool _fromAnalise;
-
-        private readonly Realm _realm;
-
-        #endregion
-
-        #region Propriedades de Binding
 
         public bool HasItems
         {
-            get { return _hasItems; }
-            set { SetPropertyChanged(ref _hasItems, value); }
+            get => _hasItems;
+            set => SetPropertyChanged(ref _hasItems, value);
         }
 
-        public IList<Fazenda> Fazendas
+        public ObservableCollection<Fazenda> Fazendas
         {
-            get { return _fazendas; }
-            set { SetPropertyChanged(ref _fazendas, value); }
+            get => _fazendas;
+            set => SetPropertyChanged(ref _fazendas, value);
         }
 
-        #endregion
 
-        #region Comandos
-
-        public ICommand EditCommand => _editCommand ?? (_editCommand = new Command(fazenda => Edit(fazenda as Fazenda)))
-        ;
+        public ICommand EditCommand => _editCommand ??
+                                       (_editCommand = new Command(fazenda => Edit(fazenda as Fazenda)));
 
         public ICommand DeleteCommand
             => _deleteCommand ?? (_deleteCommand = new Command(fazenda => Delete(fazenda as Fazenda)));
@@ -60,9 +58,6 @@ namespace Solum.ViewModel
         public ICommand ItemTappedCommand
             => _itemTappedCommand ?? (_itemTappedCommand = new Command(fazenda => Details(fazenda as Fazenda)));
 
-        #endregion
-
-        #region Funções
 
         private async void Details(Fazenda fazenda)
         {
@@ -90,33 +85,35 @@ namespace Solum.ViewModel
                 Navigation.RemovePage(current);
         }
 
-        private void Delete(Fazenda fazenda)
+        private async void Delete(Fazenda fazenda)
         {
-            using (var transaction = _realm.BeginWrite())
-            {
-                _realm.Remove(fazenda);
-                transaction.Commit();
-            }
+            await AzureService.Instance.DeleteFazendaAsync(fazenda);
+            Fazendas.Remove(fazenda);
+            HasItems = Fazendas.Any();
             MessagesResource.FazendaRemocaoSucesso.ToToast();
-            UpdateFazendaList();
         }
 
-        public bool CanDelete(string fazendaId)
+        public async Task<bool> CanDelete(string fazendaId)
         {
-            var talhoes = _realm.All<Talhao>().Where(t => t.FazendaId.Equals(fazendaId)).ToList();
+            var talhoes = await AzureService.Instance.ListTalhaoAsync(fazendaId);
             foreach (var t in talhoes)
-            {
-                if (_realm.All<Analise>().Any(a => a.TalhaoId.Equals(t.Id)))
+                if (await AzureService.Instance.TalhaoHasAnalisesAsync(t.Id))
                     return false;
-            }
             return true;
         }
+
         public void UpdateFazendaList()
         {
-            Fazendas = _realm.All<Fazenda>().OrderBy(x => x.Nome).ToList();
-            HasItems = Fazendas.Any();
+            IsLoading = true;
+            HasItems = IsLoading;
+            AzureService.Instance.ListFazendaAsync()
+                .ContinueWith(t =>
+                {
+                    var r = t.Result;
+                    Fazendas = r.Any() ? new ObservableCollection<Fazenda>(r) : new ObservableCollection<Fazenda>();
+                    HasItems = Fazendas.Any();
+                    IsLoading = false;
+                });
         }
-
-        #endregion
     }
 }

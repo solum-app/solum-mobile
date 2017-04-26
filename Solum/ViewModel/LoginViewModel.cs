@@ -5,6 +5,7 @@ using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json.Linq;
 using Solum.Auth;
 using Solum.Handlers;
+using Solum.Helpers;
 using Solum.Models;
 using Solum.Pages;
 using Xamarin.Forms;
@@ -23,7 +24,7 @@ namespace Solum.ViewModel
         private ICommand _loginCommand;
         private ICommand _showForgtPasswordPageCommand;
         private ICommand _facebookLoginCommand;
-        private ICommand _googleLoginCommand;
+        //private ICommand _googleLoginCommand;
         private string _password;
         private string _username;
         private bool _inLogin;
@@ -65,7 +66,7 @@ namespace Solum.ViewModel
         public ICommand FacebookLoginCommand
             => _facebookLoginCommand ?? (_facebookLoginCommand = new Command(FacebookLogin));
 
-        public ICommand GoogleLoginCommand => _googleLoginCommand ?? (_googleLoginCommand = new Command(GoogleLogin));
+        //public ICommand GoogleLoginCommand => _googleLoginCommand ?? (_googleLoginCommand = new Command(GoogleLogin));
 
         #endregion
 
@@ -93,7 +94,7 @@ namespace Solum.ViewModel
             {
                 var provider = DependencyService.Get<IAuthentication>();
                 var obj = JObject.FromObject(binding);
-                var user = await provider.LoginAsync(App.Client, "identity", obj);
+                var user = await provider.LoginAsync(new MobileServiceClient(Settings.BaseUri), Settings.AuthProvider, obj);
                 if(user != null)
                     Application.Current.MainPage = new RootPage();
                 else 
@@ -123,7 +124,7 @@ namespace Solum.ViewModel
             try
             {
                 var provider = DependencyService.Get<IAuthentication>();
-                var user = await provider.LoginAsync(App.Client, MobileServiceAuthenticationProvider.Facebook);
+                var user = await provider.LoginAsync(new MobileServiceClient(Settings.BaseUri), MobileServiceAuthenticationProvider.Facebook);
                 if (user != null)
                     Application.Current.MainPage = new RootPage();
                 IsBusy = false;
@@ -142,39 +143,39 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void GoogleLogin()
-        {
-            if (IsBusy)
-                return;
-            IsBusy = true;
+        //private async void GoogleLogin()
+        //{
+        //    if (IsBusy)
+        //        return;
+        //    IsBusy = true;
 
-            try
-            {
-                var provider = DependencyService.Get<IAuthentication>();
-                var user = await provider.LoginAsync(App.Client, MobileServiceAuthenticationProvider.Google);
-                Application.Current.MainPage = new RootPage();
-                IsBusy = false;
-            }
-            catch (MobileServiceInvalidOperationException ex)
-            {
-                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+        //    try
+        //    {
+        //        var provider = DependencyService.Get<IAuthentication>();
+        //        var user = await provider.LoginAsync(new MobileServiceClient(Settings.BaseUri), MobileServiceAuthenticationProvider.Google);
+        //        Application.Current.MainPage = new RootPage();
+        //        IsBusy = false;
+        //    }
+        //    catch (MobileServiceInvalidOperationException ex)
+        //    {
+        //        Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
+        //    }
+        //    finally
+        //    {
+        //        IsBusy = false;
+        //    }
+        //}
 
         private void ShowForgotPasswordPage()
         {
             if (IsNotBusy)
             {
                 IsBusy = true;
-                Device.OpenUri(new Uri("http://192.168.0.13/solum"));
+                //Device.OpenUri(new Uri("https://solum"));
                 IsBusy = false;
             }
         }

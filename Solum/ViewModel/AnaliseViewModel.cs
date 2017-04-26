@@ -2,11 +2,11 @@
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
-using Realms;
 using Solum.Handlers;
 using Solum.Interfaces;
 using Solum.Models;
 using Solum.Pages;
+using Solum.Service;
 using Xamarin.Forms;
 
 namespace Solum.ViewModel
@@ -15,7 +15,6 @@ namespace Solum.ViewModel
     {
         public AnaliseViewModel(INavigation navigation) : base(navigation)
         {
-            _realm = Realm.GetInstance();
             PageTitle = "Nova Análise";
             FazendaNome = "Selecione uma fazenda";
             TalhaoNome = "Selecione um talhão";
@@ -26,30 +25,39 @@ namespace Solum.ViewModel
 
         public AnaliseViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
-            _realm = Realm.GetInstance();
             PageTitle = "Editar Análise";
-            Analise = _realm.Find<Analise>(analiseId);
-            IdentificacaoAnalise = Analise.Identificacao;
-            Fazenda = _realm.Find<Fazenda>(Analise.Talhao.FazendaId);
-            Talhao = _realm.Find<Talhao>(Analise.TalhaoId);
-            FazendaNome = Fazenda.Nome;
-            TalhaoNome = Talhao.Nome;
-            DateSelected = Analise.DataRegistro;
-            PotencialHidrogenico = Analise.PotencialHidrogenico.ToString();
-            Fosforo = Analise.Fosforo.ToString();
-            Potassio = Analise.Potassio.ToString();
-            Calcio = Analise.Calcio.ToString();
-            Magnesio = Analise.Magnesio.ToString();
-            Aluminio = Analise.Aluminio.ToString();
-            Hidrogenio = Analise.Hidrogenio.ToString();
-            MateriaOrganica = Analise.MateriaOrganica.ToString();
-            Areia = Analise.Areia.ToString();
-            Silte = Analise.Silte.ToString();
-            Argila = Analise.Argila.ToString();
+            AzureService.Instance.FindAnaliseAsync(analiseId).ContinueWith(t =>
+            {
+                Analise = t.Result;
+                IdentificacaoAnalise = Analise.Identificacao;
+                AzureService.Instance.FindTalhaoAsync(Analise.TalhaoId).ContinueWith(tt =>
+                {
+                    Talhao = tt.Result;
+                    AzureService.Instance.FindFazendaAsync(Talhao.FazendaId).ContinueWith(ttt =>
+                    {
+                        Fazenda = ttt.Result;
+                        FazendaNome = Fazenda.Nome;
+                    });
+                    TalhaoNome = Talhao.Nome;
+                });
+
+                DateSelected = Analise.DataRegistro;
+                PotencialHidrogenico = Analise.PotencialHidrogenico.ToString();
+                Fosforo = Analise.Fosforo.ToString();
+                Potassio = Analise.Potassio.ToString();
+                Calcio = Analise.Calcio.ToString();
+                Magnesio = Analise.Magnesio.ToString();
+                Aluminio = Analise.Aluminio.ToString();
+                Hidrogenio = Analise.Hidrogenio.ToString();
+                MateriaOrganica = Analise.MateriaOrganica.ToString();
+                Areia = Analise.Areia.ToString();
+                Silte = Analise.Silte.ToString();
+                Argila = Analise.Argila.ToString();
+            });
+            
             Subscribe();
         }
 
-        #region Private Properties
 
         private Color _fazendaLabelColor;
         private Color _talhaoLabelColor;
@@ -73,20 +81,17 @@ namespace Solum.ViewModel
         private Fazenda _fazenda;
         private Talhao _talhao;
         private Analise _analise;
-        private readonly Realm _realm;
 
         private ICommand _selectDateCommand;
         private ICommand _showFazendasCommand;
         private ICommand _showTalhoesCommand;
         private ICommand _saveCommand;
 
-        #endregion
 
-        #region Binding Properties
 
         public string FazendaNome
         {
-            get { return _fazendaNome; }
+            get => _fazendaNome;
             set
             {
                 SetPropertyChanged(ref _fazendaNome, value);
@@ -96,13 +101,13 @@ namespace Solum.ViewModel
 
         public Color FazendaLabelColor
         {
-            get { return _fazendaLabelColor; }
-            set { SetPropertyChanged(ref _fazendaLabelColor, value); }
+            get => _fazendaLabelColor;
+            set => SetPropertyChanged(ref _fazendaLabelColor, value);
         }
 
         public string TalhaoNome
         {
-            get { return _talhaoNome; }
+            get => _talhaoNome;
             set
             {
                 SetPropertyChanged(ref _talhaoNome, value);
@@ -112,109 +117,107 @@ namespace Solum.ViewModel
 
         public Color TalhaoLabelColor
         {
-            get { return _talhaoLabelColor; }
-            set { SetPropertyChanged(ref _talhaoLabelColor, value); }
+            get => _talhaoLabelColor;
+            set => SetPropertyChanged(ref _talhaoLabelColor, value);
         }
 
         public string IdentificacaoAnalise
         {
-            get { return _identificacaoAnalise; }
-            set { SetPropertyChanged(ref _identificacaoAnalise, value); }
+            get => _identificacaoAnalise;
+            set => SetPropertyChanged(ref _identificacaoAnalise, value);
         }
 
         public Analise Analise
         {
-            get { return _analise; }
-            set { SetPropertyChanged(ref _analise, value); }
+            get => _analise;
+            set => SetPropertyChanged(ref _analise, value);
         }
 
         public Fazenda Fazenda
         {
-            get { return _fazenda; }
-            set { SetPropertyChanged(ref _fazenda, value); }
+            get => _fazenda;
+            set => SetPropertyChanged(ref _fazenda, value);
         }
 
         public Talhao Talhao
         {
-            get { return _talhao; }
-            set { SetPropertyChanged(ref _talhao, value); }
+            get => _talhao;
+            set => SetPropertyChanged(ref _talhao, value);
         }
 
         public DateTimeOffset DateSelected
         {
-            get { return _data; }
-            set { SetPropertyChanged(ref _data, value); }
+            get => _data;
+            set => SetPropertyChanged(ref _data, value);
         }
 
         public string PotencialHidrogenico
         {
-            get { return _potencialHidrogenico; }
-            set { SetPropertyChanged(ref _potencialHidrogenico, $"{value:0.00}"); }
+            get => _potencialHidrogenico;
+            set => SetPropertyChanged(ref _potencialHidrogenico, $"{value:0.00}");
         }
 
         public string Fosforo
         {
-            get { return _fosforo; }
-            set { SetPropertyChanged(ref _fosforo, value); }
+            get => _fosforo;
+            set => SetPropertyChanged(ref _fosforo, value);
         }
 
         public string Potassio
         {
-            get { return _potassio; }
-            set { SetPropertyChanged(ref _potassio, value); }
+            get => _potassio;
+            set => SetPropertyChanged(ref _potassio, value);
         }
 
         public string Calcio
         {
-            get { return _calcio; }
-            set { SetPropertyChanged(ref _calcio, value); }
+            get => _calcio;
+            set => SetPropertyChanged(ref _calcio, value);
         }
 
         public string Magnesio
         {
-            get { return _magnesio; }
-            set { SetPropertyChanged(ref _magnesio, value); }
+            get => _magnesio;
+            set => SetPropertyChanged(ref _magnesio, value);
         }
 
         public string Aluminio
         {
-            get { return _aluminio; }
-            set { SetPropertyChanged(ref _aluminio, value); }
+            get => _aluminio;
+            set => SetPropertyChanged(ref _aluminio, value);
         }
 
         public string Hidrogenio
         {
-            get { return _hidrogenio; }
-            set { SetPropertyChanged(ref _hidrogenio, value); }
+            get => _hidrogenio;
+            set => SetPropertyChanged(ref _hidrogenio, value);
         }
 
         public string MateriaOrganica
         {
-            get { return _materiaOrganica; }
-            set { SetPropertyChanged(ref _materiaOrganica, value); }
+            get => _materiaOrganica;
+            set => SetPropertyChanged(ref _materiaOrganica, value);
         }
 
         public string Areia
         {
-            get { return _areia; }
-            set { SetPropertyChanged(ref _areia, value); }
+            get => _areia;
+            set => SetPropertyChanged(ref _areia, value);
         }
 
         public string Silte
         {
-            get { return _silte; }
-            set { SetPropertyChanged(ref _silte, value); }
+            get => _silte;
+            set => SetPropertyChanged(ref _silte, value);
         }
 
         public string Argila
         {
-            get { return _argila; }
-            set { SetPropertyChanged(ref _argila, value); }
+            get => _argila;
+            set => SetPropertyChanged(ref _argila, value);
         }
 
-        #endregion
 
-        #region Commands
 
         public ICommand SelectDateCommand
             => _selectDateCommand ?? (_selectDateCommand = new Command(SelectDate));
@@ -227,9 +230,7 @@ namespace Solum.ViewModel
 
         public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(Save));
 
-        #endregion
 
-        #region Funções
 
         private void SelectDate(object date)
         {
@@ -246,9 +247,9 @@ namespace Solum.ViewModel
             }
         }
 
-        private void SelectFazenda(string id)
+        private async void SelectFazenda(string id)
         {
-            Fazenda = _realm.Find<Fazenda>(id);
+            Fazenda = await AzureService.Instance.FindFazendaAsync(id);
             FazendaNome = Fazenda.Nome;
         }
 
@@ -268,20 +269,20 @@ namespace Solum.ViewModel
             }
         }
 
-        private void SelectTalhao(string id)
+        private async void SelectTalhao(string id)
         {
-            Talhao = _realm.Find<Talhao>(id);
+            Talhao = await AzureService.Instance.FindTalhaoAsync(id);
             TalhaoNome = Talhao.Nome;
         }
 
         private async void Save()
         {
+            if (!IsNotBusy) return;
             if (string.IsNullOrEmpty(IdentificacaoAnalise))
             {
                 MessagesResource.AnaliseIdentificacaoNull.ToDisplayAlert(MessageType.Info);
                 return;
             }
-
 
             if (Talhao == null)
             {
@@ -370,7 +371,6 @@ namespace Solum.ViewModel
                     Id = Guid.NewGuid().ToString(),
                     TalhaoId = Talhao.Id,
                     Identificacao = IdentificacaoAnalise,
-                    Talhao = Talhao,
                     DataRegistro = DateSelected,
                     PotencialHidrogenico =
                         float.Parse("0" + PotencialHidrogenico.Replace(',', '.'), CultureInfo.InvariantCulture),
@@ -380,52 +380,45 @@ namespace Solum.ViewModel
                     Magnesio = float.Parse("0" + Magnesio.Replace(',', '.'), CultureInfo.InvariantCulture),
                     Aluminio = float.Parse("0" + Aluminio.Replace(',', '.'), CultureInfo.InvariantCulture),
                     Hidrogenio = float.Parse("0" + Hidrogenio.Replace(',', '.'), CultureInfo.InvariantCulture),
-                    MateriaOrganica = float.Parse("0" + MateriaOrganica.Replace(',', '.'), CultureInfo.InvariantCulture),
+                    MateriaOrganica =
+                        float.Parse("0" + MateriaOrganica.Replace(',', '.'), CultureInfo.InvariantCulture),
                     Areia = float.Parse("0" + Areia.Replace(',', '.'), CultureInfo.InvariantCulture),
                     Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture),
                     Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture)
                 };
-
-                using (var transaction = _realm.BeginWrite())
-                {
-                    _realm.Add(Analise);
-                    transaction.Commit();
-                }
+                await AzureService.Instance.InsertAnaliseAsync(Analise);
             }
             else
             {
-                using (var transaction = _realm.BeginWrite())
-                {
-                    Analise.Identificacao = IdentificacaoAnalise;
-                    Analise.TalhaoId = Talhao.Id;
-                    Analise.Talhao = Talhao;
-                    Analise.DataRegistro = DateSelected;
-                    Analise.PotencialHidrogenico = float.Parse("0" + PotencialHidrogenico.Replace(',', '.'),
-                        CultureInfo.InvariantCulture);
-                    Analise.Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture);
-                    Analise.Potassio = float.Parse("0" + Potassio.Replace(',', '.'), CultureInfo.InvariantCulture);
-                    Analise.Calcio = float.Parse("0" + Calcio.Replace(',', '.'), CultureInfo.InvariantCulture);
-                    Analise.Magnesio = float.Parse("0" + Magnesio.Replace(',', '.'), CultureInfo.InvariantCulture);
-                    Analise.Aluminio = float.Parse("0" + Aluminio.Replace(',', '.'), CultureInfo.InvariantCulture);
-                    Analise.Hidrogenio = float.Parse("0" + Hidrogenio.Replace(',', '.'), CultureInfo.InvariantCulture);
-                    Analise.MateriaOrganica = float.Parse("0" + MateriaOrganica.Replace(',', '.'),
-                        CultureInfo.InvariantCulture);
-                    Analise.Areia = float.Parse("0" + Areia.Replace(',', '.'), CultureInfo.InvariantCulture);
-                    Analise.Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture);
-                    Analise.Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture);
-                    Analise.WasInterpreted = false;
-                    Analise.HasCalagem = false;
-                    Analise.HasCorretiva = false;
-                    Analise.HasSemeadura = false;
-                    Analise.HasCobertura = false;
-                    transaction.Commit();
-                }
+                Analise.Identificacao = IdentificacaoAnalise;
+                Analise.TalhaoId = Talhao.Id;
+                Analise.DataRegistro = DateSelected;
+                Analise.PotencialHidrogenico = float.Parse("0" + PotencialHidrogenico.Replace(',', '.'),
+                    CultureInfo.InvariantCulture);
+                Analise.Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture);
+                Analise.Potassio = float.Parse("0" + Potassio.Replace(',', '.'), CultureInfo.InvariantCulture);
+                Analise.Calcio = float.Parse("0" + Calcio.Replace(',', '.'), CultureInfo.InvariantCulture);
+                Analise.Magnesio = float.Parse("0" + Magnesio.Replace(',', '.'), CultureInfo.InvariantCulture);
+                Analise.Aluminio = float.Parse("0" + Aluminio.Replace(',', '.'), CultureInfo.InvariantCulture);
+                Analise.Hidrogenio = float.Parse("0" + Hidrogenio.Replace(',', '.'), CultureInfo.InvariantCulture);
+                Analise.MateriaOrganica = float.Parse("0" + MateriaOrganica.Replace(',', '.'),
+                    CultureInfo.InvariantCulture);
+                Analise.Areia = float.Parse("0" + Areia.Replace(',', '.'), CultureInfo.InvariantCulture);
+                Analise.Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture);
+                Analise.Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture);
+                Analise.WasInterpreted = false;
+                Analise.HasCalagem = false;
+                Analise.HasCorretiva = false;
+                Analise.HasSemeadura = false;
+                Analise.HasCobertura = false;
+                await AzureService.Instance.UpdateAnaliseAsync(Analise);
             }
 
             MessagesResource.AnaliseSucesso.ToToast(ToastNotificationType.Sucesso);
             var currentPage = Navigation.NavigationStack.LastOrDefault();
             await Navigation.PushAsync(new GerenciamentoAnalisePage(Analise.Id));
             Navigation.RemovePage(currentPage);
+            IsBusy = false;
             Dispose();
         }
 
@@ -455,6 +448,5 @@ namespace Solum.ViewModel
             MessagingCenter.Unsubscribe<TalhaoCadastroViewModel, string>(this, MessagesResource.McTalhaoSelecionado);
         }
 
-        #endregion
     }
 }

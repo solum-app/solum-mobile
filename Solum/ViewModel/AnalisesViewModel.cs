@@ -1,53 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using Realms;
 using Solum.Models;
 using Solum.Pages;
+using Solum.Service;
 using Xamarin.Forms;
 
 namespace Solum.ViewModel
 {
     public class AnalisesViewModel : BaseViewModel
     {
-        public AnalisesViewModel(INavigation navigation) : base(navigation)
-        {
-            _realm = Realm.GetInstance();
-            Analises = _realm.All<Analise>().OrderBy(a => a.Identificacao).ToList();
-            HasItems = Analises.Any();
-        }
-
-        #region Private properties
-
-        private bool _hasItems;
+        private ObservableCollection<Analise> _analises;
+        private ICommand _deleteCommand;
 
         private ICommand _editCommand;
-        private ICommand _deleteCommand;
+
+
+        private bool _hasItems;
+        private bool _isLoading;
         private ICommand _itemTappedCommand;
 
-        private IList<Analise> _analises;
-        private readonly Realm _realm;
-
-        #endregion
-
-        #region Binding properites
-
-        public IList<Analise> Analises
+        public AnalisesViewModel(INavigation navigation) : base(navigation)
         {
-            get { return _analises; }
-            set { SetPropertyChanged(ref _analises, value); }
+            IsLoading = true;
+            AzureService.Instance.ListAnaliseAsync().ContinueWith((a) =>
+            {
+                var r = a.Result;
+                Analises = r.Any() ? new ObservableCollection<Analise>(r) : new ObservableCollection<Analise>();
+                HasItems = Analises.Any();
+                IsLoading = false;
+            });
+
+        }
+
+
+        public ObservableCollection<Analise> Analises
+        {
+            get => _analises;
+            set => SetPropertyChanged(ref _analises, value);
         }
 
         public bool HasItems
         {
-            get { return _hasItems; }
-            set { SetPropertyChanged(ref _hasItems, value); }
+            get => _hasItems;
+            set => SetPropertyChanged(ref _hasItems, value);
         }
 
-        #endregion
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set => SetPropertyChanged(ref _isLoading, value);
+        }
 
-        #region Commands
 
         public ICommand EditCommand => _editCommand ?? (_editCommand = new Command(ShowEditAnalisePage));
 
@@ -56,36 +60,29 @@ namespace Solum.ViewModel
         public ICommand ItemTappedCommand
             => _itemTappedCommand ?? (_itemTappedCommand = new Command(ShowGerenciamentoAnalisePage));
 
-        #endregion
 
-        #region Functions
+        //public async void UpdateAnalisesList()
+        //{
+        //    Analises = await AnaliseService.Instance.ReadAllAsync();
+        //    HasItems = Analises.Any();
+        //}
 
-        public void UpdateAnalisesList()
-        {
-            Analises = _realm.All<Analise>().OrderBy(a => a.Identificacao).ToList();
-            HasItems = Analises.Any();
-        }
-
-        private void DeleteAnalise(object obj)
+        private async void DeleteAnalise(object obj)
         {
             if (obj != null)
             {
-                var analise = (Analise) obj;
-                using (var transaction = _realm.BeginWrite())
-                {
-                    _realm.Remove(analise);
-                    transaction.Commit();
-                }
+                var analise = (Analise)obj;
+                await AzureService.Instance.DeleteAnaliseAsync(analise);
                 Analises.Remove(analise);
+                HasItems = Analises.Any();
             }
-            UpdateAnalisesList();
         }
 
         private async void ShowEditAnalisePage(object obj)
         {
             if (obj != null)
             {
-                var analise = (Analise) obj;
+                var analise = (Analise)obj;
                 await Navigation.PushAsync(new AnalisePage(analise.Id));
             }
         }
@@ -97,13 +94,11 @@ namespace Solum.ViewModel
                 IsBusy = true;
                 if (obj != null)
                 {
-                    var analise = (Analise) obj;
+                    var analise = (Analise)obj;
                     await Navigation.PushAsync(new GerenciamentoAnalisePage(analise.Id));
                 }
                 IsBusy = false;
             }
         }
-
-        #endregion
     }
 }

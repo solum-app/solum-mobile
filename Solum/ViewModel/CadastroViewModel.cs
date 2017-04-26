@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading;
 using System.Windows.Input;
 using EmailValidation;
-using Newtonsoft.Json.Linq;
-using Realms;
 using Solum.Handlers;
 using Solum.Helpers;
-using Solum.Interfaces;
 using Solum.Models;
-using Solum.Remotes.Results;
 using Solum.Service;
 using Xamarin.Forms;
 
@@ -24,7 +17,6 @@ namespace Solum.ViewModel
             LoadEstados();
         }
 
-        #region Private Properties
 
         private ICommand _updateCidadesCommand;
         private ICommand _registerCommand;
@@ -44,79 +36,75 @@ namespace Solum.ViewModel
         private bool _isCidadesLoaded;
         private bool _isEstadosLoaded;
 
-        #endregion
 
-        #region Binding Properties
-        
+
         public string Name
         {
-            get { return _name; }
-            set { SetPropertyChanged(ref _name, value.Trim()); }
+            get => _name;
+            set => SetPropertyChanged(ref _name, value.Trim());
         }
 
         public string Email
         {
-            get { return _email; }
-            set { SetPropertyChanged(ref _email, value.Trim()); }
+            get => _email;
+            set => SetPropertyChanged(ref _email, value.Trim());
         }
 
         public string Password
         {
-            get { return _password; }
-            set { SetPropertyChanged(ref _password, value.Trim()); }
+            get => _password;
+            set => SetPropertyChanged(ref _password, value.Trim());
         }
 
         public string ConfirmPassword
         {
-            get { return _confirmPassword; }
-            set { SetPropertyChanged(ref _confirmPassword, value.Trim()); }
+            get => _confirmPassword;
+            set => SetPropertyChanged(ref _confirmPassword, value.Trim());
         }
 
         public ICollection<Estado> Estados
         {
-            get { return _estados; }
-            set { SetPropertyChanged(ref _estados, value); }
+            get => _estados;
+            set => SetPropertyChanged(ref _estados, value);
         }
 
         public Estado EstadoSelected
         {
-            get { return _estadoSelected; }
-            set { SetPropertyChanged(ref _estadoSelected, value); }
+            get => _estadoSelected;
+            set => SetPropertyChanged(ref _estadoSelected, value);
         }
 
         public bool IsEstadosLoaded
         {
-            get { return _isEstadosLoaded; }
-            set { SetPropertyChanged(ref _isEstadosLoaded, value); }
+            get => _isEstadosLoaded;
+            set => SetPropertyChanged(ref _isEstadosLoaded, value);
         }
 
         public ICollection<Cidade> Cidades
         {
-            get { return _cidades; }
-            set { SetPropertyChanged(ref _cidades, value); }
+            get => _cidades;
+            set => SetPropertyChanged(ref _cidades, value);
         }
 
         public Cidade CidadeSelected
         {
-            get { return _cidadeSelected; }
-            set { SetPropertyChanged(ref _cidadeSelected, value); }
+            get => _cidadeSelected;
+            set => SetPropertyChanged(ref _cidadeSelected, value);
         }
 
         public bool IsCidadesLoaded
         {
-            get { return _isCidadesLoaded; }
-            set { SetPropertyChanged(ref _isCidadesLoaded, value); }
+            get => _isCidadesLoaded;
+            set => SetPropertyChanged(ref _isCidadesLoaded, value);
         }
 
         public bool InRegistering
         {
-            get { return _inRegistering; }
-            set { SetPropertyChanged(ref _inRegistering, value); }
+            get => _inRegistering;
+            set => SetPropertyChanged(ref _inRegistering, value);
         }
 
-        #endregion
 
-        #region Commands
 
         public ICommand RegisterCommand => _registerCommand ?? (_registerCommand = new Command(Register));
 
@@ -125,76 +113,80 @@ namespace Solum.ViewModel
 
         public ICommand BackCommand => _backCommand ?? (_backCommand = new Command(Back));
 
-        #endregion
 
-        #region Functions
 
         public async void LoadEstados()
         {
-            if (!Settings.EstadosLoaded)
-            {
-                if (EstadoService.InSync)
-                    return;
-                await EstadoService.Instance.SyncEstados();
-            }
-            Estados = await EstadoService.Instance.GetEstados();
-            IsEstadosLoaded = Settings.EstadosLoaded;
+            Estados = await AzureService.Instance.ListEstadosAsync();
+            IsEstadosLoaded = true;
         }
 
         public async void UpdateCidades()
         {
-            if (!Settings.CidadesLoaded)
-            {
-                if (CidadeService.InSync) return;
-                await CidadeService.Instance.SyncCidades();
-            }
-            Cidades = await CidadeService.Instance.GetCidadesFrom(EstadoSelected.Id);
+            Cidades =  await AzureService.Instance.ListCidadesAsync(EstadoSelected.Id);
             IsCidadesLoaded = true;
         }
 
         public async void Register()
         {
-
-            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(ConfirmPassword))
+            if (IsNotBusy)
             {
-                MessagesResource.CamposVazios.ToDisplayAlert(MessageType.Info);
-                return;
+                if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password) ||
+                    string.IsNullOrEmpty(ConfirmPassword))
+                {
+                    MessagesResource.CamposVazios.ToDisplayAlert(MessageType.Info);
+                    return;
+                }
+
+                if (!EmailValidator.Validate(Email))
+                {
+                    MessagesResource.UsuarioCadastroEmailInvalido.ToDisplayAlert(MessageType.Info);
+                    return;
+                }
+
+                if (Password.Length < 6)
+                {
+                    MessagesResource.UsuarioCadastroSenhaCurta.ToDisplayAlert(MessageType.Info);
+                    return;
+                }
+
+                if (!Password.Equals(ConfirmPassword))
+                {
+                    MessagesResource.UsuarioCadastroSenhasNaoConferem.ToDisplayAlert(MessageType.Info);
+                    return;
+                }
+
+                if (CidadeSelected == null)
+                {
+                    MessagesResource.UsuarioCadastroCidadeNula.ToDisplayAlert(MessageType.Info);
+                    return;
+                }
+
+                InRegistering = true;
+
+                var dict = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("nome", Name),
+                    new KeyValuePair<string, string>("email", Email),
+                    new KeyValuePair<string, string>("password", Password),
+                    new KeyValuePair<string, string>("ConfirmPassword", ConfirmPassword),
+                    new KeyValuePair<string, string>("CidadeId", CidadeSelected.Id)
+                };
+
+                var result = await new HttpClient().PostAsync($"{Settings.BaseUri}/.auth/register",
+                    new FormUrlEncodedContent(dict));
+                if (result.IsSuccessStatusCode)
+                {
+                    "Você foi cadastrado com sucesso".ToToast();
+                    await Navigation.PopAsync();
+                    IsBusy = false;
+                }
+                else
+                {
+                    $"Seu cadastro não foi realizado com sucesso. Motivo: {result.ReasonPhrase}".ToDisplayAlert();
+                    IsBusy = false;
+                }
             }
-
-            if (!EmailValidator.Validate(Email))
-            {
-                MessagesResource.UsuarioCadastroEmailInvalido.ToDisplayAlert(MessageType.Info);
-                return;
-            }
-
-            if (Password.Length < 6)
-            {
-                MessagesResource.UsuarioCadastroSenhaCurta.ToDisplayAlert(MessageType.Info);
-                return;
-            }
-
-            if (!Password.Equals(ConfirmPassword))
-            {
-                MessagesResource.UsuarioCadastroSenhasNaoConferem.ToDisplayAlert(MessageType.Info);
-                return;
-            }
-
-            if (CidadeSelected == null)
-            {
-                MessagesResource.UsuarioCadastroCidadeNula.ToDisplayAlert(MessageType.Info);
-                return;
-            }
-
-            InRegistering = true;
-
-            var dict = new JObject();
-            dict.Add("nome", Name);
-            dict.Add("email", Email);
-            dict.Add("password", Password);
-            dict.Add("ConfirmPassword", ConfirmPassword);
-            dict.Add("CidadeId", CidadeSelected.Id);
-
-            var token = await App.Client.InvokeApiAsync(".auth/register", dict);
         }
 
 
@@ -208,6 +200,5 @@ namespace Solum.ViewModel
             }
         }
 
-        #endregion
     }
 }

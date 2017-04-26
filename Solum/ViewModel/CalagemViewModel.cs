@@ -2,23 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using Realms;
 using Solum.Handlers;
-using Solum.Interfaces;
 using Solum.Models;
 using Solum.Pages;
+using Solum.Service;
 using Xamarin.Forms;
 
 namespace Solum.ViewModel
 {
     public class CalagemViewModel : BaseViewModel
     {
+        private Analise _analise;
+
+
+        private string _prnt;
+        private DisplayNumber _profundidadeItem;
+        private IList<DisplayNumber> _profundidadeList;
+
+        private ICommand _saveCommand;
+
+        private DisplayNumber _v2Item;
+
+        private IList<DisplayNumber> _v2List;
+
         public CalagemViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
-            var realm = Realm.GetInstance();
-            _analise = realm.Find<Analise>(analiseId);
-            PageTitle = _analise.Identificacao;
-
             V2List = new List<DisplayNumber>();
             for (var i = 30; i <= 80; i += 5)
                 V2List.Add(new DisplayNumber($"{i} %", i));
@@ -31,24 +39,58 @@ namespace Solum.ViewModel
                 new DisplayNumber("40 cm", 40)
             };
 
-            if (_analise.HasCalagem)
+            AzureService.Instance.FindAnaliseAsync(analiseId).ContinueWith(t =>
             {
-                V2Item = V2List.FirstOrDefault(x => x.Value.Equals(_analise.V2));
-                ProfundidadeItem = ProfundidadeList.FirstOrDefault(x => x.Value.Equals(_analise.Profundidade));
-                Prnt = $"{_analise.Prnt} %";
-            }
+                _analise = t.Result;
+                PageTitle = _analise.Identificacao;
+                if (_analise.HasCalagem)
+                {
+                    V2Item = V2List.FirstOrDefault(x => x.Value.Equals(_analise.V2));
+                    ProfundidadeItem = ProfundidadeList.FirstOrDefault(x => x.Value.Equals(_analise.Profundidade));
+                    Prnt = $"{_analise.Prnt} %";
+                }
+            });
+
         }
 
-        #region Commands
 
         public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(Save));
 
-        #endregion
 
-        #region Functions
+        public DisplayNumber ProfundidadeItem
+        {
+            get => _profundidadeItem;
+            set => SetPropertyChanged(ref _profundidadeItem, value);
+        }
+
+        public DisplayNumber V2Item
+        {
+            get => _v2Item;
+            set => SetPropertyChanged(ref _v2Item, value);
+        }
+
+        public IList<DisplayNumber> ProfundidadeList
+        {
+            get => _profundidadeList;
+            set => SetPropertyChanged(ref _profundidadeList, value);
+        }
+
+        public IList<DisplayNumber> V2List
+        {
+            get => _v2List;
+            set => SetPropertyChanged(ref _v2List, value);
+        }
+
+        public string Prnt
+        {
+            get => _prnt;
+            set => SetPropertyChanged(ref _prnt, value);
+        }
+
 
         private async void Save()
         {
+            if (!IsNotBusy) return;
             if (V2Item == null)
             {
                 "Você deve selecionar um valor para V2".ToDisplayAlert(MessageType.Aviso);
@@ -73,76 +115,17 @@ namespace Solum.ViewModel
                 return;
             }
 
-            //using (var transaction = _realm.BeginWrite())
-            //{
-            //    _analise.DataCalculoCalagem = DateTimeOffset.Now;
-            //    _analise.HasCalagem = true;
-            //    _analise.Prnt = int.Parse(Prnt);
-            //    _analise.V2 = V2Item.Value;
-            //    _analise.Profundidade = (int) ProfundidadeItem.Value;
-            //    transaction.Commit();
-            //}
-
-            if (IsNotBusy)
-            {
-                IsBusy = true;
-                var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new RecomendaCalagemPage(_analise.Id, V2Item.Value, float.Parse(Prnt), ProfundidadeItem.Value, true));
-                Navigation.RemovePage(current);
-                IsBusy = false;
-            }
+            _analise.DataCalculoCalagem = DateTimeOffset.Now;
+            _analise.HasCalagem = true;
+            _analise.Prnt = int.Parse(Prnt);
+            _analise.V2 = V2Item.Value;
+            _analise.Profundidade = (int)ProfundidadeItem.Value;
+            await AzureService.Instance.UpdateAnaliseAsync(_analise);
+            var current = Navigation.NavigationStack.LastOrDefault();
+            await Navigation.PushAsync(new RecomendaCalagemPage(_analise.Id, V2Item.Value, float.Parse(Prnt),
+                ProfundidadeItem.Value, true));
+            Navigation.RemovePage(current);
+            IsBusy = false;
         }
-
-        #endregion
-
-        #region Private properties
-
-        private string _prnt;
-
-        private DisplayNumber _v2Item;
-        private DisplayNumber _profundidadeItem;
-
-        private IList<DisplayNumber> _v2List;
-        private IList<DisplayNumber> _profundidadeList;
-
-        private ICommand _saveCommand;
-
-        private readonly Analise _analise;
-
-        #endregion
-
-        #region Binding Properties
-
-        public DisplayNumber ProfundidadeItem
-        {
-            get { return _profundidadeItem; }
-            set { SetPropertyChanged(ref _profundidadeItem, value); }
-        }
-
-        public DisplayNumber V2Item
-        {
-            get { return _v2Item; }
-            set { SetPropertyChanged(ref _v2Item, value); }
-        }
-
-        public IList<DisplayNumber> ProfundidadeList
-        {
-            get { return _profundidadeList; }
-            set { SetPropertyChanged(ref _profundidadeList, value); }
-        }
-
-        public IList<DisplayNumber> V2List
-        {
-            get { return _v2List; }
-            set { SetPropertyChanged(ref _v2List, value); }
-        }
-        
-        public string Prnt
-        {
-            get { return _prnt; }
-            set { SetPropertyChanged(ref _prnt, value); }
-        }
-
-        #endregion
     }
 }
