@@ -35,12 +35,6 @@ namespace Solum.Pages
             }
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            (BindingContext as AnalisesViewModel)?.UpdateAnalisesList();
-        }
-
         private async void ShowNewAnalisePage()
         {
             if (!IsBusy)

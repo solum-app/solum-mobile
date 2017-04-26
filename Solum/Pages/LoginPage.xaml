@@ -1,167 +1,95 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:effects="clr-namespace:Solum.Effects"
-	xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
 	xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
 	x:Class="Solum.Pages.LoginPage"
 	Title="Login">
 
-	<xfg:ContentPageGloss.BackgroundGradient>
-        <xfg:Gradient Rotation="150">
-            <xfg:GradientStep StepColor="{StaticResource colorBackgroundStart}"  StepPercentage="0" />
-            <xfg:GradientStep StepColor="{StaticResource colorBackgroundEnd}"  StepPercentage="1" />
-        </xfg:Gradient>
-    </xfg:ContentPageGloss.BackgroundGradient>
+	<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+	             BackgroundColor="{StaticResource loginBackgroundPrimary}" Spacing="0" Padding="0,16">
+		<Image Source="solum_login" HorizontalOptions="Center" VerticalOptions="Start" HeightRequest="120">
+			<Image.Margin>
+				<OnPlatform x:TypeArguments="Thickness" iOS="0,60,0,0" Android="0,20,0,0" />
+			</Image.Margin>
+		</Image>
+		<Label Text="Use suas credenciais para acessar suas informações" HorizontalTextAlignment="Center"
+		       TextColor="{StaticResource colorTextPrimary}" Margin="16,32,16,32" />
+		<Grid Margin="16, 8" ColumnSpacing="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="24" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Image Source="ic_user" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" />
+			<Entry x:Name="UsernameEntry" Placeholder="Email" Text="{Binding Username}" Margin="32,0,0,0"
+			       PlaceholderColor="{StaticResource colorTextHint}" Grid.Column="1" VerticalOptions="CenterAndExpand"
+			       Completed="UsernameEntryOnCompleted">
+				<Entry.Effects>
+					<effects:NoBorderEffect />
+				</Entry.Effects>
+				<Entry.FontSize>
+					<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+				</Entry.FontSize>
+			</Entry>
+			<BoxView BackgroundColor="{StaticResource colorSeparatorEntry}" Margin="32,0,0,0" HeightRequest="1"
+			         HorizontalOptions="FillAndExpand" Grid.Column="1" VerticalOptions="End" />
+		</Grid>
+		<Grid Margin="16,8" ColumnSpacing="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="24" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Image Source="ic_password" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" />
+			<Entry x:Name="PasswordEntry" Placeholder="Senha" IsPassword="True" Text="{Binding Password}" Margin="32,0,0,0"
+			       PlaceholderColor="{StaticResource colorTextHint}" Grid.Column="1" VerticalOptions="CenterAndExpand"
+			       Completed="PasswordEntryOnCompleted">
+				<Entry.Effects>
+					<effects:NoBorderEffect />
+				</Entry.Effects>
+				<Entry.FontSize>
+					<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+				</Entry.FontSize>
+			</Entry>
+			<BoxView BackgroundColor="{StaticResource colorSeparatorEntry}" Margin="32,0,0,0" HeightRequest="1"
+			         HorizontalOptions="FillAndExpand" Grid.Column="1" VerticalOptions="End" />
+		</Grid>
+		<Label Text="Esqueceu a senha?" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"
+		       Margin="5,0" FontSize="Small" HeightRequest="35" VerticalTextAlignment="Center">
+			<Label.GestureRecognizers>
+				<TapGestureRecognizer Command="{Binding ShowForgotPasswordPageCommand}" />
+			</Label.GestureRecognizers>
+		</Label>
+		<Button x:Name="EntrarButton"
+		        Text="Entrar"
+		        Command="{Binding LoginCommand}"
+		        Margin="1"
+		        BackgroundColor="{StaticResource colorAccent}"
+		        TextColor="{StaticResource colorTextPrimary}"
+		        VerticalOptions="EndAndExpand"
+		        IsVisible="{Binding InLogin, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
 
-	<ScrollView>
-		<StackLayout 
-			VerticalOptions="FillAndExpand" 
-			HorizontalOptions="FillAndExpand"
-			BackgroundColor="Transparent" 
-			Spacing="0" 
-			Padding="0,16">
-			
-			<Image 
-				Source="solum_login" 
-				HorizontalOptions="Center" 
-				VerticalOptions="Start"
-				Margin="16"/>
-			
-			<Label 
-				Text="Use suas credenciais para acessar suas informações" 
-				HorizontalTextAlignment="Center"
-			    TextColor="{StaticResource colorTextPrimary}" 
-				Margin="16" />
-			
-			<Grid Margin="16, 8" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="24" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				
-				<Image 
-					Source="ic_user" 
-					VerticalOptions="Center" 
-					Grid.Column="0" />
-				
-				<Entry 
-					x:Name="UsernameEntry" 
-					Placeholder="Email" 
-					Text="{Binding Username}" 
-					Margin="32,0,0,0"
-				    PlaceholderColor="{StaticResource colorTextHint}" 
-					Grid.Column="1" 
-					VerticalOptions="CenterAndExpand"
-					Completed="UsernameEntryOnCompleted">
-					
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
-					</Entry.FontSize>
-				</Entry>
-				
-				<BoxView 
-					BackgroundColor="{StaticResource colorSeparatorEntry}" 
-					Margin="32,0,0,0" 
-					HeightRequest="1"
-				    HorizontalOptions="FillAndExpand" 
-					Grid.Column="1" 
-					VerticalOptions="End" />
-			</Grid>
-			<Grid 
-				Margin="16,8" 
-				ColumnSpacing="0">
-				
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="24" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				
-				<Image 
-					Source="ic_password" 
-					HorizontalOptions="Center" 
-					VerticalOptions="Center" 
-					Grid.Column="0" />
-				
-				<Entry 
-					x:Name="PasswordEntry" 
-					Placeholder="Senha" 
-					IsPassword="True" 
-					Text="{Binding Password}" 
-					Margin="32,0,0,0"
-				    PlaceholderColor="{StaticResource colorTextHint}" 
-					Grid.Column="1" 
-					VerticalOptions="CenterAndExpand"
-				    Completed="PasswordEntryOnCompleted">
-					
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
-					</Entry.FontSize>
-				</Entry>
-				
-				<BoxView 
-					BackgroundColor="{StaticResource colorSeparatorEntry}" 
-					Margin="32,0,0,0" HeightRequest="1"
-		         	HorizontalOptions="FillAndExpand" 
-					Grid.Column="1" 
-					VerticalOptions="End" />
-			</Grid>
-			
-			<Label 
-				Text="Esqueceu a senha?" 
-				HorizontalTextAlignment="End" 
-				TextColor="{StaticResource linkColor}"
-			    Margin="16,0" 
-				FontSize="Small" 
-				VerticalTextAlignment="Center">
-				
-				<Label.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding ShowForgotPasswordPageCommand}" />
-				</Label.GestureRecognizers>
-			</Label>
-			
-			<Button x:Name="EntrarButton"
-			        Text="Entrar"
-			        Command="{Binding LoginCommand}"
-			        VerticalOptions="EndAndExpand">
-			        <Button.Margin>
-						<OnPlatform x:TypeArguments="Thickness" iOS="16,8" Android="16,4" />
-					</Button.Margin>
-			</Button>
+		<Button x:Name="FbLogin"
+				Text="Login com Facebook"
+				Command="{Binding FacebookLoginCommand}"
+				Margin="1"
+				BackgroundColor="#3b5998"
+				TextColor="White"
+				VerticalOptions="EndAndExpand"
+				IsVisible="{Binding InLogin, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
 
-			<Button x:Name="FbLogin"
-					Style="{StaticResource buttonFacebookStyle}"
-					Text="Login com Facebook"
-					Command="{Binding FacebookLoginCommand}"
-					VerticalOptions="End">
-					<Button.Margin>
-						<OnPlatform x:TypeArguments="Thickness" iOS="16,8" Android="16,4" />
-					</Button.Margin>
-			</Button>
-
-			<Label 
-				HeightRequest="35" 
-				VerticalTextAlignment="Center" 
-				x:Name="CadastrarLabel" 
-				Text="Cadastre-se gratuitamente"
-				HorizontalTextAlignment="Center" 
-				TextColor="{StaticResource linkColor}"
-			    VerticalOptions="End" 
-				FontSize="Small">
-				<Label.Margin>
-						<OnPlatform x:TypeArguments="Thickness" iOS="16,8" Android="16,4" />
-				</Label.Margin>
-				<Label.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding ShowRegisterPageCommand}" />
-				</Label.GestureRecognizers>
-			</Label>
-		</StackLayout>
-	</ScrollView>
+		<Label HeightRequest="35" VerticalTextAlignment="Center" x:Name="CadastrarLabel" Text="Cadastre-se gratuitamente"
+		       Margin="5,0,5,5" HorizontalTextAlignment="Center" TextColor="{StaticResource colorTextPrimary}"
+		       VerticalOptions="End" FontSize="Small"
+		       IsVisible="{Binding InLogin, Converter={x:Static converter:IverseBoolConverter.Instance}}">
+			
+			<Label.GestureRecognizers>
+				<TapGestureRecognizer Command="{Binding ShowRegisterPageCommand}" />
+			</Label.GestureRecognizers>
+		</Label>
+		<!--<ActivityIndicator IsRunning="{Binding InLogin}" Color="{StaticResource colorPrimary}" MinimumHeightRequest="40"
+		                   HeightRequest="80" MinimumWidthRequest="40" WidthRequest="80" Margin="1" VerticalOptions="End"
+		                   IsVisible="false" />-->
+	</StackLayout>
 </ContentPage>

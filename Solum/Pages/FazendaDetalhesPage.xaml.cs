@@ -59,6 +59,11 @@ namespace Solum.Pages
             }
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            (BindingContext as FazendaDetalhesViewModel)?.UpdateTalhoesList();
+        }
 
         private void OnEdit(object sender, EventArgs e)
         {
@@ -75,8 +80,8 @@ namespace Solum.Pages
         {
             var talhao = (sender as MenuItem)?.CommandParameter;
             var context = BindingContext as FazendaDetalhesViewModel;
-            var canDelete = context?.CanDelete((talhao as Talhao)?.Id);
-            if (canDelete != null && canDelete.Value)
+            var canDelete = await context.CanDelete((talhao as Talhao)?.Id);
+            if (canDelete)
             {
                 var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim",
                     "Não");
@@ -87,13 +92,6 @@ namespace Solum.Pages
             {
                 "Esse talhao não pode ser removido, existem análises atreladas à ele.\nRemova as análises primeiro".ToDisplayAlert(MessageType.Aviso);
             }
-        }
-
-        protected override void OnAppearing()
-        {
-            var context = BindingContext as FazendaDetalhesViewModel;
-            context?.UpdateTalhoesList();
-            base.OnAppearing();
         }
     }
 }

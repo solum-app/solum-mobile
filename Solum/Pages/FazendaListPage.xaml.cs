@@ -29,19 +29,20 @@ namespace Solum.Pages
                         {
                             IsBusy = true;
                             await Navigation.PushAsync(new FazendaCadastroPage(fromAnalise));
-                            if(fromAnalise)
+                            if (fromAnalise)
                                 Navigation.RemovePage(this);
                             IsBusy = false;
                         }
                     }
                 };
                 AbsoluteLayout.SetLayoutFlags(fab, AbsoluteLayoutFlags.PositionProportional);
-                AbsoluteLayout.SetLayoutBounds(fab, new Rectangle(1f, 1f, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+                AbsoluteLayout.SetLayoutBounds(fab,
+                    new Rectangle(1f, 1f, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
                 absoluteLayout.Children.Add(fab);
             }
             else
             {
-                var item = new ToolbarItem("Add", "ic_add", async () => 
+                var item = new ToolbarItem("Add", "ic_add", async () =>
                 {
                     if (!IsBusy)
                     {
@@ -56,6 +57,11 @@ namespace Solum.Pages
             }
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            (BindingContext as FazendaListViewModel)?.UpdateFazendaList();
+        }
 
         private void OnEdit(object sender, EventArgs e)
         {
@@ -68,26 +74,19 @@ namespace Solum.Pages
         {
             var fazenda = (sender as MenuItem)?.CommandParameter;
             var context = BindingContext as FazendaListViewModel;
-            var canDelete = context?.CanDelete((fazenda as Fazenda)?.Id);
-            if (canDelete != null && canDelete.Value)
+            var canDelete = await context?.CanDelete((fazenda as Fazenda)?.Id);
+            if (canDelete)
             {
                 var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim",
                     "Não");
                 if (confirm)
-                    context.DeleteCommand.Execute(fazenda);
+                    context?.DeleteCommand.Execute(fazenda);
             }
             else
             {
-                "Essa fazenda não pode ser removida, existem análises atreladas à ela.\nRemova as análises primeiro".ToDisplayAlert(MessageType.Aviso);
+                "Essa fazenda não pode ser removida, existem análises atreladas à ela.\nRemova as análises primeiro"
+                    .ToDisplayAlert(MessageType.Aviso);
             }
-
-        }
-
-        protected override void OnAppearing()
-        {
-            var context = BindingContext as FazendaListViewModel;
-            context?.UpdateFazendaList();
-            base.OnAppearing();
         }
     }
 }

@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Solum.Auth;
 using Solum.Interfaces;
+using Solum.Models;
 using Xamarin.Forms;
 
 namespace Solum.Handlers
@@ -31,6 +36,30 @@ namespace Solum.Handlers
                 {
                     Application.Current.MainPage.DisplayAlert(messageType.ToString().ToLowerInvariant(),Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(message), 0, Encoding.UTF8.GetBytes(message).Length), "OK");
                 });
+        }
+
+        public static async Task<IQueryable<Fazenda>> PerUser(this IQueryable<Fazenda> query)
+        {
+            var userId = await DependencyService.Get<ILoginReader>().UserId();
+            if(!string.IsNullOrEmpty(userId))
+                return query.Where(f => f.UsuarioId.Equals(userId));
+            throw new NullReferenceException("User Id is null");
+        }
+
+        public static async Task<IQueryable<Analise>> PerUser(this IQueryable<Analise> query)
+        {
+            var userId = await DependencyService.Get<ILoginReader>().UserId();
+            if (!string.IsNullOrEmpty(userId))
+                return query.Where(f => f.UsuarioId.Equals(userId));
+            throw new NullReferenceException("User Id is null");
+        }
+
+        public static async Task<IQueryable<Talhao>> PerUser(this IQueryable<Talhao> query)
+        {
+            var userId = await DependencyService.Get<ILoginReader>().UserId();
+            if (!string.IsNullOrEmpty(userId))
+                return query.Where(f => f.UsuarioId.Equals(userId));
+            throw new NullReferenceException("User Id is null");
         }
     }
 }

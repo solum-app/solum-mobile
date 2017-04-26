@@ -65,5 +65,9 @@
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</renderers:BindableListView>
+		<ActivityIndicator 
+			IsRunning="{Binding IsLoading}" 
+			VerticalOptions="Center" 
+			HorizontalOptions="Center"/>
 	</AbsoluteLayout>
 </ContentPage>
