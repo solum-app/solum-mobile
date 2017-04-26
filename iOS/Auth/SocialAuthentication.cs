@@ -97,17 +97,27 @@ namespace Solum.iOS.Auth
             return current;
         }
 
-        public async Task<bool> IsLogged()
+        public bool IsLogged()
         {
             var accountStore = AccountStore.Create();
-            var identityLogin = (await accountStore.FindAccountsForServiceAsync(Settings.AuthProvider)).Any();
+            var identityLogin = accountStore.FindAccountsForService(Settings.AuthProvider).Any();
             var fbLogin =
-                (await accountStore.FindAccountsForServiceAsync(MobileServiceAuthenticationProvider.Facebook.ToString()))
+                (accountStore.FindAccountsForService(MobileServiceAuthenticationProvider.Facebook.ToString()))
                 .Any();
-            var gLogin =
-                (await accountStore.FindAccountsForServiceAsync(MobileServiceAuthenticationProvider.Google.ToString()))
-                .Any();
-            return identityLogin || fbLogin || gLogin;
+            return identityLogin || fbLogin;
+        }
+
+        public async Task<string> UserId()
+        {
+            var accountStore = AccountStore.Create();
+            var userlogins = await accountStore.FindAccountsForServiceAsync(Settings.AuthProvider);
+            if (userlogins.Any())
+                return userlogins.FirstOrDefault().Username;
+            userlogins =
+                await accountStore.FindAccountsForServiceAsync(MobileServiceAuthenticationProvider.Facebook.ToString());
+            if (userlogins.Any())
+                return userlogins.FirstOrDefault().Username;
+            return null;
         }
     }
 }

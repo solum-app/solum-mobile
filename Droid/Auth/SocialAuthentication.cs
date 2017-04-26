@@ -19,6 +19,11 @@ namespace Solum.Droid.Auth
 {
     public class SocialAuthentication : IAuthentication
     {
+        public async Task<JToken> RegisterUser(IMobileServiceClient client, string endpoint, JObject obj)
+        {
+            return await client.InvokeApiAsync(endpoint, obj);
+        }
+
         public async Task<MobileServiceUser> LoginAsync(IMobileServiceClient client,
             MobileServiceAuthenticationProvider provider, IDictionary<string, string> parameters = null)
         {
@@ -96,17 +101,25 @@ namespace Solum.Droid.Auth
             return false;
         }
 
-        public async Task<bool> IsLogged()
+        public bool IsLogged()
         {
             var accountStore = AccountStore.Create(Forms.Context);
-            var identityLogin = (await accountStore.FindAccountsForServiceAsync(Settings.AuthProvider)).Any();
-            var fbLogin =
-                (await accountStore.FindAccountsForServiceAsync(MobileServiceAuthenticationProvider.Facebook.ToString()))
-                .Any();
-            var gLogin =
-                (await accountStore.FindAccountsForServiceAsync(MobileServiceAuthenticationProvider.Google.ToString()))
-                .Any();
-            return identityLogin || fbLogin || gLogin;
+            var identityLogin = accountStore.FindAccountsForService(Settings.AuthProvider).Any();
+            var fbLogin = accountStore.FindAccountsForService(MobileServiceAuthenticationProvider.Facebook.ToString()).Any();
+            return identityLogin || fbLogin;
+        }
+
+        public async Task<string> UserId()
+        {
+            var accountStore = AccountStore.Create(Forms.Context);
+            var userlogins = await accountStore.FindAccountsForServiceAsync(Settings.AuthProvider);
+            if (userlogins.Any())
+                return userlogins.FirstOrDefault()?.Username;
+            userlogins =
+                await accountStore.FindAccountsForServiceAsync(MobileServiceAuthenticationProvider.Facebook.ToString());
+            if (userlogins.Any())
+                return userlogins.FirstOrDefault()?.Username;
+            return null;
         }
     }
 }

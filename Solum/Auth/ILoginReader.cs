@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace Solum.Auth
 {
     public interface ILoginReader
     {
-        Task<bool> IsLogged();
+        bool IsLogged();
+        Task<string> UserId();
     }
 }
