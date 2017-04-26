@@ -1,33 +1,218 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
-using Microsoft.WindowsAzure.MobileServices.Sync;
 using Solum.Helpers;
 using Solum.Models;
 
 namespace Solum.Service
 {
-    public class AzureService<T> where T : EntityData
+    public class AzureService
     {
-        protected MobileServiceClient Client;
-        protected IMobileServiceSyncTable<T> Table;
-        protected AzureService()
+        private static AzureService _instance;
+
+        public static AzureService Instance = _instance ?? (_instance = new AzureService());
+        private readonly MobileServiceClient _client;
+
+        private AzureService()
         {
-            Client = new MobileServiceClient(Settings.BaseUri);
+            if (_client == null)
+                _client = new MobileServiceClient(Settings.BaseUri);
         }
 
-        public async Task Initialize()
+        private async Task Initialize()
         {
-            if (Client?.SyncContext?.IsInitialized ?? false)
+            if (_client?.SyncContext?.IsInitialized ?? false)
                 return;
 
             var store = new MobileServiceSQLiteStore(Settings.DBPath);
             store.DefineTable<Estado>();
             store.DefineTable<Cidade>();
-            if (Client == null)
-                Client = new MobileServiceClient(Settings.BaseUri);
-            Table = Client.GetSyncTable<T>();
-            await Client.SyncContext.InitializeAsync(store);
+            store.DefineTable<Fazenda>();
+            store.DefineTable<Talhao>();
+            store.DefineTable<Analise>();
+            var task = _client?.SyncContext.InitializeAsync(store);
+            if (task != null) await task;
         }
+
+        #region Metodos para Estado
+
+        public async Task<IList<Estado>> ListEstadosAsync()
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Estado>();
+            var query = table.OrderBy(e => e.Nome);
+            return await query.ToListAsync();
+        }
+
+        #endregion
+
+        #region Metodos para Cidade
+
+        public async Task<IList<Cidade>> ListCidadesAsync(string estadoId)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Cidade>();
+            var query = table.CreateQuery();
+            query = query.Where(c => c.EstadoId == estadoId).OrderBy(c => c.Nome);
+            return await query.ToListAsync();
+        }
+
+        public async Task<Cidade> FindCidadeAsync(string cidadeId)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Cidade>();
+            var query = table.LookupAsync(cidadeId);
+            return await query;
+        }
+
+        #endregion
+
+        #region Metodos para fazenda
+
+        public async Task InsertFazendaAsync(Fazenda fazenda)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Fazenda>();
+            try
+            {
+                await table.InsertAsync(fazenda);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        public async Task UpdateFazendaAsync(Fazenda fazenda)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Fazenda>();
+            await table.UpdateAsync(fazenda);
+        }
+
+        public async Task DeleteFazendaAsync(Fazenda fazenda)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Fazenda>();
+            await table.DeleteAsync(fazenda);
+        }
+
+        public async Task<Fazenda> FindFazendaAsync(string fazendaid)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Fazenda>();
+            return await table.LookupAsync(fazendaid);
+        }
+
+        public async Task<IList<Fazenda>> ListFazendaAsync()
+        {
+            await Initialize();
+            var estadoTable = _client.GetSyncTable<Estado>();
+            var cidadeTable = _client.GetSyncTable<Cidade>();
+            var fazendaTable = _client.GetSyncTable<Fazenda>();
+            var fazendas = await fazendaTable.CreateQuery().OrderBy(f => f.Nome).ToListAsync();
+            foreach (var fazenda in fazendas)
+            {
+                var cidade = await cidadeTable.LookupAsync(fazenda.CidadeId);
+                cidade.Estado = await estadoTable.LookupAsync(cidade.EstadoId);
+                fazenda.Cidade = cidade;
+            }
+
+            return fazendas;
+        }
+
+        #endregion
+
+
+        #region Metodos para Talhao
+
+        public async Task InsertTalhaoAsync(Talhao talhao)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Talhao>();
+            await table.InsertAsync(talhao);
+        }
+
+        public async Task UpdateTalhaoAsync(Talhao talhao)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Talhao>();
+            await table.UpdateAsync(talhao);
+        }
+
+        public async Task DeleteTalhaoAsync(Talhao talhao)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Talhao>();
+            await table.DeleteAsync(talhao);
+        }
+
+        public async Task<Talhao> FindTalhaoAsync(string talhaoid)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Talhao>();
+            return await table.LookupAsync(talhaoid);
+        }
+
+        public async Task<IList<Talhao>> ListTalhaoAsync(string fazendaId)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Talhao>();
+            var query = table.CreateQuery().Where(t => t.FazendaId == fazendaId).OrderBy(t => t.Nome);
+            return await query.ToListAsync();
+        }
+
+        public async Task<bool> TalhaoHasAnalisesAsync(string talhaoid)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Analise>();
+            var query = table.Where(a => a.TalhaoId == talhaoid);
+            var list = await query.ToListAsync();
+            return list.Any();
+        }
+
+        #endregion
+
+        #region Metodos para análise
+
+        public async Task InsertAnaliseAsync(Analise analise)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Analise>();
+            await table.InsertAsync(analise);
+        }
+
+        public async Task UpdateAnaliseAsync(Analise analise)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Analise>();
+            await table.UpdateAsync(analise);
+        }
+
+        public async Task DeleteAnaliseAsync(Analise analise)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Analise>();
+            await table.DeleteAsync(analise);
+        }
+
+        public async Task<Analise> FindAnaliseAsync(string analiseid)
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Analise>();
+            return await table.LookupAsync(analiseid);
+        }
+
+        public async Task<IList<Analise>> ListAnaliseAsync()
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Analise>();
+            return await table.ToListAsync();
+        }
+
+        #endregion
     }
 }
