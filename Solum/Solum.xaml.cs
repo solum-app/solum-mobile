@@ -1,10 +1,7 @@
-﻿using System.Diagnostics;
-using Microsoft.WindowsAzure.MobileServices;
+﻿using Microsoft.WindowsAzure.MobileServices;
 using Solum.Auth;
 using Solum.Helpers;
-using Solum.Models;
 using Solum.Pages;
-using Solum.Service;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

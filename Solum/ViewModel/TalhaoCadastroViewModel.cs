@@ -44,30 +44,29 @@ namespace Solum.ViewModel
         public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(Save));
 
 
-        public string TalhaoName
-        {
-            get => _talhaoName;
-            set => SetPropertyChanged(ref _talhaoName, value);
-        }
+		public string TalhaoName
+		{
+			get { return _talhaoName; }
+			set { SetPropertyChanged(ref _talhaoName, value); }
+		}
 
-        public string TalhaoArea
-        {
-            get => _talhaoArea;
-            set => SetPropertyChanged(ref _talhaoArea, value);
-        }
+		public string TalhaoArea
+		{
+			get { return _talhaoArea; }
+			set { SetPropertyChanged(ref _talhaoArea, value); }
+		}
 
-        public Fazenda Fazenda
-        {
-            get => _fazenda;
-            set => SetPropertyChanged(ref _fazenda, value);
-        }
+		public Fazenda Fazenda
+		{
+			get { return _fazenda; }
+			set { SetPropertyChanged(ref _fazenda, value); }
+		}
 
-        public Talhao Talhao
-        {
-            get => _talhao;
-            set => SetPropertyChanged(ref _talhao, value);
-        }
-
+		public Talhao Talhao
+		{
+			get { return _talhao; }
+			set { SetPropertyChanged(ref _talhao, value); }
+		}
 
         private async void Save()
         {

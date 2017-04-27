@@ -45,39 +45,39 @@ namespace Solum.ViewModel
 
 
         public bool EnableButton
-        {
-            get => _enableButton;
-            set => SetPropertyChanged(ref _enableButton, value);
+		{
+			get { return _enableButton; }
+			set { SetPropertyChanged(ref _enableButton, value); }
         }
 
         public string Expectativa
         {
-            get => _expectativa;
-            set => SetPropertyChanged(ref _expectativa, value);
+			get { return _expectativa; }
+			set { SetPropertyChanged(ref _expectativa, value); }
         }
 
         public Cultura Cultura
         {
-            get => _cultura;
-            set => SetPropertyChanged(ref _cultura, value);
+			get { return _cultura; }
+			set { SetPropertyChanged(ref _cultura, value); }
         }
 
         public string N
         {
-            get => _n;
-            set => SetPropertyChanged(ref _n, value);
+			get { return _n; }
+			set { SetPropertyChanged(ref _n, value); }
         }
 
         public string P205
         {
-            get => _p205;
-            set => SetPropertyChanged(ref _p205, value);
+			get { return _p205; }
+			set { SetPropertyChanged(ref _p205, value); }
         }
 
         public string K20
         {
-            get => _k20;
-            set => SetPropertyChanged(ref _k20, value);
+			get { return _k20; }
+			set { SetPropertyChanged(ref _k20, value); }
         }
 
 

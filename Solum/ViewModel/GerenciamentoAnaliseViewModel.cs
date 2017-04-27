@@ -78,76 +78,74 @@ namespace Solum.ViewModel
 
         public Analise Analise
         {
-            get => _analise;
-            set => SetPropertyChanged(ref _analise, value);
+			get { return _analise; }
+			set { SetPropertyChanged(ref _analise, value); }
         }
 
         public bool WasInterpreted
         {
-            get => _wasInterpreted;
-            set => SetPropertyChanged(ref _wasInterpreted, value);
+			get { return _wasInterpreted; }
+			set { SetPropertyChanged(ref _wasInterpreted, value); }
         }
 
         public bool HasCalagemCalculation
         {
-            get => _hasCalagemCalculation;
-            set => SetPropertyChanged(ref _hasCalagemCalculation, value);
+			get { return _hasCalagemCalculation; }
+			set { SetPropertyChanged(ref _hasCalagemCalculation, value); }
         }
 
         public bool HasCorretivaCalculation
         {
-            get => _hasCorretivaCalculation;
-            set => SetPropertyChanged(ref _hasCorretivaCalculation, value);
+			get { return _hasCorretivaCalculation; }
+			set { SetPropertyChanged(ref _hasCorretivaCalculation, value); }
         }
 
         public bool HasSemeaduraCalculation
         {
-            get => _hasSemeaduraCalculation;
-            set => SetPropertyChanged(ref _hasSemeaduraCalculation, value);
+			get { return _hasSemeaduraCalculation; }
+			set { SetPropertyChanged(ref _hasSemeaduraCalculation, value); }
         }
 
         public bool HasCoberturaCalculation
         {
-            get => _hasCoberturaCalculation;
-            set => SetPropertyChanged(ref _hasCoberturaCalculation, value);
+			get { return _hasCoberturaCalculation; }
+			set { SetPropertyChanged(ref _hasCoberturaCalculation, value); }
         }
 
         public bool IsGeneratingReport
         {
-            get => _isGeneratingReport;
-            set => SetPropertyChanged(ref _isGeneratingReport, value);
+			get { return _isGeneratingReport; }
+			set { SetPropertyChanged(ref _isGeneratingReport, value); }
         }
 
         public string InterpretacaoDate
         {
-            get => _interpretacaoDate;
-            set => SetPropertyChanged(ref _interpretacaoDate, value);
+			get { return _interpretacaoDate; }
+			set { SetPropertyChanged(ref _interpretacaoDate, value); }
         }
 
         public string CalagemDate
         {
-            get => _calagemDate;
-            set => SetPropertyChanged(ref _calagemDate, value);
+			get { return _calagemDate; }
+			set { SetPropertyChanged(ref _calagemDate, value); }
         }
 
         public string CorretivaDate
         {
-            get => _corretivaDate;
-
-            set => SetPropertyChanged(ref _corretivaDate, value);
+			get { return _corretivaDate; }
+			set { SetPropertyChanged(ref _corretivaDate, value); }
         }
 
         public string SemeaduraDate
         {
-            get => _semeaduraDate;
-
-            set => SetPropertyChanged(ref _semeaduraDate, value);
+			get { return _semeaduraDate; }
+			set { SetPropertyChanged(ref _semeaduraDate, value); }
         }
 
         public string CoberturaDate
         {
-            get => _coberturaDate;
-            set => SetPropertyChanged(ref _coberturaDate, value);
+			get { return _coberturaDate; }
+			set { SetPropertyChanged(ref _coberturaDate, value); }
         }
 
 

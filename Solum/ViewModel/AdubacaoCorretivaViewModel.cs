@@ -34,20 +34,20 @@ namespace Solum.ViewModel
 
         public string P2O5
         {
-            get => _p2O5;
-            set => SetPropertyChanged(ref _p2O5, value);
+			get { return _p2O5; }
+			set { SetPropertyChanged(ref _p2O5, value); }
         }
 
         public string K2O
         {
-            get => _k2O;
-            set => SetPropertyChanged(ref _k2O, value);
+			get { return _k2O; }
+			set { SetPropertyChanged(ref _k2O, value); }
         }
 
         public bool EnableButton
         {
-            get => _enableButton;
-            set => SetPropertyChanged(ref _enableButton, value);
+			get { return _enableButton; }
+			set { SetPropertyChanged(ref _enableButton, value); }
         }
 
 

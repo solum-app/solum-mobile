@@ -28,20 +28,20 @@ namespace Solum.ViewModel
 
         public ObservableCollection<Analise> Analises
         {
-            get => _analises;
-            set => SetPropertyChanged(ref _analises, value);
+			get { return _analises; }
+			set { SetPropertyChanged(ref _analises, value); }
         }
 
         public bool HasItems
         {
-            get => _hasItems;
-            set => SetPropertyChanged(ref _hasItems, value);
+			get { return _hasItems; }
+			set { SetPropertyChanged(ref _hasItems, value); }
         }
 
         public bool IsLoading
         {
-            get => _isLoading;
-            set => SetPropertyChanged(ref _isLoading, value);
+			get { return _isLoading; }
+			set { SetPropertyChanged(ref _isLoading, value); }
         }
 
 

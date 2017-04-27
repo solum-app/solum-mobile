@@ -51,32 +51,32 @@ namespace Solum.ViewModel
 
         public bool EnableButton
         {
-            get => _enableButton;
-            set => SetPropertyChanged(ref _enableButton, value);
+			get { return _enableButton; }
+			set { SetPropertyChanged(ref _enableButton, value); }
         }
 
         public string QuantidadeCal
         {
-            get => _quantidade;
-            set => SetPropertyChanged(ref _quantidade, value);
+			get { return _quantidade; }
+			set { SetPropertyChanged(ref _quantidade, value); }
         }
 
         public string V2
         {
-            get => string.Format(_v2, "###.###");
-            set => SetPropertyChanged(ref _v2, value);
+			get { return string.Format(_v2, "###.###"); }
+			set { SetPropertyChanged(ref _v2, value); }
         }
 
         public string Prnt
         {
-            get => string.Format(_prnt, "###.###");
-            set => SetPropertyChanged(ref _prnt, value);
+			get { return string.Format(_prnt, "###.###"); }
+			set { SetPropertyChanged(ref _prnt, value); }
         }
 
         public string Profundidade
         {
-            get => string.Format(_profundidade, "##");
-            set => SetPropertyChanged(ref _profundidade, value);
+			get { return string.Format(_profundidade, "##"); }
+			set { SetPropertyChanged(ref _profundidade, value); }
         }
 
 
