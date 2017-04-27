@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
+using Solum.Handlers;
 using Solum.Helpers;
 using Solum.Models;
 
@@ -18,8 +19,7 @@ namespace Solum.Service
 
         private AzureService()
         {
-            if (_client == null)
-                _client = new MobileServiceClient(Settings.BaseUri);
+            if (_client == null) _client = new MobileServiceClient(Settings.BaseUri);
         }
 
         private async Task Initialize()
@@ -64,8 +64,7 @@ namespace Solum.Service
         {
             await Initialize();
             var table = _client.GetSyncTable<Cidade>();
-            var query = table.LookupAsync(cidadeId);
-            return await query;
+            return await table.LookupAsync(cidadeId);
         }
 
         #endregion
@@ -76,14 +75,7 @@ namespace Solum.Service
         {
             await Initialize();
             var table = _client.GetSyncTable<Fazenda>();
-            try
-            {
-                await table.InsertAsync(fazenda);
-            }
-            catch (Exception ex)
-            {
-
-            }
+            await table.InsertAsync(fazenda);
         }
 
         public async Task UpdateFazendaAsync(Fazenda fazenda)
@@ -120,7 +112,6 @@ namespace Solum.Service
                 cidade.Estado = await estadoTable.LookupAsync(cidade.EstadoId);
                 fazenda.Cidade = cidade;
             }
-
             return fazendas;
         }
 
@@ -210,7 +201,8 @@ namespace Solum.Service
         {
             await Initialize();
             var table = _client.GetSyncTable<Analise>();
-            return await table.ToListAsync();
+            var query = await table.CreateQuery().Query.PerUser();
+            return query.OrderBy(a => a.Identificacao).ToList();
         }
 
         #endregion
