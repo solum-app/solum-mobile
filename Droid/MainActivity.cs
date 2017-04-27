@@ -32,6 +32,7 @@ namespace Solum.Droid
             Forms.Init(this, bundle);
             CurrentPlatform.Init();
 			XFGloss.Droid.Library.Init(this, bundle);
+			Acr.UserDialogs.UserDialogs.Init(this);
 
 			Settings.DBPath = FileAccessHelper.GetLocalFilePath("Solum.db");
             LoadApplication(new App());
