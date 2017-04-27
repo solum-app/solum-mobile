@@ -67,44 +67,44 @@ namespace Solum.ViewModel
 
         public string FazendaName
         {
-            get => _fazendaName;
-            set => SetPropertyChanged(ref _fazendaName, value);
+			get { return _fazendaName; }
+			set { SetPropertyChanged(ref _fazendaName, value); }
         }
 
         public IList<Estado> Estados
         {
-            get => _estados;
-            set => SetPropertyChanged(ref _estados, value);
+			get { return _estados; }
+			set { SetPropertyChanged(ref _estados, value); }
         }
 
         public Estado EstadoSelected
         {
-            get => _estadoSelected;
-            set => SetPropertyChanged(ref _estadoSelected, value);
+			get { return _estadoSelected; }
+			set { SetPropertyChanged(ref _estadoSelected, value); }
         }
 
         public bool IsEstadosLoaded
         {
-            get => _isEstadosLoaded;
-            set => SetPropertyChanged(ref _isEstadosLoaded, value);
+			get { return _isEstadosLoaded; }
+			set { SetPropertyChanged(ref _isEstadosLoaded, value); }
         }
 
         public IList<Cidade> Cidades
         {
-            get => _cidades;
-            set => SetPropertyChanged(ref _cidades, value);
+			get { return _cidades; }
+			set { SetPropertyChanged(ref _cidades, value); }
         }
 
         public Cidade CidadeSelected
         {
-            get => _cidadeSelected;
-            set => SetPropertyChanged(ref _cidadeSelected, value);
+			get { return _cidadeSelected; }
+			set { SetPropertyChanged(ref _cidadeSelected, value); }
         }
 
         public bool IsCidadesLoaded
         {
-            get => _isCidadesLoaded;
-            set => SetPropertyChanged(ref _isCidadesLoaded, value);
+			get { return _isCidadesLoaded; }
+			set { SetPropertyChanged(ref _isCidadesLoaded, value); }
         }
 
         #endregion

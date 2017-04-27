@@ -58,14 +58,10 @@
 				<Setter Property="BackgroundColor" Value="{StaticResource facebookColor}" />
 			</Style>
 			<Style x:Key="buttonOutlineStyle" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
-				<Setter Property="BackgroundColor">
-					<Setter.Value>
-						<OnPlatform x:TypeArguments="Color" iOS="#0FFF" Android="#FFF" />
-					</Setter.Value>
-				</Setter>
-				<Setter Property="BorderColor" Value="{StaticResource colorTextSecundary}" />
-				<Setter Property="TextColor" Value="{StaticResource colorTextSecundary}" />
-				<Setter Property="BorderWidth" Value="2" />
+				<Setter Property="BackgroundColor" Value="#3FFF" />
+				<Setter Property="BorderColor" Value="#AFFF" />
+				<Setter Property="TextColor" Value="#CFFF" />
+				<Setter Property="BorderWidth" Value="1" />
 			</Style>
 		</ResourceDictionary>
 	</Application.Resources>

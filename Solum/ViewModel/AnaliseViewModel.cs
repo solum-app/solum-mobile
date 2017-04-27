@@ -91,7 +91,7 @@ namespace Solum.ViewModel
 
         public string FazendaNome
         {
-            get => _fazendaNome;
+			get { return _fazendaNome; }
             set
             {
                 SetPropertyChanged(ref _fazendaNome, value);
@@ -101,13 +101,13 @@ namespace Solum.ViewModel
 
         public Color FazendaLabelColor
         {
-            get => _fazendaLabelColor;
-            set => SetPropertyChanged(ref _fazendaLabelColor, value);
+			get { return _fazendaLabelColor; }
+			set { SetPropertyChanged(ref _fazendaLabelColor, value); }
         }
 
         public string TalhaoNome
         {
-            get => _talhaoNome;
+			get { return _talhaoNome; }
             set
             {
                 SetPropertyChanged(ref _talhaoNome, value);
@@ -117,104 +117,104 @@ namespace Solum.ViewModel
 
         public Color TalhaoLabelColor
         {
-            get => _talhaoLabelColor;
-            set => SetPropertyChanged(ref _talhaoLabelColor, value);
+			get { return _talhaoLabelColor; }
+			set { SetPropertyChanged(ref _talhaoLabelColor, value); }
         }
 
         public string IdentificacaoAnalise
         {
-            get => _identificacaoAnalise;
-            set => SetPropertyChanged(ref _identificacaoAnalise, value);
+			get { return _identificacaoAnalise; }
+			set { SetPropertyChanged(ref _identificacaoAnalise, value); }
         }
 
         public Analise Analise
         {
-            get => _analise;
-            set => SetPropertyChanged(ref _analise, value);
+			get { return _analise; }
+			set { SetPropertyChanged(ref _analise, value); }
         }
 
         public Fazenda Fazenda
         {
-            get => _fazenda;
-            set => SetPropertyChanged(ref _fazenda, value);
+			get { return _fazenda; }
+			set { SetPropertyChanged(ref _fazenda, value); }
         }
 
         public Talhao Talhao
         {
-            get => _talhao;
-            set => SetPropertyChanged(ref _talhao, value);
+			get { return _talhao; }
+			set { SetPropertyChanged(ref _talhao, value); }
         }
 
         public DateTimeOffset DateSelected
         {
-            get => _data;
-            set => SetPropertyChanged(ref _data, value);
+			get { return _data; }
+			set { SetPropertyChanged(ref _data, value); }
         }
 
         public string PotencialHidrogenico
         {
-            get => _potencialHidrogenico;
-            set => SetPropertyChanged(ref _potencialHidrogenico, $"{value:0.00}");
+			get { return _potencialHidrogenico; }
+			set { SetPropertyChanged(ref _potencialHidrogenico, $"{value:0.00}"); }
         }
 
         public string Fosforo
         {
-            get => _fosforo;
-            set => SetPropertyChanged(ref _fosforo, value);
+			get { return _fosforo; }
+			set { SetPropertyChanged(ref _fosforo, value); }
         }
 
         public string Potassio
         {
-            get => _potassio;
-            set => SetPropertyChanged(ref _potassio, value);
+			get { return _potassio; }
+			set { SetPropertyChanged(ref _potassio, value); }
         }
 
         public string Calcio
         {
-            get => _calcio;
-            set => SetPropertyChanged(ref _calcio, value);
+			get { return _calcio; }
+			set { SetPropertyChanged(ref _calcio, value); }
         }
 
         public string Magnesio
         {
-            get => _magnesio;
-            set => SetPropertyChanged(ref _magnesio, value);
+			get { return _magnesio; }
+			set { SetPropertyChanged(ref _magnesio, value); }
         }
 
         public string Aluminio
         {
-            get => _aluminio;
-            set => SetPropertyChanged(ref _aluminio, value);
+			get { return _aluminio; }
+			set { SetPropertyChanged(ref _aluminio, value); }
         }
 
         public string Hidrogenio
         {
-            get => _hidrogenio;
-            set => SetPropertyChanged(ref _hidrogenio, value);
+			get { return _hidrogenio; }
+			set { SetPropertyChanged(ref _hidrogenio, value); }
         }
 
         public string MateriaOrganica
         {
-            get => _materiaOrganica;
-            set => SetPropertyChanged(ref _materiaOrganica, value);
+			get { return _materiaOrganica; }
+			set { SetPropertyChanged(ref _materiaOrganica, value); }
         }
 
         public string Areia
         {
-            get => _areia;
-            set => SetPropertyChanged(ref _areia, value);
+			get { return _areia; }
+			set { SetPropertyChanged(ref _areia, value); }
         }
 
         public string Silte
-        {
-            get => _silte;
-            set => SetPropertyChanged(ref _silte, value);
+		{
+			get { return _silte; }
+			set { SetPropertyChanged(ref _silte, value); }
         }
 
         public string Argila
         {
-            get => _argila;
-            set => SetPropertyChanged(ref _argila, value);
+			get { return _argila; }
+			set { SetPropertyChanged(ref _argila, value); }
         }
 
 

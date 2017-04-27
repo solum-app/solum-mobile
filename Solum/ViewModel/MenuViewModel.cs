@@ -16,14 +16,14 @@ namespace Solum.ViewModel
 
         public string Nome
         {
-            get => _nome;
-            set => SetPropertyChanged(ref _nome, value);
+			get { return _nome; }
+			set { SetPropertyChanged(ref _nome, value); }
         }
 
         public string Email
         {
-            get => _email;
-            set => SetPropertyChanged(ref _email, value);
+			get { return _email; }
+			set { SetPropertyChanged(ref _email, value); }
         }
     }
 }

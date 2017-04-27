@@ -31,21 +31,21 @@ namespace Solum.ViewModel
 
         public bool IsLoading
         {
-            get => _isLoading;
-            set => SetPropertyChanged(ref _isLoading, value);
+			get { return _isLoading; }
+			set { SetPropertyChanged(ref _isLoading, value); }
         }
 
 
         public bool HasItems
         {
-            get => _hasItems;
-            set => SetPropertyChanged(ref _hasItems, value);
+			get { return _hasItems; }
+			set { SetPropertyChanged(ref _hasItems, value); }
         }
 
         public ObservableCollection<Fazenda> Fazendas
         {
-            get => _fazendas;
-            set => SetPropertyChanged(ref _fazendas, value);
+			get { return _fazendas; }
+			set { SetPropertyChanged(ref _fazendas, value); }
         }
 
 

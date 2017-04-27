@@ -59,32 +59,32 @@ namespace Solum.ViewModel
 
         public DisplayNumber ProfundidadeItem
         {
-            get => _profundidadeItem;
-            set => SetPropertyChanged(ref _profundidadeItem, value);
+			get { return _profundidadeItem; }
+			set { SetPropertyChanged(ref _profundidadeItem, value); }
         }
 
         public DisplayNumber V2Item
         {
-            get => _v2Item;
-            set => SetPropertyChanged(ref _v2Item, value);
+			get { return _v2Item; }
+			set { SetPropertyChanged(ref _v2Item, value); }
         }
 
         public IList<DisplayNumber> ProfundidadeList
         {
-            get => _profundidadeList;
-            set => SetPropertyChanged(ref _profundidadeList, value);
+			get { return _profundidadeList; }
+			set { SetPropertyChanged(ref _profundidadeList, value); }
         }
 
         public IList<DisplayNumber> V2List
         {
-            get => _v2List;
-            set => SetPropertyChanged(ref _v2List, value);
+			get { return _v2List; }
+			set { SetPropertyChanged(ref _v2List, value); }
         }
 
         public string Prnt
         {
-            get => _prnt;
-            set => SetPropertyChanged(ref _prnt, value);
+			get { return _prnt; }
+			set { SetPropertyChanged(ref _prnt, value); }
         }
 
 

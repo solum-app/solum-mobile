@@ -1,10 +1,7 @@
-﻿using System.Diagnostics;
-using Microsoft.WindowsAzure.MobileServices;
+﻿using Microsoft.WindowsAzure.MobileServices;
 using Solum.Auth;
 using Solum.Helpers;
-using Solum.Models;
 using Solum.Pages;
-using Solum.Service;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,10 +15,8 @@ namespace Solum
 		public App()
 		{
 			InitializeComponent();
-			//Sync();
-			EstadoService.Instance.Initialize();
 			var authr = DependencyService.Get<IAuthentication>();
-			var isLogged = authr.IsLogged().Result;
+			var isLogged = authr.IsLogged();
 			if (isLogged)
 				MainPage = new RootPage();
 			else
@@ -30,14 +25,6 @@ namespace Solum
 					BackgroundColor = Color.Transparent,
 					BarTextColor = Color.Black
 				};
-		}
-
-		private async void Sync()
-		{
-			if (!Settings.EstadosLoaded)
-				await EstadoService.Instance.SyncEstados();
-			if (!Settings.CidadesLoaded)
-				await CidadeService.Instance.SyncCidades();
 		}
 	}
 }

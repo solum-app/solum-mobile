@@ -37,27 +37,27 @@ namespace Solum.ViewModel
 
         public bool IsLoading
         {
-            get => _isLoading;
-            set => SetPropertyChanged(ref _isLoading, value);
+			get { return _isLoading; }
+			set { SetPropertyChanged(ref _isLoading, value); }
         }
 
 
         public bool HasItems
         {
-            get => _hasItems;
-            set => SetPropertyChanged(ref _hasItems, value);
+			get { return _hasItems; }
+			set { SetPropertyChanged(ref _hasItems, value); }
         }
 
         public Fazenda Fazenda
         {
-            get => _fazenda;
-            set => SetPropertyChanged(ref _fazenda, value);
+			get { return _fazenda; }
+			set { SetPropertyChanged(ref _fazenda, value); }
         }
 
         public ObservableCollection<Talhao> Talhoes
         {
-            get => _talhoes;
-            set => SetPropertyChanged(ref _talhoes, value);
+			get { return _talhoes; }
+			set { SetPropertyChanged(ref _talhoes, value); }
         }
 
 

@@ -98,170 +98,170 @@ namespace Solum.ViewModel
 
         public Nivel NivelCa
         {
-            get => _nivelCa;
-            set => SetPropertyChanged(ref _nivelCa, value);
+			get { return _nivelCa; }
+			set { SetPropertyChanged(ref _nivelCa, value); }
         }
 
         public Nivel NivelCaK
         {
-            get => _nivelCaK;
-            set => SetPropertyChanged(ref _nivelCaK, value);
+			get { return _nivelCaK; }
+			set { SetPropertyChanged(ref _nivelCaK, value); }
         }
 
         public Nivel NivelCtc
         {
-            get => _nivelCtc;
-            set => SetPropertyChanged(ref _nivelCtc, value);
+			get { return _nivelCtc; }
+			set { SetPropertyChanged(ref _nivelCtc, value); }
         }
 
         public Nivel NivelK
         {
-            get => _nivelK;
-            set => SetPropertyChanged(ref _nivelK, value);
+			get { return _nivelK; }
+			set { SetPropertyChanged(ref _nivelK, value); }
         }
 
         public Nivel NivelM
         {
-            get => _nivelM;
-            set => SetPropertyChanged(ref _nivelM, value);
+			get { return _nivelM; }
+			set { SetPropertyChanged(ref _nivelM, value); }
         }
 
         public Nivel NivelMg
         {
-            get => _nivelMg;
-            set => SetPropertyChanged(ref _nivelMg, value);
+			get { return _nivelMg; }
+			set { SetPropertyChanged(ref _nivelMg, value); }
         }
 
         public Nivel NivelMgk
         {
-            get => _nivelMgK;
-            set => SetPropertyChanged(ref _nivelMgK, value);
+			get { return _nivelMgK; }
+			set { SetPropertyChanged(ref _nivelMgK, value); }
         }
 
         public Nivel NivelMo
         {
-            get => _nivelMo;
-            set => SetPropertyChanged(ref _nivelMo, value);
+			get { return _nivelMo; }
+			set { SetPropertyChanged(ref _nivelMo, value); }
         }
 
         public Nivel NivelP
         {
-            get => _nivelP;
-            set => SetPropertyChanged(ref _nivelP, value);
+			get { return _nivelP; }
+			set { SetPropertyChanged(ref _nivelP, value); }
         }
 
         public Nivel NivelPh
         {
-            get => _nivelPh;
-            set => SetPropertyChanged(ref _nivelPh, value);
+			get { return _nivelPh; }
+			set { SetPropertyChanged(ref _nivelPh, value); }
         }
 
         public Nivel NivelV
         {
-            get => _nivelV;
-            set => SetPropertyChanged(ref _nivelV, value);
+			get { return _nivelV; }
+			set { SetPropertyChanged(ref _nivelV, value); }
         }
 
         public Textura Textura
         {
-            get => _textura;
-            set => SetPropertyChanged(ref _textura, value);
+			get { return _textura; }
+			set { SetPropertyChanged(ref _textura, value); }
         }
 
         public Analise Analise
         {
-            get => _analise;
-            set => SetPropertyChanged(ref _analise, value);
+			get { return _analise; }
+			set { SetPropertyChanged(ref _analise, value); }
         }
 
         public string FazendaName
         {
-            get => _fazendaName;
-            set => SetPropertyChanged(ref _fazendaName, value);
+			get { return _fazendaName; }
+			set { SetPropertyChanged(ref _fazendaName, value); }
         }
 
         public string TalhaoName
         {
-            get => _talhaoName;
-            set => SetPropertyChanged(ref _talhaoName, value);
+			get { return _talhaoName; }
+			set { SetPropertyChanged(ref _talhaoName, value); }
         }
 
         public DateTimeOffset Date
         {
-            get => _date;
-            set => SetPropertyChanged(ref _date, value);
+			get { return _date; }
+			set { SetPropertyChanged(ref _date, value); }
         }
 
         public string InterpretacaoTextura
         {
-            get => _interpretacaoTextura;
-            set => SetPropertyChanged(ref _interpretacaoTextura, value);
+			get { return _interpretacaoTextura; }
+			set { SetPropertyChanged(ref _interpretacaoTextura, value); }
         }
 
         public string InterpretacaoPh
         {
-            get => _interpretacaoPh;
-            set => SetPropertyChanged(ref _interpretacaoPh, value);
+			get { return _interpretacaoPh; }
+			set { SetPropertyChanged(ref _interpretacaoPh, value); }
         }
 
         public string InterpretacaoP
         {
-            get => _interpretacaoP;
-            set => SetPropertyChanged(ref _interpretacaoP, value);
+			get { return _interpretacaoP; }
+			set { SetPropertyChanged(ref _interpretacaoP, value); }
         }
 
         public string InterpretacaoK
         {
-            get => _interpretacaoK;
-            set => SetPropertyChanged(ref _interpretacaoK, value);
+			get { return _interpretacaoK; }
+			set { SetPropertyChanged(ref _interpretacaoK, value); }
         }
 
         public string InterpretacaoCa
         {
-            get => _interpretacaoCa;
-            set => SetPropertyChanged(ref _interpretacaoCa, value);
+			get { return _interpretacaoCa; }
+			set { SetPropertyChanged(ref _interpretacaoCa, value); }
         }
 
         public string InterpretacaoMg
         {
-            get => _interpretacaoMg;
-            set => SetPropertyChanged(ref _interpretacaoMg, value);
+			get { return _interpretacaoMg; }
+			set { SetPropertyChanged(ref _interpretacaoMg, value); }
         }
 
         public string InterpretacaoCaK
         {
-            get => _interpretacaoCaK;
-            set => SetPropertyChanged(ref _interpretacaoCaK, value);
+			get { return _interpretacaoCaK; }
+			set { SetPropertyChanged(ref _interpretacaoCaK, value); }
         }
 
         public string InterpretacaoMgK
         {
-            get => _interpretacaoMgK;
-            set => SetPropertyChanged(ref _interpretacaoMgK, value);
+			get { return _interpretacaoMgK; }
+			set { SetPropertyChanged(ref _interpretacaoMgK, value); }
         }
 
         public string InterpretacaoM
         {
-            get => _interpretacaoM;
-            set => SetPropertyChanged(ref _interpretacaoM, value);
+			get { return _interpretacaoM; }
+			set { SetPropertyChanged(ref _interpretacaoM, value); }
         }
 
         public string InterpretacaoV
         {
-            get => _interpretacaoV;
-            set => SetPropertyChanged(ref _interpretacaoV, value);
+			get { return _interpretacaoV; }
+			set { SetPropertyChanged(ref _interpretacaoV, value); }
         }
 
         public string InterpretacaoCtc
         {
-            get => _interpretacaoCtc;
-            set => SetPropertyChanged(ref _interpretacaoCtc, value);
+			get { return _interpretacaoCtc; }
+			set { SetPropertyChanged(ref _interpretacaoCtc, value); }
         }
 
         public string InterpretacaoMo
         {
-            get => _interpretacaoMo;
-            set => SetPropertyChanged(ref _interpretacaoMo, value);
+			get { return _interpretacaoMo; }
+			set { SetPropertyChanged(ref _interpretacaoMo, value); }
         }
 
         private string NivelPhConverter(Nivel nivel)

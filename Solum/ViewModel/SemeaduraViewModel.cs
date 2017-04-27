@@ -66,44 +66,44 @@ namespace Solum.ViewModel
 
         public bool EnableButton
         {
-            get => _enableButton;
-            set => SetPropertyChanged(ref _enableButton, value);
+			get { return _enableButton; }
+			set { SetPropertyChanged(ref _enableButton, value); }
         }
 
         public IList<DisplayNumber> Expectativas
         {
-            get => _expectativas;
-            set => SetPropertyChanged(ref _expectativas, value);
+			get { return _expectativas; }
+			set { SetPropertyChanged(ref _expectativas, value); }
         }
 
         public DisplayNumber ExpectativaSelected
         {
-            get => _expectativaSelected;
-            set => SetPropertyChanged(ref _expectativaSelected, value);
+			get { return _expectativaSelected; }
+			set { SetPropertyChanged(ref _expectativaSelected, value); }
         }
 
         public IList<DisplayEnum> Culturas
         {
-            get => _culturas;
-            set => SetPropertyChanged(ref _culturas, value);
+			get { return _culturas; }
+			set { SetPropertyChanged(ref _culturas, value); }
         }
 
         public DisplayEnum CulturaSelected
         {
-            get => _culturaSelected;
-            set => SetPropertyChanged(ref _culturaSelected, value);
+			get {return  _culturaSelected; }
+			set { SetPropertyChanged(ref _culturaSelected, value); }
         }
 
         public bool IsPotassioBaixo
         {
-            get => _isPotassioBaixo;
-            set => SetPropertyChanged(ref _isPotassioBaixo, value);
+			get { return _isPotassioBaixo; }
+			set { SetPropertyChanged(ref _isPotassioBaixo, value); }
         }
 
         public bool IsFosforoBaixo
         {
-            get => _isFosforoBaixo;
-            set => SetPropertyChanged(ref _isFosforoBaixo, value);
+			get { return _isFosforoBaixo; }
+			set { SetPropertyChanged(ref _isFosforoBaixo, value); }
         }
 
         public bool IsPotassioFosforoBaixo => IsPotassioBaixo && IsFosforoBaixo;

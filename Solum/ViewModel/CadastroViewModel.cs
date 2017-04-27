@@ -40,68 +40,68 @@ namespace Solum.ViewModel
 
         public string Name
         {
-            get => _name;
-            set => SetPropertyChanged(ref _name, value.Trim());
+			get { return _name; }
+			set { SetPropertyChanged(ref _name, value.Trim()); }
         }
 
         public string Email
         {
-            get => _email;
-            set => SetPropertyChanged(ref _email, value.Trim());
+			get { return _email; }
+			set { SetPropertyChanged(ref _email, value.Trim()); }
         }
 
         public string Password
         {
-            get => _password;
-            set => SetPropertyChanged(ref _password, value.Trim());
+			get { return _password; }
+			set { SetPropertyChanged(ref _password, value.Trim()); }
         }
 
         public string ConfirmPassword
         {
-            get => _confirmPassword;
-            set => SetPropertyChanged(ref _confirmPassword, value.Trim());
+			get { return _confirmPassword; }
+			set { SetPropertyChanged(ref _confirmPassword, value.Trim()); }
         }
 
         public ICollection<Estado> Estados
         {
-            get => _estados;
-            set => SetPropertyChanged(ref _estados, value);
+			get { return _estados; }
+			set { SetPropertyChanged(ref _estados, value); }
         }
 
         public Estado EstadoSelected
         {
-            get => _estadoSelected;
-            set => SetPropertyChanged(ref _estadoSelected, value);
+			get { return _estadoSelected; }
+			set { SetPropertyChanged(ref _estadoSelected, value); }
         }
 
         public bool IsEstadosLoaded
         {
-            get => _isEstadosLoaded;
-            set => SetPropertyChanged(ref _isEstadosLoaded, value);
+			get { return _isEstadosLoaded; }
+			set { SetPropertyChanged(ref _isEstadosLoaded, value); }
         }
 
         public ICollection<Cidade> Cidades
         {
-            get => _cidades;
-            set => SetPropertyChanged(ref _cidades, value);
+			get { return _cidades; }
+			set { SetPropertyChanged(ref _cidades, value); }
         }
 
         public Cidade CidadeSelected
         {
-            get => _cidadeSelected;
-            set => SetPropertyChanged(ref _cidadeSelected, value);
+			get { return _cidadeSelected; }
+			set { SetPropertyChanged(ref _cidadeSelected, value); }
         }
 
         public bool IsCidadesLoaded
         {
-            get => _isCidadesLoaded;
-            set => SetPropertyChanged(ref _isCidadesLoaded, value);
+			get { return _isCidadesLoaded; }
+			set { SetPropertyChanged(ref _isCidadesLoaded, value); }
         }
 
         public bool InRegistering
         {
-            get => _inRegistering;
-            set => SetPropertyChanged(ref _inRegistering, value);
+			get { return _inRegistering; }
+			set { SetPropertyChanged(ref _inRegistering, value); }
         }
 
 
