@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using Solum.Auth;
 using Solum.Handlers;
 using Solum.Models;
 using Solum.Service;
@@ -85,10 +86,11 @@ namespace Solum.ViewModel
 
                 if (!string.IsNullOrEmpty(TalhaoArea))
                     TalhaoArea = TalhaoArea.Replace("ha", "").Trim();
-
+                var userId = await DependencyService.Get<IAuthentication>().UserId();
                 var novo = new Talhao
                 {
                     Id = Guid.NewGuid().ToString(),
+                    UsuarioId = userId,
                     FazendaId = Fazenda.Id,
                     Area = TalhaoArea,
                     Nome = TalhaoName,

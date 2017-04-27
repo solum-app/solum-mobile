@@ -9,7 +9,13 @@
 	x:Class="Solum.Pages.FazendaDetalhesPage"
 	BackgroundColor="{StaticResource colorBackground}"
 	Title="{Binding PageTitle}">
-  <AbsoluteLayout x:Name="absoluteLayout">
+
+	<ActivityIndicator IsRunning="{Binding IsLoading}"
+	                   HorizontalOptions="Center"
+	                   VerticalOptions="Center" />
+
+	<AbsoluteLayout x:Name="absoluteLayout"
+	                IsVisible="{Binding IsLoading, Converter={x:Static handlers:IverseBoolConverter.Instance}}">
 
     <Label
       AbsoluteLayout.LayoutFlags="All"
@@ -21,40 +27,53 @@
       FontSize="Medium"
       TextColor="{StaticResource colorTextSecundary}" />
 
-    <local:BindableListView
-      x:Name="talhoesList"
-      IsVisible="{Binding HasItems}"
-      HasUnevenRows="true"
-      ItemClickedCommand="{Binding ItemTappedCommand}"
-      SeparatorColor="{StaticResource colorSeparator}"
-      ItemsSource="{Binding Talhoes}"
-      AbsoluteLayout.LayoutFlags="All"
-      AbsoluteLayout.LayoutBounds="0,0,1,1">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <Grid Padding="15" BackgroundColor="White">
-              <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-              </Grid.RowDefinitions>
-              <Label Text="{Binding Nome, StringFormat='Talhão {0}'}" Grid.Row="0" TextColor="{StaticResource colorTextPrimary}" />
-              <Label Text="{Binding Area, StringFormat='Área {0} ha'}" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}" IsVisible="{Binding HasArea}"
-                         VerticalTextAlignment="Start" />
-              <Label Text="Área não informada" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}" IsVisible="{Binding HasArea, Converter={x:Static converter:IverseBoolConverter.Instance}}"
-                         VerticalTextAlignment="Start" />
-            </Grid>
-            <ViewCell.ContextActions>
-              <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit" Text="Editar" Icon="ic_editar" />
-              <MenuItem CommandParameter="{Binding .}" Clicked="OnDelete" Text="Excluir" IsDestructive="True" Icon="ic_excluir" />
-            </ViewCell.ContextActions>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </local:BindableListView>
-	  <ActivityIndicator 
-		  IsRunning="{Binding IsLoading}" 
-		  HorizontalOptions="Center" 
-		  VerticalOptions="Center"/>
-  </AbsoluteLayout>
+		<local:BindableListView x:Name="talhoesList"
+								IsVisible="{Binding HasItems}"
+								HasUnevenRows="true"
+								ItemClickedCommand="{Binding ItemTappedCommand}"
+								SeparatorColor="{StaticResource colorSeparator}"
+								ItemsSource="{Binding Talhoes}"
+								AbsoluteLayout.LayoutFlags="All"
+								AbsoluteLayout.LayoutBounds="0,0,1,1">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<Grid Padding="15"
+							  BackgroundColor="White">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Label Text="{Binding Nome, StringFormat='Talhão {0}'}"
+								   Grid.Row="0"
+								   TextColor="{StaticResource colorTextPrimary}" />
+							<Label Text="{Binding Area, StringFormat='Área {0} ha'}"
+								   Grid.Row="1"
+								   FontSize="Small"
+								   TextColor="{StaticResource colorTextSecundary}"
+								   IsVisible="{Binding HasArea}"
+								   VerticalTextAlignment="Start" />
+							<Label Text="Área não informada"
+								   Grid.Row="1"
+								   FontSize="Small"
+								   TextColor="{StaticResource colorTextSecundary}"
+								   IsVisible="{Binding HasArea, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+								   VerticalTextAlignment="Start" />
+						</Grid>
+						<ViewCell.ContextActions>
+							<MenuItem CommandParameter="{Binding .}"
+									  Clicked="OnEdit"
+									  Text="Editar"
+									  Icon="ic_editar" />
+							<MenuItem CommandParameter="{Binding .}"
+									  Clicked="OnDelete"
+									  Text="Excluir"
+									  IsDestructive="True"
+									  Icon="ic_excluir" />
+						</ViewCell.ContextActions>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</local:BindableListView>
+	</AbsoluteLayout>
 </ContentPage>

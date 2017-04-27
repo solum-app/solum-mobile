@@ -50,7 +50,7 @@ namespace Solum.Handlers
         {
             var userId = await DependencyService.Get<ILoginReader>().UserId();
             if (!string.IsNullOrEmpty(userId))
-                return query.Where(f => f.UsuarioId == userId);
+                return query.Where(f => f.UsuarioId.Equals(userId));
             throw new NullReferenceException("User Id is null");
         }
 

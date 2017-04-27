@@ -33,10 +33,10 @@ namespace Solum.ViewModel
             {
                 _analise = t.Result;
                 PageTitle = _analise.Identificacao;
+                Init(expectativa, cultura);
             });
             
             EnableButton = enableButton;
-            Init(expectativa, cultura);
         }
 
 
@@ -102,16 +102,15 @@ namespace Solum.ViewModel
         {
             if (!IsNotBusy) return;
             IsBusy = true;
-            var count = Navigation.NavigationStack.Count();
-            var last = Navigation.NavigationStack[count - 2];
-            Navigation.RemovePage(last);
-
+            //var count = Navigation.NavigationStack.Count();
+            
             _analise.DataCalculoSemeadura = DateTimeOffset.Now;
             _analise.HasSemeadura = true;
             _analise.Cultura = Cultura.ToString();
             _analise.Expectativa = int.Parse(Expectativa);
             await AzureService.Instance.UpdateAnaliseAsync(_analise);
-
+            var last = Navigation.NavigationStack.LastOrDefault();
+            Navigation.RemovePage(last);
             await Navigation.PopAsync();
             IsBusy = false;
         }

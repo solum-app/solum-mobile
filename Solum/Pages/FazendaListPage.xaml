@@ -7,8 +7,13 @@
 	xmlns:renderers="clr-namespace:Solum.Renderers"
 	xmlns:handlers="clr-namespace:Solum.Handlers"
 	Title="Fazendas">
-  
-  <AbsoluteLayout x:Name="absoluteLayout" BackgroundColor="{StaticResource colorBackground}">
+
+	<ActivityIndicator IsRunning="{Binding IsLoading}"
+	                   HorizontalOptions="Center"
+	                   VerticalOptions="Center" />
+	<AbsoluteLayout x:Name="absoluteLayout"
+					BackgroundColor="{StaticResource colorBackground}"
+	                IsVisible="{Binding IsLoading, Converter={x:Static handlers:IverseBoolConverter.Instance}}">
 
     <Label
 			AbsoluteLayout.LayoutFlags="All"
@@ -20,44 +25,55 @@
 			Text="Nenhuma fazenda cadastrada"
 			TextColor="{StaticResource colorTextSecundary}" />
 
-    <renderers:BindableListView
-			IsVisible="{Binding HasItems}"
-			x:Name="FazendasList"
-			HasUnevenRows="true"
-			ItemClickedCommand="{Binding ItemTappedCommand}"
-			SeparatorColor="{StaticResource colorSeparator}"
-			ItemsSource="{Binding Fazendas}"
-			AbsoluteLayout.LayoutFlags="All"
-			AbsoluteLayout.LayoutBounds="0,0,1,1">
+		<renderers:BindableListView IsVisible="{Binding HasItems}"
+									x:Name="FazendasList"
+									HasUnevenRows="true"
+									ItemClickedCommand="{Binding ItemTappedCommand}"
+									SeparatorColor="{StaticResource colorSeparator}"
+									ItemsSource="{Binding Fazendas}"
+									AbsoluteLayout.LayoutFlags="All"
+									AbsoluteLayout.LayoutBounds="0,0,1,1">
 
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <Grid Padding="15" BackgroundColor="White">
-              <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-              </Grid.RowDefinitions>
-              <Label Text="{Binding Nome}" Grid.Row="0" TextColor="{StaticResource colorTextPrimary}"/>
-              <StackLayout Orientation="Horizontal" Spacing="0" Grid.Row="1">
-                <Label Text="{Binding Cidade.Nome}" TextColor="{StaticResource colorTextSecundary}" FontSize="Small"/>
-                <Label Text="{Binding Cidade.Estado.Uf, StringFormat=' - {0}'}" TextColor="{StaticResource colorTextSecundary}" FontSize="Small"/>
-              </StackLayout>
-            </Grid>
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<Grid Padding="15"
+							  BackgroundColor="White">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Label Text="{Binding Nome}"
+								   Grid.Row="0"
+								   TextColor="{StaticResource colorTextPrimary}" />
+							<StackLayout Orientation="Horizontal"
+										 Spacing="0"
+										 Grid.Row="1">
+								<Label Text="{Binding Cidade.Nome}"
+									   TextColor="{StaticResource colorTextSecundary}"
+									   FontSize="Small" />
+								<Label Text="{Binding Cidade.Estado.Uf, StringFormat=' - {0}'}"
+									   TextColor="{StaticResource colorTextSecundary}"
+									   FontSize="Small" />
+							</StackLayout>
+						</Grid>
 
-            <ViewCell.ContextActions>
-              <MenuItem CommandParameter="{Binding .}" Clicked="OnEdit" Text="Editar" Icon="ic_editar" />
-              <MenuItem CommandParameter="{Binding .}" Clicked="OnDelete" Text="Excluir" IsDestructive="True" Icon="ic_excluir" />
-            </ViewCell.ContextActions>
+						<ViewCell.ContextActions>
+							<MenuItem CommandParameter="{Binding .}"
+									  Clicked="OnEdit"
+									  Text="Editar"
+									  Icon="ic_editar" />
+							<MenuItem CommandParameter="{Binding .}"
+									  Clicked="OnDelete"
+									  Text="Excluir"
+									  IsDestructive="True"
+									  Icon="ic_excluir" />
+						</ViewCell.ContextActions>
 
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </renderers:BindableListView>
-	  <ActivityIndicator 
-		  IsRunning="{Binding IsLoading}" 
-		  HorizontalOptions="Center" 
-		  VerticalOptions="Center"/>
-  </AbsoluteLayout>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</renderers:BindableListView>
+	</AbsoluteLayout>
 
 </ContentPage>

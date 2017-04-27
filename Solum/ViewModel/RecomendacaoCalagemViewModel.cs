@@ -37,12 +37,12 @@ namespace Solum.ViewModel
             {
                 _analise = t.Result;
                 PageTitle = _analise.Identificacao;
+                Calculate();
             });
             
             V2 = v2.ToString();
             Prnt = prnt.ToString();
             Profundidade = profundidade.ToString();
-            Calculate();
             EnableButton = enableButton;
         }
 

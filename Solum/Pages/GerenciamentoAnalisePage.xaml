@@ -131,7 +131,8 @@
 				</BoxView.HeightRequest>
 			</BoxView>
 			<Button Text="Gerar Relatório" Command="{Binding GeneratePdfCommand}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand" 
-              IsEnabled="{Binding IsGeneratingReport, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
+              IsVisible="{Binding IsGeneratingReport, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
+			<ActivityIndicator IsRunning="{Binding IsGeneratingReport}" MinimumHeightRequest="20" MinimumWidthRequest="20"/>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

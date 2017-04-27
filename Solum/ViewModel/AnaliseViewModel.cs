@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
+using Solum.Auth;
 using Solum.Handlers;
 using Solum.Interfaces;
 using Solum.Models;
@@ -363,12 +364,13 @@ namespace Solum.ViewModel
                 return;
             }
 
-
+            var userId = await DependencyService.Get<IAuthentication>().UserId();
             if (Analise == null)
             {
                 Analise = new Analise
                 {
                     Id = Guid.NewGuid().ToString(),
+                    UsuarioId = userId,
                     TalhaoId = Talhao.Id,
                     Identificacao = IdentificacaoAnalise,
                     DataRegistro = DateSelected,
@@ -391,6 +393,7 @@ namespace Solum.ViewModel
             else
             {
                 Analise.Identificacao = IdentificacaoAnalise;
+                Analise.UsuarioId = userId;
                 Analise.TalhaoId = Talhao.Id;
                 Analise.DataRegistro = DateSelected;
                 Analise.PotencialHidrogenico = float.Parse("0" + PotencialHidrogenico.Replace(',', '.'),

@@ -201,8 +201,8 @@ namespace Solum.Service
         {
             await Initialize();
             var table = _client.GetSyncTable<Analise>();
-            var query = await table.CreateQuery().Query.PerUser();
-            return query.OrderBy(a => a.Identificacao).ToList();
+            var query = table.CreateQuery();//.PerUser();
+            return await query.OrderBy(a => a.Identificacao).ToListAsync();
         }
 
         #endregion

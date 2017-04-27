@@ -22,15 +22,7 @@ namespace Solum.ViewModel
 
         public AnalisesViewModel(INavigation navigation) : base(navigation)
         {
-            IsLoading = true;
-            AzureService.Instance.ListAnaliseAsync().ContinueWith((a) =>
-            {
-                var r = a.Result;
-                Analises = r.Any() ? new ObservableCollection<Analise>(r) : new ObservableCollection<Analise>();
-                HasItems = Analises.Any();
-                IsLoading = false;
-            });
-
+           UpdateAnalisesList();
         }
 
 
@@ -61,11 +53,22 @@ namespace Solum.ViewModel
             => _itemTappedCommand ?? (_itemTappedCommand = new Command(ShowGerenciamentoAnalisePage));
 
 
-        //public async void UpdateAnalisesList()
-        //{
-        //    Analises = await AnaliseService.Instance.ReadAllAsync();
-        //    HasItems = Analises.Any();
-        //}
+        public void UpdateAnalisesList()
+        {
+            if (!IsLoading)
+            {
+                IsLoading = true;
+                HasItems = IsLoading;
+                AzureService.Instance.ListAnaliseAsync()
+                    .ContinueWith((a) =>
+                    {
+                        var r = a.Result;
+                        Analises = r.Any() ? new ObservableCollection<Analise>(r) : new ObservableCollection<Analise>();
+                        HasItems = Analises.Any();
+                        IsLoading = false;
+                    });
+            }
+        }
 
         private async void DeleteAnalise(object obj)
         {

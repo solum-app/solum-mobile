@@ -302,7 +302,7 @@ namespace Solum.ViewModel
             }
         }
 
-        private void GeneratePdf()
+        private async void GeneratePdf()
         {
             IsGeneratingReport = true;
 
@@ -328,7 +328,7 @@ namespace Solum.ViewModel
 
             PdfFont subHeadingFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10, PdfFontStyle.Bold);
 
-            DrawHeader(g, "Relatório de Interpretação da Analise");
+            await DrawHeader(g, "Relatório de Interpretação da Analise");
 
 
             var argila = Analise.Argila;
@@ -443,7 +443,7 @@ namespace Solum.ViewModel
                 _page = _doc.Pages.Add();
                 g = _page.Graphics;
 
-                DrawHeader(g, "Relatório de Recomendações");
+                await DrawHeader(g, "Relatório de Recomendações");
                 var s = "Recomendação de Calagem";
                 y = 130;
                 g.DrawString(s, txf, new PdfSolidBrush(_black), new PointF(25, y));
@@ -569,7 +569,7 @@ namespace Solum.ViewModel
             page.DrawImage(PdfImage.FromStream(imgStream), 20, 20, 72, 72);
         }
 
-        private void DrawHeader(PdfGraphics page, string title)
+        private async Task DrawHeader(PdfGraphics page, string title)
         {
             DrawImage(page);
 
@@ -578,8 +578,8 @@ namespace Solum.ViewModel
             PdfFont textFont = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
 
             page.DrawString(title, headerFont, new PdfSolidBrush(_black), new PointF(110, 20));
-            var talhao = AzureService.Instance.FindTalhaoAsync(_analise.TalhaoId).Result;
-            var fazenda = AzureService.Instance.FindFazendaAsync(talhao.FazendaId).Result;
+            var talhao = await  AzureService.Instance.FindTalhaoAsync(_analise.TalhaoId);
+            var fazenda = await AzureService.Instance.FindFazendaAsync(talhao.FazendaId);
             page.DrawString(fazenda.Nome, subHeadingFont, new PdfSolidBrush(_black),
                 new PointF(110, 52));
             page.DrawString("Talhão " + talhao.Nome, textFont, new PdfSolidBrush(_black), new PointF(110, 74));

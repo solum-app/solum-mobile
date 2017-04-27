@@ -9,7 +9,11 @@
 	BackgroundColor="{StaticResource colorBackground}"
 	Title="Análises">
 
-	<AbsoluteLayout x:Name="absolute">
+	<ActivityIndicator IsRunning="{Binding IsLoading}"
+	                   VerticalOptions="Center"
+	                   HorizontalOptions="Center" />
+	<AbsoluteLayout x:Name="absolute"
+					IsVisible="{Binding IsLoading, Converter={x:Static handlers:IverseBoolConverter.Instance}}">
 		<Label
 			AbsoluteLayout.LayoutFlags="All"
 			AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -20,54 +24,52 @@
 			Text="Nenhuma análise salva"
 			TextColor="{StaticResource colorTextSecundary}" />
 
-		<renderers:BindableListView
-			IsVisible="{Binding HasItems}"
-			HasUnevenRows="true"
-			ItemClickedCommand="{Binding ItemTappedCommand}"
-			SeparatorColor="{StaticResource colorSeparator}"
-			ItemsSource="{Binding Analises}"
-			AbsoluteLayout.LayoutFlags="All"
-			AbsoluteLayout.LayoutBounds="0,0,1,1">
+		<renderers:BindableListView IsVisible="{Binding HasItems}"
+									HasUnevenRows="true"
+									ItemClickedCommand="{Binding ItemTappedCommand}"
+									SeparatorColor="{StaticResource colorSeparator}"
+									ItemsSource="{Binding Analises}"
+									AbsoluteLayout.LayoutFlags="All"
+									AbsoluteLayout.LayoutBounds="0,0,1,1">
 
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<ViewCell>
-						<Grid Padding="15" BackgroundColor="White">
+						<Grid Padding="15"
+							  BackgroundColor="White">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
 
-							<Label Text="{Binding Identificacao}" Grid.Row="0" TextColor="{StaticResource colorTextPrimary}" />
+							<Label Text="{Binding Identificacao}"
+								   Grid.Row="0"
+								   TextColor="{StaticResource colorTextPrimary}" />
 
 							<Label Text="{Binding DataRegistro, StringFormat='{0:dd/MM/yyyy}'}"
-							       Grid.Row="1"
-							       FontSize="Small"
-							       TextColor="{StaticResource colorTextSecundary}"
-							       VerticalTextAlignment="Start" />
+								   Grid.Row="1"
+								   FontSize="Small"
+								   TextColor="{StaticResource colorTextSecundary}"
+								   VerticalTextAlignment="Start" />
 
 						</Grid>
 
 						<ViewCell.ContextActions>
 							<MenuItem CommandParameter="{Binding .}"
-							          Clicked="OnEdit"
-							          Text="Editar"
-							          Icon="ic_editar" />
+									  Clicked="OnEdit"
+									  Text="Editar"
+									  Icon="ic_editar" />
 
 							<MenuItem CommandParameter="{Binding .}"
-							          Clicked="OnDelete"
-							          Text="Excluir"
-							          IsDestructive="True"
-							          Icon="ic_excluir" />
+									  Clicked="OnDelete"
+									  Text="Excluir"
+									  IsDestructive="True"
+									  Icon="ic_excluir" />
 
 						</ViewCell.ContextActions>
 					</ViewCell>
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</renderers:BindableListView>
-		<ActivityIndicator 
-			IsRunning="{Binding IsLoading}" 
-			VerticalOptions="Center" 
-			HorizontalOptions="Center"/>
 	</AbsoluteLayout>
 </ContentPage>

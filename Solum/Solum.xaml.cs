@@ -18,10 +18,8 @@ namespace Solum
 		public App()
 		{
 			InitializeComponent();
-			//Sync();
-			EstadoService.Instance.Initialize();
 			var authr = DependencyService.Get<IAuthentication>();
-			var isLogged = authr.IsLogged().Result;
+			var isLogged = authr.IsLogged();
 			if (isLogged)
 				MainPage = new RootPage();
 			else
@@ -30,14 +28,6 @@ namespace Solum
 					BackgroundColor = Color.Transparent,
 					BarTextColor = Color.Black
 				};
-		}
-
-		private async void Sync()
-		{
-			if (!Settings.EstadosLoaded)
-				await EstadoService.Instance.SyncEstados();
-			if (!Settings.CidadesLoaded)
-				await CidadeService.Instance.SyncCidades();
 		}
 	}
 }
