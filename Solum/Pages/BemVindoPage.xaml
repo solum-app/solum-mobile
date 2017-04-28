@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+	xmlns:cv="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
+	xmlns:local="clr-namespace:Solum"
+	x:Class="Solum.BemVindoPage">
+	
+	<xfg:ContentPageGloss.BackgroundGradient>
+        <xfg:Gradient Rotation="150">
+            <xfg:GradientStep StepColor="{StaticResource colorBackgroundStart}"  StepPercentage="0" />
+            <xfg:GradientStep StepColor="{StaticResource colorBackgroundEnd}"  StepPercentage="1" />
+        </xfg:Gradient>
+    </xfg:ContentPageGloss.BackgroundGradient>
+
+	<StackLayout>
+		<cv:CarouselView 
+			ItemsSource="{Binding CarouselItens}" 
+			Position="{Binding Position, Mode=TwoWay}"
+			x:Name="Carousel">
+		    <cv:CarouselView.ItemTemplate>
+				<DataTemplate>
+					<StackLayout Padding="16, 64">
+						<Label 
+							Text="{Binding Titulo}" 
+							Style="{StaticResource titleStyle}"/>
+						<Label 
+							Text="{Binding Descricao}"/>
+					</StackLayout>
+				</DataTemplate>
+		    </cv:CarouselView.ItemTemplate>
+	  	</cv:CarouselView>
+		<local:CarouselIndicator 
+			IndicatorHeight="16" 
+			IndicatorWidth="16" 
+			UnselectedIndicator="ic_add" 
+			SelectedIndicator="ic_editar" 
+			Position="{Binding Position}" 
+			ItemsSource="{Binding CarouselItens}" />
+	</StackLayout>
+</ContentPage>

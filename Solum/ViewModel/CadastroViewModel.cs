@@ -98,14 +98,6 @@ namespace Solum.ViewModel
 			set { SetPropertyChanged(ref _isCidadesLoaded, value); }
         }
 
-        public bool InRegistering
-        {
-			get { return _inRegistering; }
-			set { SetPropertyChanged(ref _inRegistering, value); }
-        }
-
-
-
         public ICommand RegisterCommand => _registerCommand ?? (_registerCommand = new Command(Register));
 
         public ICommand UpdateCidadesCommand
@@ -131,38 +123,43 @@ namespace Solum.ViewModel
         {
             if (IsNotBusy)
             {
+				IsBusy = true;
+
                 if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password) ||
                     string.IsNullOrEmpty(ConfirmPassword))
                 {
+					IsBusy = false;
                     MessagesResource.CamposVazios.ToDisplayAlert(MessageType.Info);
                     return;
                 }
 
                 if (!EmailValidator.Validate(Email))
                 {
+					IsBusy = false;
                     MessagesResource.UsuarioCadastroEmailInvalido.ToDisplayAlert(MessageType.Info);
                     return;
                 }
 
                 if (Password.Length < 6)
                 {
+					IsBusy = false;
                     MessagesResource.UsuarioCadastroSenhaCurta.ToDisplayAlert(MessageType.Info);
                     return;
                 }
 
                 if (!Password.Equals(ConfirmPassword))
                 {
+					IsBusy = false;
                     MessagesResource.UsuarioCadastroSenhasNaoConferem.ToDisplayAlert(MessageType.Info);
                     return;
                 }
 
                 if (CidadeSelected == null)
                 {
+					IsBusy = false;
                     MessagesResource.UsuarioCadastroCidadeNula.ToDisplayAlert(MessageType.Info);
                     return;
                 }
-
-                InRegistering = true;
 
                 var dict = new List<KeyValuePair<string, string>>
                 {
@@ -179,12 +176,12 @@ namespace Solum.ViewModel
                 {
                     "Você foi cadastrado com sucesso".ToToast();
                     await Navigation.PopAsync();
-                    IsBusy = false;
+					IsBusy = false;
                 }
                 else
                 {
+					IsBusy = false;
                     $"Seu cadastro não foi realizado com sucesso. Motivo: {result.ReasonPhrase}".ToDisplayAlert();
-                    IsBusy = false;
                 }
             }
         }

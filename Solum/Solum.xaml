@@ -35,16 +35,14 @@
 
 			<Color x:Key="facebookColor">#3C5A96</Color>
 			<Color x:Key="linkColor">#2b6e71</Color>
-		
-
+	
 			<Style x:Key="buttonStyle" TargetType="Button">
 				<Setter Property="TextColor" Value="{StaticResource colorTextPrimary}" />
 				<Setter Property="BorderRadius" Value="4" />
-				<Setter Property="FontSize" Value="Medium" />
 				<Setter Property="BackgroundColor" Value="{StaticResource colorAccent}" />
-				<Setter Property="HeightRequest">
+				<Setter Property="FontSize">
 					<Setter.Value>
-						<OnPlatform x:TypeArguments="x:Double" iOS="40" Android="50" />
+						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
 					</Setter.Value>
 				</Setter>
 			</Style>
@@ -57,11 +55,15 @@
 				<Setter Property="TextColor" Value="White" />
 				<Setter Property="BackgroundColor" Value="{StaticResource facebookColor}" />
 			</Style>
-			<Style x:Key="buttonOutlineStyle" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
-				<Setter Property="BackgroundColor" Value="#3FFF" />
-				<Setter Property="BorderColor" Value="#AFFF" />
-				<Setter Property="TextColor" Value="#CFFF" />
-				<Setter Property="BorderWidth" Value="1" />
+			<Style x:Key="secondaryButton" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+				<Setter Property="BackgroundColor" Value="#FFF" />
+			</Style>
+
+			<Style x:Key="titleStyle" TargetType="Label">
+				<Setter Property="HorizontalTextAlignment" Value="Center" />
+				<Setter Property="TextColor" Value="{StaticResource colorTextPrimary}" />
+				<Setter Property="FontSize" Value="Large" />
+				<Setter Property="FontAttributes" Value="Bold" />
 			</Style>
 		</ResourceDictionary>
 	</Application.Resources>

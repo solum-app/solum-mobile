@@ -19,6 +19,9 @@ namespace Solum
 		    AzureService.Instance.Sync();
 			var authr = DependencyService.Get<IAuthentication>();
 			var isLogged = authr.IsLogged();
+
+			//MainPage = new BemVindoPage();
+
 			if (isLogged)
 				MainPage = new RootPage();
 			else

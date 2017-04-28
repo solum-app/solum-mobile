@@ -16,10 +16,7 @@
 			
 			<Label 
 				Text="Informações Pessoais" 
-				HorizontalTextAlignment="Center" 
-				TextColor="{StaticResource colorTextPrimary}" 
-				FontSize="Large" 
-				FontAttributes="Bold" 
+				Style="{StaticResource titleStyle}"
 				Margin="0,16,0,32" />
 			<Label 
 				Text="Todos os campos são obrigatórios" 
@@ -96,18 +93,23 @@
 			<Button 
 				Text="Cadastrar" 
 				Command="{Binding RegisterCommand}" 
-				BackgroundColor="{StaticResource colorAccent}" 
-				TextColor="{StaticResource colorTextPrimary}" 
 				VerticalOptions="EndAndExpand" 
-				IsVisible="{Binding InRegistering, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
+				IsVisible="{Binding IsBusy, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
 
 			<Button 
 				Text="Cancelar" 
-				Style="{StaticResource buttonOutlineStyle}"
+				Style="{StaticResource secondaryButton}"
 				Command="{Binding BackCommand}" 
-				Margin="0,16" 
-				VerticalOptions="End" />
-			<ActivityIndicator IsRunning="{Binding InRegistering}" WidthRequest="40" Color="{StaticResource colorPrimary}" IsVisible="false" />
+				IsVisible="{Binding IsBusy, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+				VerticalOptions="End">
+				<Button.Margin>
+					<OnPlatform x:TypeArguments="Thickness" iOS="0,16" Android="0,8" />
+				</Button.Margin>
+			</Button>
+			<ActivityIndicator 
+				VerticalOptions="CenterAndExpand" 
+				IsRunning="{Binding IsBusy}" 
+				IsVisible="{Binding IsBusy}"  />
 		</StackLayout>
 	</ScrollView>
 </ContentPage>
