@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
+using Plugin.Connectivity;
 using Solum.Handlers;
 using Solum.Helpers;
 using Solum.Models;
@@ -36,6 +37,63 @@ namespace Solum.Service
             var task = _client?.SyncContext.InitializeAsync(store);
             if (task != null) await task;
         }
+
+        #region Sincronizacao
+
+        public async Task Sync()
+        {
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                await PullEstados();
+                await PullCidades();
+                await PullFazendas();
+                await PullTalhoes();
+                await PullAnalises();
+                await _client.SyncContext.PushAsync();
+            }
+        }
+
+        private async Task PullEstados()
+        {
+            await Initialize();
+            string queryName = $"incsync_{typeof(Estado).Name}";
+            var table = _client.GetSyncTable<Estado>();
+            await table.PullAsync(queryName, table.CreateQuery());
+        }
+
+        private async Task PullCidades()
+        {
+            await Initialize();
+            var table = _client.GetSyncTable<Cidade>();
+            string queryName = $"incsync_{typeof(Cidade).Name}";
+            await table.PullAsync(queryName, table.CreateQuery());
+        }
+
+        private async Task PullFazendas()
+        {
+            await Initialize();
+            string queryName = $"incsync_{typeof(Fazenda).Name}";
+            var table = _client.GetSyncTable<Fazenda>();
+            await table.PullAsync(queryName, table.CreateQuery());
+        }
+
+        private async Task PullTalhoes()
+        {
+            await Initialize();
+            string queryName = $"incsync_{typeof(Talhao).Name}";
+            var table = _client.GetSyncTable<Talhao>();
+            await table.PullAsync(queryName, table.CreateQuery());
+        }
+
+        private async Task PullAnalises()
+        {
+            await Initialize();
+            string queryName = $"incsync_{typeof(Analise).Name}";
+            var table = _client.GetSyncTable<Analise>();
+            await table.PullAsync(queryName, table.CreateQuery());
+        }
+
+        #endregion
 
         #region Metodos para Estado
 

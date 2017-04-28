@@ -2,6 +2,7 @@
 using Solum.Auth;
 using Solum.Helpers;
 using Solum.Pages;
+using Solum.Service;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +16,7 @@ namespace Solum
 		public App()
 		{
 			InitializeComponent();
+		    AzureService.Instance.Sync();
 			var authr = DependencyService.Get<IAuthentication>();
 			var isLogged = authr.IsLogged();
 			if (isLogged)

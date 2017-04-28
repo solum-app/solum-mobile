@@ -87,14 +87,7 @@
       <DependentUpon>AnalisePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Auth\ILoginReader.cs" />
-    <Compile Include="Service\AnaliseService.cs" />
     <Compile Include="Service\AzureService.cs" />
-    <Compile Include="Service\CidadeService.cs" />
-    <Compile Include="Service\EstadoService.cs" />
-    <Compile Include="Service\FazendaService.cs" />
-    <Compile Include="Service\Interfaces\IAccountSecureStore.cs" />
-    <Compile Include="Service\Interfaces\IStore.cs" />
-    <Compile Include="Service\TalhaoService.cs" />
     <Compile Include="ViewModel\BaseNotify.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\AnaliseViewModel.cs" />
