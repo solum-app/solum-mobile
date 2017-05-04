@@ -1,14 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converter="clr-namespace:Solum.Handlers;" x:Class="Solum.Pages.GerenciamentoAnalisePage" Title="{Binding PageTitle}">
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:converter="clr-namespace:Solum.Handlers;" 
+	x:Class="Solum.Pages.GerenciamentoAnalisePage" 
+	Title="Análise">
+	
 	<ScrollView BackgroundColor="{StaticResource colorBackground}">
 		<StackLayout Spacing="0">
-			<Label TextColor="{StaticResource colorTextSecundary}" Text="GERENCIAMENTO">
+			<Label Text="GERENCIAMENTO">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness" iOS="16,24,16,4" Android="16, 13" />
 				</Label.Margin>
-				<Label.FontSize>
-					<OnPlatform x:TypeArguments="x:Double" iOS="13" Android="14" />
-				</Label.FontSize>
 			</Label>
 			<!--Interpretação-->
 			<Grid BackgroundColor="White" HeightRequest="72" RowSpacing="0" ColumnSpacing="0">
@@ -130,9 +133,15 @@
 					<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
 				</BoxView.HeightRequest>
 			</BoxView>
-			<Button Text="Gerar Relatório" Command="{Binding GeneratePdfCommand}" Margin="16" BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" VerticalOptions="EndAndExpand" 
-              IsVisible="{Binding IsGeneratingReport, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
-			<ActivityIndicator IsRunning="{Binding IsGeneratingReport}" MinimumHeightRequest="20" MinimumWidthRequest="20"/>
+			<Button 
+				Text="Gerar Relatório" 
+				Command="{Binding GeneratePdfCommand}" 
+				Margin="16" 
+				VerticalOptions="EndAndExpand" 
+              	IsVisible="{Binding IsGeneratingReport, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
+			<ActivityIndicator 
+				IsRunning="{Binding IsGeneratingReport}" 
+				IsVisible="{Binding IsGeneratingReport}"/>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

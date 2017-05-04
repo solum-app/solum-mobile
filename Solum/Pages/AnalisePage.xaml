@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <ContentPage
 	xmlns="http://xamarin.com/schemas/2014/forms"
@@ -10,17 +10,12 @@
 
 	<ScrollView BackgroundColor="{StaticResource colorBackground}">
     <StackLayout Spacing="0">
-			<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES">
+			<Label Style="{StaticResource headerStyle}"  Text="INFORMAÇÕES">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness"
 						    iOS="16,24,16,4"
 						    Android="16, 13" />
 				</Label.Margin>
-				<Label.FontSize>
-					<OnPlatform x:TypeArguments="x:Double"
-						    iOS="13"
-						    Android="14" />
-				</Label.FontSize>
 			</Label>
 			
 			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
@@ -36,7 +31,7 @@
 							    Android="0.3" />
 					</BoxView.HeightRequest>
 				</BoxView>
-				<Label Text="Nome da análise" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label Text="Nome da análise" VerticalOptions="Center" Grid.Column="1" />
 
 				<Entry 
 					Unfocused="OnEntryUnfocused"
@@ -47,18 +42,11 @@
 					Grid.Column="2"
 					Margin="16,0"
 					Placeholder="Identificação"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
-				<Entry.Effects>
-					<effects:NoBorderEffect />
-				</Entry.Effects>
-
-				<Entry.FontSize>
-					<OnPlatform x:TypeArguments="x:Double"
-						iOS="17"
-						Android="14" />
-					</Entry.FontSize>
+					<Entry.Effects>
+						<effects:NoBorderEffect />
+					</Entry.Effects>
 				</Entry>
         
 				<BoxView 
@@ -80,15 +68,15 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 
-				<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1" />
         
 				<Label 
 					x:Name="fazendaLabel"
 					Text="{Binding FazendaNome}"
 					TextColor="{Binding FazendaLabelColor}"
 					VerticalOptions="Center" 
-					Grid.Column="2"
-					HorizontalTextAlignment="End">
+					HorizontalOptions="End"
+					Grid.Column="2">
 
 					<Label.Effects>
 						<effects:NoBorderEffect />
@@ -105,20 +93,21 @@
 						iOS="17"
 						Android="14" />
 					</Label.FontSize>
-
-					<Label.GestureRecognizers>
-						<TapGestureRecognizer Command="{Binding ShowFazendasCommand}"/>
-					</Label.GestureRecognizers>
 				</Label>
-
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
-				VerticalOptions="End">
+				<BoxView 
+					BackgroundColor="{StaticResource colorSeparator}" 
+					Grid.Column="1" 
+					Grid.ColumnSpan="2"
+					VerticalOptions="End">
 					<BoxView.HeightRequest>
 					<OnPlatform x:TypeArguments="x:Double"
 						iOS="0.5"
 						Android="0.3" />
 					</BoxView.HeightRequest>
 				</BoxView>
+				<Grid.GestureRecognizers>
+					<TapGestureRecognizer Command="{Binding ShowFazendasCommand}"/>
+				</Grid.GestureRecognizers>
 			</Grid>
 
 			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
@@ -128,15 +117,15 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 
-				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" />
       
 				<Label 
 					x:Name="talhaoLabel"
 					Text="{Binding TalhaoNome}"
 					TextColor="{Binding TalhaoLabelColor}"
 					VerticalOptions="Center"
-					Grid.Column="2"
-					HorizontalTextAlignment="End">
+					HorizontalOptions="End"
+					Grid.Column="2">
 
 					<Label.Margin>
 						<OnPlatform x:TypeArguments="Thickness"
@@ -153,22 +142,20 @@
 						iOS="17"
 						Android="14" />
 					</Label.FontSize>
-
-					<Label.GestureRecognizers>
-						<TapGestureRecognizer Command="{Binding ShowTalhoesCommand}"/>
-					</Label.GestureRecognizers>
 				</Label>
-
-			<BoxView 
-				BackgroundColor="{StaticResource colorSeparator}"
-				Grid.Column="1" Grid.ColumnSpan="2"
-				VerticalOptions="End">
-				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double"
-						iOS="0.5"
-						Android="0.3" />
-				</BoxView.HeightRequest>
-			</BoxView>
+				<BoxView 
+					BackgroundColor="{StaticResource colorSeparator}"
+					Grid.Column="1" Grid.ColumnSpan="2"
+					VerticalOptions="End">
+					<BoxView.HeightRequest>
+						<OnPlatform x:TypeArguments="x:Double"
+							iOS="0.5"
+							Android="0.3" />
+					</BoxView.HeightRequest>
+				</BoxView>
+				<Grid.GestureRecognizers>
+					<TapGestureRecognizer Command="{Binding ShowTalhoesCommand}"/>
+				</Grid.GestureRecognizers>
 			</Grid>
       
 			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
@@ -177,7 +164,7 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Label Text="Data" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label Text="Data" VerticalOptions="Center" Grid.Column="1" />
 				
 				<renderers:BindableDatePicker 
 					Unfocused="OnEntryUnfocused" 
@@ -206,17 +193,12 @@
 				</BoxView.HeightRequest>
 			</BoxView>
 
-			<Label TextColor="{StaticResource colorTextSecundary}" Text="ANÁLISE QUÍMICA">
+			<Label Text="ANÁLISE QUÍMICA">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness"
 						    iOS="16,24,16,4"
 						    Android="16, 13" />
 				</Label.Margin>
-				<Label.FontSize>
-					<OnPlatform x:TypeArguments="x:Double"
-						    iOS="13"
-						    Android="14" />
-				</Label.FontSize>
 			</Label>
 			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
 				<Grid.ColumnDefinitions>
@@ -233,8 +215,8 @@
 				</BoxView>
 				<Label Text="pH" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
 				
-        <Entry 
-          x:Name="PhEntry"
+        		<Entry 
+          			x:Name="PhEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding PotencialHidrogenico}"
@@ -243,18 +225,11 @@
 					Grid.Column="2"
 					Margin="16,0"
 					Placeholder="Potencial Hidrogeniônico (CaCl₂)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-          
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="17"
-							    Android="14" />
-					</Entry.FontSize>
 				</Entry>
         
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
@@ -272,9 +247,12 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Label Text="P" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label 
+					Text="P" 
+					VerticalOptions="Center" 
+					Grid.Column="1" />
 				<Entry 
-          x:Name="FosforoEntry"
+          			x:Name="FosforoEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Fosforo}"
@@ -283,18 +261,11 @@
 					Grid.Column="2"
 					Margin="16,0"
 					Placeholder="Fósforo (mg dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-          
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="17"
-							    Android="14" />
-					</Entry.FontSize>
 				</Entry>
         
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
@@ -312,9 +283,12 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Label Text="K" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label 
+					Text="K" 
+					VerticalOptions="Center" 
+					Grid.Column="1" />
 				<Entry 
-          x:Name="PotassioEntry"
+         			x:Name="PotassioEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Potassio}"
@@ -323,18 +297,12 @@
 					Grid.Column="2"
 					Margin="16,0"
 					Placeholder="Potássio (mg dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
           
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="17"
-							    Android="14" />
-					</Entry.FontSize>
 				</Entry>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
 					 VerticalOptions="End">
@@ -351,9 +319,12 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Label Text="Ca" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label 
+					Text="Ca" 
+					VerticalOptions="Center" 
+					Grid.Column="1"/>
 				<Entry 
-          x:Name="CalcioEntry"
+          			x:Name="CalcioEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Calcio}"
@@ -362,17 +333,11 @@
 					Grid.Column="2"
 					Margin="16,0"
 					Placeholder="Cálcio (cmolc dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="17"
-							    Android="14" />
-					</Entry.FontSize>
 				</Entry>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
 					 VerticalOptions="End">
@@ -389,9 +354,12 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Label Text="Mg" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label 
+					Text="Mg" 
+					VerticalOptions="Center" 
+					Grid.Column="1"/>
 				<Entry 
-          x:Name="MagnesioEntry"
+          			x:Name="MagnesioEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Magnesio}"
@@ -400,17 +368,11 @@
 					Grid.Column="2"
 					Margin="16,0"
 					Placeholder="Magnésio (cmolc dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="17"
-							    Android="14" />
-					</Entry.FontSize>
 				</Entry>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
 					 VerticalOptions="End">
@@ -427,9 +389,12 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Label Text="Al" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label 
+					Text="Al" 
+					VerticalOptions="Center" 
+					Grid.Column="1" />
 				<Entry 
-          x:Name="AluminioEntry"
+          			x:Name="AluminioEntry"
 					Unfocused="OnEntryUnfocused"
 					Focused="OnEntryFocused"
 					Text="{Binding Aluminio}"
@@ -437,17 +402,11 @@
 					VerticalOptions="Center"
 					Grid.Column="2" Margin="16,0"
 					Placeholder="Alumínio (cmolc dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="17"
-							    Android="14" />
-					</Entry.FontSize>
 				</Entry>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
 					 VerticalOptions="End">
@@ -464,7 +423,10 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Label Text="H" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label 
+					Text="H" 
+					VerticalOptions="Center" 
+					Grid.Column="1" />
 				<Entry
 					x:Name="HidrogenioEntry"
 					Unfocused="OnEntryUnfocused"
@@ -475,17 +437,11 @@
 					Grid.Column="2"
 					Margin="16,0"
 					Placeholder="Hidrogênio (cmolc dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="17"
-							    Android="14" />
-					</Entry.FontSize>
 				</Entry>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
 					 VerticalOptions="End">
@@ -502,7 +458,10 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Label Text="M.O." VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label 
+					Text="M.O." 
+					VerticalOptions="Center" 
+					Grid.Column="1" />
 				<Entry
 					x:Name="MateriaOrganicaEntry"
 					Unfocused="OnEntryUnfocused"
@@ -513,17 +472,11 @@
 					Grid.Column="2"
 					Margin="16,0"
 					Placeholder="Mat. Org. (g dm⁻³)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="17"
-							    Android="14" />
-					</Entry.FontSize>
 				</Entry>
 			</Grid>
 			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
@@ -534,17 +487,12 @@
 				</BoxView.HeightRequest>
 			</BoxView>
 
-			<Label TextColor="{StaticResource colorTextSecundary}" Text="ANÁLISE FÍSICA">
+			<Label Text="ANÁLISE FÍSICA">
 				<Label.Margin>
 					<OnPlatform x:TypeArguments="Thickness"
 						    iOS="16,24,16,4"
 						    Android="16, 13" />
 				</Label.Margin>
-				<Label.FontSize>
-					<OnPlatform x:TypeArguments="x:Double"
-						    iOS="13"
-						    Android="14" />
-				</Label.FontSize>
 			</Label>
 			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
 				<Grid.ColumnDefinitions>
@@ -559,7 +507,10 @@
 							    Android="0.3" />
 					</BoxView.HeightRequest>
 				</BoxView>
-				<Label Text="Areia" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label 
+					Text="Areia" 
+					VerticalOptions="Center" 
+					Grid.Column="1"/>
 				<Entry
 					x:Name="AreiaEntry"
 					Unfocused="OnEntryUnfocused"
@@ -570,17 +521,11 @@
 					Grid.Column="2"
 					Margin="16,0"
 					Placeholder="Areia (g kg⁻¹)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="17"
-							    Android="14" />
-					</Entry.FontSize>
 				</Entry>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
 					 VerticalOptions="End">
@@ -597,7 +542,10 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Label Text="Silte" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label 
+					Text="Silte" 
+					VerticalOptions="Center" 
+					Grid.Column="1" />
 				<Entry
 					x:Name="SilteEntry"
 					Unfocused="OnEntryUnfocused"
@@ -607,17 +555,11 @@
 					VerticalOptions="Center"
 					Grid.Column="2" Margin="16,0"
 					Placeholder="Silte (g kg⁻¹)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="17"
-							    Android="14" />
-					</Entry.FontSize>
 				</Entry>
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
 					 VerticalOptions="End">
@@ -634,7 +576,10 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Label Text="Argila" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
+				<Label 
+					Text="Argila" 
+					VerticalOptions="Center" 
+					Grid.Column="1"/>
 				<Entry
 					x:Name="ArgilaEntry"
 					Unfocused="OnEntryUnfocused"
@@ -645,17 +590,11 @@
 					Grid.Column="2"
 					Margin="16,0"
 					Placeholder="Argila (g kg⁻¹)"
-					HorizontalTextAlignment="End"
-					PlaceholderColor="{StaticResource colorTextHint}">
+					HorizontalTextAlignment="End">
 
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="17"
-							    Android="14" />
-					</Entry.FontSize>
 				</Entry>
 			</Grid>
 			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">

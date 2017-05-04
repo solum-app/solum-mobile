@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using EmailValidation;
 using Solum.Handlers;
@@ -14,29 +15,23 @@ namespace Solum.ViewModel
     {
         public CadastroViewModel(INavigation navigation) : base(navigation)
         {
-            LoadEstados();
+			Task.Run(LoadEstados);
         }
-
 
         private ICommand _updateCidadesCommand;
         private ICommand _registerCommand;
         private ICommand _backCommand;
-
         private ICollection<Estado> _estados;
         private ICollection<Cidade> _cidades;
         private Estado _estadoSelected;
         private Cidade _cidadeSelected;
-
         private string _name;
         private string _email;
         private string _password;
         private string _confirmPassword;
-
         private bool _inRegistering;
         private bool _isCidadesLoaded;
         private bool _isEstadosLoaded;
-
-
 
         public string Name
         {
@@ -98,28 +93,28 @@ namespace Solum.ViewModel
 			set { SetPropertyChanged(ref _isCidadesLoaded, value); }
         }
 
-        public ICommand RegisterCommand => _registerCommand ?? (_registerCommand = new Command(Register));
+		public ICommand RegisterCommand 
+			=> _registerCommand ?? (_registerCommand = new Command(async ()=> await Register()));
 
         public ICommand UpdateCidadesCommand
-            => _updateCidadesCommand ?? (_updateCidadesCommand = new Command(UpdateCidades));
+			=> _updateCidadesCommand ?? (_updateCidadesCommand = new Command(async ()=> await UpdateCidades()));
 
-        public ICommand BackCommand => _backCommand ?? (_backCommand = new Command(Back));
+		public ICommand BackCommand 
+			=> _backCommand ?? (_backCommand = new Command(async ()=> await Back()));
 
-
-
-        public async void LoadEstados()
+		public async Task LoadEstados()
         {
             Estados = await AzureService.Instance.ListEstadosAsync();
             IsEstadosLoaded = true;
         }
 
-        public async void UpdateCidades()
+        public async Task UpdateCidades()
         {
             Cidades =  await AzureService.Instance.ListCidadesAsync(EstadoSelected.Id);
             IsCidadesLoaded = true;
         }
 
-        public async void Register()
+		public async Task Register()
         {
             if (IsNotBusy)
             {
@@ -187,7 +182,7 @@ namespace Solum.ViewModel
         }
 
 
-        public async void Back()
+		public async Task Back()
         {
             if (IsNotBusy)
             {

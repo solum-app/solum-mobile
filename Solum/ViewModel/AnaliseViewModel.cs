@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Auth;
 using Solum.Handlers;
@@ -27,21 +28,16 @@ namespace Solum.ViewModel
         public AnaliseViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
             PageTitle = "Editar Análise";
-            AzureService.Instance.FindAnaliseAsync(analiseId).ContinueWith(t =>
+			AzureService.Instance.FindAnaliseAsync(analiseId).ContinueWith(async (task) =>
             {
-                Analise = t.Result;
+                Analise = task.Result;
                 IdentificacaoAnalise = Analise.Identificacao;
-                AzureService.Instance.FindTalhaoAsync(Analise.TalhaoId).ContinueWith(tt =>
-                {
-                    Talhao = tt.Result;
-                    AzureService.Instance.FindFazendaAsync(Talhao.FazendaId).ContinueWith(ttt =>
-                    {
-                        Fazenda = ttt.Result;
-                        FazendaNome = Fazenda.Nome;
-                    });
-                    TalhaoNome = Talhao.Nome;
-                });
+				Talhao = await AzureService.Instance.FindTalhaoAsync(Analise.TalhaoId);
+				Fazenda = await AzureService.Instance.FindFazendaAsync(Talhao.FazendaId);
 
+				FazendaNome = Fazenda.Nome;
+                TalhaoNome = Talhao.Nome;
+                
                 DateSelected = Analise.DataRegistro;
                 PotencialHidrogenico = Analise.PotencialHidrogenico.ToString();
                 Fosforo = Analise.Fosforo.ToString();
@@ -59,11 +55,9 @@ namespace Solum.ViewModel
             Subscribe();
         }
 
-
         private Color _fazendaLabelColor;
         private Color _talhaoLabelColor;
         private DateTimeOffset _data = DateTimeOffset.Now;
-
         private string _fazendaNome;
         private string _talhaoNome;
         private string _identificacaoAnalise;
@@ -78,17 +72,13 @@ namespace Solum.ViewModel
         private string _areia;
         private string _silte;
         private string _argila;
-
         private Fazenda _fazenda;
         private Talhao _talhao;
         private Analise _analise;
-
         private ICommand _selectDateCommand;
         private ICommand _showFazendasCommand;
         private ICommand _showTalhoesCommand;
         private ICommand _saveCommand;
-
-
 
         public string FazendaNome
         {
@@ -218,27 +208,25 @@ namespace Solum.ViewModel
 			set { SetPropertyChanged(ref _argila, value); }
         }
 
-
-
         public ICommand SelectDateCommand
             => _selectDateCommand ?? (_selectDateCommand = new Command(SelectDate));
 
         public ICommand ShowFazendasCommand
-            => _showFazendasCommand ?? (_showFazendasCommand = new Command(ShowFazendas));
+			=> _showFazendasCommand ?? (_showFazendasCommand = new Command(async ()=> await ShowFazendas()));
 
         public ICommand ShowTalhoesCommand
-            => _showTalhoesCommand ?? (_showTalhoesCommand = new Command(ShowTalhoes));
+			=> _showTalhoesCommand ?? (_showTalhoesCommand = new Command(async ()=> await ShowTalhoes()));
 
-        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(Save));
-
+		public ICommand SaveCommand 
+			=> _saveCommand ?? (_saveCommand = new Command(async ()=> await Save()));
 
 
         private void SelectDate(object date)
         {
-            DateSelected = (DateTimeOffset) date;
+			DateSelected = (DateTime) date;
         }
 
-        private async void ShowFazendas()
+		private async Task ShowFazendas()
         {
             if (IsNotBusy)
             {
@@ -248,13 +236,13 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void SelectFazenda(string id)
+		private async Task SelectFazenda(string id)
         {
             Fazenda = await AzureService.Instance.FindFazendaAsync(id);
             FazendaNome = Fazenda.Nome;
         }
 
-        private async void ShowTalhoes()
+        private async Task ShowTalhoes()
         {
             if (Fazenda == null)
             {
@@ -270,13 +258,13 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void SelectTalhao(string id)
+		private async Task SelectTalhao(string id)
         {
             Talhao = await AzureService.Instance.FindTalhaoAsync(id);
             TalhaoNome = Talhao.Nome;
         }
 
-        private async void Save()
+        private async Task Save()
         {
             if (!IsNotBusy) return;
             if (string.IsNullOrEmpty(IdentificacaoAnalise))
@@ -434,13 +422,13 @@ namespace Solum.ViewModel
         private void Subscribe()
         {
             MessagingCenter.Subscribe<FazendaListViewModel, string>(this, MessagesResource.McFazendaSelecionada,
-                (model, id) => { SelectFazenda(id); });
+                async (model, id) => await SelectFazenda(id));
             MessagingCenter.Subscribe<FazendaCadastroViewModel, string>(this, MessagesResource.McFazendaSelecionada,
-                (model, id) => { SelectFazenda(id); });
+                async (model, id) => await SelectFazenda(id));
             MessagingCenter.Subscribe<FazendaDetalhesViewModel, string>(this, MessagesResource.McTalhaoSelecionado,
-                (model, id) => { SelectTalhao(id); });
+                async (model, id) => await SelectTalhao(id));
             MessagingCenter.Subscribe<TalhaoCadastroViewModel, string>(this, MessagesResource.McTalhaoSelecionado,
-                (model, id) => { SelectTalhao(id); });
+                async (model, id) => await SelectTalhao(id));
         }
 
         private void Unsubscribe()

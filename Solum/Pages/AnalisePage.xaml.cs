@@ -22,13 +22,13 @@ namespace Solum.Pages
 
         private void OnEntryFocused(object sender, EventArgs e)
         {
-            if (Device.OS == TargetPlatform.Android)
+            if (Device.RuntimePlatform == "Android")
                 boxSpacing.IsVisible = !boxSpacing.IsVisible;
         }
 
         private void OnEntryUnfocused(object sender, EventArgs e)
         {
-            if (Device.OS == TargetPlatform.Android)
+           	if (Device.RuntimePlatform == "Android")
                 boxSpacing.IsVisible = false;
         }
     }

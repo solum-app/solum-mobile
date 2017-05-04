@@ -27,7 +27,7 @@ namespace Solum.Service
         {
             if (_client?.SyncContext?.IsInitialized ?? false)
                 return;
-
+			
             var store = new MobileServiceSQLiteStore(Settings.DBPath);
             store.DefineTable<Estado>();
             store.DefineTable<Cidade>();
@@ -42,6 +42,7 @@ namespace Solum.Service
 
         public async Task Sync()
         {
+			await Initialize();
             if (CrossConnectivity.Current.IsConnected)
             {
                 await PullEstados();
@@ -71,10 +72,17 @@ namespace Solum.Service
 
         private async Task PullFazendas()
         {
-            await Initialize();
-            string queryName = $"incsync_{typeof(Fazenda).Name}";
-            var table = _client.GetSyncTable<Fazenda>();
-            await table.PullAsync(queryName, table.CreateQuery());
+			try
+			{
+				await Initialize();
+				string queryName = $"incsync_{typeof(Fazenda).Name}";
+				var table = _client.GetSyncTable<Fazenda>();
+				await table.PullAsync(queryName, table.CreateQuery());
+			}
+			catch (Exception ex)
+			{
+				var a = ex;
+			}
         }
 
         private async Task PullTalhoes()

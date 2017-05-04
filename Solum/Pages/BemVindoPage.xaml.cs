@@ -8,6 +8,8 @@ namespace Solum
 		public BemVindoPage()
 		{
 			InitializeComponent();
+			NavigationPage.SetHasNavigationBar(this, false);
+			NavigationPage.SetHasBackButton(this, false);
 			BindingContext = new BemVindoViewModel(Navigation);
 		}
 	}

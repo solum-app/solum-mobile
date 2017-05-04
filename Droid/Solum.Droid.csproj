@@ -270,6 +270,32 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_status.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_status_check.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_status.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_item_active.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_item_normal.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_carousel_app.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_carousel_cloud.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_carousel_farmer.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_item_active.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_item_normal.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_carousel_app.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_carousel_cloud.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_carousel_farmer.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_item_active.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_item_normal.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_carousel_app.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_carousel_cloud.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_carousel_farmer.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_item_active.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_item_normal.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_carousel_app.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_carousel_cloud.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_carousel_farmer.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_item_active.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_item_normal.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_carousel_app.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_carousel_cloud.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_carousel_farmer.png" />
+    <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -426,7 +452,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <AndroidAsset Include="Assets\Solum.db" />
+    <AndroidAsset Include="Assets\Solum.db3" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

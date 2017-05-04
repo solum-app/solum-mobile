@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Handlers;
 using Solum.Interfaces;
@@ -40,9 +41,7 @@ namespace Solum.ViewModel
                 });
         }
 
-
-        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(Salvar));
-
+		public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(async ()=> await Salvar()));
 
         public bool EnableButton
         {
@@ -89,9 +88,9 @@ namespace Solum.ViewModel
             K2O = calculator?.CalculateK(_analise.Expectativa);
         }
 
-        private async void Salvar()
+		private async Task Salvar()
         {
-            if (!IsNotBusy) return;
+			if (IsBusy) return;
             IsBusy = true;
             _analise.DataCalculoCobertura = DateTimeOffset.Now;
             _analise.HasCobertura = true;

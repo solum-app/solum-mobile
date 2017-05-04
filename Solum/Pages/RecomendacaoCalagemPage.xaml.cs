@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace Solum.Pages
 {
-    public partial class RecomendaCalagemPage : ContentPage
+    public partial class RecomendacaoCalagemPage : ContentPage
     {
-        public RecomendaCalagemPage(string analiseId, float v2ItemValue, float prnt, float profundidadeItemValue, bool enableButton)
+        public RecomendacaoCalagemPage(string analiseId, float v2ItemValue, float prnt, float profundidadeItemValue, bool enableButton)
         {
             InitializeComponent();
             BindingContext = new RecomendacaoCalagemViewModel(Navigation, analiseId, v2ItemValue, prnt, profundidadeItemValue, enableButton);
@@ -16,9 +16,7 @@ namespace Solum.Pages
                 if (!IsBusy)
                 {
                     IsBusy = true;
-                    //var current = Navigation.NavigationStack.LastOrDefault();
                     await Navigation.PushAsync(new CalagemPage(analiseId));
-                    //Navigation.RemovePage(current);
                     IsBusy = false;
                 }
             }));

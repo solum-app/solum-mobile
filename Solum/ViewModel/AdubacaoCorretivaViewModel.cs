@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Handlers;
 using Solum.Models;
@@ -10,8 +11,6 @@ namespace Solum.ViewModel
     public class AdubacaoCorretivaViewModel : BaseViewModel
     {
         private Analise _analise;
-
-
         private bool _enableButton;
         private string _k2O;
         private string _p2O5;
@@ -30,7 +29,7 @@ namespace Solum.ViewModel
         }
 
 
-        public ICommand SalvarCommand => _salvarCommand ?? (_salvarCommand = new Command(Salvar));
+		public ICommand SalvarCommand => _salvarCommand ?? (_salvarCommand = new Command(async ()=> await Salvar()));
 
         public string P2O5
         {
@@ -106,9 +105,9 @@ namespace Solum.ViewModel
         }
 
 
-        private async void Salvar()
+		private async Task Salvar()
         {
-            if (!IsNotBusy) return;
+			if (IsBusy) return;
             IsBusy = true;
             _analise.DataCalculoCorretiva = DateTimeOffset.Now;
             _analise.HasCorretiva = true;

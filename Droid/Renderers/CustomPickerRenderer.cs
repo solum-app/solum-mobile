@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Android.Graphics;
 using Android.Views;
 using Solum.Droid;
@@ -36,7 +36,7 @@ namespace Solum.Droid
 
             if (e.PropertyName == CustomPicker.HasBorderProperty.PropertyName)
                 SetHasBorder(view);
-            if (e.PropertyName == CustomPicker.TextSizeProperty.PropertyName)
+            if (e.PropertyName == CustomPicker.FontSizeProperty.PropertyName)
                 SetTextSize(view);
             if (e.PropertyName == CustomPicker.TextAlignmentProperty.PropertyName)
                 SetAlignment(view);
@@ -54,8 +54,8 @@ namespace Solum.Droid
 
         void SetTextSize(CustomPicker view)
         {
-            if (view.TextSize != default(Double))
-                Control.TextSize = (float)view.TextSize;
+            if (view.FontSize != default(Double))
+                Control.TextSize = (float)view.FontSize;
         }
 
         void SetPlaceholderColor(CustomPicker view)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Handlers;
 using Solum.Models;
@@ -13,16 +14,11 @@ namespace Solum.ViewModel
     public class CalagemViewModel : BaseViewModel
     {
         private Analise _analise;
-
-
         private string _prnt;
         private DisplayNumber _profundidadeItem;
         private IList<DisplayNumber> _profundidadeList;
-
         private ICommand _saveCommand;
-
         private DisplayNumber _v2Item;
-
         private IList<DisplayNumber> _v2List;
 
         public CalagemViewModel(INavigation navigation, string analiseId) : base(navigation)
@@ -54,7 +50,7 @@ namespace Solum.ViewModel
         }
 
 
-        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(Save));
+		public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(async () => await Save()));
 
 
         public DisplayNumber ProfundidadeItem
@@ -88,7 +84,7 @@ namespace Solum.ViewModel
         }
 
 
-        private async void Save()
+        private async Task Save()
         {
             if (!IsNotBusy) return;
             if (V2Item == null)
@@ -122,7 +118,7 @@ namespace Solum.ViewModel
             _analise.Profundidade = (int)ProfundidadeItem.Value;
             await AzureService.Instance.UpdateAnaliseAsync(_analise);
             var current = Navigation.NavigationStack.LastOrDefault();
-            await Navigation.PushAsync(new RecomendaCalagemPage(_analise.Id, V2Item.Value, float.Parse(Prnt),
+            await Navigation.PushAsync(new RecomendacaoCalagemPage(_analise.Id, V2Item.Value, float.Parse(Prnt),
                 ProfundidadeItem.Value, true));
             Navigation.RemovePage(current);
             IsBusy = false;

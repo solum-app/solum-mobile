@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <ContentPage
 	xmlns="http://xamarin.com/schemas/2014/forms"
@@ -9,11 +9,15 @@
 	BackgroundColor="{StaticResource colorBackground}"
 	Title="Análises">
 
-	<ActivityIndicator IsRunning="{Binding IsLoading}"
-	                   VerticalOptions="Center"
-	                   HorizontalOptions="Center" />
-	<AbsoluteLayout x:Name="absolute"
-					IsVisible="{Binding IsLoading, Converter={x:Static handlers:IverseBoolConverter.Instance}}">
+	<ActivityIndicator 
+		IsRunning="{Binding IsLoading}"
+       	VerticalOptions="Center"
+       	HorizontalOptions="Center" />
+	
+	<AbsoluteLayout 
+		x:Name="absolute"
+		IsVisible="{Binding IsLoading, Converter={x:Static handlers:IverseBoolConverter.Instance}}">
+		
 		<Label
 			AbsoluteLayout.LayoutFlags="All"
 			AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -24,13 +28,15 @@
 			Text="Nenhuma análise salva"
 			TextColor="{StaticResource colorTextSecundary}" />
 
-		<renderers:BindableListView IsVisible="{Binding HasItems}"
-									HasUnevenRows="true"
-									ItemClickedCommand="{Binding ItemTappedCommand}"
-									SeparatorColor="{StaticResource colorSeparator}"
-									ItemsSource="{Binding Analises}"
-									AbsoluteLayout.LayoutFlags="All"
-									AbsoluteLayout.LayoutBounds="0,0,1,1">
+		<renderers:BindableListView 
+			x:Name="listView"
+			IsVisible="{Binding HasItems}"
+			HasUnevenRows="true"
+			ItemClickedCommand="{Binding ItemTappedCommand}"
+			SeparatorColor="{StaticResource colorSeparator}"
+			ItemsSource="{Binding Analises}"
+			AbsoluteLayout.LayoutFlags="All"
+			AbsoluteLayout.LayoutBounds="0,0,1,1">
 
 			<ListView.ItemTemplate>
 				<DataTemplate>
@@ -56,15 +62,15 @@
 
 						<ViewCell.ContextActions>
 							<MenuItem CommandParameter="{Binding .}"
-									  Clicked="OnEdit"
+									  Command="{Binding BindingContext.EditCommand, Source={x:Reference listView}"
 									  Text="Editar"
 									  Icon="ic_editar" />
 
 							<MenuItem CommandParameter="{Binding .}"
-									  Clicked="OnDelete"
-									  Text="Excluir"
-									  IsDestructive="True"
-									  Icon="ic_excluir" />
+									Command="{Binding BindingContext.DeleteCommand, Source={x:Reference listView}"
+									Text="Excluir"
+									IsDestructive="True"
+									Icon="ic_excluir" />
 
 						</ViewCell.ContextActions>
 					</ViewCell>

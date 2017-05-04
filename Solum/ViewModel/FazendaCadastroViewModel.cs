@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Auth;
 using Solum.Handlers;
@@ -15,7 +16,7 @@ namespace Solum.ViewModel
     {
         public FazendaCadastroViewModel(INavigation navigation, bool fromAnalise) : base(navigation)
         {
-            LoadEstados();
+			Task.Run(LoadEstados);
             _fromAnalise = fromAnalise;
             PageTitle = "Nova Fazenda";
         }
@@ -28,17 +29,12 @@ namespace Solum.ViewModel
             FazendaName = _fazenda.Nome;
             PageTitle = "Editar Fazenda";
             AzureService.Instance.ListEstadosAsync()
-                .ContinueWith(e =>
+	            .ContinueWith(async(task) =>
                 {
-                    Estados = e.Result;
-                    AzureService.Instance.FindCidadeAsync(_fazenda.CidadeId)
-                        .ContinueWith(c =>
-                        {
-                            CidadeSelected = c.Result;
-                            EstadoSelected = Estados.FirstOrDefault(t => t.Id.Equals(CidadeSelected.EstadoId));
-                            AzureService.Instance.ListCidadesAsync(EstadoSelected.Id)
-                                .ContinueWith(s => { Cidades = s.Result; });
-                        });
+                    Estados = task.Result;
+					CidadeSelected = await AzureService.Instance.FindCidadeAsync(_fazenda.CidadeId);
+                    EstadoSelected = Estados.FirstOrDefault(t => t.Id.Equals(CidadeSelected.EstadoId));
+					Cidades = await AzureService.Instance.ListCidadesAsync(EstadoSelected.Id);
                 });
         }
 
@@ -46,19 +42,15 @@ namespace Solum.ViewModel
 
         private ICommand _registerFazendaCommand;
         private ICommand _updateCidadesCommand;
-
         private IList<Cidade> _cidades;
         private IList<Estado> _estados;
         private Cidade _cidadeSelected;
         private Estado _estadoSelected;
-
         private string _fazendaName;
         private bool _isEstadosLoaded;
         private bool _isCidadesLoaded;
         private readonly bool _isUpdate;
-
         private readonly Fazenda _fazenda;
-
         private readonly bool _fromAnalise;
 
         #endregion
@@ -112,41 +104,29 @@ namespace Solum.ViewModel
         #region Comandos
 
         public ICommand UpdateCidadesCommand
-            => _updateCidadesCommand ?? (_updateCidadesCommand = new Command(LoadCidades));
+			=> _updateCidadesCommand ?? (_updateCidadesCommand = new Command(async () => await LoadCidades()));
 
         public ICommand RegisterFazendaCommand
-            => _registerFazendaCommand ?? (_registerFazendaCommand = new Command(RegisterFazenda));
+			=> _registerFazendaCommand ?? (_registerFazendaCommand = new Command(async () => await RegisterFazenda()));
 
         #endregion
 
         #region Funções
 
-        private async void LoadEstados()
+        private async Task LoadEstados()
         {
-            try
-            {
-                Estados = await AzureService.Instance.ListEstadosAsync();
-                IsEstadosLoaded = true;
-            }
-            catch (Exception ex)
-            {
-            }
+            Estados = await AzureService.Instance.ListEstadosAsync();
+            IsEstadosLoaded = true;
         }
 
 
-        public async void LoadCidades()
+		public async Task LoadCidades()
         {
-            try
-            {
-                Cidades = await AzureService.Instance.ListCidadesAsync(EstadoSelected.Id);
-                IsCidadesLoaded = true;
-            }
-            catch (Exception ex)
-            {
-            }
+            Cidades = await AzureService.Instance.ListCidadesAsync(EstadoSelected.Id);
+            IsCidadesLoaded = true;
         }
 
-        public async void RegisterFazenda()
+		public async Task RegisterFazenda()
         {
             if (!_isUpdate)
             {

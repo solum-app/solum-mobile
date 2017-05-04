@@ -40,7 +40,7 @@
     <Compile Include="Models\EntityData.cs" />
     <Compile Include="Models\DisplayNumber.cs" />
     <Compile Include="Models\Enums.cs" />
-    <Compile Include="Pages\RecomendaSemeaduraPage.xaml.cs">
+    <Compile Include="Pages\RecomendacaoSemeaduraPage.xaml.cs">
       <DependentUpon>RecomendaSemeaduraPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Renderers\ImageCircle.cs" />
@@ -123,7 +123,7 @@
     <Compile Include="Pages\CalagemPage.xaml.cs">
       <DependentUpon>CalagemPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\RecomendaCalagemPage.xaml.cs">
+    <Compile Include="Pages\RecomendacaoCalagemPage.xaml.cs">
       <DependentUpon>RecomendaCalagemPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AdubacaoCorretivaPage.xaml.cs">

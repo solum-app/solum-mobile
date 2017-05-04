@@ -60,7 +60,7 @@ namespace Solum.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            (BindingContext as FazendaListViewModel)?.UpdateFazendaList();
+            (BindingContext as FazendaListViewModel)?.LoadFazendaList();
         }
 
         private void OnEdit(object sender, EventArgs e)

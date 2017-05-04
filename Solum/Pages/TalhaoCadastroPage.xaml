@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -11,18 +11,12 @@
 	             BackgroundColor="{StaticResource colorBackground}"
 	             Spacing="0">
 
-		<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES">
+		<Label Text="INFORMAÇÕES">
 			<Label.Margin>
 				<OnPlatform x:TypeArguments="Thickness"
 				            iOS="16,24,16,4"
 				            Android="16, 13" />
 			</Label.Margin>
-
-			<Label.FontSize>
-				<OnPlatform x:TypeArguments="x:Double"
-				            iOS="13"
-				            Android="14" />
-			</Label.FontSize>
 		</Label>
 		<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
 			<Grid.ColumnDefinitions>
@@ -45,18 +39,11 @@
 				VerticalOptions="Center" Grid.Column="2"
 				Margin="16,0" Placeholder="Nome do Talhão"
 				HorizontalTextAlignment="End"
-				PlaceholderColor="{StaticResource colorTextHint}"
 				Completed="NomeEntryOnCompleted">
 
 				<Entry.Effects>
 					<effects:NoBorderEffect />
 				</Entry.Effects>
-				<Entry.FontSize>
-					<OnPlatform x:TypeArguments="x:Double"
-					            iOS="17"
-					            Android="14" />
-				</Entry.FontSize>
-
 			</Entry>
 
 			<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
@@ -84,17 +71,11 @@
 				Margin="16,0"
 				Placeholder="ha"
 				HorizontalTextAlignment="End"
-				PlaceholderColor="{StaticResource colorTextHint}"
 				Focused="AreaEntry_OnFocused"
 				Unfocused="AreaEntry_OnUnfocused">
 				<Entry.Effects>
 					<effects:NoBorderEffect />
 				</Entry.Effects>
-				<Entry.FontSize>
-					<OnPlatform x:TypeArguments="x:Double"
-					            iOS="17"
-					            Android="14" />
-				</Entry.FontSize>
 			</Entry>
 
 		</Grid>

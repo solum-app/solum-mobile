@@ -28,7 +28,7 @@ namespace Solum.iOS
 
             UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
             CurrentPlatform.Init();
-			Settings.DBPath = FileAccessHelper.GetLocalFilePath ("Solum.db");
+			Settings.DBPath = FileAccessHelper.GetLocalFilePath (Settings.DBPath);
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using Solum.Renderers;
 using Solum.ViewModel;
 using Xamarin.Forms;
@@ -13,15 +13,15 @@ namespace Solum.Pages
             BindingContext = new AnalisesViewModel(Navigation);
             NavigationPage.SetBackButtonTitle(this, "Voltar");
 
-            if (Device.OS == TargetPlatform.Android)
+			if (Device.RuntimePlatform == "Android")
             {
-                var fab = new FloatingActionButtonView
-                {
-                    ImageName = "ic_add",
-                    ColorNormal = Color.FromHex("FFD54F"),
-                    ColorPressed = Color.FromHex("E6C047"),
-                    ColorRipple = Color.FromHex("FFD54F"),
-                    Clicked = (sender, args) => ShowNewAnalisePage()
+				var fab = new FloatingActionButtonView
+				{
+					ImageName = "ic_add",
+					ColorNormal = Color.FromHex("FFD54F"),
+					ColorPressed = Color.FromHex("E6C047"),
+					ColorRipple = Color.FromHex("FFD54F"),
+					Clicked = async (arg1, arg2) => await ShowNewAnalisePage()
                 };
 
                 AbsoluteLayout.SetLayoutFlags(fab, AbsoluteLayoutFlags.PositionProportional);
@@ -30,7 +30,7 @@ namespace Solum.Pages
             }
             else
             {
-                var item = new ToolbarItem("Add", "ic_add", ShowNewAnalisePage);
+				var item = new ToolbarItem("Add", "ic_add", async () => await ShowNewAnalisePage());
                 ToolbarItems.Add(item);
             }
         }
@@ -41,29 +41,13 @@ namespace Solum.Pages
             (BindingContext as AnalisesViewModel)?.UpdateAnalisesList();
         }
 
-        private async void ShowNewAnalisePage()
+        private async Task ShowNewAnalisePage()
         {
             if (!IsBusy)
             {
                 IsBusy = true;
                 await Navigation.PushAsync(new AnalisePage());
                 IsBusy = false;
-            }
-        }
-
-        private void OnEdit(object sender, EventArgs e)
-        {
-            var analise = (sender as MenuItem)?.CommandParameter;
-            (BindingContext as AnalisesViewModel)?.EditCommand.Execute(analise);
-        }
-
-        private async void OnDelete(object sender, EventArgs e)
-        {
-            var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?\nTodos os dados relacionados à essa análise serão exlcuidos!", "Sim", "Não");
-            if (confirm)
-            {
-                var analise = (sender as MenuItem)?.CommandParameter;
-                (BindingContext as AnalisesViewModel)?.DeleteCommand.Execute(analise);
             }
         }
     }

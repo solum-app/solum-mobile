@@ -8,7 +8,6 @@ namespace Solum.ViewModel
 {
     public class InterpretacaoViewModel : BaseViewModel
     {
-        private Analise _analise;
         private DateTimeOffset _date;
         private string _fazendaName;
         private string _interpretacaoCa;
@@ -23,7 +22,6 @@ namespace Solum.ViewModel
         private string _interpretacaoPh;
         private string _interpretacaoTextura;
         private string _interpretacaoV;
-
         private Nivel _nivelCa;
         private Nivel _nivelCaK;
         private Nivel _nivelCtc;
@@ -41,59 +39,54 @@ namespace Solum.ViewModel
         public InterpretacaoViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
             AzureService.Instance.FindAnaliseAsync(analiseId)
-                .ContinueWith(t =>
+	            .ContinueWith(async (task) =>
                 {
-                    Analise = t.Result;
-                    Talhao talhao;
-                    Fazenda fazenda;
-                    AzureService.Instance.FindTalhaoAsync(Analise.TalhaoId)
-                        .ContinueWith(tt =>
-                        {
-                            talhao = tt.Result;
-                            AzureService.Instance.FindFazendaAsync(talhao.FazendaId)
-                                .ContinueWith(ttt =>
-                                {
-                                    fazenda = ttt.Result;
-                                    FazendaName = fazenda.Nome;
-                                });
+					var analise = task.Result;
+					var talhao = await AzureService.Instance.FindTalhaoAsync(analise.TalhaoId);
+					var fazenda = await AzureService.Instance.FindFazendaAsync(talhao.FazendaId);
 
-                            TalhaoName = talhao.Nome;
-                        });
+					InitializeAnalise(analise, talhao, fazenda);	
 
-                    Date = Analise.DataRegistro;
-
-                    Textura = Interpretador.Textura(Analise.Argila, Analise.Silte);
-                    NivelPh = Interpretador.NivelPotencialHidrogenico(Analise.PotencialHidrogenico);
-                    NivelP = Interpretador.NiveFosforo(Analise.Fosforo, Textura);
-                    NivelK = Interpretador.NivelPotassio(Analise.Potassio, Analise.CTC);
-                    NivelCa = Interpretador.NivelCalcio(Analise.Calcio);
-                    NivelMg = Interpretador.NivelMagnesio(Analise.Magnesio);
-                    NivelMo = Interpretador.NivelMateriaOrganica(Analise.MateriaOrganica, Textura);
-                    NivelCtc = Interpretador.NivelCtc(Analise.CTC, Textura);
-                    NivelV = Interpretador.NivelV(Analise.V);
-                    NivelM = Interpretador.NivelM(Analise.M);
-                    NivelCaK = Interpretador.NivelCalcioPotassio(Analise.CaK);
-                    NivelMgk = Interpretador.NivelMagnesioPotassio(Analise.MgK);
-
-                    InterpretacaoTextura = TexturaConverter(Textura);
-                    InterpretacaoPh = NivelPhConverter(NivelPh);
-                    InterpretacaoP = NivelConverter(NivelP);
-                    InterpretacaoK = NivelConverter(NivelK);
-                    InterpretacaoCa = NivelConverter(NivelCa);
-                    InterpretacaoMg = NivelConverter(NivelMg);
-                    InterpretacaoCaK = NivelConverter(NivelCaK);
-                    InterpretacaoMgK = NivelConverter(NivelMgk);
-                    InterpretacaoM = NivelConverter(NivelM);
-                    InterpretacaoV = NivelConverter(NivelV);
-                    InterpretacaoCtc = NivelConverter(NivelCtc);
-                    InterpretacaoMo = NivelConverter(NivelMo);
-
-
-                    Analise.DataInterpretacao = DateTimeOffset.Now;
-                    Analise.WasInterpreted = true;
-                    AzureService.Instance.UpdateAnaliseAsync(Analise);
+					if (!analise.WasInterpreted)
+					{
+						analise.DataInterpretacao = DateTimeOffset.Now;
+						analise.WasInterpreted = true;
+						await AzureService.Instance.UpdateAnaliseAsync(analise);
+					}
                 });
         }
+
+		public void InitializeAnalise(Analise analise, Talhao talhao, Fazenda fazenda)
+		{
+			FazendaName = fazenda.Nome;
+			TalhaoName = talhao.Nome;
+			
+			Date = analise.DataRegistro;
+	        Textura = Interpretador.Textura(analise.Argila, analise.Silte);
+	        NivelPh = Interpretador.NivelPotencialHidrogenico(analise.PotencialHidrogenico);
+	        NivelP = Interpretador.NiveFosforo(analise.Fosforo, Textura);
+	        NivelK = Interpretador.NivelPotassio(analise.Potassio, analise.CTC);
+	        NivelCa = Interpretador.NivelCalcio(analise.Calcio);
+	        NivelMg = Interpretador.NivelMagnesio(analise.Magnesio);
+	        NivelMo = Interpretador.NivelMateriaOrganica(analise.MateriaOrganica, Textura);
+	        NivelCtc = Interpretador.NivelCtc(analise.CTC, Textura);
+	        NivelV = Interpretador.NivelV(analise.V);
+	        NivelM = Interpretador.NivelM(analise.M);
+	        NivelCaK = Interpretador.NivelCalcioPotassio(analise.CaK);
+	        NivelMgk = Interpretador.NivelMagnesioPotassio(analise.MgK);
+	        InterpretacaoTextura = TexturaConverter(Textura);
+			InterpretacaoPh = NivelPhConverter(NivelPh);
+			InterpretacaoP = NivelConverter(NivelP);
+			InterpretacaoK = NivelConverter(NivelK);
+			InterpretacaoCa = NivelConverter(NivelCa);
+			InterpretacaoMg = NivelConverter(NivelMg);
+			InterpretacaoCaK = NivelConverter(NivelCaK);
+			InterpretacaoMgK = NivelConverter(NivelMgk);
+			InterpretacaoM = NivelConverter(NivelM);
+			InterpretacaoV = NivelConverter(NivelV);
+			InterpretacaoCtc = NivelConverter(NivelCtc);
+			InterpretacaoMo = NivelConverter(NivelMo);
+		}
 
 
         public Nivel NivelCa
@@ -166,12 +159,6 @@ namespace Solum.ViewModel
         {
 			get { return _textura; }
 			set { SetPropertyChanged(ref _textura, value); }
-        }
-
-        public Analise Analise
-        {
-			get { return _analise; }
-			set { SetPropertyChanged(ref _analise, value); }
         }
 
         public string FazendaName

@@ -27,8 +27,8 @@ namespace Solum.iOS
 		{
 			if (!File.Exists(dbPath))
 			{
-				var existingDb = NSBundle.MainBundle.PathForResource("Solum", "db");
-				File.Copy(existingDb, dbPath);
+				var existingDb = NSBundle.MainBundle.PathForResource("Solum", "db3");
+ 				File.Copy(existingDb, dbPath);
 			}
 		}
 	}

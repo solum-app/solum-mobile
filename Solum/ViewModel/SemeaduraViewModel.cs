@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Handlers;
 using Solum.Models;
@@ -13,22 +14,15 @@ namespace Solum.ViewModel
     public class SemeaduraViewModel : BaseViewModel
     {
         private Analise _analise;
-
         private IList<DisplayEnum> _culturas;
         private DisplayEnum _culturaSelected;
-
-        private bool _enableButton;
-
-
         private IList<DisplayNumber> _expectativas;
         private DisplayNumber _expectativaSelected;
         private bool _isFosforoBaixo;
-
         private bool _isPotassioBaixo;
-
         private ICommand _recomendarCommand;
 
-        public SemeaduraViewModel(INavigation navigation, string analiseId) : base(navigation)
+		public SemeaduraViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
             Expectativas = new List<DisplayNumber>
             {
@@ -61,14 +55,7 @@ namespace Solum.ViewModel
         }
 
 
-        public ICommand RecomendarCommand => _recomendarCommand ?? (_recomendarCommand = new Command(Recomendar));
-
-
-        public bool EnableButton
-        {
-			get { return _enableButton; }
-			set { SetPropertyChanged(ref _enableButton, value); }
-        }
+		public ICommand RecomendarCommand => _recomendarCommand ?? (_recomendarCommand = new Command(async ()=> await Recomendar()));
 
         public IList<DisplayNumber> Expectativas
         {
@@ -111,7 +98,7 @@ namespace Solum.ViewModel
         public bool JustFosforoBaixo => !IsPotassioBaixo && IsFosforoBaixo;
 
 
-        private async void Recomendar()
+        private async Task Recomendar()
         {
             if (ExpectativaSelected == null)
             {
@@ -128,10 +115,7 @@ namespace Solum.ViewModel
             if (IsNotBusy)
             {
                 IsBusy = true;
-                var current = Navigation.NavigationStack.LastOrDefault();
-                await Navigation.PushAsync(new RecomendaSemeaduraPage(_analise.Id, (int) ExpectativaSelected.Value,
-                    (Cultura) CulturaSelected.Item, true));
-                Navigation.RemovePage(current);
+                await Navigation.PushAsync(new RecomendacaoSemeaduraPage(_analise.Id, (int)ExpectativaSelected.Value, (Cultura)CulturaSelected.Item, false));
                 IsBusy = false;
             }
         }

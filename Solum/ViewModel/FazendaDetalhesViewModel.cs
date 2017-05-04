@@ -15,23 +15,20 @@ namespace Solum.ViewModel
         private readonly bool _fromAnalise;
         private ICommand _deleteTalhaoCommand;
         private Fazenda _fazenda;
-
         private bool _hasItems;
         private bool _isLoading;
         private ICommand _itemTappedCommand;
-
         private ICommand _showEditTalhaoPageCommand;
-
         private ObservableCollection<Talhao> _talhoes;
 
         public FazendaDetalhesViewModel(INavigation navigation, string fazendaId, bool fromAnalise) : base(navigation)
         {
             _fromAnalise = fromAnalise;
             AzureService.Instance.FindFazendaAsync(fazendaId)
-                .ContinueWith(t =>
+	            .ContinueWith(async (task) =>
                 {
-                    Fazenda = t.Result;
-                    UpdateTalhoesList();
+                    Fazenda = task.Result;
+					await UpdateTalhoesList();
                 });
         }
 
@@ -62,28 +59,29 @@ namespace Solum.ViewModel
 
 
         public ICommand DeleteTalhaoCommand
-            => _deleteTalhaoCommand ?? (_deleteTalhaoCommand = new Command(obj => DeleteTalhao(obj as Talhao)));
+			=> _deleteTalhaoCommand ?? (_deleteTalhaoCommand = new Command(async(obj) => await DeleteTalhao(obj as Talhao)));
 
         public ICommand ShowEditTalhaoPageCommand
-            =>
-                _showEditTalhaoPageCommand ??
-                (_showEditTalhaoPageCommand = new Command(obj => ShowEditTalhaoPage(obj as Talhao)));
+            => _showEditTalhaoPageCommand ?? (_showEditTalhaoPageCommand = new Command(async(obj) => await ShowEditTalhaoPage(obj as Talhao)));
 
         public ICommand ItemTappedCommand
-            => _itemTappedCommand ?? (_itemTappedCommand = new Command(obj => SelectTalhao(obj as Talhao)));
+            => _itemTappedCommand ?? (_itemTappedCommand = new Command(async(obj) => await SelectTalhao(obj as Talhao)));
 
-        public async void UpdateTalhoesList()
+		public async Task UpdateTalhoesList()
         {
-            IsLoading = true;
-            HasItems = IsLoading;
-            var talhaos = await AzureService.Instance.ListTalhaoAsync(Fazenda.Id);
-            Talhoes = talhaos.Any() ? new ObservableCollection<Talhao>(talhaos) : new ObservableCollection<Talhao>();
-            HasItems = talhaos.Any();
-            PageTitle = Fazenda.Nome;
-            IsLoading = false;
+			if (Fazenda != null)
+			{
+				IsLoading = true;
+				HasItems = IsLoading;
+				var talhaos = await AzureService.Instance.ListTalhaoAsync(Fazenda.Id);
+				Talhoes = talhaos.Any() ? new ObservableCollection<Talhao>(talhaos) : new ObservableCollection<Talhao>();
+				HasItems = talhaos.Any();
+				PageTitle = Fazenda.Nome;
+				IsLoading = false;
+			}
         }
 
-        private async void SelectTalhao(Talhao talhao)
+		private async Task SelectTalhao(Talhao talhao)
         {
             if (IsNotBusy)
             {
@@ -97,22 +95,34 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void ShowEditTalhaoPage(Talhao talhao)
+		private async Task ShowEditTalhaoPage(Talhao talhao)
         {
             await Navigation.PushAsync(new TalhaoCadastroPage(talhao.Id));
         }
 
-        public async Task<bool> CanDelete(string talhaoid)
+        public async Task<bool> CanDelete(Talhao talhao)
         {
-            return !await AzureService.Instance.TalhaoHasAnalisesAsync(talhaoid);
+			return !await AzureService.Instance.TalhaoHasAnalisesAsync(talhao.Id);
         }
 
-        private async void DeleteTalhao(Talhao talhao)
+		private async Task DeleteTalhao(Talhao talhao)
         {
-            await AzureService.Instance.DeleteTalhaoAsync(talhao);
-            Talhoes.Remove(talhao);
-            HasItems = Talhoes.Any();
-            MessagesResource.TalhaoRemocaoSucesso.ToToast();
+			var canDelete = await CanDelete(talhao);
+            if (canDelete)
+            {
+				var confirm = await Application.Current.MainPage.DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim","Não");
+				if (confirm)
+				{
+					await AzureService.Instance.DeleteTalhaoAsync(talhao);
+					Talhoes.Remove(talhao);
+					HasItems = Talhoes.Any();
+					MessagesResource.TalhaoRemocaoSucesso.ToToast();
+				}
+            }
+            else
+            {
+                "Esse talhao não pode ser removido, existem análises atreladas à ele.\nRemova as análises primeiro".ToDisplayAlert(MessageType.Aviso);
+            }
         }
     }
 }

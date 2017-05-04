@@ -16,7 +16,7 @@ namespace Solum.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            (BindingContext as GerenciamentoAnaliseViewModel)?.UpdateValues();
+			(BindingContext as GerenciamentoAnaliseViewModel)?.RefreshValues();
         }
     }
 }

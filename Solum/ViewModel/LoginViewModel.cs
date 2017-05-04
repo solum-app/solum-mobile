@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json.Linq;
@@ -24,7 +25,6 @@ namespace Solum.ViewModel
         private ICommand _loginCommand;
         private ICommand _showForgtPasswordPageCommand;
         private ICommand _facebookLoginCommand;
-        //private ICommand _googleLoginCommand;
         private string _password;
         private string _username;
         private bool _inLogin;
@@ -59,12 +59,13 @@ namespace Solum.ViewModel
             => _showForgtPasswordPageCommand ?? (_showForgtPasswordPageCommand = new Command(ShowForgotPasswordPage));
 
         public ICommand ShowRegisterPageCommand
-            => _showRegisterPageCommand ?? (_showRegisterPageCommand = new Command(ShowRegisterPage));
+			=> _showRegisterPageCommand ?? (_showRegisterPageCommand = new Command(async ()=> await ShowRegisterPage()));
 
-        public ICommand LoginCommand => _loginCommand ?? (_loginCommand = new Command(DoLogin));
+		public ICommand LoginCommand
+			=> _loginCommand ?? (_loginCommand = new Command(async ()=> await DoLogin()));
 
         public ICommand FacebookLoginCommand
-            => _facebookLoginCommand ?? (_facebookLoginCommand = new Command(FacebookLogin));
+			=> _facebookLoginCommand ?? (_facebookLoginCommand = new Command(async ()=> await FacebookLogin()));
 
         //public ICommand GoogleLoginCommand => _googleLoginCommand ?? (_googleLoginCommand = new Command(GoogleLogin));
 
@@ -72,10 +73,9 @@ namespace Solum.ViewModel
 
         #region Functions
 
-        private async void DoLogin()
+		private async Task DoLogin()
         {
-            if (IsBusy)
-                return;
+            if (IsBusy) return;
             IsBusy = true;
 
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
@@ -116,10 +116,9 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void FacebookLogin()
+		private async Task FacebookLogin()
         {
-            if (IsBusy)
-                return;
+			if (IsBusy) return;
             IsBusy = true;
 
             try
@@ -144,33 +143,6 @@ namespace Solum.ViewModel
             }
         }
 
-        //private async void GoogleLogin()
-        //{
-        //    if (IsBusy)
-        //        return;
-        //    IsBusy = true;
-
-        //    try
-        //    {
-        //        var provider = DependencyService.Get<IAuthentication>();
-        //        var user = await provider.LoginAsync(new MobileServiceClient(Settings.BaseUri), MobileServiceAuthenticationProvider.Google);
-        //        Application.Current.MainPage = new RootPage();
-        //        IsBusy = false;
-        //    }
-        //    catch (MobileServiceInvalidOperationException ex)
-        //    {
-        //        Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
-        //    }
-        //    finally
-        //    {
-        //        IsBusy = false;
-        //    }
-        //}
-
         private void ShowForgotPasswordPage()
         {
             if (IsNotBusy)
@@ -181,7 +153,7 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void ShowRegisterPage()
+		private async Task ShowRegisterPage()
         {
             if (IsNotBusy)
             {

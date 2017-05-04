@@ -16,7 +16,6 @@ namespace Solum.ViewModel
         private ICommand _deleteCommand;
         private ICommand _editCommand;
         private ICommand _itemTappedCommand;
-
         private ObservableCollection<Fazenda> _fazendas;
         private bool _hasItems;
         private bool _isLoading;
@@ -25,7 +24,7 @@ namespace Solum.ViewModel
         {
             IsLoading = true;
             HasItems = IsLoading;
-            UpdateFazendaList();
+            LoadFazendaList();
             _fromAnalise = fromAnalise;
         }
 
@@ -59,7 +58,7 @@ namespace Solum.ViewModel
             => _itemTappedCommand ?? (_itemTappedCommand = new Command(fazenda => Details(fazenda as Fazenda)));
 
 
-        private async void Details(Fazenda fazenda)
+		private async Task Details(Fazenda fazenda)
         {
             if (IsNotBusy)
             {
@@ -77,7 +76,7 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void Edit(Fazenda fazenda)
+		private async Task Edit(Fazenda fazenda)
         {
             var current = Navigation.NavigationStack.LastOrDefault();
             await Navigation.PushAsync(new FazendaCadastroPage(fazenda.Id, _fromAnalise));
@@ -85,7 +84,7 @@ namespace Solum.ViewModel
                 Navigation.RemovePage(current);
         }
 
-        private async void Delete(Fazenda fazenda)
+		private async Task Delete(Fazenda fazenda)
         {
             await AzureService.Instance.DeleteFazendaAsync(fazenda);
             Fazendas.Remove(fazenda);
@@ -102,10 +101,9 @@ namespace Solum.ViewModel
             return true;
         }
 
-        public void UpdateFazendaList()
+        public void LoadFazendaList()
         {
             IsLoading = true;
-            HasItems = IsLoading;
             AzureService.Instance.ListFazendaAsync()
                 .ContinueWith(t =>
                 {

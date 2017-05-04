@@ -45,7 +45,7 @@ namespace Solum.Helpers
         private static readonly bool CidadesLoadedValue = false;
 
 		private const string DBPathKey = "DbPath_key";
-		private static readonly string DBPathValue;
+		private static readonly string DBPathValue = "Solum.db3";
 
         #endregion
         

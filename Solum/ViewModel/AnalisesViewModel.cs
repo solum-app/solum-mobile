@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Models;
 using Solum.Pages;
@@ -12,10 +13,7 @@ namespace Solum.ViewModel
     {
         private ObservableCollection<Analise> _analises;
         private ICommand _deleteCommand;
-
         private ICommand _editCommand;
-
-
         private bool _hasItems;
         private bool _isLoading;
         private ICommand _itemTappedCommand;
@@ -24,7 +22,6 @@ namespace Solum.ViewModel
         {
            UpdateAnalisesList();
         }
-
 
         public ObservableCollection<Analise> Analises
         {
@@ -44,14 +41,11 @@ namespace Solum.ViewModel
 			set { SetPropertyChanged(ref _isLoading, value); }
         }
 
+		public ICommand EditCommand => _editCommand ?? (_editCommand = new Command(async (obj) => await ShowEditAnalisePage(obj as Analise)));
 
-        public ICommand EditCommand => _editCommand ?? (_editCommand = new Command(ShowEditAnalisePage));
+		public ICommand DeleteCommand => _deleteCommand ?? (_deleteCommand = new Command(async (obj) => await DeleteAnalise(obj as Analise)));
 
-        public ICommand DeleteCommand => _deleteCommand ?? (_deleteCommand = new Command(DeleteAnalise));
-
-        public ICommand ItemTappedCommand
-            => _itemTappedCommand ?? (_itemTappedCommand = new Command(ShowGerenciamentoAnalisePage));
-
+		public ICommand ItemTappedCommand => _itemTappedCommand ?? (_itemTappedCommand =  new Command(async (obj) => await ShowGerenciamentoAnalisePage(obj as Analise)));
 
         public void UpdateAnalisesList()
         {
@@ -70,34 +64,32 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void DeleteAnalise(object obj)
+		private async Task DeleteAnalise(Analise analise)
         {
-            if (obj != null)
-            {
-                var analise = (Analise)obj;
+			var confirm = await Application.Current.MainPage.DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?\nTodos os dados relacionados à essa análise serão exlcuidos!", "Sim", "Não");
+			if (confirm && analise != null)
+			{
                 await AzureService.Instance.DeleteAnaliseAsync(analise);
                 Analises.Remove(analise);
                 HasItems = Analises.Any();
             }
         }
 
-        private async void ShowEditAnalisePage(object obj)
+		private async Task ShowEditAnalisePage(Analise analise)
         {
-            if (obj != null)
+			if (analise != null)
             {
-                var analise = (Analise)obj;
                 await Navigation.PushAsync(new AnalisePage(analise.Id));
             }
         }
 
-        private async void ShowGerenciamentoAnalisePage(object obj)
+		private async Task ShowGerenciamentoAnalisePage(Analise analise)
         {
             if (IsNotBusy)
             {
                 IsBusy = true;
-                if (obj != null)
+				if (analise != null)
                 {
-                    var analise = (Analise)obj;
                     await Navigation.PushAsync(new GerenciamentoAnalisePage(analise.Id));
                 }
                 IsBusy = false;

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage 
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:effects="clr-namespace:Solum.Effects"
@@ -45,13 +45,8 @@
           VerticalOptions="Center"
           Margin="16,0"
           HasBorder="false"
-          PlaceholderColor="{StaticResource colorTextHint}"
           TextAlignment="Right"
           Grid.Column="2">
-          
-          <renderers:CustomPicker.TextSize>
-            <OnPlatform x:TypeArguments="x:Double" Android="14" iOS="17"/>
-          </renderers:CustomPicker.TextSize>
           
           <renderers:CustomPicker.Effects>
             <effects:NoBorderEffect />
@@ -86,16 +81,11 @@
           Grid.Column="2" 
           Margin="16,0"
           Placeholder="%" 
-          HorizontalTextAlignment="End" 
-          PlaceholderColor="{StaticResource colorTextHint}">
+          HorizontalTextAlignment="End">
           
           <Entry.Effects>
             <effects:NoBorderEffect />
           </Entry.Effects>
-          
-          <Entry.FontSize>
-            <OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14"/>
-          </Entry.FontSize>
         </Entry>
         
         <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
@@ -123,14 +113,9 @@
           VerticalOptions="Center"
           Margin="16,0"
           HasBorder="false"
-          PlaceholderColor="{StaticResource colorTextHint}"
           TextAlignment="Right"
           Grid.Column="2">
-          
-          <renderers:CustomPicker.TextSize>
-            <OnPlatform x:TypeArguments="x:Double" Android="14" iOS="17"/>
-          </renderers:CustomPicker.TextSize>
-          
+   
           <renderers:CustomPicker.Effects>
             <effects:NoBorderEffect />
           </renderers:CustomPicker.Effects>

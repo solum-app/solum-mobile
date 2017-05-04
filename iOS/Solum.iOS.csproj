@@ -24,8 +24,9 @@
     <MtouchArch>i386</MtouchArch>
     <MtouchLink>SdkOnly</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution</CodesignKey>
     <MtouchFastDev>true</MtouchFastDev>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -402,7 +403,22 @@
     <BundleResource Include="Resources\ic_editar.png" />
     <BundleResource Include="Resources\ic_editar%402x.png" />
     <BundleResource Include="Resources\ic_editar%403x.png" />
-    <BundleResource Include="Resources\Solum.db" />
+    <BundleResource Include="Resources\Solum.db3" />
+    <BundleResource Include="Resources\ic_carousel_app.png" />
+    <BundleResource Include="Resources\ic_carousel_app%402x.png" />
+    <BundleResource Include="Resources\ic_carousel_app%403x.png" />
+    <BundleResource Include="Resources\ic_carousel_cloud.png" />
+    <BundleResource Include="Resources\ic_carousel_cloud%402x.png" />
+    <BundleResource Include="Resources\ic_carousel_cloud%403x.png" />
+    <BundleResource Include="Resources\ic_carousel_farmer.png" />
+    <BundleResource Include="Resources\ic_carousel_farmer%402x.png" />
+    <BundleResource Include="Resources\ic_carousel_farmer%403x.png" />
+    <BundleResource Include="Resources\ic_item_active.png" />
+    <BundleResource Include="Resources\ic_item_active%402x.png" />
+    <BundleResource Include="Resources\ic_item_active%403x.png" />
+    <BundleResource Include="Resources\ic_item_normal.png" />
+    <BundleResource Include="Resources\ic_item_normal%402x.png" />
+    <BundleResource Include="Resources\ic_item_normal%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_menu_solum%403x.png" />

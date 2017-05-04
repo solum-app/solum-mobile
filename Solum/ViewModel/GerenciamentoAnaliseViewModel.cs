@@ -25,56 +25,37 @@ namespace Solum.ViewModel
         private readonly Color _grayLight = Color.FromArgb(255, 241, 241, 241);
         private readonly Color _green = Color.FromArgb(255, 63, 170, 88);
         private readonly Color _white = Color.FromArgb(255, 255, 255, 255);
-
         private Analise _analise;
         private string _calagemDate;
         private string _coberturaDate;
         private string _corretivaDate;
-
         private PdfDocument _doc;
         private ICommand _generatePdfCommand;
         private bool _hasCalagemCalculation;
         private bool _hasCoberturaCalculation;
         private bool _hasCorretivaCalculation;
         private bool _hasSemeaduraCalculation;
-
-
         private string _interpretacaoDate;
-
         private bool _isGeneratingReport;
         private PdfPage _page;
         private string _semeaduraDate;
         private ICommand _showCoberturaPageCommand;
         private ICommand _showCorretivaPageCommand;
         private ICommand _showInterpretacaoPageCommand;
-
         private ICommand _showRecomendacaoCalagemPageCommand;
         private ICommand _showSemeaduraPageCommand;
-
         private bool _wasInterpreted;
 
-        public GerenciamentoAnaliseViewModel(INavigation navigation, string analiseId) : base(navigation)
+		public GerenciamentoAnaliseViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
-            AzureService.Instance.FindAnaliseAsync(analiseId)
-                  .ContinueWith(t =>
-                  {
-                      Analise = t.Result;
-                      PageTitle = Analise.Identificacao;
-                      WasInterpreted = Analise.WasInterpreted;
-                      HasCalagemCalculation = Analise.HasCalagem;
-                      HasCorretivaCalculation = Analise.HasCorretiva;
-                      HasSemeaduraCalculation = Analise.HasSemeadura;
-                      HasCoberturaCalculation = Analise.HasCobertura;
-                      InterpretacaoDate = Analise.WasInterpreted
-                          ? $"Realizada em  {Analise.DataInterpretacao:dd/MM/yy}"
-                          : "Não realizada ainda";
-                      CalagemDate = Analise.HasCalagem ? $"Realizada em {Analise.DataCalculoCalagem:dd/MM/yy}" : "Não realizada ainda";
-                      CorretivaDate = Analise.HasCorretiva ? $"Realizada em {Analise.DataCalculoCorretiva:dd/MM/yy}" : "Não realizada ainda";
-                      SemeaduraDate = Analise.HasSemeadura ? $"Realizada em {Analise.DataCalculoSemeadura:dd/MM/yy}" : "Não realizada ainda";
-                      CoberturaDate = Analise.HasCobertura ? $"Realizada em {Analise.DataCalculoCobertura:dd/MM/yy}" : "Não realizada ainda";
-                  });
+			AzureService.Instance.FindAnaliseAsync(analiseId).ContinueWith(
+				task =>
+				  {
+					  Analise = task.Result;
+					  UpdateValues(Analise);
+				  }
+			);
         }
-
 
         public Analise Analise
         {
@@ -150,25 +131,25 @@ namespace Solum.ViewModel
 
 
         public ICommand ShowInterpretacaoPageCommand
-            => _showInterpretacaoPageCommand ?? (_showInterpretacaoPageCommand = new Command(ShowInterpretacaoPage));
+			=> _showInterpretacaoPageCommand ?? (_showInterpretacaoPageCommand = new Command(async ()=> await ShowInterpretacaoPage()));
 
         public ICommand ShowRecomendacaoCalagemPageCommand
-            => _showRecomendacaoCalagemPageCommand ??
-               (_showRecomendacaoCalagemPageCommand = new Command(ShowRecomendacaoCalagemPage));
+			=> _showRecomendacaoCalagemPageCommand ?? (_showRecomendacaoCalagemPageCommand = new Command((async ()=> await ShowRecomendacaoCalagemPage())));
 
         public ICommand ShowCorretivaPageCommand
-            => _showCorretivaPageCommand ?? (_showCorretivaPageCommand = new Command(ShowCorretivaPage));
+			=> _showCorretivaPageCommand ?? (_showCorretivaPageCommand = new Command((async ()=> await ShowCorretivaPage())));
 
         public ICommand ShowSemeaduraPageCommand
-            => _showSemeaduraPageCommand ?? (_showSemeaduraPageCommand = new Command(ShowSemeaduraPage));
+			=> _showSemeaduraPageCommand ?? (_showSemeaduraPageCommand = new Command((async ()=> await ShowSemeaduraPage())));
 
         public ICommand ShowCoberturaPageCommand
-            => _showCoberturaPageCommand ?? (_showCoberturaPageCommand = new Command(ShowCoberturaPage));
+			=> _showCoberturaPageCommand ?? (_showCoberturaPageCommand = new Command((async ()=> await ShowCoberturaPage())));
 
-        public ICommand GeneratePdfCommand => _generatePdfCommand ?? (_generatePdfCommand = new Command(GeneratePdf));
+         public ICommand GeneratePdfCommand 
+			=> _generatePdfCommand ?? (_generatePdfCommand = new Command((async ()=> await GeneratePdf())));
 
 
-        private async void ShowInterpretacaoPage()
+		private async Task ShowInterpretacaoPage()
         {
             if (IsNotBusy)
             {
@@ -178,7 +159,7 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void ShowCalagemPage()
+		private async Task ShowCalagemPage()
         {
             if (!WasInterpreted)
             {
@@ -193,26 +174,26 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void ShowRecomendacaoCalagemPage()
+		private async Task ShowRecomendacaoCalagemPage()
         {
             if (IsNotBusy)
             {
                 IsBusy = true;
                 if (HasCalagemCalculation)
                 {
-                    await Navigation.PushAsync(new RecomendaCalagemPage(Analise.Id, Analise.V2, Analise.Prnt,
+                    await Navigation.PushAsync(new RecomendacaoCalagemPage(Analise.Id, Analise.V2, Analise.Prnt,
                         Analise.Profundidade, false));
                     IsBusy = false;
                 }
                 else
                 {
                     IsBusy = false;
-                    ShowCalagemPage();
+                    await ShowCalagemPage();
                 }
             }
         }
 
-        private async void ShowCorretivaPage()
+		private async Task ShowCorretivaPage()
         {
             if (!HasCalagemCalculation)
             {
@@ -229,7 +210,7 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void ShowSemeaduraPage()
+		private async Task ShowSemeaduraPage()
         {
             if (!HasCorretivaCalculation)
             {
@@ -244,7 +225,7 @@ namespace Solum.ViewModel
                     Cultura c;
                     Enum.TryParse(Analise.Cultura, out c);
                     await Navigation.PushAsync(
-                        new RecomendaSemeaduraPage(Analise.Id, Analise.Expectativa, c, !Analise.HasSemeadura));
+                        new RecomendacaoSemeaduraPage(Analise.Id, Analise.Expectativa, c, !Analise.HasSemeadura));
                 }
                 else
                 {
@@ -254,7 +235,7 @@ namespace Solum.ViewModel
             }
         }
 
-        private async void ShowCoberturaPage()
+		private async Task ShowCoberturaPage()
         {
             if (!HasSemeaduraCalculation)
             {
@@ -270,37 +251,36 @@ namespace Solum.ViewModel
             }
         }
 
-        public async void UpdateValues()
-        {
-            Analise = await AzureService.Instance.FindAnaliseAsync(Analise.Id); //_realm.Find<Analise>(Analise.Id);
-            if (Analise.WasInterpreted)
-            {
-                InterpretacaoDate = Analise.DataInterpretacao.ToString();
-                WasInterpreted = true;
-            }
-            if (Analise.HasCalagem)
-            {
-                CalagemDate = Analise.DataCalculoCalagem.ToString();
-                HasCalagemCalculation = true;
-            }
-            if (Analise.HasCorretiva)
-            {
-                CorretivaDate = Analise.DataCalculoCorretiva.ToString();
-                HasCorretivaCalculation = true;
-            }
-            if (Analise.HasSemeadura)
-            {
-                SemeaduraDate = Analise.DataCalculoSemeadura.ToString();
-                HasSemeaduraCalculation = true;
-            }
-            if (Analise.HasCobertura)
-            {
-                CoberturaDate = Analise.DataCalculoCobertura.ToString();
-                HasCoberturaCalculation = true;
-            }
-        }
+		public void RefreshValues()
+		{
+			if (Analise != null)
+			{
+				var analiseId = Analise.Id;
+				AzureService.Instance.FindAnaliseAsync(analiseId).ContinueWith(
+					task =>
+					  {
+						  Analise = task.Result;
+						  UpdateValues(Analise);
+					  }
+				);
+			}
+		}
 
-        private async void GeneratePdf()
+		public void UpdateValues(Analise analise)
+		{
+			WasInterpreted = analise.WasInterpreted;
+			HasCalagemCalculation = analise.HasCalagem;
+			HasCorretivaCalculation = analise.HasCorretiva;
+			HasSemeaduraCalculation = analise.HasSemeadura;
+			HasCoberturaCalculation = analise.HasCobertura;
+			InterpretacaoDate = analise.WasInterpreted ? $"Realizada em  {analise.DataInterpretacao:dd/MM/yy HH:mm:ss}" : "Não realizada ainda";
+			CalagemDate = analise.HasCalagem ? $"Realizada em {analise.DataCalculoCalagem:dd/MM/yy HH:mm:ss}" : "Não realizada ainda";
+			CorretivaDate = analise.HasCorretiva ? $"Realizada em {analise.DataCalculoCorretiva:dd/MM/yy HH:mm:ss}" : "Não realizada ainda";
+			SemeaduraDate = analise.HasSemeadura ? $"Realizada em {analise.DataCalculoSemeadura:dd/MM/yy HH:mm:ss}" : "Não realizada ainda";
+			CoberturaDate = analise.HasCobertura ? $"Realizada em {analise.DataCalculoCobertura:dd/MM/yy HH:mm:ss}" : "Não realizada ainda";
+		}
+
+		private async Task GeneratePdf()
         {
             IsGeneratingReport = true;
 

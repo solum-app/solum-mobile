@@ -3,6 +3,7 @@
 <Application 
 	xmlns="http://xamarin.com/schemas/2014/forms" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum" 
 	x:Class="Solum.App">
 	
 	<Application.Resources>
@@ -20,8 +21,8 @@
 			<Color x:Key="colorBackground">#EEEEEE</Color>
 			<Color x:Key="colorTextSection">#717175</Color>
 
-			<Color x:Key="colorBackgroundStart">#53babf</Color>
-			<Color x:Key="colorBackgroundEnd">#9ad7d9</Color>
+			<Color x:Key="colorBackgroundStart">#24be55</Color>
+			<Color x:Key="colorBackgroundEnd">#21ae4e</Color>
 
 			<Color x:Key="grayUltraLight">#FFFFFF</Color>
 			<Color x:Key="grayLight">#F2F2F2</Color>
@@ -59,12 +60,50 @@
 				<Setter Property="BackgroundColor" Value="#FFF" />
 			</Style>
 
+			<Style x:Key="entryStyle" TargetType="Entry">
+				<Setter Property="PlaceholderColor" Value="{StaticResource colorTextHint}" />
+				<Setter Property="FontSize">
+					<Setter.Value>
+						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style TargetType="Entry" BasedOn="{StaticResource entryStyle}" />
+
+			<Style x:Key="pickerStyle" TargetType="renderers:CustomPicker">
+				<Setter Property="PlaceholderColor" Value="{StaticResource colorTextHint}" />
+				<Setter Property="FontSize">
+					<Setter.Value>
+						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style TargetType="renderers:CustomPicker" BasedOn="{StaticResource pickerStyle}" />
+
+			<Style x:Key="labelStyle" TargetType="Label">
+				<Setter Property="TextColor" Value="{StaticResource colorTextPrimary}" />
+				<Setter Property="FontSize">
+					<Setter.Value>
+						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style TargetType="Label" BasedOn="{StaticResource labelStyle}" />
+			<Style x:Key="headerStyle" TargetType="Label">
+				<Setter Property="TextColor" Value="{StaticResource colorTextSecundary}" />
+				<Setter Property="FontSize">
+					<Setter.Value>
+						<OnPlatform x:TypeArguments="x:Double" iOS="13" Android="14" />
+					</Setter.Value>
+				</Setter>
+			</Style>
 			<Style x:Key="titleStyle" TargetType="Label">
 				<Setter Property="HorizontalTextAlignment" Value="Center" />
 				<Setter Property="TextColor" Value="{StaticResource colorTextPrimary}" />
 				<Setter Property="FontSize" Value="Large" />
 				<Setter Property="FontAttributes" Value="Bold" />
 			</Style>
+
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

@@ -15,7 +15,7 @@ namespace Solum.Pages
             BindingContext = new FazendaDetalhesViewModel(Navigation, fazendaId, fromAnalise);
             NavigationPage.SetBackButtonTitle(this, "Voltar");
 
-            if (Device.OS == TargetPlatform.Android)
+			if (Device.RuntimePlatform == "Android")
             {
                 var fab = new FloatingActionButtonView
                 {
@@ -59,39 +59,10 @@ namespace Solum.Pages
             }
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
-            (BindingContext as FazendaDetalhesViewModel)?.UpdateTalhoesList();
-        }
-
-        private void OnEdit(object sender, EventArgs e)
-        {
-            var menuItem = sender as MenuItem;
-            if (menuItem != null)
-            {
-                var fazenda = menuItem.CommandParameter;
-                var context = BindingContext as FazendaDetalhesViewModel;
-                context?.ShowEditTalhaoPageCommand.Execute(fazenda);
-            }
-        }
-
-        public async void OnDelete(object sender, EventArgs args)
-        {
-            var talhao = (sender as MenuItem)?.CommandParameter;
-            var context = BindingContext as FazendaDetalhesViewModel;
-            var canDelete = await context.CanDelete((talhao as Talhao)?.Id);
-            if (canDelete)
-            {
-                var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim",
-                    "Não");
-                if (confirm)
-                    context.DeleteTalhaoCommand.Execute(talhao);
-            }
-            else
-            {
-                "Esse talhao não pode ser removido, existem análises atreladas à ele.\nRemova as análises primeiro".ToDisplayAlert(MessageType.Aviso);
-            }
+            await (BindingContext as FazendaDetalhesViewModel)?.UpdateTalhoesList();
         }
     }
 }

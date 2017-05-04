@@ -34,7 +34,7 @@ namespace Solum.Droid
 			
 			Acr.UserDialogs.UserDialogs.Init(this);
 
-			Settings.DBPath = FileAccessHelper.GetLocalFilePath("Solum.db");
+			Settings.DBPath = FileAccessHelper.GetLocalFilePath(Settings.DBPath);
             LoadApplication(new App());
             XFGloss.Droid.Library.Init(this, bundle);
         }

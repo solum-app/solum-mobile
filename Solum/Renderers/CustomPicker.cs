@@ -21,8 +21,8 @@ namespace Solum.Renderers
             Alignment.Left
         );
 
-        public static readonly BindableProperty TextSizeProperty = BindableProperty.Create(
-            nameof(TextSize),
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(
+            nameof(FontSize),
             typeof(Double),
             typeof(CustomPicker),
             default(Double)
@@ -73,10 +73,10 @@ namespace Solum.Renderers
             set { SetValue(FontProperty, value); }
         }
 
-        public Double TextSize
+		public double FontSize
         {
-            get { return (Double)GetValue(TextSizeProperty); }
-            set { SetValue(TextSizeProperty, value); }
+            get { return (Double)GetValue(FontSizeProperty); }
+            set { SetValue(FontSizeProperty, value); }
         }
 
         public bool HasBorder

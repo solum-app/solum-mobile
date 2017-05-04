@@ -20,7 +20,7 @@ namespace Solum.Droid
 		{
 			if (!File.Exists(dbPath))
 			{
-				using (var br = new BinaryReader(Application.Context.Assets.Open("Solum.db")))
+				using (var br = new BinaryReader(Application.Context.Assets.Open("Solum.db3")))
 				{
 					using (var bw = new BinaryWriter(new FileStream(dbPath, FileMode.Create)))
 					{

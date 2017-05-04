@@ -21,21 +21,52 @@
 			x:Name="Carousel">
 		    <cv:CarouselView.ItemTemplate>
 				<DataTemplate>
-					<StackLayout Padding="16, 64">
+					<StackLayout Padding="16, 32, 16, 8">
 						<Label 
 							Text="{Binding Titulo}" 
-							Style="{StaticResource titleStyle}"/>
+							Style="{StaticResource titleStyle}"
+							TextColor="White"/>
 						<Label 
-							Text="{Binding Descricao}"/>
+							Margin="0,16"
+							VerticalOptions="CenterAndExpand"
+							FontSize="Small"
+							HorizontalTextAlignment="Center"
+							Text="{Binding Descricao}"
+							TextColor="White"/>
+						<Image
+							Grid.Row="2"
+							VerticalOptions="CenterAndExpand"
+							Source="{Binding Imagem}"/>
+						<Grid 
+							Grid.Row="3"
+							HeightRequest="50" 
+							ColumnSpacing="8">
+							<Button 
+								Grid.Column="0"
+								Text="Cadastrar" 
+								Style="{StaticResource secondaryButton}"
+								Command="{Binding NavigateToRegisterCommand}" 
+								HorizontalOptions="FillAndExpand"
+								VerticalOptions="End"
+								IsVisible="{Binding HasCommands}"/>
+							<Button 
+								Grid.Column="1"
+								Text="Login" 
+								Command="{Binding NavigateToLoginCommand}" 
+								HorizontalOptions="FillAndExpand"
+								VerticalOptions="End"
+								IsVisible="{Binding HasCommands}"/>	
+						</Grid>
 					</StackLayout>
 				</DataTemplate>
 		    </cv:CarouselView.ItemTemplate>
 	  	</cv:CarouselView>
 		<local:CarouselIndicator 
+			Padding="0,0,0,16"
 			IndicatorHeight="16" 
 			IndicatorWidth="16" 
-			UnselectedIndicator="ic_add" 
-			SelectedIndicator="ic_editar" 
+			UnselectedIndicator="ic_item_normal" 
+			SelectedIndicator="ic_item_active" 
 			Position="{Binding Position}" 
 			ItemsSource="{Binding CarouselItens}" />
 	</StackLayout>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Auth;
 using Solum.Handlers;
@@ -41,7 +42,7 @@ namespace Solum.ViewModel
         }
 
 
-        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(Save));
+		public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(async ()=> await Save()));
 
 
 		public string TalhaoName
@@ -68,7 +69,7 @@ namespace Solum.ViewModel
 			set { SetPropertyChanged(ref _talhao, value); }
 		}
 
-        private async void Save()
+        private async Task Save()
         {
             if (!IsNotBusy) return;
 

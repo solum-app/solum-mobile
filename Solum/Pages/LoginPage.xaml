@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ContentPage
 	xmlns="http://xamarin.com/schemas/2014/forms"
@@ -33,6 +33,7 @@
 			<Label 
 				Text="Use suas credenciais para acessar suas informações" 
 				HorizontalTextAlignment="Center"
+				FontSize="Small"
 			    TextColor="{StaticResource colorTextPrimary}" 
 				Margin="16" />
 			
@@ -52,17 +53,12 @@
 					Placeholder="Email" 
 					Text="{Binding Username}" 
 					Margin="32,0,0,0"
-				    PlaceholderColor="{StaticResource colorTextHint}" 
 					Grid.Column="1" 
 					VerticalOptions="CenterAndExpand"
 					Completed="UsernameEntryOnCompleted">
-					
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
-					</Entry.FontSize>
 				</Entry>
 				
 				<BoxView 
@@ -94,7 +90,6 @@
 					IsPassword="True" 
 					Text="{Binding Password}" 
 					Margin="32,0,0,0"
-				    PlaceholderColor="{StaticResource colorTextHint}" 
 					Grid.Column="1" 
 					VerticalOptions="CenterAndExpand"
 				    Completed="PasswordEntryOnCompleted">
@@ -102,9 +97,6 @@
 					<Entry.Effects>
 						<effects:NoBorderEffect />
 					</Entry.Effects>
-					<Entry.FontSize>
-						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
-					</Entry.FontSize>
 				</Entry>
 				
 				<BoxView 

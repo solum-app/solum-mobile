@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Handlers;
 using Solum.Interfaces;
 using Solum.Models;
+using Solum.Pages;
 using Solum.Service;
 using Xamarin.Forms;
 
@@ -14,19 +16,16 @@ namespace Solum.ViewModel
         private Analise _analise;
         private readonly ISemeaduraInterpreter _interpreter;
         private Cultura _cultura;
-
-
         private bool _enableButton;
-
+		private bool _allowEdit;
         private string _expectativa;
         private string _k20;
         private string _n;
         private string _p205;
-
         private ICommand _showSemeaduraPageCommand;
 
         public RecomendacaoSemeaduraViewModel(INavigation navigation, string analiseId, int expectativa,
-            Cultura cultura, bool enableButton) : base(navigation)
+            Cultura cultura, bool allowEdit) : base(navigation)
         {
             _interpreter = SemeaduraInjector.GetInstance(cultura);
             AzureService.Instance.FindAnaliseAsync(analiseId).ContinueWith(t =>
@@ -36,12 +35,13 @@ namespace Solum.ViewModel
                 Init(expectativa, cultura);
             });
             
-            EnableButton = enableButton;
+            EnableButton = !allowEdit;
+			_allowEdit = allowEdit;
         }
 
 
         public ICommand SalvarCommand
-            => _showSemeaduraPageCommand ?? (_showSemeaduraPageCommand = new Command(Salvar));
+			=> _showSemeaduraPageCommand ?? (_showSemeaduraPageCommand = new Command(async ()=> await Salvar()));
 
 
         public bool EnableButton
@@ -98,19 +98,20 @@ namespace Solum.ViewModel
         }
 
 
-        private async void Salvar()
+        private async Task Salvar()
         {
             if (!IsNotBusy) return;
             IsBusy = true;
-            //var count = Navigation.NavigationStack.Count();
-            
             _analise.DataCalculoSemeadura = DateTimeOffset.Now;
             _analise.HasSemeadura = true;
             _analise.Cultura = Cultura.ToString();
             _analise.Expectativa = int.Parse(Expectativa);
             await AzureService.Instance.UpdateAnaliseAsync(_analise);
-            var last = Navigation.NavigationStack.LastOrDefault();
-            Navigation.RemovePage(last);
+			var previous = Navigation.NavigationStack[Navigation.NavigationStack.Count -2];
+			var beforePrevious = Navigation.NavigationStack[Navigation.NavigationStack.Count -3];
+			Navigation.RemovePage(previous);
+			if (beforePrevious != null && beforePrevious.GetType() == typeof(RecomendacaoSemeaduraPage))
+				Navigation.RemovePage(beforePrevious);
             await Navigation.PopAsync();
             IsBusy = false;
         }

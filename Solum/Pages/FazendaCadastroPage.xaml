@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ContentPage
 	xmlns="http://xamarin.com/schemas/2014/forms"
@@ -14,17 +14,12 @@
 		BackgroundColor="{StaticResource colorBackground}"
 		Spacing="0">
 
-    <Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES">
+    <Label Text="INFORMAÇÕES">
       <Label.Margin>
         <OnPlatform x:TypeArguments="Thickness"
 					iOS="16,24,16,4"
 					Android="16, 13"/>
       </Label.Margin>
-      <Label.FontSize>
-        <OnPlatform x:TypeArguments="x:Double"
-					iOS="13"
-					Android="14"/>
-      </Label.FontSize>
     </Label>
     <Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
       <Grid.ColumnDefinitions>
@@ -46,17 +41,11 @@
 				Text="{Binding FazendaName}"
 				VerticalOptions="Center" Grid.Column="2"
 				Margin="16,0" Placeholder="Nome da Fazenda"
-				HorizontalTextAlignment="End"
-				PlaceholderColor="{StaticResource colorTextHint}">
+				HorizontalTextAlignment="End">
 
         <Entry.Effects>
           <effects:NoBorderEffect />
         </Entry.Effects>
-        <Entry.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
-						iOS="17"
-						Android="14"/>
-        </Entry.FontSize>
       </Entry>
       <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
         <BoxView.HeightRequest>
@@ -75,23 +64,17 @@
       </Grid.ColumnDefinitions>
       <Label Text="Estado" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}"/>
       <local:CustomPicker
-				x:Name="EstadoPicker"
-				Title="Selecione um estado"
-				ItemsSource="{Binding Estados}"
-				SelectedItem="{Binding EstadoSelected}"
-				ItemSelectedCommand="{Binding UpdateCidadesCommand}"
-        IsEnabled="{Binding IsEstadosLoaded}"
-				VerticalOptions="Center"
-				Grid.Column="2"
-				Margin="16,0"
-				HasBorder="false"
-				PlaceholderColor="{StaticResource colorTextHint}"
-				TextAlignment="Right">
-        <local:CustomPicker.TextSize>
-          <OnPlatform x:TypeArguments="x:Double"
-						Android="14"/>
-        </local:CustomPicker.TextSize>
-      </local:CustomPicker>
+			x:Name="EstadoPicker"
+			Title="Selecione um estado"
+			ItemsSource="{Binding Estados}"
+			SelectedItem="{Binding EstadoSelected}"
+			ItemSelectedCommand="{Binding UpdateCidadesCommand}"
+			IsEnabled="{Binding IsEstadosLoaded}"
+			VerticalOptions="Center"
+			Grid.Column="2"
+			Margin="16,0"
+			HasBorder="false"
+			TextAlignment="Right"/>
 
       <BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
         <BoxView.HeightRequest>
@@ -118,13 +101,7 @@
 				Grid.Column="2"
 				Margin="16,0"
 				HasBorder="false"
-				PlaceholderColor="{StaticResource colorTextHint}"
-				TextAlignment="Right">
-        <local:CustomPicker.TextSize>
-          <OnPlatform x:TypeArguments="x:Double"
-						Android="14"/>
-        </local:CustomPicker.TextSize>
-      </local:CustomPicker>
+				TextAlignment="Right"/>
     </Grid>
 
     <BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">

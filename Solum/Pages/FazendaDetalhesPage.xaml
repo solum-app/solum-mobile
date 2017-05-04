@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -10,12 +9,14 @@
 	BackgroundColor="{StaticResource colorBackground}"
 	Title="{Binding PageTitle}">
 
-	<ActivityIndicator IsRunning="{Binding IsLoading}"
-	                   HorizontalOptions="Center"
-	                   VerticalOptions="Center" />
+	<ActivityIndicator 
+		IsRunning="{Binding IsLoading}"
+		HorizontalOptions="Center"
+	    VerticalOptions="Center" />
 
-	<AbsoluteLayout x:Name="absoluteLayout"
-	                IsVisible="{Binding IsLoading, Converter={x:Static handlers:IverseBoolConverter.Instance}}">
+	<AbsoluteLayout 
+		x:Name="absoluteLayout"
+        IsVisible="{Binding IsLoading, Converter={x:Static handlers:IverseBoolConverter.Instance}}">
 
     <Label
       AbsoluteLayout.LayoutFlags="All"
@@ -27,14 +28,15 @@
       FontSize="Medium"
       TextColor="{StaticResource colorTextSecundary}" />
 
-		<local:BindableListView x:Name="talhoesList"
-								IsVisible="{Binding HasItems}"
-								HasUnevenRows="true"
-								ItemClickedCommand="{Binding ItemTappedCommand}"
-								SeparatorColor="{StaticResource colorSeparator}"
-								ItemsSource="{Binding Talhoes}"
-								AbsoluteLayout.LayoutFlags="All"
-								AbsoluteLayout.LayoutBounds="0,0,1,1">
+		<local:BindableListView 
+			x:Name="talhoesList"
+			IsVisible="{Binding HasItems}"
+			HasUnevenRows="true"
+			ItemClickedCommand="{Binding ItemTappedCommand}"
+			SeparatorColor="{StaticResource colorSeparator}"
+			ItemsSource="{Binding Talhoes}"
+			AbsoluteLayout.LayoutFlags="All"
+			AbsoluteLayout.LayoutBounds="0,0,1,1">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<ViewCell>
@@ -61,15 +63,17 @@
 								   VerticalTextAlignment="Start" />
 						</Grid>
 						<ViewCell.ContextActions>
-							<MenuItem CommandParameter="{Binding .}"
-									  Clicked="OnEdit"
-									  Text="Editar"
-									  Icon="ic_editar" />
-							<MenuItem CommandParameter="{Binding .}"
-									  Clicked="OnDelete"
-									  Text="Excluir"
-									  IsDestructive="True"
-									  Icon="ic_excluir" />
+							<MenuItem 
+								CommandParameter="{Binding .}"
+								Command="{Binding BindingContext.ShowEditTalhaoPageCommand, Source={x:Reference talhoesList}"
+								Text="Editar"
+								Icon="ic_editar" />
+							<MenuItem 
+								CommandParameter="{Binding .}"
+								Command="{Binding BindingContext.DeleteTalhaoCommand, Source={x:Reference talhoesList}"
+								Text="Excluir"
+								IsDestructive="True"
+								Icon="ic_excluir" />
 						</ViewCell.ContextActions>
 					</ViewCell>
 				</DataTemplate>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:effects="clr-namespace:Solum.Effects"
              xmlns:renderers="clr-namespace:Solum.Renderers" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -36,12 +36,8 @@
 					Grid.Column="2"
 					Margin="16,0"
 					HasBorder="false"
-					PlaceholderColor="{StaticResource colorTextHint}"
 					Title="t/ha"
 					TextAlignment="Right">
-					<renderers:CustomPicker.TextSize>
-						<OnPlatform x:TypeArguments="x:Double" Android="14" iOS="17" />
-					</renderers:CustomPicker.TextSize>
 				</renderers:CustomPicker>
 
 				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
@@ -58,18 +54,16 @@
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
 				<Label Text="Cultura" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<renderers:CustomPicker x:Name="CulturaPicker"
-				                        ItemsSource="{Binding Culturas}"
-				                        SelectedItem="{Binding CulturaSelected}"
-				                        VerticalOptions="Center"
-				                        Grid.Column="2" Margin="16,0"
-				                        HasBorder="false"
-				                        Title="Selecione a cultura"
-				                        PlaceholderColor="{StaticResource colorTextHint}"
-				                        TextAlignment="Right">
-					<renderers:CustomPicker.TextSize>
-						<OnPlatform x:TypeArguments="x:Double" Android="14" iOS="17" />
-					</renderers:CustomPicker.TextSize>
+				<renderers:CustomPicker
+					x:Name="CulturaPicker"
+                    ItemsSource="{Binding Culturas}"
+                    SelectedItem="{Binding CulturaSelected}"
+                    VerticalOptions="Center"
+                    Grid.Column="2" 
+					Margin="16,0"
+                    HasBorder="false"
+                    Title="Selecione a cultura"
+                    TextAlignment="Right">
 				</renderers:CustomPicker>
 			</Grid>
 			<BoxView BackgroundColor="{StaticResource colorSeparator}"

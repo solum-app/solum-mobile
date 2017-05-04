@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using Solum.iOS;
 using Solum.Renderers;
@@ -40,7 +40,7 @@ namespace Solum.iOS
                 SetBorder(view);
             if (e.PropertyName == CustomPicker.TextAlignmentProperty.PropertyName)
                 SetAlignment(view);
-            if (e.PropertyName == CustomPicker.TextSizeProperty.PropertyName)
+            if (e.PropertyName == CustomPicker.FontSizeProperty.PropertyName)
                 SetTextSize(view);
             if (e.PropertyName == CustomPicker.PlaceholderColorProperty.PropertyName)
                 SetPlaceholderColor(view);
@@ -54,9 +54,9 @@ namespace Solum.iOS
 
         void SetTextSize(CustomPicker view)
         {
-            if (view.TextSize != default(Double))
+            if (view.FontSize != default(Double))
             {
-                var newUiFont = UIFont.FromName(Control.Font.FamilyName, (nfloat)view.TextSize);
+                var newUiFont = UIFont.FromName(Control.Font.FamilyName, (nfloat)view.FontSize);
                 Control.Font = newUiFont;
             }
         }
@@ -74,9 +74,9 @@ namespace Solum.iOS
             if (!string.IsNullOrWhiteSpace(view.FontFamily))
             {
                 var fontSize = Control.Font.PointSize;
-                if (view.TextSize != default(Double))
+                if (view.FontSize != default(Double))
                 {
-                    fontSize = (nfloat)view.TextSize;
+                    fontSize = (nfloat)view.FontSize;
                 }
                 var newUiFont = UIFont.FromName(view.FontFamily, fontSize);
                 Control.Font = newUiFont;
