@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Handlers;
+using Solum.Interfaces;
 using Solum.Models;
 using Solum.Pages;
 using Solum.Service;
@@ -13,6 +14,7 @@ namespace Solum.ViewModel
     public class FazendaDetalhesViewModel : BaseViewModel
     {
         private readonly bool _fromAnalise;
+        private readonly IUserDialogs _userDialogs;
         private ICommand _deleteTalhaoCommand;
         private Fazenda _fazenda;
         private bool _hasItems;
@@ -30,6 +32,8 @@ namespace Solum.ViewModel
                     Fazenda = task.Result;
 					await UpdateTalhoesList();
                 });
+
+            _userDialogs = DependencyService.Get<IUserDialogs>();
         }
 
         public bool IsLoading
@@ -110,18 +114,20 @@ namespace Solum.ViewModel
 			var canDelete = await CanDelete(talhao);
             if (canDelete)
             {
-				var confirm = await Application.Current.MainPage.DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim","Não");
-				if (confirm)
+                var confirm = await _userDialogs.DisplayAlert(MessagesResource.ExcluirConfirmacao, "Sim", "Não");
+                if (confirm && !IsBusy)
 				{
+                    IsBusy = true;
 					await AzureService.Instance.DeleteTalhaoAsync(talhao);
 					Talhoes.Remove(talhao);
 					HasItems = Talhoes.Any();
-					MessagesResource.TalhaoRemocaoSucesso.ToToast();
+                    _userDialogs.ShowToast(MessagesResource.TalhaoRemocaoSucesso);
+                    IsBusy = false;
 				}
             }
             else
             {
-                "Esse talhao não pode ser removido, existem análises atreladas à ele.\nRemova as análises primeiro".ToDisplayAlert(MessageType.Aviso);
+                await _userDialogs.DisplayAlert(MessagesResource.TalhaoRemocaoBloqueio);
             }
         }
     }

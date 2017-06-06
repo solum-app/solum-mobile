@@ -1,79 +1,74 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<ContentPage
-	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	x:Class="Solum.Pages.FazendaListPage"
-	xmlns:renderers="clr-namespace:Solum.Renderers"
-	xmlns:handlers="clr-namespace:Solum.Handlers"
-	Title="Fazendas">
-
-	<ActivityIndicator IsRunning="{Binding IsLoading}"
-	                   HorizontalOptions="Center"
-	                   VerticalOptions="Center" />
-	<AbsoluteLayout x:Name="absoluteLayout"
-					BackgroundColor="{StaticResource colorBackground}"
-	                IsVisible="{Binding IsLoading, Converter={x:Static handlers:IverseBoolConverter.Instance}}">
-
-    <Label
-			AbsoluteLayout.LayoutFlags="All"
-			AbsoluteLayout.LayoutBounds="0,0,1,1"
-			IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
-			VerticalOptions="Center"
-			HorizontalOptions="Center"
-			FontSize="Medium"
-			Text="Nenhuma fazenda cadastrada"
-			TextColor="{StaticResource colorTextSecundary}" />
-
-		<renderers:BindableListView IsVisible="{Binding HasItems}"
-									x:Name="FazendasList"
-									HasUnevenRows="true"
-									ItemClickedCommand="{Binding ItemTappedCommand}"
-									SeparatorColor="{StaticResource colorSeparator}"
-									ItemsSource="{Binding Fazendas}"
-									AbsoluteLayout.LayoutFlags="All"
-									AbsoluteLayout.LayoutBounds="0,0,1,1">
-
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<ViewCell>
-						<Grid Padding="15"
-							  BackgroundColor="White">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
-							<Label Text="{Binding Nome}"
-								   Grid.Row="0"
-								   TextColor="{StaticResource colorTextPrimary}" />
-							<StackLayout Orientation="Horizontal"
-										 Spacing="0"
-										 Grid.Row="1">
-								<Label Text="{Binding Cidade.Nome}"
-									   TextColor="{StaticResource colorTextSecundary}"
-									   FontSize="Small" />
-								<Label Text="{Binding Cidade.Estado.Uf, StringFormat=' - {0}'}"
-									   TextColor="{StaticResource colorTextSecundary}"
-									   FontSize="Small" />
-							</StackLayout>
-						</Grid>
-
-						<ViewCell.ContextActions>
-							<MenuItem CommandParameter="{Binding .}"
-									  Clicked="OnEdit"
-									  Text="Editar"
-									  Icon="ic_editar" />
-							<MenuItem CommandParameter="{Binding .}"
-									  Clicked="OnDelete"
-									  Text="Excluir"
-									  IsDestructive="True"
-									  Icon="ic_excluir" />
-						</ViewCell.ContextActions>
-
-					</ViewCell>
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</renderers:BindableListView>
-	</AbsoluteLayout>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:handlers="clr-namespace:Solum.Handlers"
+    xmlns:renderers="clr-namespace:Solum.Renderers"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Solum.Pages.FazendaListPage"
+    Title="Fazendas">
+    <ActivityIndicator HorizontalOptions="Center"
+        IsRunning="{Binding IsLoading}"
+        VerticalOptions="Center"/>
+    <AbsoluteLayout x:Name="absoluteLayout"
+        BackgroundColor="{StaticResource colorBackground}"
+        IsVisible="{Binding IsLoading, Converter={x:Static handlers:IverseBoolConverter.Instance}}">
+        <Label AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            FontSize="Medium"
+            HorizontalOptions="Center"
+            IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
+            Text="Nenhuma fazenda cadastrada"
+            TextColor="{StaticResource colorTextSecundary}"
+            VerticalOptions="Center"/>
+        <renderers:BindableListView x:Name="listView"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            HasUnevenRows="true"
+            IsVisible="{Binding HasItems}"
+            ItemClickedCommand="{Binding ItemTappedCommand}"
+            ItemsSource="{Binding Fazendas}"
+            SeparatorColor="{StaticResource colorSeparator}">
+            <renderers:BindableListView>
+                <x:Arguments>
+                    <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                </x:Arguments>
+            </renderers:BindableListView>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid BackgroundColor="White"
+                            Padding="15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0"
+                                Text="{Binding Nome}"
+                                TextColor="{StaticResource colorTextPrimary}"/>
+                            <StackLayout Grid.Row="1"
+                                Orientation="Horizontal"
+                                Spacing="0">
+                                <Label FontSize="Small"
+                                    Text="{Binding Cidade.Nome}"
+                                    TextColor="{StaticResource colorTextSecundary}"/>
+                                <Label FontSize="Small"
+                                    Text="{Binding Cidade.Estado.Uf, StringFormat=' - {0}'}"
+                                    TextColor="{StaticResource colorTextSecundary}"/>
+                            </StackLayout>
+                        </Grid>
+                        <ViewCell.ContextActions>
+                            <MenuItem Command="{Binding BindingContext.EditCommand, Source={x:Reference listView}"
+                                CommandParameter="{Binding .}"
+                                Icon="ic_editar"
+                                Text="Editar"/>
+                            <MenuItem Command="{Binding BindingContext.DeleteCommand, Source={x:Reference listView}"
+                                CommandParameter="{Binding .}"
+                                Icon="ic_excluir"
+                                IsDestructive="True"
+                                Text="Excluir"/>
+                        </ViewCell.ContextActions>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </renderers:BindableListView>
+    </AbsoluteLayout>
 </ContentPage>

@@ -1,307 +1,625 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:handlers="clr-namespace:Solum.Handlers;assembly=Solum"
-             x:Class="Solum.Pages.InterpretacaoPage"
-             Title="Interpretação">
-  
-  <ScrollView BackgroundColor="{StaticResource colorBackground}">
-		<StackLayout Padding="0,4,0,0" Spacing="0">
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="#009245" />
-					<Grid Padding="8" HorizontalOptions="FillAndExpand">
- 					<Grid.RowDefinitions>
- 						<RowDefinition  Height="Auto"/>
- 						<RowDefinition  Height="Auto"/>
- 					</Grid.RowDefinitions>
- 					<Grid.ColumnDefinitions>
- 						<ColumnDefinition Width="*"/>
- 						<ColumnDefinition Width="Auto"/>
- 					</Grid.ColumnDefinitions>
-            
- 					<Label Grid.Row="0" Grid.Column="0" Text="{Binding FazendaName, Converter={x:Static handlers:ToUpperConverter.Instance} }" LineBreakMode="TailTruncation" TextColor="{StaticResource colorTextPrimary}"/>
- 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextPrimary}"/>
- 					<Label Grid.Row="1" Grid.Column="0" Text="{Binding TalhaoName, StringFormat='Talhão {0}'}" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
- 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding InterpretacaoTextura, StringFormat='Textura {0}'}" FontSize="Small" TextColor="{StaticResource colorTextSecundary}" HorizontalTextAlignment="End"/>
- 				</Grid>
-				</StackLayout>
-			</Frame>
-
-			<!--pH-->
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6" BackgroundColor="{Binding NivelPh, Converter={x:Static handlers:PhCorValueConverter.Instance} }" />
-	 				<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="pH (CaCl₂)" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoPh}" FontSize="Small" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.PotencialHidrogenico, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="4,81 a 5,50" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
-			<!--P-->
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6"
-							 BackgroundColor="{Binding NivelP, Converter={x:Static handlers:PCorValueConverter.Instance} }" />
-	 				<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="P (mg dm⁻³)" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoP}" FontSize="Small" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Fosforo, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding Textura, Converter={x:Static handlers:TexturaPValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
-			<!--K-->
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6"
-							 BackgroundColor="{Binding NivelK, Converter={x:Static handlers:KCorValueConverter.Instance} }" />
-	 				<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="K (mg dm⁻³)" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoK}" FontSize="Small" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Potassio, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding Analise.CTC, Converter={x:Static handlers:CtcKValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
-			<!--Ca-->
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6"
-							 BackgroundColor="{Binding NivelCa, Converter={x:Static handlers:CaMgCorValueConverter.Instance} }" />
-	 				<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="Ca (cmolc dm⁻³)" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoCa}" FontSize="Small" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Calcio, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="1,50 a 7,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
-			<!--Mg-->
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6"
-							 BackgroundColor="{Binding NivelMg, Converter={x:Static handlers:CaMgCorValueConverter.Instance} }" />
-					<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="Mg (cmolc dm⁻³)" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoMg}" FontSize="Small" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.Magnesio, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="0,50 a 2,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
-			<!--M.O.-->
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6"
-							 BackgroundColor="{Binding NivelMo, Converter={x:Static handlers:MoCorValueConverter.Instance} }" />
-					<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="M.O. (g dm⁻³)" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoMo}" FontSize="Small" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.MateriaOrganica, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding Textura, Converter={x:Static handlers:TexturaMoValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
-			<!--CTC(T)-->
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6"
-							 BackgroundColor="{Binding NivelCtc, Converter={x:Static handlers:CtcCorValueConverter.Instance} }" />
-					<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="CTC (T)(cmolc dm⁻³)" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoCtc}" FontSize="Small" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.CTC, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="{Binding Textura, Converter={x:Static handlers:TexturaCtcValueConverter.Instance} }" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
-			<!--V(%)-->
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6"
-							 BackgroundColor="{Binding NivelV, Converter={x:Static handlers:VCorValueConverter.Instance} }" />
-					<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="V (%)" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoV}" FontSize="Small" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.V, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="35,01 a 60,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
-			<!--m(%)-->
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6"
-							 BackgroundColor="{Binding NivelM, Converter={x:Static handlers:MCorValueConverter.Instance} }" />
-					<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="m (%)" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoM}" FontSize="Small" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.M, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-						<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="Baixo" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-			
-			<!--Ca/K-->
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6"
-							 BackgroundColor="{Binding NivelCaK, Converter={x:Static handlers:CaMgKCorValueConverter.Instance} }" />
-					<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="Ca/K" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoCaK}" FontSize="Small" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.CaK, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="14,01 a 25,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
-			<!--Mg/K-->
-			<Frame Margin="8,4" Padding="0">
-				<StackLayout Spacing="0" Orientation="Horizontal">
-					<BoxView WidthRequest="6"
-							 BackgroundColor="{Binding NivelMgk, Converter={x:Static handlers:CaMgKCorValueConverter.Instance} }" />
-					<Grid Padding="8" HorizontalOptions="FillAndExpand">
-	 					<Grid.RowDefinitions>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 						<RowDefinition  Height="Auto"/>
-	 					</Grid.RowDefinitions>
-	 					<Grid.ColumnDefinitions>
-	 						<ColumnDefinition Width="Auto"/>
-	 						<ColumnDefinition Width="*"/>
-	 					</Grid.ColumnDefinitions>
-	 					<Label Grid.Row="0" Grid.Column="0" Text="Mg/K" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="0" Grid.Column="1" Text="{Binding InterpretacaoMgK}" FontSize="Small" HorizontalTextAlignment="End" TextColor="{StaticResource colorTextPrimary}"/>
-	 					<Label Grid.Row="1" Grid.Column="0" Text="Valor Atual" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="1" Grid.Column="1" Text="{Binding Analise.MgK, StringFormat='{0:0.00}'}" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="0" Text="Nível Adequado" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 					<Label Grid.Row="2" Grid.Column="1" Text="4,01 a 15,00" HorizontalTextAlignment="End" FontSize="Small" TextColor="{StaticResource colorTextSecundary}"/>
-	 				</Grid>
-	 			</StackLayout>
-			</Frame>
-
-		</StackLayout>
-	</ScrollView>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:handlers="clr-namespace:Solum.Handlers;assembly=Solum"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Solum.Pages.InterpretacaoPage"
+    Title="Interpretação">
+    <ScrollView BackgroundColor="{StaticResource colorBackground}">
+        <StackLayout Padding="0,4,0,0"
+            Spacing="0">
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="#009245"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            LineBreakMode="TailTruncation"
+                            Text="{Binding FazendaName, Converter={x:Static handlers:ToUpperConverter.Instance} }"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="{Binding TalhaoName, StringFormat='Talhão {0}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoTextura, StringFormat='Textura {0}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="{Binding NivelPh, Converter={x:Static handlers:PhCorValueConverter.Instance} }"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            Text="pH (CaCl₂)"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoPh}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Valor Atual"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.PotencialHidrogenico, StringFormat='{0:0.00}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Nível Adequado"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalTextAlignment="End"
+                            Text="4,81 a 5,50"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="{Binding NivelP, Converter={x:Static handlers:PCorValueConverter.Instance} }"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            Text="P (mg dm⁻³)"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoP}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Valor Atual"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.Fosforo, StringFormat='{0:0.00}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Nível Adequado"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Textura, Converter={x:Static handlers:TexturaPValueConverter.Instance} }"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="{Binding NivelK, Converter={x:Static handlers:KCorValueConverter.Instance} }"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            Text="K (mg dm⁻³)"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoK}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Valor Atual"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.Potassio, StringFormat='{0:0.00}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Nível Adequado"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.CTC, Converter={x:Static handlers:CtcKValueConverter.Instance} }"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="{Binding NivelCa, Converter={x:Static handlers:CaMgCorValueConverter.Instance} }"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            Text="Ca (cmolc dm⁻³)"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoCa}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Valor Atual"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.Calcio, StringFormat='{0:0.00}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Nível Adequado"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalTextAlignment="End"
+                            Text="1,50 a 7,00"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="{Binding NivelMg, Converter={x:Static handlers:CaMgCorValueConverter.Instance} }"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            Text="Mg (cmolc dm⁻³)"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoMg}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Valor Atual"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.Magnesio, StringFormat='{0:0.00}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Nível Adequado"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalTextAlignment="End"
+                            Text="0,50 a 2,00"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="{Binding NivelMo, Converter={x:Static handlers:MoCorValueConverter.Instance} }"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            Text="M.O. (g dm⁻³)"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoMo}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Valor Atual"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.MateriaOrganica, StringFormat='{0:0.00}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Nível Adequado"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Textura, Converter={x:Static handlers:TexturaMoValueConverter.Instance} }"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="{Binding NivelCtc, Converter={x:Static handlers:CtcCorValueConverter.Instance} }"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            Text="CTC (T)(cmolc dm⁻³)"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoCtc}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Valor Atual"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.CTC, StringFormat='{0:0.00}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Nível Adequado"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Textura, Converter={x:Static handlers:TexturaCtcValueConverter.Instance} }"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="{Binding NivelV, Converter={x:Static handlers:VCorValueConverter.Instance} }"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            Text="V (%)"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoV}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Valor Atual"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.V, StringFormat='{0:0.00}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Nível Adequado"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalTextAlignment="End"
+                            Text="35,01 a 60,00"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="{Binding NivelM, Converter={x:Static handlers:MCorValueConverter.Instance} }"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            Text="m (%)"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoM}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Valor Atual"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.M, StringFormat='{0:0.00}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Nível Adequado"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalTextAlignment="End"
+                            Text="Baixo"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="{Binding NivelCaK, Converter={x:Static handlers:CaMgKCorValueConverter.Instance} }"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            Text="Ca/K"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoCaK}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Valor Atual"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.CaK, StringFormat='{0:0.00}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Nível Adequado"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalTextAlignment="End"
+                            Text="14,01 a 25,00"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Frame Margin="8,4"
+                Padding="0">
+                <StackLayout Orientation="Horizontal"
+                    Spacing="0">
+                    <BoxView BackgroundColor="{Binding NivelMgk, Converter={x:Static handlers:CaMgKCorValueConverter.Instance} }"
+                        WidthRequest="6"/>
+                    <Grid HorizontalOptions="FillAndExpand"
+                        Padding="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                            Grid.Row="0"
+                            Text="Mg/K"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding InterpretacaoMgK}"
+                            TextColor="{StaticResource colorTextPrimary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Valor Atual"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            HorizontalTextAlignment="End"
+                            Text="{Binding Analise.MgK, StringFormat='{0:0.00}'}"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Nível Adequado"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                        <Label FontSize="Small"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalTextAlignment="End"
+                            Text="4,01 a 15,00"
+                            TextColor="{StaticResource colorTextSecundary}"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

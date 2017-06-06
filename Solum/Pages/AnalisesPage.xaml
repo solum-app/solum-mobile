@@ -1,81 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<ContentPage
-	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:renderers="clr-namespace:Solum.Renderers"
-	xmlns:handlers="clr-namespace:Solum.Handlers"
-	x:Class="Solum.Pages.AnalisesPage"
-	BackgroundColor="{StaticResource colorBackground}"
-	Title="Análises">
-
-	<ActivityIndicator 
-		IsRunning="{Binding IsLoading}"
-       	VerticalOptions="Center"
-       	HorizontalOptions="Center" />
-	
-	<AbsoluteLayout 
-		x:Name="absolute"
-		IsVisible="{Binding IsLoading, Converter={x:Static handlers:IverseBoolConverter.Instance}}">
-		
-		<Label
-			AbsoluteLayout.LayoutFlags="All"
-			AbsoluteLayout.LayoutBounds="0,0,1,1"
-			IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
-			VerticalOptions="Center"
-			HorizontalOptions="Center"
-			FontSize="Medium"
-			Text="Nenhuma análise salva"
-			TextColor="{StaticResource colorTextSecundary}" />
-
-		<renderers:BindableListView 
-			x:Name="listView"
-			IsVisible="{Binding HasItems}"
-			HasUnevenRows="true"
-			ItemClickedCommand="{Binding ItemTappedCommand}"
-			SeparatorColor="{StaticResource colorSeparator}"
-			ItemsSource="{Binding Analises}"
-			AbsoluteLayout.LayoutFlags="All"
-			AbsoluteLayout.LayoutBounds="0,0,1,1">
-
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<ViewCell>
-						<Grid Padding="15"
-							  BackgroundColor="White">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
-
-							<Label Text="{Binding Identificacao}"
-								   Grid.Row="0"
-								   TextColor="{StaticResource colorTextPrimary}" />
-
-							<Label Text="{Binding DataRegistro, StringFormat='{0:dd/MM/yyyy}'}"
-								   Grid.Row="1"
-								   FontSize="Small"
-								   TextColor="{StaticResource colorTextSecundary}"
-								   VerticalTextAlignment="Start" />
-
-						</Grid>
-
-						<ViewCell.ContextActions>
-							<MenuItem CommandParameter="{Binding .}"
-									  Command="{Binding BindingContext.EditCommand, Source={x:Reference listView}"
-									  Text="Editar"
-									  Icon="ic_editar" />
-
-							<MenuItem CommandParameter="{Binding .}"
-									Command="{Binding BindingContext.DeleteCommand, Source={x:Reference listView}"
-									Text="Excluir"
-									IsDestructive="True"
-									Icon="ic_excluir" />
-
-						</ViewCell.ContextActions>
-					</ViewCell>
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</renderers:BindableListView>
-	</AbsoluteLayout>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:handlers="clr-namespace:Solum.Handlers"
+    xmlns:renderers="clr-namespace:Solum.Renderers"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Solum.Pages.AnalisesPage"
+    BackgroundColor="{StaticResource colorBackground}"
+    IsBusy="{Binding IsBusy}"
+    Title="Análises">
+    <ActivityIndicator HorizontalOptions="Center"
+        IsRunning="{Binding IsLoading}"
+        VerticalOptions="Center"/>
+    <AbsoluteLayout x:Name="absolute"
+        IsVisible="{Binding IsLoading, Converter={x:Static handlers:IverseBoolConverter.Instance}}">
+        <Label AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            FontSize="Medium"
+            HorizontalOptions="Center"
+            IsVisible="{Binding HasItems, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
+            Text="Nenhuma análise salva"
+            TextColor="{StaticResource colorTextSecundary}"
+            VerticalOptions="Center"/>
+        <renderers:BindableListView x:Name="listView"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            HasUnevenRows="true"
+            IsVisible="{Binding HasItems}"
+            ItemClickedCommand="{Binding ItemTappedCommand}"
+            ItemsSource="{Binding Analises}"
+            SeparatorColor="{StaticResource colorSeparator}">
+            <renderers:BindableListView>
+                <x:Arguments>
+                    <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                </x:Arguments>
+            </renderers:BindableListView>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid BackgroundColor="White"
+                            Padding="15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0"
+                                Text="{Binding Identificacao}"
+                                TextColor="{StaticResource colorTextPrimary}"/>
+                            <Label FontSize="Small"
+                                Grid.Row="1"
+                                Text="{Binding DataRegistro, StringFormat='{0:dd/MM/yyyy}'}"
+                                TextColor="{StaticResource colorTextSecundary}"
+                                VerticalTextAlignment="Start"/>
+                        </Grid>
+                        <ViewCell.ContextActions>
+                            <MenuItem Command="{Binding BindingContext.EditCommand, Source={x:Reference listView}"
+                                CommandParameter="{Binding .}"
+                                Icon="ic_editar"
+                                Text="Editar"/>
+                            <MenuItem Command="{Binding BindingContext.DeleteCommand, Source={x:Reference listView}"
+                                CommandParameter="{Binding .}"
+                                Icon="ic_excluir"
+                                IsDestructive="True"
+                                Text="Excluir"/>
+                        </ViewCell.ContextActions>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </renderers:BindableListView>
+    </AbsoluteLayout>
 </ContentPage>

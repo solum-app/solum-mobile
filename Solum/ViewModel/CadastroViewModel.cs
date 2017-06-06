@@ -5,6 +5,7 @@ using System.Windows.Input;
 using EmailValidation;
 using Solum.Handlers;
 using Solum.Helpers;
+using Solum.Interfaces;
 using Solum.Models;
 using Solum.Service;
 using Xamarin.Forms;
@@ -13,11 +14,7 @@ namespace Solum.ViewModel
 {
     public class CadastroViewModel : BaseViewModel
     {
-        public CadastroViewModel(INavigation navigation) : base(navigation)
-        {
-			Task.Run(LoadEstados);
-        }
-
+        private readonly IUserDialogs _userDialogs;
         private ICommand _updateCidadesCommand;
         private ICommand _registerCommand;
         private ICommand _backCommand;
@@ -29,9 +26,14 @@ namespace Solum.ViewModel
         private string _email;
         private string _password;
         private string _confirmPassword;
-        private bool _inRegistering;
         private bool _isCidadesLoaded;
         private bool _isEstadosLoaded;
+
+		public CadastroViewModel(INavigation navigation) : base(navigation)
+		{
+			Task.Run(LoadEstados);
+            _userDialogs = DependencyService.Get<IUserDialogs>();
+		}
 
         public string Name
         {
@@ -114,71 +116,57 @@ namespace Solum.ViewModel
             IsCidadesLoaded = true;
         }
 
-		public async Task Register()
+        public async Task Register()
         {
-            if (IsNotBusy)
+
+            if (string.IsNullOrEmpty(Name)
+                || string.IsNullOrEmpty(Email)
+                || string.IsNullOrEmpty(Password)
+                || string.IsNullOrEmpty(ConfirmPassword))
             {
-				IsBusy = true;
-
-                if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password) ||
-                    string.IsNullOrEmpty(ConfirmPassword))
-                {
-					IsBusy = false;
-                    MessagesResource.CamposVazios.ToDisplayAlert(MessageType.Info);
-                    return;
-                }
-
-                if (!EmailValidator.Validate(Email))
-                {
-					IsBusy = false;
-                    MessagesResource.UsuarioCadastroEmailInvalido.ToDisplayAlert(MessageType.Info);
-                    return;
-                }
-
-                if (Password.Length < 6)
-                {
-					IsBusy = false;
-                    MessagesResource.UsuarioCadastroSenhaCurta.ToDisplayAlert(MessageType.Info);
-                    return;
-                }
-
-                if (!Password.Equals(ConfirmPassword))
-                {
-					IsBusy = false;
-                    MessagesResource.UsuarioCadastroSenhasNaoConferem.ToDisplayAlert(MessageType.Info);
-                    return;
-                }
-
-                if (CidadeSelected == null)
-                {
-					IsBusy = false;
-                    MessagesResource.UsuarioCadastroCidadeNula.ToDisplayAlert(MessageType.Info);
-                    return;
-                }
-
-                var dict = new List<KeyValuePair<string, string>>
-                {
-                    new KeyValuePair<string, string>("nome", Name),
-                    new KeyValuePair<string, string>("email", Email),
-                    new KeyValuePair<string, string>("password", Password),
-                    new KeyValuePair<string, string>("ConfirmPassword", ConfirmPassword),
-                    new KeyValuePair<string, string>("CidadeId", CidadeSelected.Id)
-                };
-
-                var result = await new HttpClient().PostAsync($"{Settings.BaseUri}/.auth/register",
-                    new FormUrlEncodedContent(dict));
-                if (result.IsSuccessStatusCode)
-                {
-                    "Você foi cadastrado com sucesso".ToToast();
-                    await Navigation.PopAsync();
-					IsBusy = false;
-                }
-                else
-                {
-					IsBusy = false;
-                    $"Seu cadastro não foi realizado com sucesso. Motivo: {result.ReasonPhrase}".ToDisplayAlert();
-                }
+                await _userDialogs.DisplayAlert(MessagesResource.CamposVazios);
+                return;
             }
+
+            if (!EmailValidator.Validate(Email))
+            {
+                await _userDialogs.DisplayAlert(MessagesResource.UsuarioCadastroEmailInvalido);
+                return;
+            }
+
+            if (Password.Length < 6)
+            {
+                await _userDialogs.DisplayAlert(MessagesResource.UsuarioCadastroSenhaCurta);
+                return;
+            }
+
+            if (!Password.Equals(ConfirmPassword))
+            {
+                await _userDialogs.DisplayAlert(MessagesResource.UsuarioCadastroSenhasNaoConferem);
+                return;
+            }
+
+            //if (CidadeSelected == null)
+            //{
+            //    await _userDialogs.DisplayAlert(MessagesResource.UsuarioCadastroCidadeNula);
+            //    return;
+            //}
+
+            IsBusy = true;
+
+            var result = await AuthService.Instance.RegisterAsync(Name, Email, Password, CidadeSelected?.Id);
+
+            if (result.IsSuccess)
+            {
+                _userDialogs.ShowToast(MessagesResource.CadastroSucesso);
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                await _userDialogs.DisplayAlert(result.Message);
+            }
+
+            IsBusy = false;
         }
 
 

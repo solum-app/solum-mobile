@@ -1,19 +1,12 @@
 ﻿using System;
-using Realms;
 using Solum.Handlers;
 
 namespace Solum.Models
 {
     public class Analise : EntityData
     {
-        public Analise()
-        {
-            Id = Guid.NewGuid().ToString();
-        }
-
         #region Identificação
 
-        public string UsuarioId { get; set; }
         public string TalhaoId { get; set; }
         public string Identificacao { get; set; }
         public DateTimeOffset DataRegistro { get; set; }
@@ -68,25 +61,18 @@ namespace Solum.Models
 
         #region Calculadas
 
-        [Ignored]
         public float SB => Calculador.CalcularSb(Potassio, Calcio, Magnesio);
 
-        [Ignored]
         public float CTC => Calculador.CalcularCtc(SB, Hidrogenio, Aluminio);
 
-        [Ignored]
         public float V => Calculador.CalcularV(SB, CTC);
 
-        [Ignored]
         public float M => Calculador.CalcularM(Aluminio, SB);
 
-        [Ignored]
         public float CaMg => Calculador.CalcularCaMg(Calcio, Magnesio);
 
-        [Ignored]
         public float CaK => Calculador.CalcularCaK(Calcio, Potassio);
 
-        [Ignored]
         public float MgK => Calculador.CalcularMgK(Magnesio, Potassio);
 
         #endregion

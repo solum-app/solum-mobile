@@ -3,6 +3,7 @@ using Xamarin.Forms.Platform.iOS;
 using Solum.iOS.Effects;
 using UIKit;
 using System;
+using CoreGraphics;
 
 [assembly:ResolutionGroupName ("Sydy")]
 [assembly:ExportEffect (typeof(NoBorderEffect), "NoBorderEffect")]
@@ -11,12 +12,15 @@ namespace Solum.iOS.Effects
 {
 	public class NoBorderEffect : PlatformEffect
 	{
-		protected override void OnAttached ()
+		protected override void OnAttached()
 		{
-			try {
+			try
+			{
 				(Control as UITextField).BorderStyle = UITextBorderStyle.None;
-			} catch (Exception ex) {
-				Console.WriteLine ("Cannot set property on attached control. Error: ", ex.Message);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("Cannot set property on attached control. Error: ", ex.Message);
 			}
 		}
 

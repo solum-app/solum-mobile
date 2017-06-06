@@ -9,18 +9,29 @@ namespace Solum.Renderers
 
         public delegate void ShowHideDelegate(bool animate = true);
 
-        public bool HasShadow
-        {
-            get { return (bool) GetValue(HasShadowProperty); }
-            set { SetValue(HasShadowProperty, value); }
-        }
-
         public ShowHideDelegate Show { get; set; }
         public ShowHideDelegate Hide { get; set; }
         public Action<object, EventArgs> Clicked { get; set; }
-#pragma warning disable CS0618 // Type or member is obsolete
-        public static readonly BindableProperty ImageNameProperty =
-            BindableProperty.Create<FloatingActionButtonView, string>(p => p.ImageName, string.Empty);
+
+		public static readonly BindableProperty HasShadowProperty = BindableProperty.Create(
+			nameof(HasShadow),
+			typeof(bool),
+			typeof(FloatingActionButtonView),
+			true
+		);
+
+		public bool HasShadow
+		{
+			get { return (bool)GetValue(HasShadowProperty); }
+			set { SetValue(HasShadowProperty, value); }
+		}
+
+		public static readonly BindableProperty ImageNameProperty = BindableProperty.Create(
+            nameof(ImageName),
+            typeof(string),
+			typeof(FloatingActionButtonView),
+            string.Empty
+		);
 
         public string ImageName
         {
@@ -28,8 +39,12 @@ namespace Solum.Renderers
             set { SetValue(ImageNameProperty, value); }
         }
 
-        public static readonly BindableProperty ColorNormalProperty =
-            BindableProperty.Create<FloatingActionButtonView, Color>(p => p.ColorNormal, Color.White);
+		public static readonly BindableProperty ColorNormalProperty = BindableProperty.Create(
+			nameof(ColorNormal),
+			typeof(Color),
+			typeof(FloatingActionButtonView),
+			Color.White
+		);
 
         public Color ColorNormal
         {
@@ -37,8 +52,12 @@ namespace Solum.Renderers
             set { SetValue(ColorNormalProperty, value); }
         }
 
-        public static readonly BindableProperty ColorPressedProperty =
-            BindableProperty.Create<FloatingActionButtonView, Color>(p => p.ColorPressed, Color.White);
+		public static readonly BindableProperty ColorPressedProperty = BindableProperty.Create(
+            nameof(ColorPressed),
+			typeof(Color),
+			typeof(FloatingActionButtonView),
+			Color.White
+		);
 
         public Color ColorPressed
         {
@@ -46,8 +65,12 @@ namespace Solum.Renderers
             set { SetValue(ColorPressedProperty, value); }
         }
 
-        public static readonly BindableProperty ColorRippleProperty =
-            BindableProperty.Create<FloatingActionButtonView, Color>(p => p.ColorRipple, Color.White);
+		public static readonly BindableProperty ColorRippleProperty = BindableProperty.Create(
+			nameof(ColorRipple),
+			typeof(Color),
+			typeof(FloatingActionButtonView),
+			Color.White
+		);
 
         public Color ColorRipple
         {
@@ -55,18 +78,17 @@ namespace Solum.Renderers
             set { SetValue(ColorRippleProperty, value); }
         }
 
-        public static readonly BindableProperty SizeProperty =
-            BindableProperty.Create<FloatingActionButtonView, FloatingActionButtonSize>(p => p.Size,
-                FloatingActionButtonSize.Normal);
+		public static readonly BindableProperty SizeProperty = BindableProperty.Create(
+			nameof(Size),
+			typeof(FloatingActionButtonSize),
+			typeof(FloatingActionButtonView),
+			FloatingActionButtonSize.Normal
+		);
 
         public FloatingActionButtonSize Size
         {
             get { return (FloatingActionButtonSize) GetValue(SizeProperty); }
             set { SetValue(SizeProperty, value); }
         }
-
-        public static readonly BindableProperty HasShadowProperty =
-            BindableProperty.Create<FloatingActionButtonView, bool>(p => p.HasShadow, true);
-#pragma warning restore CS0618 // Type or member is obsolete
     }
 }

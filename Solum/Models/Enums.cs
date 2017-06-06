@@ -13,4 +13,9 @@
     {
         Arenosa, Media, Argilosa, MuitoArgilosa
     }
+
+	public enum Provider
+	{
+		Google
+	}
 }

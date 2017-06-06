@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <Application 
 	xmlns="http://xamarin.com/schemas/2014/forms" 
@@ -9,12 +9,13 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<Color x:Key="loginBackgroundPrimary">#B7E2E4</Color>
-        	<Color x:Key="loginBackgroundDark">#40a6ab</Color>
+        	<Color x:Key="loginBackgroundDark">#E6E6E6</Color>
 			<Color x:Key="colorPrimary">#2FBC5A</Color>
 			<Color x:Key="colorPrimaryDark">#1FA549</Color>
 			<Color x:Key="colorAccent">#FFD54F</Color>
 			<Color x:Key="colorTextPrimary">#1a4547</Color>
 			<Color x:Key="colorTextSecundary">#7B9092</Color>
+			<Color x:Key="colorTextTertiary">#6F6F6F</Color>
 			<Color x:Key="colorSeparator">#C8C7CC</Color>
 			<Color x:Key="colorSeparatorEntry">#7B9092</Color>
 			<Color x:Key="colorTextHint">#358a8e</Color>
@@ -34,17 +35,21 @@
 			<Color x:Key="redPrimary">#F56D50</Color>
 			<Color x:Key="redDark">#A83D26</Color>
 
-			<Color x:Key="facebookColor">#3C5A96</Color>
+			<Color x:Key="googleColor">#EEEEEE</Color>
 			<Color x:Key="linkColor">#2b6e71</Color>
 	
 			<Style x:Key="buttonStyle" TargetType="Button">
 				<Setter Property="TextColor" Value="{StaticResource colorTextPrimary}" />
 				<Setter Property="BorderRadius" Value="4" />
 				<Setter Property="BackgroundColor" Value="{StaticResource colorAccent}" />
+				<Setter Property="HeightRequest" Value="40" />
 				<Setter Property="FontSize">
 					<Setter.Value>
-						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
-					</Setter.Value>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">17</On>
+                            <On Platform="Android">14</On>
+                        </OnPlatform>
+                    </Setter.Value>
 				</Setter>
 			</Style>
 			<Style TargetType="Button" BasedOn="{StaticResource buttonStyle}" />
@@ -52,19 +57,22 @@
 				<Setter Property="TextColor" Value="White" />
 				<Setter Property="BackgroundColor" Value="{StaticResource redPrimary}" />
 			</Style>
-			<Style x:Key="buttonFacebookStyle" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
-				<Setter Property="TextColor" Value="White" />
-				<Setter Property="BackgroundColor" Value="{StaticResource facebookColor}" />
+			<Style x:Key="buttonGoogleStyle" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
+				<Setter Property="TextColor" Value="#757575" />
+				<Setter Property="BackgroundColor" Value="{StaticResource googleColor}" />
 			</Style>
 			<Style x:Key="secondaryButton" TargetType="Button" BasedOn="{StaticResource buttonStyle}">
-				<Setter Property="BackgroundColor" Value="#FFF" />
+				<Setter Property="BackgroundColor" Value="#EEE" />
 			</Style>
 
 			<Style x:Key="entryStyle" TargetType="Entry">
 				<Setter Property="PlaceholderColor" Value="{StaticResource colorTextHint}" />
 				<Setter Property="FontSize">
 					<Setter.Value>
-						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+						<OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">17</On>
+                            <On Platform="Android">14</On>
+                        </OnPlatform>
 					</Setter.Value>
 				</Setter>
 			</Style>
@@ -74,7 +82,10 @@
 				<Setter Property="PlaceholderColor" Value="{StaticResource colorTextHint}" />
 				<Setter Property="FontSize">
 					<Setter.Value>
-						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+						<OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">17</On>
+                            <On Platform="Android">14</On>
+                        </OnPlatform>
 					</Setter.Value>
 				</Setter>
 			</Style>
@@ -84,7 +95,10 @@
 				<Setter Property="TextColor" Value="{StaticResource colorTextPrimary}" />
 				<Setter Property="FontSize">
 					<Setter.Value>
-						<OnPlatform x:TypeArguments="x:Double" iOS="17" Android="14" />
+						<OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">17</On>
+                            <On Platform="Android">14</On>
+                        </OnPlatform>
 					</Setter.Value>
 				</Setter>
 			</Style>
@@ -93,9 +107,18 @@
 				<Setter Property="TextColor" Value="{StaticResource colorTextSecundary}" />
 				<Setter Property="FontSize">
 					<Setter.Value>
-						<OnPlatform x:TypeArguments="x:Double" iOS="13" Android="14" />
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">13</On>
+                            <On Platform="Android">14</On>
+                        </OnPlatform>
 					</Setter.Value>
 				</Setter>
+                <Setter Property="Margin">
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS">16,24,16,4</On>
+                        <On Platform="Android">16, 13</On>
+                    </OnPlatform>
+                </Setter>
 			</Style>
 			<Style x:Key="titleStyle" TargetType="Label">
 				<Setter Property="HorizontalTextAlignment" Value="Center" />
@@ -103,6 +126,18 @@
 				<Setter Property="FontSize" Value="Large" />
 				<Setter Property="FontAttributes" Value="Bold" />
 			</Style>
+
+            <Style x:Key="separatorStyle" TargetType="BoxView">
+                <Setter Property="BackgroundColor" Value="{StaticResource colorSeparator}" />
+                <Setter Property="HeightRequest">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">0.5</On>
+                            <On Platform="Android">0.3</On>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
 		</ResourceDictionary>
 	</Application.Resources>

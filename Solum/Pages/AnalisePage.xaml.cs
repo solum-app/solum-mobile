@@ -20,13 +20,13 @@ namespace Solum.Pages
             NavigationPage.SetBackButtonTitle(this, "Voltar");
         }
 
-        private void OnEntryFocused(object sender, EventArgs e)
+        private void OnEntryFocused(object sender, FocusEventArgs e)
         {
             if (Device.RuntimePlatform == "Android")
                 boxSpacing.IsVisible = !boxSpacing.IsVisible;
         }
 
-        private void OnEntryUnfocused(object sender, EventArgs e)
+        private void OnEntryUnfocused(object sender, FocusEventArgs e)
         {
            	if (Device.RuntimePlatform == "Android")
                 boxSpacing.IsVisible = false;

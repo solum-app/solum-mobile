@@ -69,24 +69,5 @@ namespace Solum.Pages
             var context = BindingContext as FazendaListViewModel;
             context?.EditCommand.Execute(fazenda);
         }
-
-        private async void OnDelete(object sender, EventArgs e)
-        {
-            var fazenda = (sender as MenuItem)?.CommandParameter;
-            var context = BindingContext as FazendaListViewModel;
-            var canDelete = await context?.CanDelete((fazenda as Fazenda)?.Id);
-            if (canDelete)
-            {
-                var confirm = await DisplayAlert("Confirmação", "Tem certeza que deseja excluir este item?", "Sim",
-                    "Não");
-                if (confirm)
-                    context?.DeleteCommand.Execute(fazenda);
-            }
-            else
-            {
-                "Essa fazenda não pode ser removida, existem análises atreladas à ela.\nRemova as análises primeiro"
-                    .ToDisplayAlert(MessageType.Aviso);
-            }
-        }
     }
 }

@@ -35,23 +35,6 @@ namespace Solum.Renderers
             Color.Gray
         );
 
-        public static BindableProperty ItemsSourceProperty = BindableProperty.Create(
-            nameof(ItemsSource),
-            typeof(IEnumerable),
-            typeof(CustomPicker),
-            default(IEnumerable),
-            propertyChanged: OnItemsSourceChanged
-        );
-
-        public static BindableProperty SelectedItemProperty = BindableProperty.Create(
-            nameof(SelectedItem),
-            typeof(object),
-            typeof(CustomPicker),
-            default(object),
-            BindingMode.TwoWay,
-            propertyChanged: OnSelectedItemChanged
-        );
-
         public static BindableProperty ItemSelectedCommandProperty = BindableProperty.Create(
             nameof(ItemSelectedCommand),
             typeof(ICommand),
@@ -103,57 +86,13 @@ namespace Solum.Renderers
             set { this.SetValue(ItemSelectedCommandProperty, value); }
         }
 
-        public IEnumerable ItemsSource
-        {
-            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
-        }
-
-        public object SelectedItem
-        {
-            get { return (object)GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
-        }
-
-        private static void OnItemsSourceChanged(BindableObject bindable, object oldvalue, object newvalue)
-        {
-            var picker = bindable as CustomPicker;
-            picker.Items.Clear();
-            if (newvalue != null)
-            {
-                foreach (var item in (newvalue as IEnumerable))
-                {
-                    picker.Items.Add(item.ToString());
-                }
-            }
-        }
-
         private void OnSelectedIndexChanged(object sender, EventArgs eventArgs)
         {
-            if (SelectedIndex < 0 || SelectedIndex > Items.Count - 1)
-            {
-                SelectedItem = null;
-            }
-            else
-            {
-                var items = this.ItemsSource as IList;
-                SelectedItem = items[SelectedIndex];
-            }
-        }
-
-        private static void OnSelectedItemChanged(BindableObject bindable, object oldvalue, object newvalue)
-        {
-            var picker = bindable as CustomPicker;
-            if (newvalue != null)
-            {
-                picker.SelectedIndex = picker.Items.IndexOf(newvalue.ToString());
-
-                var items = picker.ItemsSource as IList;
-                if (picker.ItemSelectedCommand != null && picker.ItemSelectedCommand.CanExecute(items[picker.SelectedIndex]))
-                {
-                    picker.ItemSelectedCommand.Execute(items[picker.SelectedIndex]);
-                }
-            }
+            var picker = sender as CustomPicker;
+            if (picker.ItemSelectedCommand != null && picker.ItemSelectedCommand.CanExecute(picker.SelectedIndex))
+			{
+                picker.ItemSelectedCommand.Execute(picker.SelectedIndex);
+			}
         }
     }
 

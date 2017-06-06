@@ -1,104 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:effects="clr-namespace:Solum.Effects"
-             xmlns:renderers="clr-namespace:Solum.Renderers" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Solum.Pages.SemeaduraPage" Title="{Binding PageTitle}">
-	<ScrollView Grid.Row="0" BackgroundColor="{StaticResource colorBackground}">
-		<StackLayout Spacing="0">
-			<Label TextColor="{StaticResource colorTextSecundary}" Text="INFORMAÇÕES DE PRODUTIVIDADE">
-				<Label.Margin>
-					<OnPlatform x:TypeArguments="Thickness" iOS="16,24,16,4" Android="16, 13" />
-				</Label.Margin>
-				<Label.FontSize>
-					<OnPlatform x:TypeArguments="x:Double" iOS="13" Android="14" />
-				</Label.FontSize>
-			</Label>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-				<BoxView Grid.ColumnSpan="3" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-				<Label Text="Expectativa de Rendimento" VerticalOptions="Center" Grid.Column="1"
-				       TextColor="{StaticResource colorTextPrimary}" />
-
-				<renderers:CustomPicker
-					x:Name="ExpectativaPicker"
-					ItemsSource="{Binding Expectativas}"
-					SelectedItem="{Binding ExpectativaSelected}"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					HasBorder="false"
-					Title="t/ha"
-					TextAlignment="Right">
-				</renderers:CustomPicker>
-
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
-				         VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Label Text="Cultura" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				<renderers:CustomPicker
-					x:Name="CulturaPicker"
-                    ItemsSource="{Binding Culturas}"
-                    SelectedItem="{Binding CulturaSelected}"
-                    VerticalOptions="Center"
-                    Grid.Column="2" 
-					Margin="16,0"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:renderers="clr-namespace:Solum.Renderers"
+    xmlns:handlers="clr-namespace:Solum.Handlers"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Solum.Pages.SemeaduraPage"
+    Title="{Binding PageTitle}">
+    <ScrollView BackgroundColor="{StaticResource colorBackground}"
+        Grid.Row="0">
+        <StackLayout Spacing="0">
+            <Label Style="{StaticResource headerStyle}"
+                Text="INFORMAÇÕES DE PRODUTIVIDADE"/>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.ColumnSpan="3"
+                    VerticalOptions="Start"/>
+                <Label Grid.Column="1"
+                    Text="Cultura"
+                    TextColor="{StaticResource colorTextPrimary}"
+                    VerticalOptions="Center"/>
+                <renderers:CustomPicker x:Name="CulturaPicker"
+                    Grid.Column="2"
                     HasBorder="false"
+                    ItemsSource="{Binding Culturas}"
+                    Margin="16,0"
+                    SelectedItem="{Binding CulturaSelected}"
+                    TextAlignment="Right"
                     Title="Selecione a cultura"
-                    TextAlignment="Right">
-				</renderers:CustomPicker>
-			</Grid>
-			<BoxView BackgroundColor="{StaticResource colorSeparator}"
-			         VerticalOptions="End">
-				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double"
-					            iOS="0.5"
-					            Android="0.3" />
-				</BoxView.HeightRequest>
-			</BoxView>
-
-			<Label
-				Text="AVISO! O nível de Potássio de sua análise está baixo, para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva."
-				TextColor="{StaticResource colorTextPrimary}"
-				Margin="16"
-				FontSize="Small"
-				IsVisible="{Binding JustPotassioBaixo}" />
-
-			<Label
-				Text="AVISO! O nível de Fosforo de sua análise está baixo, para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva."
-				TextColor="{StaticResource colorTextPrimary}"
-				Margin="16"
-				FontSize="Small"
-				IsVisible="{Binding JustFosforoBaixo}" />
-
-			<Label
-				Text="AVISO! O nível de Potássio e Fosforo de sua análise estão baixos, para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva."
-				TextColor="{StaticResource colorTextPrimary}"
-				Margin="16"
-				FontSize="Small"
-				IsVisible="{Binding IsPotassioFosforoBaixo}" />
-
-			<Button Text="Recomendação" Command="{Binding RecomendarCommand}" IsEnabled="true" Margin="16"
-			        BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}"
-			        VerticalOptions="EndAndExpand" />
-		</StackLayout>
-	</ScrollView>
+                    VerticalOptions="Center">
+                </renderers:CustomPicker>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="Expectativa de Rendimento"
+                    TextColor="{StaticResource colorTextPrimary}"
+                    VerticalOptions="Center"/>
+                <renderers:CustomPicker x:Name="ExpectativaPicker"
+                    Grid.Column="2"
+                    HasBorder="false"
+                    ItemsSource="{Binding Expectativas}"
+                    Margin="16,0"
+                    SelectedItem="{Binding ExpectativaSelected}"
+                    TextAlignment="Right"
+                    Title="t/ha"
+                    VerticalOptions="Center">
+                </renderers:CustomPicker>
+            </Grid>
+            <BoxView Style="{StaticResource separatorStyle}"
+                VerticalOptions="End"/>
+            <Label FontSize="Small"
+                IsVisible="{Binding JustPotassioBaixo}"
+                Margin="16"
+                Text="AVISO! O nível de Potássio de sua análise está baixo, para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva."
+                TextColor="{StaticResource colorTextPrimary}"/>
+            <Label FontSize="Small"
+                IsVisible="{Binding JustFosforoBaixo}"
+                Margin="16"
+                Text="AVISO! O nível de Fosforo de sua análise está baixo, para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva."
+                TextColor="{StaticResource colorTextPrimary}"/>
+            <Label FontSize="Small"
+                IsVisible="{Binding IsPotassioFosforoBaixo}"
+                Margin="16"
+                Text="AVISO! O nível de Potássio e Fosforo de sua análise estão baixos, para realizar a recomendação de semeadura o Solum vai adotar que você corrigiu para o nível adequado utilizando nossa recomendação corretiva."
+                TextColor="{StaticResource colorTextPrimary}"/>
+            <Button BackgroundColor="{StaticResource colorAccent}"
+                Command="{Binding RecomendarCommand}"
+                Margin="16"
+                Text="Recomendação"
+                IsEnabled="{Binding IsBusy, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
+                TextColor="{StaticResource colorTextPrimary}"
+                VerticalOptions="EndAndExpand"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

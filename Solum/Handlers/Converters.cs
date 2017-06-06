@@ -5,6 +5,23 @@ using Xamarin.Forms;
 
 namespace Solum.Handlers
 {
+
+	public class AreaGTZeroConverter : IValueConverter
+	{
+		public static AreaGTZeroConverter Instance = new AreaGTZeroConverter();
+
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+            string area = value as string;
+            return string.IsNullOrEmpty(area) ? "Área não informada" : $"Área {area} ha";
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return !(bool)value;
+		}
+	}
+
     public class IverseBoolConverter : IValueConverter
     {
         public static IverseBoolConverter Instance = new IverseBoolConverter();

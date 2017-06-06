@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Handlers;
+using Solum.Interfaces;
 using Solum.Models;
 using Solum.Pages;
 using Solum.Service;
@@ -13,6 +14,7 @@ namespace Solum.ViewModel
     public class FazendaListViewModel : BaseViewModel
     {
         private readonly bool _fromAnalise;
+        private readonly IUserDialogs _userDialogs;
         private ICommand _deleteCommand;
         private ICommand _editCommand;
         private ICommand _itemTappedCommand;
@@ -26,6 +28,8 @@ namespace Solum.ViewModel
             HasItems = IsLoading;
             LoadFazendaList();
             _fromAnalise = fromAnalise;
+            _userDialogs = DependencyService.Get<IUserDialogs>();
+
         }
 
         public bool IsLoading
@@ -48,14 +52,14 @@ namespace Solum.ViewModel
         }
 
 
-        public ICommand EditCommand => _editCommand ??
-                                       (_editCommand = new Command(fazenda => Edit(fazenda as Fazenda)));
+        public ICommand EditCommand 
+        => _editCommand ?? (_editCommand = new Command(async(fazenda) => await Edit(fazenda as Fazenda)));
 
         public ICommand DeleteCommand
-            => _deleteCommand ?? (_deleteCommand = new Command(fazenda => Delete(fazenda as Fazenda)));
+        => _deleteCommand ?? (_deleteCommand = new Command(async(fazenda) => await Delete(fazenda as Fazenda)));
 
         public ICommand ItemTappedCommand
-            => _itemTappedCommand ?? (_itemTappedCommand = new Command(fazenda => Details(fazenda as Fazenda)));
+        => _itemTappedCommand ?? (_itemTappedCommand = new Command(async(fazenda) => await Details(fazenda as Fazenda)));
 
 
 		private async Task Details(Fazenda fazenda)
@@ -86,10 +90,22 @@ namespace Solum.ViewModel
 
 		private async Task Delete(Fazenda fazenda)
         {
-            await AzureService.Instance.DeleteFazendaAsync(fazenda);
-            Fazendas.Remove(fazenda);
-            HasItems = Fazendas.Any();
-            MessagesResource.FazendaRemocaoSucesso.ToToast();
+            if (await CanDelete(fazenda.Id))
+			{
+                var confirm = await _userDialogs.DisplayAlert(MessagesResource.ExcluirConfirmacao, "Sim", "Não");
+                if (confirm & !IsBusy) {
+                    IsBusy = true;
+					await AzureService.Instance.DeleteFazendaAsync(fazenda);
+					Fazendas.Remove(fazenda);
+					HasItems = Fazendas.Any();
+                    _userDialogs.ShowToast(MessagesResource.FazendaRemocaoSucesso);
+                    IsBusy = false;
+                }
+			}
+			else
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.FazendaRemocaoBloqueio);;
+			}
         }
 
         public async Task<bool> CanDelete(string fazendaId)

@@ -6,8 +6,18 @@
 	<string>Solum</string>
 	<key>CFBundleIdentifier</key>
 	<string>br.com.sydy.solum</string>
-	<key>CFBundleVersion</key>
-	<string>1.1</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.479539108104-64h3prma905gl89ao3n8accbeftu4e7o</string>
+				<string>br.com.sydy.solum</string>
+			</array>
+		</dict>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
@@ -48,5 +58,7 @@
 	<string>Resources/Images.xcassets/LaunchImage.launchimage</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Este aplicativo precisa acessar a galeria de imagens</string>
+	<key>Custom Property</key>
+	<string></string>
 </dict>
 </plist>

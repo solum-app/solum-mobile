@@ -263,4 +263,52 @@
   <data name="DadosSalvos" xml:space="preserve">
     <value>As informações foram salvas</value>
   </data>
+  <data name="ExpectativaNull" xml:space="preserve">
+    <value>Selecione a sua expectativa de rendimento</value>
+  </data>
+  <data name="CulturaNull" xml:space="preserve">
+    <value>Selecione a cultura</value>
+  </data>
+  <data name="CadastroSucesso" xml:space="preserve">
+    <value>Cadastro realizado com sucesso</value>
+  </data>	
+  <data name="CadastroFalha" xml:space="preserve">
+    <value>Não foi possível realizar seu cadastro</value>
+  </data>   
+  <data name="V2Null" xml:space="preserve">
+    <value>Selecione um valor para V2</value>
+  </data> 
+  <data name="PRNTNull" xml:space="preserve">
+    <value>Informe um valor para PRNT</value>
+  </data> 
+  <data name="ProfundidadeNull" xml:space="preserve">
+    <value>Selecione um valor para profundidade</value>
+  </data> 
+  <data name="PRNTInvalido" xml:space="preserve">
+    <value>O valor de PRNT deve estar entre 0 e 100</value>
+  </data> 
+  <data name="ExcluirConfirmacao" xml:space="preserve">
+    <value>Tem certeza que deseja excluir este item?</value>
+  </data> 	
+  <data name="FazendaRemocaoBloqueio" xml:space="preserve">
+    <value>Essa fazenda não pode ser removida pois existem análises vinculdas</value>
+  </data>   	
+  <data name="TalhaoRemocaoBloqueio" xml:space="preserve">
+    <value>Esse talhão não pode ser removido pois existem análises vinculdas</value>
+  </data> 
+  <data name="InterpretacaoNull" xml:space="preserve">
+    <value>Você precisa ao menos realizar a interpretação dos dados</value>
+  </data> 
+  <data name="CalagemNull" xml:space="preserve">
+    <value>Você precisa executar o cálculo para recomendação de calagem primeiro</value>
+  </data> 	
+  <data name="CorretivaNull" xml:space="preserve">
+    <value>Você precisa executar o cálculo da recomendação corretiva primeiro</value>
+  </data> 	
+    <data name="SemeaduraNull" xml:space="preserve">
+    <value>Você precisa executar a recomendação de semeadura primeiro</value>
+  </data> 
+  <data name="LoginFail" xml:space="preserve">
+    <value>Não foi possível realizar login. Tente novamente mais tarde</value>
+  </data> 
 </root>

@@ -11,17 +11,14 @@ namespace Solum.ViewModel
 {
     public class AdubacaoCoberturaViewModel : BaseViewModel
     {
+        private readonly IUserDialogs _userDialogs;
         private Analise _analise;
         private Cultura _cultura;
-
-
         private bool _enableButton;
-        private string _expectativa;
-        private string _k2O;
-
-        private string _n;
-        private string _p2O5;
-
+        private int _expectativa;
+        private float _k2O;
+        private float _n;
+        private float _p2O5;
         private ICommand _saveCommand;
 
         public AdubacaoCoberturaViewModel(INavigation navigation, string analiseid,
@@ -32,13 +29,14 @@ namespace Solum.ViewModel
                 {
                     _analise = t.Result;
                     PageTitle = _analise.Identificacao;
-                    Cultura c;
-                    Enum.TryParse(_analise.Cultura, out c);
+                    Enum.TryParse(_analise.Cultura, out Cultura c);
                     Cultura = c;
-                    Expectativa = _analise.Expectativa.ToString();
-                    Calculate();
+                    Expectativa = _analise.Expectativa;
+                    Init(Expectativa, Cultura);
                     EnableButton = enableButton;
                 });
+
+            _userDialogs = DependencyService.Get<IUserDialogs>();
         }
 
 		public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new Command(async ()=> await Salvar()));
@@ -49,7 +47,7 @@ namespace Solum.ViewModel
 			set { SetPropertyChanged(ref _enableButton, value); }
         }
 
-        public string Expectativa
+        public int Expectativa
         {
 			get { return _expectativa; }
 			set { SetPropertyChanged(ref _expectativa, value); }
@@ -61,41 +59,40 @@ namespace Solum.ViewModel
 			set { SetPropertyChanged(ref _cultura, value); }
         }
 
-        public string N
+        public float N
         {
 			get { return _n; }
 			set { SetPropertyChanged(ref _n, value); }
         }
 
-        public string P2O5
+        public float P2O5
         {
 			get { return _p2O5; }
 			set { SetPropertyChanged(ref _p2O5, value); }
         }
 
-        public string K2O
+        public float K2O
         {
 			get { return _k2O; }
 			set { SetPropertyChanged(ref _k2O, value); }
         }
 
 
-        private void Calculate()
+        private void Init(int expectativa, Cultura cultura)
         {
-            var calculator = CoberturaInjector.GetInstance(Cultura);
-            N = calculator?.CalculateN(_analise.Expectativa);
-            P2O5 = calculator?.CalculateP(_analise.Expectativa);
-            K2O = calculator?.CalculateK(_analise.Expectativa);
+            var calculator = CoberturaInjector.GetInstance(cultura);
+            N = calculator.QuanidadeNitrogenio(expectativa);
+            P2O5 = calculator.QuantidadeFosforo(expectativa);
+            K2O = calculator.QuantidadePotassio(expectativa);
         }
 
 		private async Task Salvar()
         {
-			if (IsBusy) return;
             IsBusy = true;
             _analise.DataCalculoCobertura = DateTimeOffset.Now;
             _analise.HasCobertura = true;
-            await AzureService.Instance.UpdateAnaliseAsync(_analise);
-            MessagesResource.DadosSalvos.ToToast();
+			await AzureService.Instance.AddOrUpdateAnaliseAsync(_analise);
+            _userDialogs.ShowToast(MessagesResource.DadosSalvos);
             await Navigation.PopAsync();
             IsBusy = false;
         }

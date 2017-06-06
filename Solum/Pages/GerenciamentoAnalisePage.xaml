@@ -1,147 +1,250 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage 
-	xmlns="http://xamarin.com/schemas/2014/forms" 
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-	xmlns:converter="clr-namespace:Solum.Handlers;" 
-	x:Class="Solum.Pages.GerenciamentoAnalisePage" 
-	Title="Análise">
-	
-	<ScrollView BackgroundColor="{StaticResource colorBackground}">
-		<StackLayout Spacing="0">
-			<Label Text="GERENCIAMENTO">
-				<Label.Margin>
-					<OnPlatform x:TypeArguments="Thickness" iOS="16,24,16,4" Android="16, 13" />
-				</Label.Margin>
-			</Label>
-			<!--Interpretação-->
-			<Grid BackgroundColor="White" HeightRequest="72" RowSpacing="0" ColumnSpacing="0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="72" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Grid.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding ShowInterpretacaoPageCommand}" NumberOfTapsRequired="1" />
-				</Grid.GestureRecognizers>
-				<BoxView Grid.ColumnSpan="2" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-				<Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status_check" IsVisible="{Binding WasInterpreted}" />
-				<Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status" IsVisible="{Binding WasInterpreted, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
-				<Label Text="Interpretação" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}" />
-				<Label Text="{Binding InterpretacaoDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}" />
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<!--Calagem-->
-			<Grid BackgroundColor="White" HeightRequest="72" RowSpacing="0" ColumnSpacing="0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="72" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Grid.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding ShowRecomendacaoCalagemPageCommand}" NumberOfTapsRequired="1" />
-				</Grid.GestureRecognizers>
-				<Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status_check" IsVisible="{Binding HasCalagemCalculation}" />
-				<Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status" IsVisible="{Binding HasCalagemCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
-				<Label Text="Calagem" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}" />
-				<Label Text="{Binding CalagemDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}" />
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<!--Adubação Corretiva-->
-			<Grid BackgroundColor="White" HeightRequest="72" RowSpacing="0" ColumnSpacing="0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="72" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Grid.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding ShowCorretivaPageCommand}" NumberOfTapsRequired="1" />
-				</Grid.GestureRecognizers>
-				<Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status_check" IsVisible="{Binding HasCorretivaCalculation}" />
-				<Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status" IsVisible="{Binding HasCorretivaCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
-				<Label Text="Adubação Corretiva" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}" />
-				<Label Text="{Binding CorretivaDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}" />
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<!--Adubação Semeadura-->
-			<Grid BackgroundColor="White" HeightRequest="72" RowSpacing="0" ColumnSpacing="0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="72" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Grid.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding ShowSemeaduraPageCommand}" />
-				</Grid.GestureRecognizers>
-				<Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status_check" IsVisible="{Binding HasSemeaduraCalculation}" />
-				<Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status" IsVisible="{Binding HasSemeaduraCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
-				<Label Text="Adubação de Semeadura" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}" />
-				<Label Text="{Binding SemeaduraDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}" />
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.Row="1" VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<!--Adubação Cobertura-->
-			<Grid BackgroundColor="White" HeightRequest="72" RowSpacing="0" ColumnSpacing="0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="72" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Grid.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding ShowCoberturaPageCommand}" NumberOfTapsRequired="1" />
-				</Grid.GestureRecognizers>
-				<Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status_check" IsVisible="{Binding HasCoberturaCalculation}" />
-				<Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Source="ic_status" IsVisible="{Binding HasCoberturaCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
-				<Label Text="Adubação de Cobertura" Grid.Column="1" Grid.Row="0" Margin="0,16,16,0" FontSize="Medium" TextColor="{StaticResource colorTextPrimary}" />
-				<Label Text="{Binding CoberturaDate}" Grid.Column="1" Grid.Row="1" FontSize="Small" TextColor="{StaticResource colorTextSecundary}" />
-			</Grid>
-			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
-				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double" iOS="0.5" Android="0.3" />
-				</BoxView.HeightRequest>
-			</BoxView>
-			<Button 
-				Text="Gerar Relatório" 
-				Command="{Binding GeneratePdfCommand}" 
-				Margin="16" 
-				VerticalOptions="EndAndExpand" 
-              	IsVisible="{Binding IsGeneratingReport, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
-			<ActivityIndicator 
-				IsRunning="{Binding IsGeneratingReport}" 
-				IsVisible="{Binding IsGeneratingReport}"/>
-		</StackLayout>
-	</ScrollView>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:converter="clr-namespace:Solum.Handlers;"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Solum.Pages.GerenciamentoAnalisePage"
+    Title="Análise">
+    <ScrollView BackgroundColor="{StaticResource colorBackground}">
+        <StackLayout Spacing="0">
+            <Label Style="{StaticResource headerStyle}"
+                Text="GERENCIAMENTO"/>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="72"
+                RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="72"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowInterpretacaoPageCommand}"
+                        NumberOfTapsRequired="1"/>
+                </Grid.GestureRecognizers>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="Start"/>
+                <Image Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding WasInterpreted}"
+                    Source="ic_status_check"
+                    VerticalOptions="Center"/>
+                <Image Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding WasInterpreted, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+                    Source="ic_status"
+                    VerticalOptions="Center"/>
+                <Label FontSize="Medium"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Margin="0,16,16,0"
+                    Text="Interpretação"
+                    TextColor="{StaticResource colorTextPrimary}"/>
+                <Label FontSize="Small"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Text="{Binding InterpretacaoDate}"
+                    TextColor="{StaticResource colorTextSecundary}"/>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="72"
+                RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="72"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowRecomendacaoCalagemPageCommand}"
+                        NumberOfTapsRequired="1"/>
+                </Grid.GestureRecognizers>
+                <Image Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasCalagemCalculation}"
+                    Source="ic_status_check"
+                    VerticalOptions="Center"/>
+                <Image Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasCalagemCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+                    Source="ic_status"
+                    VerticalOptions="Center"/>
+                <Label FontSize="Medium"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Margin="0,16,16,0"
+                    Text="Calagem"
+                    TextColor="{StaticResource colorTextPrimary}"/>
+                <Label FontSize="Small"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Text="{Binding CalagemDate}"
+                    TextColor="{StaticResource colorTextSecundary}"/>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="72"
+                RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="72"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowCorretivaPageCommand}"
+                        NumberOfTapsRequired="1"/>
+                </Grid.GestureRecognizers>
+                <Image Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasCorretivaCalculation}"
+                    Source="ic_status_check"
+                    VerticalOptions="Center"/>
+                <Image Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasCorretivaCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+                    Source="ic_status"
+                    VerticalOptions="Center"/>
+                <Label FontSize="Medium"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Margin="0,16,16,0"
+                    Text="Adubação Corretiva"
+                    TextColor="{StaticResource colorTextPrimary}"/>
+                <Label FontSize="Small"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Text="{Binding CorretivaDate}"
+                    TextColor="{StaticResource colorTextSecundary}"/>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="72"
+                RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="72"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowSemeaduraPageCommand}"/>
+                </Grid.GestureRecognizers>
+                <Image Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasSemeaduraCalculation}"
+                    Source="ic_status_check"
+                    VerticalOptions="Center"/>
+                <Image Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasSemeaduraCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+                    Source="ic_status"
+                    VerticalOptions="Center"/>
+                <Label FontSize="Medium"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Margin="0,16,16,0"
+                    Text="Adubação de Semeadura"
+                    TextColor="{StaticResource colorTextPrimary}"/>
+                <Label FontSize="Small"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Text="{Binding SemeaduraDate}"
+                    TextColor="{StaticResource colorTextSecundary}"/>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="72"
+                RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="72"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowCoberturaPageCommand}"
+                        NumberOfTapsRequired="1"/>
+                </Grid.GestureRecognizers>
+                <Image Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasCoberturaCalculation}"
+                    Source="ic_status_check"
+                    VerticalOptions="Center"/>
+                <Image Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasCoberturaCalculation, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+                    Source="ic_status"
+                    VerticalOptions="Center"/>
+                <Label FontSize="Medium"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Margin="0,16,16,0"
+                    Text="Adubação de Cobertura"
+                    TextColor="{StaticResource colorTextPrimary}"/>
+                <Label FontSize="Small"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Text="{Binding CoberturaDate}"
+                    TextColor="{StaticResource colorTextSecundary}"/>
+            </Grid>
+            <BoxView Style="{StaticResource separatorStyle}"
+                VerticalOptions="End"/>
+            <Button Command="{Binding GeneratePdfCommand}"
+                IsVisible="{Binding IsBusy, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+                Margin="16"
+                Text="Gerar Relatório"
+                VerticalOptions="EndAndExpand"/>
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

@@ -13,18 +13,5 @@ namespace Solum.Pages
             BindingContext = new CalagemViewModel(Navigation, analiseId);
             NavigationPage.SetBackButtonTitle(this, "Voltar");
         }
-
-        private void PrntEntry_OnFocused(object sender, FocusEventArgs e)
-        {
-            var text = ((Entry) sender).Text;
-            if(!string.IsNullOrEmpty(text))
-                ((Entry) sender).Text = text.Replace("%", "").Trim();
-        }
-
-        private void PrntEntry_OnUnfocused(object sender, FocusEventArgs e)
-        {
-            if(!string.IsNullOrEmpty(((Entry)sender).Text))
-                ((Entry)sender).Text += " %";
-        }
     }
 }

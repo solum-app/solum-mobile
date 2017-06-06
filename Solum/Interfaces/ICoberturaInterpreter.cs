@@ -4,9 +4,9 @@ namespace Solum.Interfaces
 {
     public interface ICoberturaInterpreter
     {
-        string CalculateN(int expectativa);
-        string CalculateP(int expectativa);
-        string CalculateK(int expectativa);
+        float QuanidadeNitrogenio(int expectativa);
+        float QuantidadeFosforo(int expectativa);
+        float QuantidadePotassio(int expectativa);
     }
 
     public class MilhoCoberturaInterpreter : ICoberturaInterpreter
@@ -19,41 +19,41 @@ namespace Solum.Interfaces
             
         }
 
-        public string CalculateN(int expectativa)
+        public float QuanidadeNitrogenio(int expectativa)
         {
             switch (expectativa)
             {
                 case 6:
-                    return 40.0f.ToString();
+                    return 40.0f;
                 case 8:
-                    return 70.0f.ToString();
+                    return 70.0f;
                 case 10:
-                    return 130.0f.ToString();
+                    return 130.0f;
                 case 12:
-                    return 180.0f.ToString();
+                    return 180.0f;
             }
-            return 0.ToString();
+            return 0;
         }
 
-        public string CalculateP(int expectativa)
+        public float QuantidadeFosforo(int expectativa)
         {
-            return 0.ToString();
+            return 0;
         }
 
-        public string CalculateK(int expectativa)
+        public float QuantidadePotassio(int expectativa)
         {
             switch (expectativa)
             {
                 case 6:
-                    return 0.0f.ToString();
+                    return 0.0f;
                 case 8:
-                    return 30.0f.ToString();
+                    return 30.0f;
                 case 10:
-                    return 60.0f.ToString();
+                    return 60.0f;
                 case 12:
-                    return 90.0f.ToString();
+                    return 90.0f;
             }
-            return 0.ToString();
+            return 0;
         }
     }
 

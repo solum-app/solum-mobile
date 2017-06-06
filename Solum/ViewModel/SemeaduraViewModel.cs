@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Handlers;
+using Solum.Interfaces;
 using Solum.Models;
 using Solum.Pages;
 using Solum.Service;
@@ -13,6 +14,7 @@ namespace Solum.ViewModel
 {
     public class SemeaduraViewModel : BaseViewModel
     {
+        private readonly IUserDialogs _userDialogs;
         private Analise _analise;
         private IList<DisplayEnum> _culturas;
         private DisplayEnum _culturaSelected;
@@ -52,6 +54,8 @@ namespace Solum.ViewModel
                         ExpectativaSelected = Expectativas.FirstOrDefault(x => x.Value == _analise.Expectativa);
                     }
                 });
+
+            _userDialogs = DependencyService.Get<IUserDialogs>();
         }
 
 
@@ -102,22 +106,19 @@ namespace Solum.ViewModel
         {
             if (ExpectativaSelected == null)
             {
-                "Selecione a sua expectativa".ToDisplayAlert(MessageType.Aviso);
+                _userDialogs.DisplayAlert(MessagesResource.ExpectativaNull);
                 return;
             }
 
             if (CulturaSelected == null)
             {
-                "Selecione a cultura".ToDisplayAlert(MessageType.Aviso);
+                _userDialogs.DisplayAlert(MessagesResource.CulturaNull);
                 return;
             }
 
-            if (IsNotBusy)
-            {
-                IsBusy = true;
-                await Navigation.PushAsync(new RecomendacaoSemeaduraPage(_analise.Id, (int)ExpectativaSelected.Value, (Cultura)CulturaSelected.Item, false));
-                IsBusy = false;
-            }
+            IsBusy = true;
+            await Navigation.PushAsync(new RecomendacaoSemeaduraPage(_analise.Id, (int)ExpectativaSelected.Value, (Cultura)CulturaSelected.Item, false));
+            IsBusy = false;
         }
     }
 }

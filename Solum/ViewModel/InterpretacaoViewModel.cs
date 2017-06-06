@@ -35,6 +35,7 @@ namespace Solum.ViewModel
         private Nivel _nivelV;
         private string _talhaoName;
         private Textura _textura;
+        private Analise _analise;
 
         public InterpretacaoViewModel(INavigation navigation, string analiseId) : base(navigation)
         {
@@ -51,7 +52,7 @@ namespace Solum.ViewModel
 					{
 						analise.DataInterpretacao = DateTimeOffset.Now;
 						analise.WasInterpreted = true;
-						await AzureService.Instance.UpdateAnaliseAsync(analise);
+					await AzureService.Instance.AddOrUpdateAnaliseAsync(analise);
 					}
                 });
         }
@@ -60,7 +61,7 @@ namespace Solum.ViewModel
 		{
 			FazendaName = fazenda.Nome;
 			TalhaoName = talhao.Nome;
-			
+            Analise = analise;
 			Date = analise.DataRegistro;
 	        Textura = Interpretador.Textura(analise.Argila, analise.Silte);
 	        NivelPh = Interpretador.NivelPotencialHidrogenico(analise.PotencialHidrogenico);
@@ -74,20 +75,25 @@ namespace Solum.ViewModel
 	        NivelM = Interpretador.NivelM(analise.M);
 	        NivelCaK = Interpretador.NivelCalcioPotassio(analise.CaK);
 	        NivelMgk = Interpretador.NivelMagnesioPotassio(analise.MgK);
-	        InterpretacaoTextura = TexturaConverter(Textura);
-			InterpretacaoPh = NivelPhConverter(NivelPh);
-			InterpretacaoP = NivelConverter(NivelP);
-			InterpretacaoK = NivelConverter(NivelK);
-			InterpretacaoCa = NivelConverter(NivelCa);
-			InterpretacaoMg = NivelConverter(NivelMg);
-			InterpretacaoCaK = NivelConverter(NivelCaK);
-			InterpretacaoMgK = NivelConverter(NivelMgk);
-			InterpretacaoM = NivelConverter(NivelM);
-			InterpretacaoV = NivelConverter(NivelV);
-			InterpretacaoCtc = NivelConverter(NivelCtc);
-			InterpretacaoMo = NivelConverter(NivelMo);
+	        InterpretacaoTextura = Interpretador.TexturaConverter(Textura);
+			InterpretacaoPh = Interpretador.NivelPhConverter(NivelPh);
+			InterpretacaoP = Interpretador.NivelConverter(NivelP);
+			InterpretacaoK = Interpretador.NivelConverter(NivelK);
+			InterpretacaoCa = Interpretador.NivelConverter(NivelCa);
+			InterpretacaoMg = Interpretador.NivelConverter(NivelMg);
+			InterpretacaoCaK = Interpretador.NivelConverter(NivelCaK);
+			InterpretacaoMgK = Interpretador.NivelConverter(NivelMgk);
+			InterpretacaoM = Interpretador.NivelConverter(NivelM);
+			InterpretacaoV = Interpretador.NivelConverter(NivelV);
+			InterpretacaoCtc = Interpretador.NivelConverter(NivelCtc);
+			InterpretacaoMo = Interpretador.NivelConverter(NivelMo);
 		}
 
+        public Analise Analise
+		{
+            get { return _analise; }
+            set { SetPropertyChanged(ref _analise, value); }
+		}
 
         public Nivel NivelCa
         {
@@ -249,65 +255,6 @@ namespace Solum.ViewModel
         {
 			get { return _interpretacaoMo; }
 			set { SetPropertyChanged(ref _interpretacaoMo, value); }
-        }
-
-        private string NivelPhConverter(Nivel nivel)
-        {
-            switch (nivel)
-            {
-                case Nivel.MuitoBaixo:
-                    return "Acidez Muito Baixa";
-                case Nivel.Baixo:
-                    return "Acidez Baixa";
-                case Nivel.Medio:
-                    return "Acidez Média";
-                case Nivel.Adequado:
-                    return "Acidez Adequeada";
-                case Nivel.Alto:
-                    return "Acidez Alta";
-                default:
-                    return "";
-            }
-        }
-
-        private string NivelConverter(Nivel nivel)
-        {
-            switch (nivel)
-            {
-                case Nivel.MuitoBaixo:
-                    return "Muito Baixo";
-                case Nivel.Baixo:
-                    return "Baixo";
-                case Nivel.Adequado:
-                    return "Adequado";
-                case Nivel.Medio:
-                    return "Médio";
-                case Nivel.Alto:
-                    return "Alto";
-                case Nivel.MuitoAlto:
-                    return "Muito Alto";
-                case Nivel.Nenhum:
-                    return "";
-                default:
-                    return "";
-            }
-        }
-
-        private string TexturaConverter(Textura textura)
-        {
-            switch (textura)
-            {
-                case Textura.Arenosa:
-                    return "Arenosa";
-                case Textura.Media:
-                    return "Média";
-                case Textura.Argilosa:
-                    return "Argilosa";
-                case Textura.MuitoArgilosa:
-                    return "Muito Argilosa";
-                default:
-                    return "";
-            }
         }
     }
 }

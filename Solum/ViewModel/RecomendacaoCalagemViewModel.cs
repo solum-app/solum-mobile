@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Solum.Handlers;
 using Solum.Interfaces;
 using Solum.Models;
+using Solum.Pages;
 using Solum.Service;
 using Xamarin.Forms;
 
@@ -12,6 +14,7 @@ namespace Solum.ViewModel
     public class RecomendacaoCalagemViewModel : BaseViewModel
     {
         private Analise _analise;
+        private IUserDialogs _userDialogs;
 
         private readonly IDictionary<int, float> _values = new Dictionary<int, float>
         {
@@ -21,32 +24,32 @@ namespace Solum.ViewModel
             {40, 2.0f}
         };
 
-
         private bool _enableButton;
-        private string _prnt;
-        private string _profundidade;
-        private string _quantidade;
-
+        private float _prnt;
+        private int _profundidade;
+        private float _quantidade;
         private ICommand _salvarCommand;
-        private string _v2;
+        private float _v2;
 
         public RecomendacaoCalagemViewModel(INavigation navigation, string analiseId, float v2, float prnt,
-            float profundidade, bool enableButton) : base(navigation)
+            int profundidade, bool allowEdit) : base(navigation)
         {
             AzureService.Instance.FindAnaliseAsync(analiseId).ContinueWith(t =>
             {
                 _analise = t.Result;
                 PageTitle = _analise.Identificacao;
-                Calculate();
+                QuantidadeCal = Calculador.CalcularCalcario(_analise.Prnt, _analise.V2, _analise.CTC, _analise.V, _analise.Profundidade);
             });
-            
-            V2 = v2.ToString();
-            Prnt = prnt.ToString();
-            Profundidade = profundidade.ToString();
-            EnableButton = enableButton;
+
+            V2 = v2;
+            Prnt = prnt;
+            Profundidade = profundidade;
+
+			EnableButton = !allowEdit;
+            _userDialogs = DependencyService.Get<IUserDialogs>();
         }
 
-        public ICommand SalvarCommand => _salvarCommand ?? (_salvarCommand = new Command(Salvar));
+        public ICommand SalvarCommand => _salvarCommand ?? (_salvarCommand = new Command(async () => await Salvar()));
 
 
         public bool EnableButton
@@ -55,64 +58,50 @@ namespace Solum.ViewModel
 			set { SetPropertyChanged(ref _enableButton, value); }
         }
 
-        public string QuantidadeCal
+        public float QuantidadeCal
         {
 			get { return _quantidade; }
 			set { SetPropertyChanged(ref _quantidade, value); }
         }
 
-        public string V2
+        public float V2
         {
-			get { return string.Format(_v2, "###.###"); }
+			get { return _v2; }
 			set { SetPropertyChanged(ref _v2, value); }
         }
 
-        public string Prnt
+        public float Prnt
         {
-			get { return string.Format(_prnt, "###.###"); }
+			get { return _prnt; }
 			set { SetPropertyChanged(ref _prnt, value); }
         }
 
-        public string Profundidade
+        public int Profundidade
         {
-			get { return string.Format(_profundidade, "##"); }
+			get { return _profundidade; }
 			set { SetPropertyChanged(ref _profundidade, value); }
         }
 
 
-        private async void Salvar()
+        private async Task Salvar()
         {
-            if (!IsNotBusy) return;
             IsBusy = true;
-            _analise.V2 = float.Parse(V2);
-            _analise.Prnt = float.Parse(Prnt);
-            _analise.Profundidade = int.Parse(Profundidade);
+            _analise.V2 = V2;
+            _analise.Prnt = Prnt;
+            _analise.Profundidade = Profundidade;
             _analise.DataCalculoCalagem = DateTimeOffset.Now;
             _analise.HasCalagem = true;
-            await AzureService.Instance.UpdateAnaliseAsync(_analise);
-            "Dados salvo com sucesso".ToToast(ToastNotificationType.Sucesso);
+			await AzureService.Instance.AddOrUpdateAnaliseAsync(_analise);
+            _userDialogs.ShowToast(MessagesResource.DadosSalvos);
+
+			var previous = Navigation.NavigationStack[Navigation.NavigationStack.Count - 2];
+			var beforePrevious = Navigation.NavigationStack[Navigation.NavigationStack.Count - 3];
+			Navigation.RemovePage(previous);
+			if (beforePrevious != null && beforePrevious.GetType() == typeof(RecomendacaoCalagemPage))
+				Navigation.RemovePage(beforePrevious);
+			
             await Navigation.PopAsync();
             IsBusy = false;
-        }
-
-        public void Calculate()
-        {
-            float fPrnt, fV2;
-            float.TryParse(Prnt, out fPrnt);
-            float.TryParse(V2, out fV2);
-
-            var f = 100f / fPrnt;
-            var ctc = _analise.CTC;
-
-            var x = fV2 - _analise.V;
-            var s = x * ctc;
-            var k = 100f * f;
-            var j = s / k;
-            if (_values.Keys.Contains(int.Parse(Profundidade)))
-                j *= _values[int.Parse(Profundidade)];
-            else
-                j *= _values[20];
-            QuantidadeCal = j.ToString("###.###");
         }
     }
 }

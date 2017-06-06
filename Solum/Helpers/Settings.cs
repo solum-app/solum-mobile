@@ -27,16 +27,13 @@ namespace Solum.Helpers
         private static readonly string SettingsDefault = string.Empty;
 
         private const string BaseUriKey = "BaseUri";
-        private static readonly string BaseUriValue = "https://solumtest.azurewebsites.net";
+        private static readonly string BaseUriValue = "https://solum.azurewebsites.net";
 
         private const string UserIdKey = "UserId";
         private static readonly string UserIdValue = string.Empty;
 
         private const string TokenKey = "UserToken";
         private static readonly string TokenValue = string.Empty;
-
-        private const string ProviderKey = "CustomProvider";
-        private static readonly string ProviderValue = "Identity";
 
         private const string EstadosLoadedKey = "EstadosLoaded";
         private static readonly bool EstadosLoadedValue = false;
@@ -68,12 +65,6 @@ namespace Solum.Helpers
             set { AppSettings.AddOrUpdateValue(TokenKey, value); }
         }
 
-        public static string AuthProvider
-        {
-            get { return AppSettings.GetValueOrDefault(ProviderKey, ProviderValue); }
-            set { AppSettings.AddOrUpdateValue(ProviderKey, value); }
-        }
-
         public static bool EstadosLoaded
         {
             get { return AppSettings.GetValueOrDefault(EstadosLoadedKey, EstadosLoadedValue); }
@@ -91,12 +82,5 @@ namespace Solum.Helpers
 			get { return AppSettings.GetValueOrDefault(DBPathKey, DBPathValue); }
 			set { AppSettings.AddOrUpdateValue(DBPathKey, value); }
 		}
-
-        public static string CidadeUri { get; set; }
-        public static string EstadoUri { get; set; }
-        public static object AccountRegisterUri { get; set; }
-        public static object AccountLoginUri { get; set; }
-        public static object TokenUri { get; set; }
-        public static object AccountLogoutUri { get; set; }
     }
 }

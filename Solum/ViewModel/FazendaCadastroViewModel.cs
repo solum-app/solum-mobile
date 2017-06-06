@@ -14,16 +14,33 @@ namespace Solum.ViewModel
 {
     public class FazendaCadastroViewModel : BaseViewModel
     {
+		#region Propriedades Privadas
+
+		private ICommand _registerFazendaCommand;
+		private ICommand _updateCidadesCommand;
+		private IList<Cidade> _cidades;
+		private IList<Estado> _estados;
+		private Cidade _cidadeSelected;
+		private Estado _estadoSelected;
+		private string _fazendaName;
+		private bool _isEstadosLoaded;
+		private bool _isCidadesLoaded;
+		private Fazenda _fazenda;
+		private readonly bool _fromAnalise;
+        private readonly IUserDialogs _userDialogs;
+
+		#endregion
+		
         public FazendaCadastroViewModel(INavigation navigation, bool fromAnalise) : base(navigation)
         {
 			Task.Run(LoadEstados);
             _fromAnalise = fromAnalise;
             PageTitle = "Nova Fazenda";
+            _userDialogs = DependencyService.Get<IUserDialogs>();
         }
 
         public FazendaCadastroViewModel(INavigation navigation, string fazendaId, bool fromAnalise) : base(navigation)
         {
-            _isUpdate = true;
             _fromAnalise = fromAnalise;
             _fazenda = AzureService.Instance.FindFazendaAsync(fazendaId).Result;
             FazendaName = _fazenda.Nome;
@@ -36,24 +53,9 @@ namespace Solum.ViewModel
                     EstadoSelected = Estados.FirstOrDefault(t => t.Id.Equals(CidadeSelected.EstadoId));
 					Cidades = await AzureService.Instance.ListCidadesAsync(EstadoSelected.Id);
                 });
+
+            _userDialogs = DependencyService.Get<IUserDialogs>();
         }
-
-        #region Propriedades Privadas
-
-        private ICommand _registerFazendaCommand;
-        private ICommand _updateCidadesCommand;
-        private IList<Cidade> _cidades;
-        private IList<Estado> _estados;
-        private Cidade _cidadeSelected;
-        private Estado _estadoSelected;
-        private string _fazendaName;
-        private bool _isEstadosLoaded;
-        private bool _isCidadesLoaded;
-        private readonly bool _isUpdate;
-        private readonly Fazenda _fazenda;
-        private readonly bool _fromAnalise;
-
-        #endregion
 
         #region Propriedade de Binding
 
@@ -127,53 +129,42 @@ namespace Solum.ViewModel
         }
 
 		public async Task RegisterFazenda()
-        {
-            if (!_isUpdate)
-            {
-                if (string.IsNullOrEmpty(FazendaName))
-                {
-                    MessagesResource.FazendaCadastroNomeVazio.ToDisplayAlert(MessageType.Info);
-                    return;
-                }
+		{
+            IsBusy = true;
 
-                if (CidadeSelected == null)
-                {
-                    MessagesResource.FazendaCadastroCidadeVazia.ToDisplayAlert(MessageType.Info);
-                    return;
-                }
+			if (string.IsNullOrEmpty(FazendaName))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.FazendaCadastroNomeVazio);
+				return;
+			}
 
-                var userId = await DependencyService.Get<IAuthentication>().UserId();
+			if (CidadeSelected == null)
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.FazendaCadastroCidadeVazia);
+				return;
+			}
 
-                var fazenda = new Fazenda
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Nome = FazendaName,
-                    CidadeId = CidadeSelected.Id,
-                    UsuarioId = userId
-                };
+            bool isUpdate = _fazenda != default(Fazenda);
+            _fazenda = _fazenda ?? new Fazenda();
 
-                await AzureService.Instance.InsertFazendaAsync(fazenda);
+			//var userId = await DependencyService.Get<IAuthentication>().UserId();
+			//_fazenda.UsuarioId = userId;
+			_fazenda.Nome = FazendaName;
+			_fazenda.CidadeId = CidadeSelected.Id;
 
-                if (!_fromAnalise)
-                    MessagesResource.FazendaCadastroSucesso.ToToast();
-                else
-                    MessagingCenter.Send(this, MessagesResource.McFazendaSelecionada, fazenda.Id);
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(FazendaName))
-                {
-                    MessagesResource.FazendaCadastroNomeVazio.ToDisplayAlert(MessageType.Info);
-                    return;
-                }
-                _fazenda.Nome = FazendaName;
-                _fazenda.CidadeId = CidadeSelected.Id;
-                await AzureService.Instance.UpdateFazendaAsync(_fazenda);
+			await AzureService.Instance.AddOrUpdateFazendaAsync(_fazenda);
+
+            if (_fromAnalise)
                 MessagingCenter.Send(this, MessagesResource.McFazendaSelecionada, _fazenda.Id);
-                MessagesResource.FazendaEdicaoSucesso.ToToast(ToastNotificationType.Sucesso);
-            }
-            await Navigation.PopAsync();
-        }
+            else if (isUpdate)
+                _userDialogs.ShowToast(MessagesResource.FazendaEdicaoSucesso);
+			else
+                _userDialogs.ShowToast(MessagesResource.FazendaCadastroSucesso);
+
+			await Navigation.PopAsync();
+
+            IsBusy = false;
+		}
 
         #endregion
     }

@@ -14,20 +14,17 @@ namespace Solum.ViewModel
     public class RecomendacaoSemeaduraViewModel : BaseViewModel
     {
         private Analise _analise;
-        private readonly ISemeaduraInterpreter _interpreter;
         private Cultura _cultura;
         private bool _enableButton;
 		private bool _allowEdit;
-        private string _expectativa;
-        private string _k20;
-        private string _n;
-        private string _p205;
+        private int _expectativa;
+        private float _k2O;
+        private float _n;
+        private float _p2O5;
         private ICommand _showSemeaduraPageCommand;
 
-        public RecomendacaoSemeaduraViewModel(INavigation navigation, string analiseId, int expectativa,
-            Cultura cultura, bool allowEdit) : base(navigation)
+        public RecomendacaoSemeaduraViewModel(INavigation navigation, string analiseId, int expectativa, Cultura cultura, bool allowEdit) : base(navigation)
         {
-            _interpreter = SemeaduraInjector.GetInstance(cultura);
             AzureService.Instance.FindAnaliseAsync(analiseId).ContinueWith(t =>
             {
                 _analise = t.Result;
@@ -50,7 +47,7 @@ namespace Solum.ViewModel
 			set { SetPropertyChanged(ref _enableButton, value); }
         }
 
-        public string Expectativa
+        public int Expectativa
         {
 			get { return _expectativa; }
 			set { SetPropertyChanged(ref _expectativa, value); }
@@ -62,39 +59,33 @@ namespace Solum.ViewModel
 			set { SetPropertyChanged(ref _cultura, value); }
         }
 
-        public string N
+        public float N
         {
 			get { return _n; }
 			set { SetPropertyChanged(ref _n, value); }
         }
 
-        public string P205
+        public float P2O5
         {
-			get { return _p205; }
-			set { SetPropertyChanged(ref _p205, value); }
+			get { return _p2O5; }
+            set { SetPropertyChanged(ref _p2O5, value); }
         }
 
-        public string K20
+        public float K2O
         {
-			get { return _k20; }
-			set { SetPropertyChanged(ref _k20, value); }
+			get { return _k2O; }
+			set { SetPropertyChanged(ref _k2O, value); }
         }
 
 
         private void Init(int expectativa, Cultura cultura)
         {
-            Expectativa = expectativa.ToString();
+            var interpreter = SemeaduraInjector.GetInstance(cultura);
+            Expectativa = expectativa;
             Cultura = cultura;
-            N = _interpreter.QuanidadeNitrogenio(expectativa, Nivel.Adequado).ToString();
-            P205 =
-                _interpreter.QuantidadeFosforo(expectativa,
-                        Interpretador.NiveFosforo(_analise.Fosforo,
-                            Interpretador.Textura(_analise.Argila, _analise.Silte)))
-                    .ToString();
-            K20 =
-                _interpreter.QuantidadePotassio(expectativa,
-                        Interpretador.NivelPotassio(_analise.Potassio, _analise.CTC))
-                    .ToString();
+            N = interpreter.QuanidadeNitrogenio(expectativa, Nivel.Adequado);
+            P2O5 = interpreter.QuantidadeFosforo(expectativa, Interpretador.NiveFosforo(_analise.Fosforo, Interpretador.Textura(_analise.Argila, _analise.Silte)));
+            K2O = interpreter.QuantidadePotassio(expectativa, Interpretador.NivelPotassio(_analise.Potassio, _analise.CTC));
         }
 
 
@@ -105,8 +96,8 @@ namespace Solum.ViewModel
             _analise.DataCalculoSemeadura = DateTimeOffset.Now;
             _analise.HasSemeadura = true;
             _analise.Cultura = Cultura.ToString();
-            _analise.Expectativa = int.Parse(Expectativa);
-            await AzureService.Instance.UpdateAnaliseAsync(_analise);
+            _analise.Expectativa = Expectativa;
+			await AzureService.Instance.AddOrUpdateAnaliseAsync(_analise);
 			var previous = Navigation.NavigationStack[Navigation.NavigationStack.Count -2];
 			var beforePrevious = Navigation.NavigationStack[Navigation.NavigationStack.Count -3];
 			Navigation.RemovePage(previous);

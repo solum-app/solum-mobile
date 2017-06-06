@@ -330,5 +330,64 @@ namespace Solum.Handlers
                     return Nivel.Nenhum;
             }
         }
+
+		public static string NivelPhConverter(Nivel nivel)
+		{
+			switch (nivel)
+			{
+				case Nivel.MuitoBaixo:
+					return "Acidez Muito Baixa";
+				case Nivel.Baixo:
+					return "Acidez Baixa";
+				case Nivel.Medio:
+					return "Acidez Média";
+				case Nivel.Adequado:
+					return "Acidez Adequeada";
+				case Nivel.Alto:
+					return "Acidez Alta";
+				default:
+					return "";
+			}
+		}
+
+		public static string NivelConverter(Nivel nivel)
+		{
+			switch (nivel)
+			{
+				case Nivel.MuitoBaixo:
+					return "Muito Baixo";
+				case Nivel.Baixo:
+					return "Baixo";
+				case Nivel.Adequado:
+					return "Adequado";
+				case Nivel.Medio:
+					return "Médio";
+				case Nivel.Alto:
+					return "Alto";
+				case Nivel.MuitoAlto:
+					return "Muito Alto";
+				case Nivel.Nenhum:
+					return "";
+				default:
+					return "";
+			}
+		}
+
+		public static string TexturaConverter(Textura textura)
+		{
+			switch (textura)
+			{
+				case Models.Textura.Arenosa:
+					return "Arenosa";
+				case Models.Textura.Media:
+					return "Média";
+				case Models.Textura.Argilosa:
+					return "Argilosa";
+				case Models.Textura.MuitoArgilosa:
+					return "Muito Argilosa";
+				default:
+					return "";
+			}
+		}
     }
 }

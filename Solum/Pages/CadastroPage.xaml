@@ -1,144 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-	xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum" 
-	xmlns:effects="clr-namespace:Solum.Effects" 
-	xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum" 
-	xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss" 
-	Title="Cadastro" 
-	x:Class="Solum.Pages.CadastroPage">
-	<xfg:ContentPageGloss.BackgroundGradient>
-		<xfg:Gradient Rotation="150">
-			<xfg:GradientStep StepColor="{StaticResource colorBackgroundStart}" StepPercentage="0" />
-			<xfg:GradientStep StepColor="{StaticResource colorBackgroundEnd}" StepPercentage="1" />
-		</xfg:Gradient>
-	</xfg:ContentPageGloss.BackgroundGradient>
-	<ScrollView>
-		<StackLayout 
-			VerticalOptions="Fill" 
-			HorizontalOptions="Fill" 
-			BackgroundColor="Transparent" 
-			Spacing="0" 
-			Padding="16">
-			
-			<Label 
-				Text="Informações Pessoais" 
-				Style="{StaticResource titleStyle}"
-				Margin="0,16,0,32" />
-			<Label 
-				Text="Todos os campos são obrigatórios" 
-				HorizontalTextAlignment="Center" 
-				FontSize="Small" 
-				TextColor="{StaticResource colorTextSecundary}" 
-				Margin="0,0,0,32" />
-			<Entry x:Name="NomeEntry" 
-				Placeholder="Nome Completo" 
-				Text="{Binding Name}" 
-				Completed="NomeEntryOnCompleted">
-				<Entry.Effects>
-					<effects:NoBorderEffect />
-				</Entry.Effects>
-			</Entry>
-			<BoxView 
-				BackgroundColor="{StaticResource colorSeparatorEntry}" 
-				HeightRequest="1" 
-				HorizontalOptions="FillAndExpand" 
-				VerticalOptions="End" 
-				Margin="0,2,0,18" />
-			<Entry x:Name="EmailEntry" 
-				Placeholder="Email Válido" 
-				Text="{Binding Email}" 
-				Completed="EmailEntryOnCompleted">
-				<Entry.Effects>
-					<effects:NoBorderEffect />
-				</Entry.Effects>
-			</Entry>
-			<BoxView 
-				BackgroundColor="{StaticResource colorSeparatorEntry}" 
-				HeightRequest="1" 
-				HorizontalOptions="FillAndExpand" 
-				VerticalOptions="End" 
-				Margin="0,2,0,18" />
-			<Entry 
-				x:Name="SenhaEntry" 
-				Placeholder="Senha" 
-				Text="{Binding Password}" 
-				IsPassword="True" 
-				Completed="SenhaEntryOnCompleted">
-				<Entry.Effects>
-					<effects:NoBorderEffect />
-				</Entry.Effects>
-			</Entry>
-			<BoxView 
-				BackgroundColor="{StaticResource colorSeparatorEntry}" 
-				HeightRequest="1" 
-				HorizontalOptions="FillAndExpand" 
-				VerticalOptions="End" 
-				Margin="0,2,0,18" />
-			<Entry 
-				x:Name="ConfirmarSenhaEntry" 
-				Placeholder="Confirma Senha" 
-				Text="{Binding ConfirmPassword}" 
-				IsPassword="True">
-				<Entry.Effects>
-					<effects:NoBorderEffect />
-				</Entry.Effects>
-			</Entry>
-			<BoxView 
-				BackgroundColor="{StaticResource colorSeparatorEntry}" 
-				HeightRequest="1" 
-				HorizontalOptions="FillAndExpand" 
-				VerticalOptions="End" 
-				Margin="0,2,0,18" />
-			<renderers:CustomPicker 
-				x:Name="EstadosPicker" 
-				ItemsSource="{Binding Estados}" 
-				SelectedItem="{Binding EstadoSelected}" 
-				ItemSelectedCommand="{Binding UpdateCidadesCommand}" 
-				Title="Selecione o Estado" 
-				HasBorder="false" 
-				IsEnabled="{Binding IsEstadosLoaded}">
-			</renderers:CustomPicker>
-			<BoxView 
-				BackgroundColor="{StaticResource colorSeparatorEntry}" 
-				HeightRequest="1" 
-				HorizontalOptions="FillAndExpand" 
-				VerticalOptions="End" 
-				Margin="0,2,0,18" />
-			<renderers:CustomPicker 
-				x:Name="CidadesPicker" 
-				ItemsSource="{Binding Cidades}" 
-				SelectedItem="{Binding CidadeSelected}" 
-				Title="Selecione a Cidade" 
-				HasBorder="false" 
-				IsEnabled="{Binding IsCidadesLoaded}">
-			</renderers:CustomPicker>
-			<BoxView
-				BackgroundColor="{StaticResource colorSeparatorEntry}" 
-				HeightRequest="1" 
-				HorizontalOptions="FillAndExpand" 
-				VerticalOptions="End" 
-				Margin="0,2,0,18" />
-			<Button 
-				Text="Cadastrar" 
-				Command="{Binding RegisterCommand}" 
-				VerticalOptions="EndAndExpand" 
-				IsVisible="{Binding IsBusy, Converter={x:Static converter:IverseBoolConverter.Instance}}" />
-
-			<Button 
-				Text="Cancelar" 
-				Style="{StaticResource secondaryButton}"
-				Command="{Binding BackCommand}" 
-				IsVisible="{Binding IsBusy, Converter={x:Static converter:IverseBoolConverter.Instance}}"
-				VerticalOptions="End">
-				<Button.Margin>
-					<OnPlatform x:TypeArguments="Thickness" iOS="0,16" Android="0,8" />
-				</Button.Margin>
-			</Button>
-			<ActivityIndicator 
-				VerticalOptions="CenterAndExpand" 
-				IsRunning="{Binding IsBusy}" 
-				IsVisible="{Binding IsBusy}"  />
-		</StackLayout>
-	</ScrollView>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:converter="clr-namespace:Solum.Handlers;assembly=Solum"
+    xmlns:effects="clr-namespace:Solum.Effects"
+    xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Solum.Pages.CadastroPage"
+    BackgroundColor="White"
+    Title="Cadastro">
+    <ScrollView>
+        <StackLayout HorizontalOptions="Fill"
+            Padding="16"
+            Spacing="0"
+            VerticalOptions="Fill">
+            <Label Margin="0,16,0,24"
+                Style="{StaticResource titleStyle}"
+                Text="Informações Pessoais"/>
+            <Label FontSize="Small"
+                HorizontalTextAlignment="Center"
+                Margin="0,0,0,16"
+                Text="Todos os campos são obrigatórios"
+                TextColor="{StaticResource colorTextSecundary}"/>
+            <Entry x:Name="NomeEntry"
+                Completed="NomeEntryOnCompleted"
+                Margin="0,8"
+                Placeholder="Nome Completo"
+                PlaceholderColor="{StaticResource colorTextSecundary}"
+                Text="{Binding Name}">
+                <Entry.Effects>
+                    <effects:RoundedBorderEffect/>
+                </Entry.Effects>
+            </Entry>
+            <Entry x:Name="EmailEntry"
+                Completed="EmailEntryOnCompleted"
+                Margin="0,8"
+                Placeholder="Email"
+                Keyboard="Email"
+                PlaceholderColor="{StaticResource colorTextSecundary}"
+                Text="{Binding Email}">
+                <Entry.Effects>
+                    <effects:RoundedBorderEffect/>
+                </Entry.Effects>
+            </Entry>
+            <Entry x:Name="SenhaEntry"
+                Completed="SenhaEntryOnCompleted"
+                IsPassword="true"
+                Margin="0,8"
+                Placeholder="Senha"
+                PlaceholderColor="{StaticResource colorTextSecundary}"
+                Text="{Binding Password}">
+                <Entry.Effects>
+                    <effects:RoundedBorderEffect/>
+                </Entry.Effects>
+            </Entry>
+            <Entry x:Name="ConfirmarSenhaEntry"
+                IsPassword="True"
+                Margin="0,8"
+                Placeholder="Confirma Senha"
+                PlaceholderColor="{StaticResource colorTextSecundary}"
+                Text="{Binding ConfirmPassword}">
+                <Entry.Effects>
+                    <effects:RoundedBorderEffect/>
+                </Entry.Effects>
+            </Entry>
+            <renderers:CustomPicker x:Name="EstadosPicker"
+                IsEnabled="{Binding IsEstadosLoaded}"
+                ItemSelectedCommand="{Binding UpdateCidadesCommand}"
+                ItemsSource="{Binding Estados}"
+                Margin="0,8"
+                PlaceholderColor="{StaticResource colorTextSecundary}"
+                SelectedItem="{Binding EstadoSelected}"
+                Title="Selecione o Estado">
+                <Entry.Effects>
+                    <effects:RoundedBorderEffect/>
+                </Entry.Effects>
+            </renderers:CustomPicker>
+            <renderers:CustomPicker x:Name="CidadesPicker"
+                IsEnabled="{Binding IsCidadesLoaded}"
+                ItemsSource="{Binding Cidades}"
+                Margin="0,8"
+                PlaceholderColor="{StaticResource colorTextSecundary}"
+                SelectedItem="{Binding CidadeSelected}"
+                Title="Selecione a Cidade">
+                <Entry.Effects>
+                    <effects:RoundedBorderEffect/>
+                </Entry.Effects>
+            </renderers:CustomPicker>
+            <Button Command="{Binding RegisterCommand}"
+                IsVisible="{Binding IsBusy, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+                Margin="0,16"
+                Text="Cadastrar"
+                VerticalOptions="EndAndExpand"/>
+            <Button Command="{Binding BackCommand}"
+                IsVisible="{Binding IsBusy, Converter={x:Static converter:IverseBoolConverter.Instance}}"
+                Style="{StaticResource secondaryButton}"
+                Text="Cancelar"
+                VerticalOptions="End"/>
+            <StackLayout IsVisible="{Binding IsBusy}"
+                VerticalOptions="CenterAndExpand">
+                <ActivityIndicator IsRunning="{Binding IsBusy}"
+                    VerticalOptions="CenterAndExpand"/>
+                <Label FontSize="Small"
+                    HorizontalTextAlignment="Center"
+                    Margin="8"
+                    Text="Efetuando cadastro..."
+                    TextColor="{StaticResource colorTextSecundary}"/>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

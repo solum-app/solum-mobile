@@ -12,6 +12,16 @@ namespace Solum.Pages
             BindingContext = new CadastroViewModel(Navigation);
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetHasBackButton(this, false);
+
+			if (Device.RuntimePlatform == "iOS")
+			{
+				NomeEntry.HeightRequest = 40;
+				EmailEntry.HeightRequest = 40;
+				SenhaEntry.HeightRequest = 40;
+				ConfirmarSenhaEntry.HeightRequest = 40;
+				EstadosPicker.HeightRequest = 40;
+				CidadesPicker.HeightRequest = 40;
+			}
         }
 
         private void NomeEntryOnCompleted(object sender, EventArgs e)

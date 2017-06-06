@@ -1,612 +1,503 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<ContentPage
-	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:effects="clr-namespace:Solum.Effects"
-	xmlns:renderers="clr-namespace:Solum.Renderers"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	x:Class="Solum.Pages.AnalisePage"
-	Title="{Binding PageTitle}">
-
-	<ScrollView BackgroundColor="{StaticResource colorBackground}">
-    <StackLayout Spacing="0">
-			<Label Style="{StaticResource headerStyle}"  Text="INFORMAÇÕES">
-				<Label.Margin>
-					<OnPlatform x:TypeArguments="Thickness"
-						    iOS="16,24,16,4"
-						    Android="16, 13" />
-				</Label.Margin>
-			</Label>
-			
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<BoxView Grid.ColumnSpan="3" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-				<Label Text="Nome da análise" VerticalOptions="Center" Grid.Column="1" />
-
-				<Entry 
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding IdentificacaoAnalise}"
-					Keyboard="Text"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Identificação"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-				</Entry>
-        
-				<BoxView 
-					BackgroundColor="{StaticResource colorSeparator}" 
-					Grid.Column="1" Grid.ColumnSpan="2"
-					VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-
-				<Label Text="Fazenda" VerticalOptions="Center" Grid.Column="1" />
-        
-				<Label 
-					x:Name="fazendaLabel"
-					Text="{Binding FazendaNome}"
-					TextColor="{Binding FazendaLabelColor}"
-					VerticalOptions="Center" 
-					HorizontalOptions="End"
-					Grid.Column="2">
-
-					<Label.Effects>
-						<effects:NoBorderEffect />
-					</Label.Effects>
-
-					<Label.Margin>
-						<OnPlatform x:TypeArguments="Thickness"
-								iOS="16,0"
-								Android="16,0,19,0" />
-					</Label.Margin>
-
-					<Label.FontSize>
-					<OnPlatform x:TypeArguments="x:Double"
-						iOS="17"
-						Android="14" />
-					</Label.FontSize>
-				</Label>
-				<BoxView 
-					BackgroundColor="{StaticResource colorSeparator}" 
-					Grid.Column="1" 
-					Grid.ColumnSpan="2"
-					VerticalOptions="End">
-					<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double"
-						iOS="0.5"
-						Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-				<Grid.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding ShowFazendasCommand}"/>
-				</Grid.GestureRecognizers>
-			</Grid>
-
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-
-				<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" />
-      
-				<Label 
-					x:Name="talhaoLabel"
-					Text="{Binding TalhaoNome}"
-					TextColor="{Binding TalhaoLabelColor}"
-					VerticalOptions="Center"
-					HorizontalOptions="End"
-					Grid.Column="2">
-
-					<Label.Margin>
-						<OnPlatform x:TypeArguments="Thickness"
-								iOS="16,0"
-								Android="16,0,19,0" />
-					</Label.Margin>
-					
-					<Label.Effects>
-						<effects:NoBorderEffect />
-					</Label.Effects>
-
-					<Label.FontSize>
-						<OnPlatform x:TypeArguments="x:Double"
-						iOS="17"
-						Android="14" />
-					</Label.FontSize>
-				</Label>
-				<BoxView 
-					BackgroundColor="{StaticResource colorSeparator}"
-					Grid.Column="1" Grid.ColumnSpan="2"
-					VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							iOS="0.5"
-							Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-				<Grid.GestureRecognizers>
-					<TapGestureRecognizer Command="{Binding ShowTalhoesCommand}"/>
-				</Grid.GestureRecognizers>
-			</Grid>
-      
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Label Text="Data" VerticalOptions="Center" Grid.Column="1" />
-				
-				<renderers:BindableDatePicker 
-					Unfocused="OnEntryUnfocused" 
-					Focused="OnEntryFocused" 
-					Date="{Binding DateSelected}" 
-					DateSelectedCommand="{Binding SelectDateCommand}" 
-					Grid.Column="2"
-					VerticalOptions="Center" 
-					HorizontalOptions="EndAndExpand" 
-					Margin="16,0">
-          
-					<DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
-					
-					<DatePicker.Effects>
-						<effects:NoBorderEffect />
-						<effects:TextSizeEffect TextSize="14" />
-					</DatePicker.Effects>
-				</renderers:BindableDatePicker>
-			
-      		</Grid>
-			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
-				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double"
-						    iOS="0.5"
-						    Android="0.3" />
-				</BoxView.HeightRequest>
-			</BoxView>
-
-			<Label Text="ANÁLISE QUÍMICA">
-				<Label.Margin>
-					<OnPlatform x:TypeArguments="Thickness"
-						    iOS="16,24,16,4"
-						    Android="16, 13" />
-				</Label.Margin>
-			</Label>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<BoxView Grid.ColumnSpan="3" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-				<Label Text="pH" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-				
-        		<Entry 
-          			x:Name="PhEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding PotencialHidrogenico}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Potencial Hidrogeniônico (CaCl₂)"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-				</Entry>
-        
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
-					 VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Label 
-					Text="P" 
-					VerticalOptions="Center" 
-					Grid.Column="1" />
-				<Entry 
-          			x:Name="FosforoEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Fosforo}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Fósforo (mg dm⁻³)"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-				</Entry>
-        
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
-					 VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Label 
-					Text="K" 
-					VerticalOptions="Center" 
-					Grid.Column="1" />
-				<Entry 
-         			x:Name="PotassioEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Potassio}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Potássio (mg dm⁻³)"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-          
-				</Entry>
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
-					 VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Label 
-					Text="Ca" 
-					VerticalOptions="Center" 
-					Grid.Column="1"/>
-				<Entry 
-          			x:Name="CalcioEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Calcio}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Cálcio (cmolc dm⁻³)"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-				</Entry>
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
-					 VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Label 
-					Text="Mg" 
-					VerticalOptions="Center" 
-					Grid.Column="1"/>
-				<Entry 
-          			x:Name="MagnesioEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Magnesio}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Magnésio (cmolc dm⁻³)"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-				</Entry>
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
-					 VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Label 
-					Text="Al" 
-					VerticalOptions="Center" 
-					Grid.Column="1" />
-				<Entry 
-          			x:Name="AluminioEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Aluminio}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2" Margin="16,0"
-					Placeholder="Alumínio (cmolc dm⁻³)"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-				</Entry>
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
-					 VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Label 
-					Text="H" 
-					VerticalOptions="Center" 
-					Grid.Column="1" />
-				<Entry
-					x:Name="HidrogenioEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Hidrogenio}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Hidrogênio (cmolc dm⁻³)"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-				</Entry>
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
-					 VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Label 
-					Text="M.O." 
-					VerticalOptions="Center" 
-					Grid.Column="1" />
-				<Entry
-					x:Name="MateriaOrganicaEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding MateriaOrganica}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Mat. Org. (g dm⁻³)"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-				</Entry>
-			</Grid>
-			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
-				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double"
-						    iOS="0.5"
-						    Android="0.3" />
-				</BoxView.HeightRequest>
-			</BoxView>
-
-			<Label Text="ANÁLISE FÍSICA">
-				<Label.Margin>
-					<OnPlatform x:TypeArguments="Thickness"
-						    iOS="16,24,16,4"
-						    Android="16, 13" />
-				</Label.Margin>
-			</Label>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<BoxView Grid.ColumnSpan="3" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-				<Label 
-					Text="Areia" 
-					VerticalOptions="Center" 
-					Grid.Column="1"/>
-				<Entry
-					x:Name="AreiaEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Areia}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Areia (g kg⁻¹)"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-				</Entry>
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
-					 VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Label 
-					Text="Silte" 
-					VerticalOptions="Center" 
-					Grid.Column="1" />
-				<Entry
-					x:Name="SilteEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Silte}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2" Margin="16,0"
-					Placeholder="Silte (g kg⁻¹)"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-				</Entry>
-				<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2"
-					 VerticalOptions="End">
-					<BoxView.HeightRequest>
-						<OnPlatform x:TypeArguments="x:Double"
-							    iOS="0.5"
-							    Android="0.3" />
-					</BoxView.HeightRequest>
-				</BoxView>
-			</Grid>
-			<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="16" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Label 
-					Text="Argila" 
-					VerticalOptions="Center" 
-					Grid.Column="1"/>
-				<Entry
-					x:Name="ArgilaEntry"
-					Unfocused="OnEntryUnfocused"
-					Focused="OnEntryFocused"
-					Text="{Binding Argila}"
-					Keyboard="Numeric"
-					VerticalOptions="Center"
-					Grid.Column="2"
-					Margin="16,0"
-					Placeholder="Argila (g kg⁻¹)"
-					HorizontalTextAlignment="End">
-
-					<Entry.Effects>
-						<effects:NoBorderEffect />
-					</Entry.Effects>
-				</Entry>
-			</Grid>
-			<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
-				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double"
-						    iOS="0.5"
-						    Android="0.3" />
-				</BoxView.HeightRequest>
-			</BoxView>
-			<Button Text="Salvar" IsEnabled="true" Command="{Binding SaveCommand}" Margin="16"
-				BackgroundColor="{StaticResource colorAccent}" TextColor="{StaticResource colorTextPrimary}" />
-			<BoxView x:Name="boxSpacing" HeightRequest="205" IsVisible="false" />
-		</StackLayout>
-	</ScrollView>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:effects="clr-namespace:Solum.Effects"
+    xmlns:renderers="clr-namespace:Solum.Renderers"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:handlers="clr-namespace:Solum.Handlers"
+    x:Class="Solum.Pages.AnalisePage"
+    Title="{Binding PageTitle}">
+    <ScrollView BackgroundColor="{StaticResource colorBackground}">
+        <StackLayout Spacing="0">
+            <Label Style="{StaticResource headerStyle}"
+                Text="INFORMAÇÕES"/>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.ColumnSpan="3"
+                    VerticalOptions="Start"/>
+                <Label Grid.Column="1"
+                    Text="Nome da análise"
+                    VerticalOptions="Center"/>
+                <Entry Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Text"
+                    Margin="16,0"
+                    Placeholder="Identificação"
+                    Text="{Binding IdentificacaoAnalise}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="Fazenda"
+                    VerticalOptions="Center"/>
+                <Label x:Name="fazendaLabel"
+                    Grid.Column="2"
+                    HorizontalOptions="End"
+                    Text="{Binding FazendaNome}"
+                    TextColor="{Binding FazendaLabelColor}"
+                    VerticalOptions="Center">
+                    <Label.Effects>
+                        <effects:NoBorderEffect/>
+                    </Label.Effects>
+                    <Label.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="iOS">16,0</On>
+                            <On Platform="Android">16,0,19,0</On>
+                        </OnPlatform>
+                    </Label.Margin>
+                    <Label.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">17</On>
+                            <On Platform="Android">14</On>
+                        </OnPlatform>
+                    </Label.FontSize>
+                </Label>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowFazendasCommand}"/>
+                </Grid.GestureRecognizers>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="Talhão"
+                    VerticalOptions="Center"/>
+                <Label x:Name="talhaoLabel"
+                    Grid.Column="2"
+                    HorizontalOptions="End"
+                    Text="{Binding TalhaoNome}"
+                    TextColor="{Binding TalhaoLabelColor}"
+                    VerticalOptions="Center">
+                    <Label.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="iOS">16,0</On>
+                            <On Platform="Android">16,0,19,0</On>
+                        </OnPlatform>
+                    </Label.Margin>
+                    <Label.Effects>
+                        <effects:NoBorderEffect/>
+                    </Label.Effects>
+                    <Label.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS">17</On>
+                            <On Platform="Android">14</On>
+                        </OnPlatform>
+                    </Label.FontSize>
+                </Label>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowTalhoesCommand}"/>
+                </Grid.GestureRecognizers>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="Data"
+                    VerticalOptions="Center"/>
+                <renderers:BindableDatePicker Date="{Binding DateSelected}"
+                    DateSelectedCommand="{Binding SelectDateCommand}"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalOptions="EndAndExpand"
+                    Margin="16,0"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
+                    <DatePicker.Effects>
+                        <effects:NoBorderEffect/>
+                        <effects:TextSizeEffect TextSize="14"/>
+                    </DatePicker.Effects>
+                </renderers:BindableDatePicker>
+            </Grid>
+            <BoxView Style="{StaticResource separatorStyle}"
+                VerticalOptions="End"/>
+            <Label Style="{StaticResource headerStyle}"
+                Text="ANÁLISE QUÍMICA"/>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.ColumnSpan="3"
+                    VerticalOptions="Start"/>
+                <Label Grid.Column="1"
+                    Text="pH"
+                    TextColor="{StaticResource colorTextPrimary}"
+                    VerticalOptions="Center"/>
+                <Entry x:Name="PhEntry"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Numeric"
+                    Margin="16,0"
+                    Placeholder="Potencial Hidrogeniônico (CaCl₂)"
+                    Text="{Binding PotencialHidrogenico}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="P"
+                    VerticalOptions="Center"/>
+                <Entry x:Name="FosforoEntry"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Numeric"
+                    Margin="16,0"
+                    Placeholder="Fósforo (mg dm⁻³)"
+                    Text="{Binding Fosforo}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="K"
+                    VerticalOptions="Center"/>
+                <Entry x:Name="PotassioEntry"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Numeric"
+                    Margin="16,0"
+                    Placeholder="Potássio (mg dm⁻³)"
+                    Text="{Binding Potassio}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="Ca"
+                    VerticalOptions="Center"/>
+                <Entry x:Name="CalcioEntry"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Numeric"
+                    Margin="16,0"
+                    Placeholder="Cálcio (cmolc dm⁻³)"
+                    Text="{Binding Calcio}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="Mg"
+                    VerticalOptions="Center"/>
+                <Entry x:Name="MagnesioEntry"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Numeric"
+                    Margin="16,0"
+                    Placeholder="Magnésio (cmolc dm⁻³)"
+                    Text="{Binding Magnesio}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="Al"
+                    VerticalOptions="Center"/>
+                <Entry x:Name="AluminioEntry"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Numeric"
+                    Margin="16,0"
+                    Placeholder="Alumínio (cmolc dm⁻³)"
+                    Text="{Binding Aluminio}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="H"
+                    VerticalOptions="Center"/>
+                <Entry x:Name="HidrogenioEntry"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Numeric"
+                    Margin="16,0"
+                    Placeholder="Hidrogênio (cmolc dm⁻³)"
+                    Text="{Binding Hidrogenio}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="M.O."
+                    VerticalOptions="Center"/>
+                <Entry x:Name="MateriaOrganicaEntry"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Numeric"
+                    Margin="16,0"
+                    Placeholder="Mat. Org. (g dm⁻³)"
+                    Text="{Binding MateriaOrganica}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+            </Grid>
+            <BoxView Style="{StaticResource separatorStyle}"
+                VerticalOptions="End"/>
+            <Label Style="{StaticResource headerStyle}"
+                Text="ANÁLISE FÍSICA"/>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.ColumnSpan="3"
+                    VerticalOptions="Start"/>
+                <Label Grid.Column="1"
+                    Text="Areia"
+                    VerticalOptions="Center"/>
+                <Entry x:Name="AreiaEntry"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Numeric"
+                    Margin="16,0"
+                    Placeholder="Areia (g kg⁻¹)"
+                    Text="{Binding Areia}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="Silte"
+                    VerticalOptions="Center"/>
+                <Entry x:Name="SilteEntry"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Numeric"
+                    Margin="16,0"
+                    Placeholder="Silte (g kg⁻¹)"
+                    Text="{Binding Silte}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+                <BoxView Style="{StaticResource separatorStyle}"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="End"/>
+            </Grid>
+            <Grid BackgroundColor="White"
+                ColumnSpacing="0"
+                HeightRequest="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="Argila"
+                    VerticalOptions="Center"/>
+                <Entry x:Name="ArgilaEntry"
+                    Focused="OnEntryFocused"
+                    Grid.Column="2"
+                    HorizontalTextAlignment="End"
+                    Keyboard="Numeric"
+                    Margin="16,0"
+                    Placeholder="Argila (g kg⁻¹)"
+                    Text="{Binding Argila}"
+                    Unfocused="OnEntryUnfocused"
+                    VerticalOptions="Center">
+                    <Entry.Effects>
+                        <effects:NoBorderEffect/>
+                    </Entry.Effects>
+                </Entry>
+            </Grid>
+            <BoxView Style="{StaticResource separatorStyle}"
+                VerticalOptions="End"/>
+            <Button BackgroundColor="{StaticResource colorAccent}"
+                Command="{Binding SaveCommand}"
+                Margin="16"
+                Text="Salvar"
+                IsEnabled="{Binding IsBusy, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
+                TextColor="{StaticResource colorTextPrimary}"/>
+            <BoxView x:Name="boxSpacing"
+                HeightRequest="205"
+                IsVisible="false"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

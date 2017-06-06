@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿﻿using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 using Solum.Auth;
 using Solum.Helpers;
@@ -12,25 +12,20 @@ namespace Solum
 {
 	public partial class App : Application
 	{
-		public static MobileServiceClient Client { get; } = new MobileServiceClient(Settings.BaseUri);
+		public static string AppName { get { return "Solum"; } }
 
 		public App()
 		{
 			InitializeComponent();
-			Task.Run(AzureService.Instance.Sync);
-			var authr = DependencyService.Get<IAuthentication>();
-			var isLogged = authr.IsLogged();
 
-			MainPage = new NavigationPage(new BemVindoPage());
-
-			//if (isLogged)
-			//	MainPage = new RootPage();
-			//else
-			//	MainPage = new NavigationPage(new LoginPage())
-			//	{
-			//		BackgroundColor = Color.Transparent,
-			//		BarTextColor = Color.Black
-			//	};
+            var usuario = AuthService.Instance.GetCredentials;
+            if (usuario == null)
+            {
+                AzureService.Instance.SetCredentials(usuario);
+                MainPage = new NavigationPage(new BemVindoPage());
+            } else {
+                MainPage = new RootPage();
+            }
 		}
 	}
 }

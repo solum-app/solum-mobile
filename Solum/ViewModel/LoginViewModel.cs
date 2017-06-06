@@ -5,10 +5,11 @@ using System.Windows.Input;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json.Linq;
 using Solum.Auth;
-using Solum.Handlers;
 using Solum.Helpers;
+using Solum.Interfaces;
 using Solum.Models;
 using Solum.Pages;
+using Solum.Service;
 using Xamarin.Forms;
 
 namespace Solum.ViewModel
@@ -17,6 +18,7 @@ namespace Solum.ViewModel
     {
         public LoginViewModel(INavigation navigation) : base(navigation)
         {
+            _userDialogs = DependencyService.Get<IUserDialogs>();
         }
 
         #region Private Propeties
@@ -28,6 +30,7 @@ namespace Solum.ViewModel
         private string _password;
         private string _username;
         private bool _inLogin;
+        private IUserDialogs _userDialogs;
 
         #endregion
 
@@ -64,82 +67,43 @@ namespace Solum.ViewModel
 		public ICommand LoginCommand
 			=> _loginCommand ?? (_loginCommand = new Command(async ()=> await DoLogin()));
 
-        public ICommand FacebookLoginCommand
-			=> _facebookLoginCommand ?? (_facebookLoginCommand = new Command(async ()=> await FacebookLogin()));
-
-        //public ICommand GoogleLoginCommand => _googleLoginCommand ?? (_googleLoginCommand = new Command(GoogleLogin));
-
         #endregion
 
         #region Functions
 
-		private async Task DoLogin()
-        {
-            if (IsBusy) return;
-            IsBusy = true;
-
-            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
-            {
-				IsBusy = false;
-                MessagesResource.LoginCredenciaisNulas.ToDisplayAlert(MessageType.Aviso);
+		private async Task DoLogin() {
+			if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password)) {
+                await _userDialogs.DisplayAlert(MessagesResource.LoginCredenciaisNulas);
                 return;
             }
 
-            var binding = new LoginBinding
-            {
-                Email = Username.Trim(),
-                Password = Password.Trim()
-            };
+            IsBusy = true;
 
-            try
-            {
-                var provider = DependencyService.Get<IAuthentication>();
-                var obj = JObject.FromObject(binding);
-                var user = await provider.LoginAsync(new MobileServiceClient(Settings.BaseUri), Settings.AuthProvider, obj);
-                if(user != null)
-                    Application.Current.MainPage = new RootPage();
-                else 
-                    "Não foi possível realizar login. Tente novamente mais tarde".ToDisplayAlert(MessageType.Aviso);
+            var result = await AuthService.Instance.LoginAsync(Username, Password);
+     
+            if (result.IsSuccess)
+			{
+                AzureService.Instance.SetCredentials(result.Data);
+                await AzureService.Instance.SynchronizeAllAsync();
                 IsBusy = false;
-            }
-            catch (MobileServiceInvalidOperationException ex)
-            {
-                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
-            }
-            catch (Exception  ex)
-            {
-                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
-            }
-            finally
-            {
+                Application.Current.MainPage = new RootPage();
+            } else {
                 IsBusy = false;
+                await _userDialogs.DisplayAlert(result.Message);
             }
         }
 
-		private async Task FacebookLogin()
+        public async Task GoogleLogin(GoogleCredentials credentials)
         {
-			if (IsBusy) return;
-            IsBusy = true;
-
-            try
-            {
-                var provider = DependencyService.Get<IAuthentication>();
-                var user = await provider.LoginAsync(new MobileServiceClient(Settings.BaseUri), MobileServiceAuthenticationProvider.Facebook);
-                if (user != null)
-                    Application.Current.MainPage = new RootPage();
+            var result = await AuthService.Instance.GoogleLoginAsync(credentials);
+            if (result.IsSuccess) {
+                AzureService.Instance.SetCredentials(result.Data);
+                await AzureService.Instance.SynchronizeAllAsync();
                 IsBusy = false;
-            }
-            catch (MobileServiceInvalidOperationException ex)
-            {
-                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[ExecuteLoginCommand] Error = {ex.Message}");
-            }
-            finally
-            {
+                Application.Current.MainPage = new RootPage();
+            } else {
                 IsBusy = false;
+                await _userDialogs.DisplayAlert(result.Message);
             }
         }
 

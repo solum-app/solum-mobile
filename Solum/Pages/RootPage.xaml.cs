@@ -170,19 +170,9 @@ namespace Solum.Pages
             var command = await DisplayAlert("Sair", "Você realmente deseja sair do app?", "Sim", "Não");
             if (command)
             {
-                //await Client.LogoutAsync();
-                ////var authservice = AuthService.Instance;
-                ////var logoff = await authservice.Logoff();
-                ////if (logoff)
-                ////{
-                _currentPage = new LoginPage();
-                _navigationPage = new NavigationPage(_currentPage)
-                {
-                    BarBackgroundColor = Color.Transparent,
-                    BarTextColor = Color.Black
-                };
-                Application.Current.MainPage = _navigationPage;
-                //}
+                AzureService.Instance.ClearAllAsync();
+                AuthService.Instance.DeleteCredentials();
+                Application.Current.MainPage = new LoginPage();
             }
         }
     }

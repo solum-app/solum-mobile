@@ -15,6 +15,32 @@ namespace Solum.ViewModel
 {
     public class AnaliseViewModel : BaseViewModel
     {
+		private Color _fazendaLabelColor;
+		private Color _talhaoLabelColor;
+		private DateTimeOffset _data = DateTimeOffset.Now;
+		private string _fazendaNome;
+		private string _talhaoNome;
+		private string _identificacaoAnalise;
+		private string _potencialHidrogenico;
+		private string _fosforo;
+		private string _potassio;
+		private string _calcio;
+		private string _magnesio;
+		private string _aluminio;
+		private string _hidrogenio;
+		private string _materiaOrganica;
+		private string _areia;
+		private string _silte;
+		private string _argila;
+		private Fazenda _fazenda;
+		private Talhao _talhao;
+		private Analise _analise;
+		private ICommand _selectDateCommand;
+		private ICommand _showFazendasCommand;
+		private ICommand _showTalhoesCommand;
+		private ICommand _saveCommand;
+        private readonly IUserDialogs _userDialogs;
+
         public AnaliseViewModel(INavigation navigation) : base(navigation)
         {
             PageTitle = "Nova Análise";
@@ -22,6 +48,7 @@ namespace Solum.ViewModel
             TalhaoNome = "Selecione um talhão";
             FazendaLabelColor = (Color) Application.Current.Resources["colorTextHint"];
             TalhaoLabelColor = (Color) Application.Current.Resources["colorTextHint"];
+            _userDialogs = DependencyService.Get<IUserDialogs>();
             Subscribe();
         }
 
@@ -30,55 +57,31 @@ namespace Solum.ViewModel
             PageTitle = "Editar Análise";
 			AzureService.Instance.FindAnaliseAsync(analiseId).ContinueWith(async (task) =>
             {
-                Analise = task.Result;
-                IdentificacaoAnalise = Analise.Identificacao;
-				Talhao = await AzureService.Instance.FindTalhaoAsync(Analise.TalhaoId);
+                _analise = task.Result;
+                IdentificacaoAnalise = _analise.Identificacao;
+				Talhao = await AzureService.Instance.FindTalhaoAsync(_analise.TalhaoId);
 				Fazenda = await AzureService.Instance.FindFazendaAsync(Talhao.FazendaId);
 
 				FazendaNome = Fazenda.Nome;
                 TalhaoNome = Talhao.Nome;
                 
-                DateSelected = Analise.DataRegistro;
-                PotencialHidrogenico = Analise.PotencialHidrogenico.ToString();
-                Fosforo = Analise.Fosforo.ToString();
-                Potassio = Analise.Potassio.ToString();
-                Calcio = Analise.Calcio.ToString();
-                Magnesio = Analise.Magnesio.ToString();
-                Aluminio = Analise.Aluminio.ToString();
-                Hidrogenio = Analise.Hidrogenio.ToString();
-                MateriaOrganica = Analise.MateriaOrganica.ToString();
-                Areia = Analise.Areia.ToString();
-                Silte = Analise.Silte.ToString();
-                Argila = Analise.Argila.ToString();
+                DateSelected = _analise.DataRegistro;
+                PotencialHidrogenico = _analise.PotencialHidrogenico.ToString();
+                Fosforo = _analise.Fosforo.ToString();
+                Potassio = _analise.Potassio.ToString();
+                Calcio = _analise.Calcio.ToString();
+                Magnesio = _analise.Magnesio.ToString();
+                Aluminio = _analise.Aluminio.ToString();
+                Hidrogenio = _analise.Hidrogenio.ToString();
+                MateriaOrganica = _analise.MateriaOrganica.ToString();
+                Areia = _analise.Areia.ToString();
+                Silte = _analise.Silte.ToString();
+                Argila = _analise.Argila.ToString();
             });
-            
+
+            _userDialogs = DependencyService.Get<IUserDialogs>();
             Subscribe();
         }
-
-        private Color _fazendaLabelColor;
-        private Color _talhaoLabelColor;
-        private DateTimeOffset _data = DateTimeOffset.Now;
-        private string _fazendaNome;
-        private string _talhaoNome;
-        private string _identificacaoAnalise;
-        private string _potencialHidrogenico;
-        private string _fosforo;
-        private string _potassio;
-        private string _calcio;
-        private string _magnesio;
-        private string _aluminio;
-        private string _hidrogenio;
-        private string _materiaOrganica;
-        private string _areia;
-        private string _silte;
-        private string _argila;
-        private Fazenda _fazenda;
-        private Talhao _talhao;
-        private Analise _analise;
-        private ICommand _selectDateCommand;
-        private ICommand _showFazendasCommand;
-        private ICommand _showTalhoesCommand;
-        private ICommand _saveCommand;
 
         public string FazendaNome
         {
@@ -116,12 +119,6 @@ namespace Solum.ViewModel
         {
 			get { return _identificacaoAnalise; }
 			set { SetPropertyChanged(ref _identificacaoAnalise, value); }
-        }
-
-        public Analise Analise
-        {
-			get { return _analise; }
-			set { SetPropertyChanged(ref _analise, value); }
         }
 
         public Fazenda Fazenda
@@ -246,11 +243,11 @@ namespace Solum.ViewModel
         {
             if (Fazenda == null)
             {
-                MessagesResource.AnaliseFazendaNull.ToDisplayAlert(MessageType.Info);
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseFazendaNull);
                 return;
             }
 
-            if (IsNotBusy)
+            if (!IsBusy)
             {
                 IsBusy = true;
                 await Navigation.PushAsync(new FazendaDetalhesPage(Fazenda.Id, true));
@@ -264,154 +261,128 @@ namespace Solum.ViewModel
             TalhaoNome = Talhao.Nome;
         }
 
-        private async Task Save()
-        {
-            if (!IsNotBusy) return;
-            if (string.IsNullOrEmpty(IdentificacaoAnalise))
-            {
-                MessagesResource.AnaliseIdentificacaoNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+		private async Task Save()
+		{
+			if (string.IsNullOrEmpty(IdentificacaoAnalise))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseIdentificacaoNull);
+				return;
+			}
 
-            if (Talhao == null)
-            {
-                MessagesResource.AnaliseTalhaoNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (Talhao == null)
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseTalhaoNull);
+				return;
+			}
 
+			if (DateSelected == default(DateTime))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseDataInvalida);
+				return;
+			}
 
-            if (DateSelected == default(DateTime))
-            {
-                MessagesResource.AnaliseDataInvalida.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (string.IsNullOrEmpty(PotencialHidrogenico))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnalisePhNull);
+				return;
+			}
 
-            if (string.IsNullOrEmpty(PotencialHidrogenico))
-            {
-                MessagesResource.AnalisePhNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (string.IsNullOrEmpty(Fosforo))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnalisePNull);
+				return;
+			}
 
-            if (string.IsNullOrEmpty(Fosforo))
-            {
-                MessagesResource.AnalisePNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (string.IsNullOrEmpty(Potassio))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseKNull);
+				return;
+			}
 
-            if (string.IsNullOrEmpty(Potassio))
-            {
-                MessagesResource.AnaliseKNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (string.IsNullOrEmpty(Calcio))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseCaNull);
+				return;
+			}
 
-            if (string.IsNullOrEmpty(Calcio))
-            {
-                MessagesResource.AnaliseCaNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (string.IsNullOrEmpty(Magnesio))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseMgNull);
+				return;
+			}
 
-            if (string.IsNullOrEmpty(Magnesio))
-            {
-                MessagesResource.AnaliseMgNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (string.IsNullOrEmpty(Aluminio))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseAlNull);
+				return;
+			}
 
-            if (string.IsNullOrEmpty(Aluminio))
-            {
-                MessagesResource.AnaliseAlNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (string.IsNullOrEmpty(Hidrogenio))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseHNull);
+				return;
+			}
 
-            if (string.IsNullOrEmpty(Hidrogenio))
-            {
-                MessagesResource.AnaliseHNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (string.IsNullOrEmpty(MateriaOrganica))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseMoNull);
+				return;
+			}
 
-            if (string.IsNullOrEmpty(MateriaOrganica))
-            {
-                MessagesResource.AnaliseMoNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (string.IsNullOrEmpty(Areia))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseAreiaNull);
+				return;
+			}
 
-            if (string.IsNullOrEmpty(Areia))
-            {
-                MessagesResource.AnaliseAreiaNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (string.IsNullOrEmpty(Silte))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseSilteNull);
+				return;
+			}
 
-            if (string.IsNullOrEmpty(Silte))
-            {
-                MessagesResource.AnaliseSilteNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+			if (string.IsNullOrEmpty(Argila))
+			{
+                await _userDialogs.DisplayAlert(MessagesResource.AnaliseArgilaNull);
+				return;
+			}
 
-            if (string.IsNullOrEmpty(Argila))
-            {
-                MessagesResource.AnaliseArgilaNull.ToDisplayAlert(MessageType.Info);
-                return;
-            }
+            IsBusy = true;
 
-            var userId = await DependencyService.Get<IAuthentication>().UserId();
-            if (Analise == null)
-            {
-                Analise = new Analise
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    UsuarioId = userId,
-                    TalhaoId = Talhao.Id,
-                    Identificacao = IdentificacaoAnalise,
-                    DataRegistro = DateSelected,
-                    PotencialHidrogenico =
-                        float.Parse("0" + PotencialHidrogenico.Replace(',', '.'), CultureInfo.InvariantCulture),
-                    Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture),
-                    Potassio = float.Parse("0" + Potassio.Replace(',', '.'), CultureInfo.InvariantCulture),
-                    Calcio = float.Parse("0" + Calcio.Replace(',', '.'), CultureInfo.InvariantCulture),
-                    Magnesio = float.Parse("0" + Magnesio.Replace(',', '.'), CultureInfo.InvariantCulture),
-                    Aluminio = float.Parse("0" + Aluminio.Replace(',', '.'), CultureInfo.InvariantCulture),
-                    Hidrogenio = float.Parse("0" + Hidrogenio.Replace(',', '.'), CultureInfo.InvariantCulture),
-                    MateriaOrganica =
-                        float.Parse("0" + MateriaOrganica.Replace(',', '.'), CultureInfo.InvariantCulture),
-                    Areia = float.Parse("0" + Areia.Replace(',', '.'), CultureInfo.InvariantCulture),
-                    Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture),
-                    Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture)
-                };
-                await AzureService.Instance.InsertAnaliseAsync(Analise);
-            }
-            else
-            {
-                Analise.Identificacao = IdentificacaoAnalise;
-                Analise.UsuarioId = userId;
-                Analise.TalhaoId = Talhao.Id;
-                Analise.DataRegistro = DateSelected;
-                Analise.PotencialHidrogenico = float.Parse("0" + PotencialHidrogenico.Replace(',', '.'),
-                    CultureInfo.InvariantCulture);
-                Analise.Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture);
-                Analise.Potassio = float.Parse("0" + Potassio.Replace(',', '.'), CultureInfo.InvariantCulture);
-                Analise.Calcio = float.Parse("0" + Calcio.Replace(',', '.'), CultureInfo.InvariantCulture);
-                Analise.Magnesio = float.Parse("0" + Magnesio.Replace(',', '.'), CultureInfo.InvariantCulture);
-                Analise.Aluminio = float.Parse("0" + Aluminio.Replace(',', '.'), CultureInfo.InvariantCulture);
-                Analise.Hidrogenio = float.Parse("0" + Hidrogenio.Replace(',', '.'), CultureInfo.InvariantCulture);
-                Analise.MateriaOrganica = float.Parse("0" + MateriaOrganica.Replace(',', '.'),
-                    CultureInfo.InvariantCulture);
-                Analise.Areia = float.Parse("0" + Areia.Replace(',', '.'), CultureInfo.InvariantCulture);
-                Analise.Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture);
-                Analise.Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture);
-                Analise.WasInterpreted = false;
-                Analise.HasCalagem = false;
-                Analise.HasCorretiva = false;
-                Analise.HasSemeadura = false;
-                Analise.HasCobertura = false;
-                await AzureService.Instance.UpdateAnaliseAsync(Analise);
-            }
+            //var userId = await DependencyService.Get<IAuthentication>().UserId();
+            _analise = _analise ?? new Analise();
+           // _analise.UsuarioId = userId;
+			_analise.Identificacao = IdentificacaoAnalise;
+			_analise.TalhaoId = Talhao.Id;
+			_analise.DataRegistro = DateSelected;
+			_analise.PotencialHidrogenico = float.Parse("0" + PotencialHidrogenico.Replace(',', '.'),
+				CultureInfo.InvariantCulture);
+			_analise.Fosforo = float.Parse("0" + Fosforo.Replace(',', '.'), CultureInfo.InvariantCulture);
+			_analise.Potassio = float.Parse("0" + Potassio.Replace(',', '.'), CultureInfo.InvariantCulture);
+			_analise.Calcio = float.Parse("0" + Calcio.Replace(',', '.'), CultureInfo.InvariantCulture);
+			_analise.Magnesio = float.Parse("0" + Magnesio.Replace(',', '.'), CultureInfo.InvariantCulture);
+			_analise.Aluminio = float.Parse("0" + Aluminio.Replace(',', '.'), CultureInfo.InvariantCulture);
+			_analise.Hidrogenio = float.Parse("0" + Hidrogenio.Replace(',', '.'), CultureInfo.InvariantCulture);
+			_analise.MateriaOrganica = float.Parse("0" + MateriaOrganica.Replace(',', '.'),
+				CultureInfo.InvariantCulture);
+			_analise.Areia = float.Parse("0" + Areia.Replace(',', '.'), CultureInfo.InvariantCulture);
+			_analise.Silte = float.Parse("0" + Silte.Replace(',', '.'), CultureInfo.InvariantCulture);
+			_analise.Argila = float.Parse("0" + Argila.Replace(',', '.'), CultureInfo.InvariantCulture);
+			_analise.WasInterpreted = false;
+			_analise.HasCalagem = false;
+			_analise.HasCorretiva = false;
+			_analise.HasSemeadura = false;
+			_analise.HasCobertura = false;
 
-            MessagesResource.AnaliseSucesso.ToToast(ToastNotificationType.Sucesso);
-            var currentPage = Navigation.NavigationStack.LastOrDefault();
-            await Navigation.PushAsync(new GerenciamentoAnalisePage(Analise.Id));
-            Navigation.RemovePage(currentPage);
-            IsBusy = false;
-            Dispose();
-        }
+			await AzureService.Instance.AddOrUpdateAnaliseAsync(_analise);
+            _userDialogs.ShowToast(MessagesResource.AnaliseSucesso);
+			var currentPage = Navigation.NavigationStack.LastOrDefault();
+			await Navigation.PushAsync(new GerenciamentoAnalisePage(_analise.Id));
+			Navigation.RemovePage(currentPage);
+
+			IsBusy = false;
+			Dispose();
+		}
 
         public override void Dispose()
         {

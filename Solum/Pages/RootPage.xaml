@@ -1,109 +1,123 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<MasterDetailPage 
-	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:viewModel="clr-namespace:Solum.ViewModel;assembly=Solum"
-	xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum"
-	x:Class="Solum.Pages.RootPage">
-	
-	<MasterDetailPage.Master>
-		<ContentPage BackgroundColor="#fafafb" Title="Solum" Icon="ic_menu">
-			<StackLayout>
-				<ContentView BackgroundColor="{StaticResource colorPrimary}" Margin="0,0,0,8">
-					<Grid ColumnSpacing="0" Padding="16,40,16,16">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="64" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
-						
-						<renderers:ImageCircle 
-							Source="ic_menu_solum"
-							HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
-							Margin="0" Grid.Column="0" HeightRequest="64" WidthRequest="64"/>
-						
-						<StackLayout Spacing="0" Padding="16,0" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand">
-							<Label Text="{Binding Nome}" TextColor="White" FontSize="Large" FontAttributes="Bold"/>
-							<Label Text="{Binding Email}" TextColor="White" FontSize="Small"/>
-						</StackLayout>
-					</Grid>
-				</ContentView>
-
-				<StackLayout  Padding="16,0,0,0" Spacing="0">
-					<Grid Margin="0,12">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="24" />
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-
-						<Image Source="ic_menu_analises" Grid.Column="0"/>
-						<Label x:Name="AnalisesLabel" Text="Analises" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}">
-							<Label.Margin>
-								<OnPlatform x:TypeArguments="Thickness"
-									iOS="16,0,0,0"
-									Android="24,0,0,0"/>
-							</Label.Margin>
-						</Label>
-					</Grid>
-				
-					<Grid Margin="0,12">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="24" />
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						
-						<Image Source="ic_menu_fazendas" Grid.Column="0"/>
-						<Label x:Name="FazendasLabel" Text="Fazendas" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}">
-							<Label.Margin>
-								<OnPlatform x:TypeArguments="Thickness"
-									iOS="16,0,0,0"
-									Android="24,0,0,0"/>
-							</Label.Margin>
-						</Label>
-					</Grid>
-
-					<Grid Margin="0,12">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="24" />
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-							
-						<Image Source="ic_menu_sobre" Grid.Column="0"/>
-						<Label x:Name="SobreLabel" Text="Sobre" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}">
-							<Label.Margin>
-								<OnPlatform x:TypeArguments="Thickness"
-									iOS="16,0,0,0"
-									Android="24,0,0,0"/>
-							</Label.Margin>
-						</Label>
-					</Grid>
-
-					<Grid Margin="0,12">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="24" />
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-
-						<Image Source="ic_menu_sair" Grid.Column="0"/>
-						<Label x:Name="SairLabel" Text="Sair" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}">
-							<Label.Margin>
-								<OnPlatform x:TypeArguments="Thickness"
-									iOS="16,0,0,0"
-									Android="24,0,0,0"/>
-							</Label.Margin>
-						</Label>
-					</Grid>
-<!--				
-					<Label x:Name="CalagemLabel" Text="Calagem" Grid.Row="4" Grid.Column="1"/>
-
-					<Label x:Name="RecomendacaoLabel" Text="Recomendacao" Grid.Row="5" Grid.Column="1"/>-->
-					<!--<Label x:Name="TesteLabel" Text="Teste" Grid.Row="5" Grid.Column="1"/>-->
-					
-
-				</StackLayout>
-			</StackLayout>
-		</ContentPage>
-		
-	</MasterDetailPage.Master>
-	
+<?xml version="1.0" encoding="UTF-8"?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:renderers="clr-namespace:Solum.Renderers;assembly=Solum"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Solum.Pages.RootPage">
+    <MasterDetailPage.Master>
+        <ContentPage BackgroundColor="#fafafb"
+            Icon="ic_menu"
+            Title="Solum">
+            <StackLayout>
+                <ContentView BackgroundColor="{StaticResource colorPrimary}"
+                    Margin="0,0,0,8">
+                    <Grid ColumnSpacing="0"
+                        Padding="16,40,16,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="64"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--<renderers:ImageCircle Grid.Column="0"
+                            HeightRequest="64"
+                            HorizontalOptions="CenterAndExpand"
+                            Margin="0"
+                            Source="ic_menu_solum"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="64"/>-->
+                        <StackLayout Grid.Column="1"
+                            HorizontalOptions="Start"
+                            Padding="16,0"
+                            Spacing="0"
+                            VerticalOptions="CenterAndExpand">
+                            <Label FontAttributes="Bold"
+                                FontSize="Large"
+                                Text="{Binding Nome}"
+                                TextColor="White"/>
+                            <Label FontSize="Small"
+                                Text="{Binding Email}"
+                                TextColor="White"/>
+                        </StackLayout>
+                    </Grid>
+                </ContentView>
+                <StackLayout Padding="16,0,0,0"
+                    Spacing="0">
+                    <Grid Margin="0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                            Source="ic_menu_analises"/>
+                        <Label x:Name="AnalisesLabel"
+                            Grid.Column="1"
+                            Text="Analises"
+                            TextColor="{StaticResource colorTextPrimary}">
+                            <Label.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <On Platform="iOS">16,0,0,0</On>
+                                    <On Platform="Android">24,0,0,0</On>
+                                </OnPlatform>
+                            </Label.Margin>
+                        </Label>
+                    </Grid>
+                    <Grid Margin="0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                            Source="ic_menu_fazendas"/>
+                        <Label x:Name="FazendasLabel"
+                            Grid.Column="1"
+                            Text="Fazendas"
+                            TextColor="{StaticResource colorTextPrimary}">
+                            <Label.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <On Platform="iOS">16,0,0,0</On>
+                                    <On Platform="Android">24,0,0,0</On>
+                                </OnPlatform>
+                            </Label.Margin>
+                        </Label>
+                    </Grid>
+                    <Grid Margin="0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                            Source="ic_menu_sobre"/>
+                        <Label x:Name="SobreLabel"
+                            Grid.Column="1"
+                            Text="Sobre"
+                            TextColor="{StaticResource colorTextPrimary}">
+                            <Label.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <On Platform="iOS">16,0,0,0</On>
+                                    <On Platform="Android">24,0,0,0</On>
+                                </OnPlatform>
+                            </Label.Margin>
+                        </Label>
+                    </Grid>
+                    <Grid Margin="0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                            Source="ic_menu_sair"/>
+                        <Label x:Name="SairLabel"
+                            Grid.Column="1"
+                            Text="Sair"
+                            TextColor="{StaticResource colorTextPrimary}">
+                            <Label.Margin>
+                               <OnPlatform x:TypeArguments="Thickness">
+                                    <On Platform="iOS">16,0,0,0</On>
+                                    <On Platform="Android">24,0,0,0</On>
+                                </OnPlatform>
+                            </Label.Margin>
+                        </Label>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </ContentPage>
+    </MasterDetailPage.Master>
 </MasterDetailPage>

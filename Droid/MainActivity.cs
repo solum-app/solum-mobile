@@ -1,28 +1,22 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Content.PM;
+using Android.Gms.Auth;
+using Android.Gms.Auth.Api.SignIn;
 using Android.OS;
-using HockeyApp;
-using Microsoft.WindowsAzure.MobileServices;
+using Solum.Droid.Renderers;
 using Solum.Helpers;
+using Solum.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 namespace Solum.Droid
 {
-    [Activity(Icon = "@drawable/icon", Theme = "@style/Theme.Splash", MainLauncher = true,
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Icon = "@drawable/icon", Theme = "@style/Theme.Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity
     {
-        private const string HOCKEYAPP_KEY = "c4aa5557f72547d3b39966736013ff92";
-
         protected override void OnCreate(Bundle bundle)
         {
-            //HockeyApp setup
-			#if (!DEBUG)
-			CrashManager.Register (this, HOCKEYAPP_KEY, new CrashManagerSettings ());
-			MetricsManager.Register(this, Application, HOCKEYAPP_KEY);
-			#endif
-
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             SetTheme(Resource.Style.MyTheme);
@@ -30,21 +24,40 @@ namespace Solum.Droid
 
 			//Inicializations
             Forms.Init(this, bundle);
-            CurrentPlatform.Init();
-			
-			Acr.UserDialogs.UserDialogs.Init(this);
+			Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
 
 			Settings.DBPath = FileAccessHelper.GetLocalFilePath(Settings.DBPath);
             LoadApplication(new App());
             XFGloss.Droid.Library.Init(this, bundle);
         }
-    }
 
-    public class CrashManagerSettings : CrashManagerListener
-    {
-        public override bool ShouldAutoUploadCrashes()
+        protected override void OnActivityResult(int requestCode, Result resultCode, Android.Content.Intent data)
         {
-            return true;
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == LoginPageRenderer.RC_SIGN_IN)
+			{
+                var result = Android.Gms.Auth.Api.Auth.GoogleSignInApi.GetSignInResultFromIntent(data);
+				HandleSignInResult(result);
+   			}
+        }
+
+        private void HandleSignInResult(GoogleSignInResult result)
+        {
+            if (result.IsSuccess)
+			{
+                var acct = result.SignInAccount;
+                var credentials = new GoogleCredentials
+                {
+                    IdToken = acct.IdToken,
+                    AuthorizationCode = acct.ServerAuthCode,
+                    Nome = acct.DisplayName,
+                    Email = acct.Email
+                };
+                LoginPageRenderer.SigInCompletionSource?.SetResult(credentials);
+            } else {
+                LoginPageRenderer.SigInCompletionSource?.SetResult(null);
+            }
         }
     }
 }

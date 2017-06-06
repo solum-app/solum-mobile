@@ -1,5 +1,5 @@
 ﻿using Foundation;
-using Microsoft.WindowsAzure.MobileServices;
+using Google.SignIn;
 using Solum.Helpers;
 using UIKit;
 using Xamarin.Forms;
@@ -14,24 +14,30 @@ namespace Solum.iOS
 
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            //HockeyApp setup
-#if (!DEBUG)
-			var manager = BITHockeyManager.SharedHockeyManager;
-			manager.Configure (HOCKEYAPP_KEY);
-			manager.CrashManager.CrashManagerStatus = BITCrashManagerStatus.AutoSend;
-			manager.StartManager ();
-			#endif
-
 			//Inicializations
             Forms.Init();
 			XFGloss.iOS.Library.Init();
+			Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
 
-            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
-            CurrentPlatform.Init();
-			Settings.DBPath = FileAccessHelper.GetLocalFilePath (Settings.DBPath);
+			var googleServiceDictionary = NSDictionary.FromFile("GoogleService-Info.plist");
+			SignIn.SharedInstance.ClientID = googleServiceDictionary["CLIENT_ID"].ToString();
+
+		 	UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
+			//Settings.DBPath = FileAccessHelper.GetLocalFilePath (Settings.DBPath);
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
         }
+
+		public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+		{
+			var openUrlOptions = new UIApplicationOpenUrlOptions(options);
+			return SignIn.SharedInstance.HandleUrl(url, openUrlOptions.SourceApplication, openUrlOptions.Annotation);
+		}
+
+		public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+		{
+			return SignIn.SharedInstance.HandleUrl(url, sourceApplication, annotation);
+		}
     }
 }

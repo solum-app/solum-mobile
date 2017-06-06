@@ -5,12 +5,12 @@ namespace Solum.Renderers
 {
     public class BindableDatePicker : DatePicker
     {
-        public static BindableProperty DateSelectedCommandProperty =
-#pragma warning disable CS0618 // Type or member is obsolete
-            BindableProperty.Create<BindableDatePicker, ICommand>(
-                x => x.DateSelectedCommand, default(ICommand)
-            );
-#pragma warning restore CS0618 // Type or member is obsolete
+		public static readonly BindableProperty DateSelectedCommandProperty = BindableProperty.Create(
+			nameof(BindableDatePicker),
+			typeof(ICommand),
+			typeof(BindableDatePicker),
+			default(ICommand)
+		);
 
         public BindableDatePicker()
         {
@@ -28,5 +28,6 @@ namespace Solum.Renderers
             if (DateSelectedCommand != null && DateSelectedCommand.CanExecute(e))
                 DateSelectedCommand.Execute(e.NewDate);
         }
+
     }
 }

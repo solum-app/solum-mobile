@@ -1,99 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:effects="clr-namespace:Solum.Effects"
-             x:Class="Solum.Pages.TalhaoCadastroPage"
-             Title="{Binding PageTitle}">
-
-	<StackLayout VerticalOptions="FillAndExpand"
-	             HorizontalOptions="FillAndExpand"
-	             BackgroundColor="{StaticResource colorBackground}"
-	             Spacing="0">
-
-		<Label Text="INFORMAÇÕES">
-			<Label.Margin>
-				<OnPlatform x:TypeArguments="Thickness"
-				            iOS="16,24,16,4"
-				            Android="16, 13" />
-			</Label.Margin>
-		</Label>
-		<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="16" />
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<BoxView Grid.ColumnSpan="3" BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="Start">
-				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double"
-					            iOS="0.5"
-					            Android="0.3" />
-				</BoxView.HeightRequest>
-			</BoxView>
-			<Label Text="Talhão" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-			<Entry
-				x:Name="NomeEntry"
-				Keyboard="Text"
-				Text="{Binding TalhaoName}"
-				VerticalOptions="Center" Grid.Column="2"
-				Margin="16,0" Placeholder="Nome do Talhão"
-				HorizontalTextAlignment="End"
-				Completed="NomeEntryOnCompleted">
-
-				<Entry.Effects>
-					<effects:NoBorderEffect />
-				</Entry.Effects>
-			</Entry>
-
-			<BoxView BackgroundColor="{StaticResource colorSeparator}" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="End">
-				<BoxView.HeightRequest>
-					<OnPlatform x:TypeArguments="x:Double"
-					            iOS="0.5"
-					            Android="0.3" />
-				</BoxView.HeightRequest>
-			</BoxView>
-		</Grid>
-
-		<Grid HeightRequest="45" BackgroundColor="White" ColumnSpacing="0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="16" />
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Label Text="Área" VerticalOptions="Center" Grid.Column="1" TextColor="{StaticResource colorTextPrimary}" />
-			<Entry
-				x:Name="AreaEntry"
-				Keyboard="Numeric"
-				Text="{Binding TalhaoArea}"
-				VerticalOptions="Center"
-				Grid.Column="2"
-				Margin="16,0"
-				Placeholder="ha"
-				HorizontalTextAlignment="End"
-				Focused="AreaEntry_OnFocused"
-				Unfocused="AreaEntry_OnUnfocused">
-				<Entry.Effects>
-					<effects:NoBorderEffect />
-				</Entry.Effects>
-			</Entry>
-
-		</Grid>
-
-		<BoxView BackgroundColor="{StaticResource colorSeparator}" VerticalOptions="End">
-			<BoxView.HeightRequest>
-				<OnPlatform x:TypeArguments="x:Double"
-				            iOS="0.5"
-				            Android="0.3" />
-			</BoxView.HeightRequest>
-		</BoxView>
-
-		<Button x:Name="CadastrarButton"
-		        Text="Cadastrar"
-		        Command="{Binding SaveCommand}"
-		        VerticalOptions="EndAndExpand"
-		        BackgroundColor="{StaticResource colorAccent}"
-		        TextColor="{StaticResource colorTextPrimary}"
-		        Margin="16,0,16,16" />
-	</StackLayout>
+    xmlns:effects="clr-namespace:Solum.Effects"
+    xmlns:handlers="clr-namespace:Solum.Handlers"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Solum.Pages.TalhaoCadastroPage"
+    Title="{Binding PageTitle}">
+    <StackLayout BackgroundColor="{StaticResource colorBackground}"
+        HorizontalOptions="FillAndExpand"
+        Spacing="0"
+        VerticalOptions="FillAndExpand">
+        <Label Style="{StaticResource headerStyle}"
+            Text="INFORMAÇÕES"/>
+        <Grid BackgroundColor="White"
+            ColumnSpacing="0"
+            HeightRequest="45">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <BoxView 
+                Grid.ColumnSpan="3"
+                Style="{StaticResource separatorStyle}"
+                VerticalOptions="Start"/>
+            <Label Grid.Column="1"
+                Text="Talhão"
+                TextColor="{StaticResource colorTextPrimary}"
+                VerticalOptions="Center"/>
+            <Entry x:Name="NomeEntry"
+                Completed="NomeEntryOnCompleted"
+                Grid.Column="2"
+                HorizontalTextAlignment="End"
+                Keyboard="Text"
+                Margin="16,0"
+                Placeholder="Nome do Talhão"
+                Text="{Binding TalhaoName}"
+                VerticalOptions="Center">
+                <Entry.Effects>
+                    <effects:NoBorderEffect/>
+                </Entry.Effects>
+            </Entry>
+            <BoxView Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Style="{StaticResource separatorStyle}"
+                VerticalOptions="End"/>
+        </Grid>
+        <Grid BackgroundColor="White"
+            ColumnSpacing="0"
+            HeightRequest="45">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="1"
+                Text="Área"
+                TextColor="{StaticResource colorTextPrimary}"
+                VerticalOptions="Center"/>
+            <Entry x:Name="AreaEntry"
+                Focused="AreaEntry_OnFocused"
+                Grid.Column="2"
+                HorizontalTextAlignment="End"
+                Keyboard="Numeric"
+                Margin="16,0"
+                Placeholder="ha"
+                Text="{Binding TalhaoArea}"
+                Unfocused="AreaEntry_OnUnfocused"
+                VerticalOptions="Center">
+                <Entry.Effects>
+                    <effects:NoBorderEffect/>
+                </Entry.Effects>
+            </Entry>
+        </Grid>
+        <BoxView Style="{StaticResource separatorStyle}"/>
+        <Button x:Name="CadastrarButton"
+            BackgroundColor="{StaticResource colorAccent}"
+            Command="{Binding SaveCommand}"
+            Margin="16,0,16,16"
+            Text="Cadastrar"
+            IsEnabled="{Binding IsBusy, Converter={x:Static handlers:IverseBoolConverter.Instance}}"
+            TextColor="{StaticResource colorTextPrimary}"
+            VerticalOptions="EndAndExpand"/>
+    </StackLayout>
 </ContentPage>

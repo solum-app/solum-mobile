@@ -22,11 +22,8 @@ namespace Solum.ViewModel
 		}
 		internal void SetPropertyChanged(string propertyName)
 		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 		public void ClearEvents()
 		{
 			//Super awesome trick to wipe attached event handlers - +1 Clancey
